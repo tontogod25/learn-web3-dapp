@@ -32,3 +32,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# contracts
+/dist
+/contracts/solana/program/target/
