@@ -12,7 +12,7 @@ const Protocol = () => {
     case PROTOCOLS.SOLANA.id:
       return <Solana steps={PROTOCOLS.SOLANA.steps as StepType[]} />;
     default:
-      return <div>Oops</div>;
+      return null;
   }
 }
 
