@@ -4,12 +4,13 @@ import { Row, Typography } from 'antd';
 import Sidebar from "components/shared/Sidebar";
 import { StepType } from "types/types";
 import Step from "components/shared/Step";
-
+import { useSteps } from "hooks/steps-hooks";
 import Connect from "./steps/1_Connect";
 import Account from "./steps/2_Account";
 import Query from "./steps/3_Query";
 import Balance from "./steps/4_Balance";
 import Transfer from "./steps/5_Transfer";
+
 
 const { Text, Paragraph } = Typography;
 
@@ -20,13 +21,14 @@ const Avalanche = ({
 }) => {
   const [keypair, setKeypair] = useState(null);
 
-  // TODO: Extract in custom hook useSteps
-  const [stepIndex, setStepIndex] = useState(0);
-  const next = () => setStepIndex(stepIndex + 1);
-  const prev = () => setStepIndex(stepIndex - 1);  
-  const step = steps[stepIndex];
-  const isFirstStep = stepIndex === 0;
-  const isLastStep = stepIndex === steps.length - 1;
+  const {
+    next,
+    prev,
+    stepIndex,
+    step,
+    isFirstStep,
+    isLastStep
+  } = useSteps(steps);
 
   return (
     <Row>
@@ -44,10 +46,10 @@ const Avalanche = ({
         body={
           <>
             {step.id === "connect" && <Connect />}
-            {step.id === "account" && <Account keypair={keypair} setKeypair={setKeypair} />}
+            {/* {step.id === "account" && <Account keypair={keypair} setKeypair={setKeypair} />}
             {step.id === "query" && <Query />}
             {step.id === "balance" && <Balance />}
-            {step.id === "transfer" && <Transfer keypair={keypair} />}
+            {step.id === "transfer" && <Transfer keypair={keypair} />} */}
           </>
         }
         nav={<Nav keypair={keypair} />}

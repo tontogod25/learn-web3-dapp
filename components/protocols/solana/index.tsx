@@ -12,6 +12,7 @@ import Transfer from "./steps/5_Transfer";
 import Connect from "./steps/1_Connect";
 import Deploy from "./steps/6_Deploy";
 import Call from "./steps/7_Call";
+import { useSteps } from "hooks/steps-hooks";
 
 const { Text, Paragraph } = Typography;
 
@@ -22,13 +23,14 @@ const Solana = ({
 }) => {
   const [keypair, setKeypair] = useState(null);
 
-  // TODO: Extract in custom hook useSteps
-  const [stepIndex, setStepIndex] = useState(0);
-  const next = () => setStepIndex(stepIndex + 1);
-  const prev = () => setStepIndex(stepIndex - 1);  
-  const step = steps[stepIndex];
-  const isFirstStep = stepIndex === 0;
-  const isLastStep = stepIndex === steps.length - 1;
+  const {
+    next,
+    prev,
+    stepIndex,
+    step,
+    isFirstStep,
+    isLastStep
+  } = useSteps(steps);
 
   return (
     <Row>
