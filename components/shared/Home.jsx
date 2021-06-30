@@ -56,11 +56,12 @@ const ProtocolBox = styled.div`
   align-items: center;
 
   opacity: ${({ active }) => active ? 1 : 0.4};
+  transition: all ease-in 0.2s;
 
   ${({ active }) => active && `
     &:hover {
-      border: solid 1px #d5d5d5;
-      background-color: #f6f6f6;
+      border: solid 1px #bfbfbf;
+      background-color: #fffce6;
       cursor: pointer;
     }
   `}
