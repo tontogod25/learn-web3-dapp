@@ -1,5 +1,11 @@
 // ---------------------------------------------------
 
+// Avalanche
+export enum AVALANCHE_NETWORKS {
+  MAINNET = "MAINNET",
+  FUJI = "FUJI"
+}
+
 // Polygon
 export enum POLYGON_NETWORKS {
   MAINNET = "MAINNET",
@@ -13,9 +19,10 @@ export enum POLYGON_PROTOCOLS {
 
 // All
 export enum CHAINS {
+  AVALANCHE = "AVALANCHE",
   POLYGON = "POLYGON",
 }
-export type NETWORKS = POLYGON_NETWORKS
+export type NETWORKS = POLYGON_NETWORKS | AVALANCHE_NETWORKS
 export type PROTOCOLS = POLYGON_PROTOCOLS
 
 // ---------------------------------------------------

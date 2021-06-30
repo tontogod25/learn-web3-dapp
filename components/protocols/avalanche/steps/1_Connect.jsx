@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getNodeRpcURL } from "../utils";
+import axios from "axios";
 import { Alert, Col, Space, Typography } from "antd";
-import { Avalanche } from 'avalanche';
 
 const { Text } = Typography;
 
@@ -13,30 +12,9 @@ const Connect = () => {
   }, []);
 
   const getConnection = () => {
-    const url = new URL(getNodeRpcURL());
-    const client = new Avalanche(
-      url.hostname,
-      url.port,
-      url.protocol.replace(":", ""),
-      parseInt(process.env.NEXT_PUBLIC_AVALANCHE_NETWORK_ID),
-      "X",
-      "C",
-      process.env.NEXT_PUBLIC_AVALANCHE_NETWORK_NAME
-    );  
-
-  // Apply DataHub API authentication token
-  client.setAuthToken(process.env.NEXT_PUBLIC_DATAHUB_AVALANCHE_API_KEY)
-
-
-  console.log(process.env)
-  console.log(getNodeRpcURL())
-  console.log(url)
-  const info = client.Info()
-  console.log("Fetching network information...")
-  info.getNodeVersion()
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
-
+    axios
+      .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/avalanche/connect`)
+      .then(res => setVersion(res.data))
   }
 
   return (
@@ -45,8 +23,8 @@ const Connect = () => {
         ? <Alert
         message={
           <Space>
-            Connected to Solana
-            <Text code>v{version["solana-core"]}</Text>
+            Connected to Avalanche!
+            <Text code>{version}</Text>
           </Space>
         }
         type="success"
