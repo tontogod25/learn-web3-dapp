@@ -26,6 +26,7 @@ const Polygon = ({
   return (
     <Row>
       <Sidebar
+        chain="Polygon"
         steps={steps}
         stepIndex={stepIndex}
       />

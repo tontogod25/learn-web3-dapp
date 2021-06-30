@@ -33,6 +33,7 @@ const Solana = ({
   return (
     <Row>
       <Sidebar
+        chain="Solana"
         steps={steps}
         stepIndex={stepIndex}
       />
