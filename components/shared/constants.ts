@@ -1,4 +1,4 @@
-import { ProtocolsType } from "./types";
+import { ProtocolsType } from "@/types/types";
 
 export const PROTOCOLS: ProtocolsType = {
   AVALANCHE: {
@@ -20,6 +20,18 @@ export const PROTOCOLS: ProtocolsType = {
     id: "polkadot",
     active: false,
     logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
+  },
+  POLYGON: {
+    id: "polygon",
+    active: true,
+    logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
+    steps: [
+      {
+        id: "connect",
+        title: "Connect to the Matic testnet network",
+        url: ""
+      }
+    ]
   },
   SECRET: {
     id: "secret",

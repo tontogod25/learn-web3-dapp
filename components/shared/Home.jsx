@@ -55,11 +55,15 @@ const ProtocolBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  &:hover {
-    border: solid 1px #d5d5d5;
-    background-color: #f6f6f6;
-    cursor: ${({ active }) => active ? "pointer" : "not-allowed"};
-  }
+  opacity: ${({ active }) => active ? 1 : 0.4};
+
+  ${({ active }) => active && `
+    &:hover {
+      border: solid 1px #d5d5d5;
+      background-color: #f6f6f6;
+      cursor: pointer;
+    }
+  `}
 `;
 
 const Logo = styled.img`

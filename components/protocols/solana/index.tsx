@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Row, Typography } from 'antd';
 
 import Sidebar from "components/shared/Sidebar";
-import { StepType } from "components/shared/types";
+import { StepType } from "@/types/types";
 import Step from "components/shared/Step";
 
 import Balance from "./steps/4_Balance";

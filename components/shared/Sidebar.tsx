@@ -4,7 +4,7 @@ import { Col, Steps, Space } from 'antd';
 import { ArrowLeft } from 'react-feather';
 import Link from "next/link";
 
-import { StepType } from "components/shared/types";
+import { StepType } from "@/types/types";
 
 const { Step } = Steps;
 

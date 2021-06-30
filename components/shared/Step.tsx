@@ -23,7 +23,7 @@ const Step = ({
   prev(): void
   next(): void
   body: JSX.Element
-  nav: JSX.Element
+  nav?: JSX.Element
 }) => {
   return (
     <Right span={16}>
