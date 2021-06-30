@@ -5,17 +5,15 @@ import Sidebar from "components/shared/Sidebar";
 import { StepType } from "types/types";
 import Step from "components/shared/Step";
 
-import Balance from "./steps/4_Balance";
-import Account from "./steps/2_Account";
-import Fund from "./steps/3_Fund";
-import Transfer from "./steps/5_Transfer";
 import Connect from "./steps/1_Connect";
-import Deploy from "./steps/6_Deploy";
-import Call from "./steps/7_Call";
+import Account from "./steps/2_Account";
+import Query from "./steps/3_Query";
+import Balance from "./steps/4_Balance";
+import Transfer from "./steps/5_Transfer";
 
 const { Text, Paragraph } = Typography;
 
-const Solana = ({
+const Avalanche = ({
   steps
 }: {
   steps: StepType[]
@@ -33,7 +31,7 @@ const Solana = ({
   return (
     <Row>
       <Sidebar
-        chain="Solana"
+        chain="Avalanche"
         steps={steps}
         stepIndex={stepIndex}
       />
@@ -47,11 +45,9 @@ const Solana = ({
           <>
             {step.id === "connect" && <Connect />}
             {step.id === "account" && <Account keypair={keypair} setKeypair={setKeypair} />}
-            {step.id === "fund" && <Fund />}
+            {step.id === "query" && <Query />}
             {step.id === "balance" && <Balance />}
             {step.id === "transfer" && <Transfer keypair={keypair} />}
-            {step.id === "deploy" && <Deploy />}
-            {step.id === "call" && <Call />}
           </>
         }
         nav={<Nav keypair={keypair} />}
@@ -63,16 +59,16 @@ const Solana = ({
 const Nav = ({ keypair }: {keypair: any}) => {
   if (!keypair) return null;
 
-  const publicKey = keypair.publicKey.toString();
+  const publicKey = keypair;
   const publicKeyToDisplay = `${publicKey.slice(0,5)}...${publicKey.slice(-5)}`;
 
   return (
     <div style={{ position: "fixed", top: 20, right: 20 }}>
-      <Paragraph copyable={{ text: keypair.publicKey.toString() }}>
+      <Paragraph copyable={{ text: keypair }}>
         <Text code>{publicKeyToDisplay}</Text>
       </Paragraph>
     </div>
   )
 }
 
-export default Solana
+export default Avalanche

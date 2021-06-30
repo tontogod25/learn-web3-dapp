@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router';
 
+import Avalanche from "components/protocols/avalanche"
 import Polygon from "components/protocols/polygon";
 import Solana from "components/protocols/solana";
 import { PROTOCOLS } from "components/shared/constants";
+import { StepType } from 'types/types';
 
 export default function Protocol() {
   const router = useRouter();
@@ -21,10 +23,12 @@ export default function Protocol() {
 
       {
         protocol === PROTOCOLS.SOLANA.id
-          ? <Solana steps={PROTOCOLS.SOLANA.steps} />
+          ? <Solana steps={PROTOCOLS.SOLANA.steps as StepType[]} />
           : protocol === PROTOCOLS.POLYGON.id
-            ? <Polygon steps={PROTOCOLS.POLYGON.steps} />
-            : null
+            ? <Polygon steps={PROTOCOLS.POLYGON.steps as StepType[]} />
+            : protocol === PROTOCOLS.AVALANCHE.id
+              ? <Avalanche steps={PROTOCOLS.AVALANCHE.steps as StepType[]} />
+              : null
       }
     </>
   )
