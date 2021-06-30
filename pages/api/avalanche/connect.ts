@@ -4,13 +4,14 @@ import { AVALANCHE_NETWORKS, CHAINS } from 'types/types';
 
 import { getDatahubNodeURL } from 'utils/datahub-utils';
 
-type Data = any
+type Data = string
 
 export default function connect(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const url = new URL(getDatahubNodeURL(CHAINS.AVALANCHE, AVALANCHE_NETWORKS.FUJI));
+  const datahubUrl = getDatahubNodeURL(CHAINS.AVALANCHE, AVALANCHE_NETWORKS.FUJI);
+  const url = new URL(datahubUrl);
 
   const client = new Avalanche(
     url.hostname,
@@ -26,13 +27,13 @@ export default function connect(
   client.setAuthToken(process.env.NEXT_PUBLIC_DATAHUB_AVALANCHE_API_KEY as string)
 
   const info = client.Info()
-  console.log("Fetching network information.")
+
   info.getNodeVersion()
-    .then((response: any) => {
+    .then((response: string) => {
       res.status(200).json(response)
     })
     .catch(err => {
       console.log(err)
-      res.status(500).json({ message: "Error connecting to Avalanche" })
+      res.status(500).json("Error connecting to Avalanche")
     });
 }
