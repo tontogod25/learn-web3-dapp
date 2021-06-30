@@ -1,4 +1,4 @@
-import { NETWORKS, PROTOCOLS, CHAINS, POLYGON_NETWORKS, POLYGON_PROTOCOLS } from "@/types/types";
+import { NETWORKS, PROTOCOLS, CHAINS, POLYGON_NETWORKS, POLYGON_PROTOCOLS } from "types/types";
 
 export const getDatahubNodeURL = (chain: string, network: NETWORKS, protocol: PROTOCOLS) => {
   switch (chain) {

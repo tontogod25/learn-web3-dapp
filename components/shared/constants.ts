@@ -1,4 +1,4 @@
-import { ProtocolsType } from "@/types/types";
+import { ProtocolsType } from "types/types";
 
 export const PROTOCOLS: ProtocolsType = {
   AVALANCHE: {

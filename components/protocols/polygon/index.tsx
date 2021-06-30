@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Row, Typography } from 'antd';
 
-import Sidebar from "@/components/shared/Sidebar";
+import Sidebar from "components/shared/Sidebar";
 import { StepType } from "types/types";
 import Step from "components/shared/Step";
 import Connect from "./steps/1_Connect";
+import { useSteps } from "hooks/steps-hooks";
 
 const { Text, Paragraph } = Typography;
 
@@ -15,13 +16,14 @@ const Polygon = ({
 }) => {
   const [keypair, setKeypair] = useState(null);
 
-  // TODO: Extract in custom hook useSteps
-  const [stepIndex, setStepIndex] = useState(0);
-  const next = () => setStepIndex(stepIndex + 1);
-  const prev = () => setStepIndex(stepIndex - 1);  
-  const step = steps[stepIndex];
-  const isFirstStep = stepIndex === 0;
-  const isLastStep = stepIndex === steps.length - 1;
+  const {
+    next,
+    prev,
+    stepIndex,
+    step,
+    isFirstStep,
+    isLastStep
+  } = useSteps(steps);
 
   return (
     <Row>

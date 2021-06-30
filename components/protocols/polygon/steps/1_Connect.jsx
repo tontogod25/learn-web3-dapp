@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Alert, Col, Space, Typography } from "antd";
 import Web3 from "web3";
 
-import { getDatahubNodeURL } from "@/utils/datahub-utils";
-import { CHAINS, POLYGON_NETWORKS, POLYGON_PROTOCOLS } from '@/types/types';
+import { getDatahubNodeURL } from "utils/datahub-utils";
+import { CHAINS, POLYGON_NETWORKS, POLYGON_PROTOCOLS } from 'types/types';
 
 const { Text } = Typography;
 
