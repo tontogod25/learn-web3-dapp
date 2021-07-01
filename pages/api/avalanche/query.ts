@@ -1,10 +1,14 @@
-import { Avalanche } from 'avalanche';
+import { Avalanche, BN } from 'avalanche';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { AVALANCHE_NETWORKS, CHAINS } from 'types/types';
 
 import { getDatahubNodeURL } from 'utils/datahub-utils';
 
 type Data = any
+
+function numberWithCommas(x: {BN: BN}) {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
 
 export default async function query(
   req: NextApiRequest,
@@ -32,7 +36,8 @@ export default async function query(
 	const xChain = client.XChain()
 	const cChain = client.CChain()
 	
-	// Fetch current height, blockchain IDs, bootstrap status and fees
+	// Fetch current height, blockchain IDs, bootstrap status and fees.
+	// Optionally fetch Peers (uncomment below) - this produces a lot of terminal output!
 	console.log("================== InfoAPI ==================");
 	const height = await pChain.getHeight()
 	console.log("Current height:", 
@@ -53,8 +58,6 @@ export default async function query(
 	console.log("- Fees:", 
 		await info.getTxFee()
 	)
-
-	// info.peers mass outputs
 	// console.log("- Peers:", 
 	// 	await info.peers()
 	// )
@@ -62,24 +65,26 @@ export default async function query(
 	// Fetch current minimum staking amount for running a validator
 	const minStake = await pChain.getMinStake()
 	console.log("Current min stake:", 
-		minStake.minValidatorStake.toString(10)
+		numberWithCommas(minStake.minValidatorStake)
 	)
 
-	// Fetch current supply
+	// Returns an upper bound on the amount of tokens that exist.
+	// Not monotonically increasing because this number can go down if a staker's reward is denied.
 	const supply = await pChain.getCurrentSupply()
 	console.log("Current supply:", 
-		supply.toString(10)
+		numberWithCommas(supply)
 	)
 
 	console.log("================== XChain ==================");
 	const fee = await xChain.getDefaultTxFee()
-	console.log("Default Fee:", fee.toString(10))
+	console.log("Default Fee:",
+	 numberWithCommas(fee)
+	)
 	const status = await xChain.getTxStatus("2AjbGiRg1KG7FtuJqVEtCzi48n8jpwWdLLYwnBxfFCwMozMLMg")
 	console.log("Transaction status:", status)
 	const balances = await xChain.getAllBalances("X-fuji1h4646056wc84fr7jlmmx7t6u3e348ehwzefl5u")
-	console.log("Balances:", balances)	
+	console.log("Balances:", balances)
 
-	
 	console.log("================== PChain ==================");
 	console.log("Fetching validators...")
 	const {validators} = await pChain.getCurrentValidators()

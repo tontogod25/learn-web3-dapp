@@ -1,9 +1,7 @@
 import { useState } from "react"
-import { Connection, PublicKey, SystemProgram, Transaction, Keypair, sendAndConfirmTransaction } from "@solana/web3.js";
 import { Form, Input, Button, Alert, Space, Typography } from 'antd';
 import { LoadingOutlined, RedoOutlined } from '@ant-design/icons';
-
-import { getNodeRpcURL, getTxExplorerURL, getNodeWsURL } from '../utils';
+import axios from 'axios';
 
 const layout = {
   labelCol: { span: 4 },
@@ -21,58 +19,70 @@ const Transfer = ({ keypair }) => {
   const [fetching, setFetching] = useState(false);
   const [txSignature, setTxSignature] = useState(null);
 
-  const generate = () => {
-    const keypair = Keypair.generate();
-    const address = keypair.publicKey.toString();
-    setToAddress(address);
+  const generateKeypair = () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/avalanche/account`)
+      .then(res => {
+        console.log(res)
+        setToAddress(res.data)
+      })
   }
-
+  
   const transfer = (values) => {
-    const amountNumber = parseFloat(values.amount);
+
+  // Initialize chain components
+  // const client =
+  const chain = client.XChain()
+  const keychain = chain.keyChain()
+
+  // Import X-chain key from the previously created file
+  const data = JSON.parse(fs.readFileSync(`${credentialsPath}/keypair.json`))
+  const key = keychain.importKey(data.privkey)
   
-    if (isNaN(amountNumber)) {
-      setError("Amount needs to be a valid number")
-    }
+  const amountNumber = parseFloat(values.amount);
   
-    const url = getNodeRpcURL();
-    const connection = new Connection(url, { wsEndpoint: getNodeWsURL() });
-  
-    const fromPubKey = new PublicKey(values.from);
-    const toPubKey = new PublicKey(toAddress);
-  
-    const signers = [
-      {
-        publicKey: fromPubKey,
-        secretKey: new Uint8Array(keypair.secretKey)
-      }
-    ];
-  
-    const instructions = SystemProgram.transfer({
-      fromPubkey: fromPubKey,
-      toPubkey: toPubKey,
-      lamports: amountNumber,
-    });
+  if (isNaN(amountNumber)) {
+    setError("Amount needs to be a valid number")
+  }
     
-    const transaction = new Transaction().add(instructions);
+    // const fromPubKey = new PublicKey(values.from);
+    // const toPubKey = new PublicKey(toAddress);
+
+    // const privateKey = 
+  
+    // const signers = [
+    //   {
+    //     publicKey: fromPubKey,
+    //     secretKey: new Uint8Array(keypair.secretKey)
+    //   }
+    // ];
+  
+    // const instructions = SystemProgram.transfer({
+    //   fromPubkey: fromPubKey,
+    //   toPubkey: toPubKey,
+    //   lamports: amountNumber,
+    // });
+    
+    // const transaction = new Transaction().add(instructions);
   
     setTxSignature(null);
     setFetching(true);
   
-    sendAndConfirmTransaction(
-      connection,
-      transaction,
-      signers,
-    ).then((signature) => {
-      setTxSignature(signature)
-      setFetching(false);
-    })
-    .catch((err) => {
-      console.log(err);
-      setFetching(false);
-    })
+    // sendAndConfirmTransaction(
+    //   connection,
+    //   transaction,
+    //   signers,
+    // ).then((signature) => {
+    //   setTxSignature(signature)
+    //   setFetching(false);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    //   setFetching(false);
+    // })
   };
 
-  const explorerUrl = getTxExplorerURL(txSignature);
+  // const explorerUrl = getTxExplorerURL(txSignature);
 
   return (
     <Form
@@ -88,16 +98,16 @@ const Transfer = ({ keypair }) => {
         <Text code>{keypair}</Text>
       </Form.Item>
 
-      <Form.Item label="Amount" name="amount" required tooltip="1 lamport = 0.000000001 SOL">
+      <Form.Item label="Amount" name="amount" required tooltip="1 AVAX = 0.00000000001 nAVAX">
         <Space direction="vertical">
-          <Input suffix="lamports" style={{ width: "200px" }} />
+          <Input suffix="AVAX" style={{ width: "200px" }} />
         </Space>
       </Form.Item>
 
       <Form.Item label="Recipient" required>
         <Space direction="horizontal">
           {toAddress && <Text code>{toAddress}</Text>}
-          <Button size="small" type="dashed" onClick={generate} icon={<RedoOutlined />}>Generate an address</Button>
+          <Button size="small" type="dashed" onClick={generateKeypair} icon={<RedoOutlined />}>Generate an address</Button>
         </Space>
       </Form.Item>
 

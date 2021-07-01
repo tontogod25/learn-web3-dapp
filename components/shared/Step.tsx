@@ -4,7 +4,7 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { ArrowUpRight } from 'react-feather';
 
-import { StepType } from 'shared/types';
+import { StepType } from 'types/types';
 
 const { Text } = Typography;
 

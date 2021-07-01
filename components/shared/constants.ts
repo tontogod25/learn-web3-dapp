@@ -8,12 +8,12 @@ export const PROTOCOLS: ProtocolsType = {
     steps: [
       {
         id: "connect",
-        title: "Connect to the Avalanche network",
+        title: "Connect to Avalanche",
         url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/1.-connect-to-avalanche-node-with-datahub"
       },
       {
         id: "account",
-        title: "Create an Account/Keypair",
+        title: "Create a Keypair",
         url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/2.-create-your-first-avalanche-account"
       },
       {
@@ -22,13 +22,13 @@ export const PROTOCOLS: ProtocolsType = {
         url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/3.-query-the-avalanche-network"
       },
       {
-        id: "balance",
-        title: "Check your account balance",
+        id: "transaction",
+        title: "Create a transaction",
         url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/4.-create-your-first-transaction"
       },
       {
         id: "transfer",
-        title: "Transfer AVAX tokens between accounts",
+        title: "Transfer AVAX tokens",
         url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/5.-cross-chain-token-transfers"
       },
     ]
