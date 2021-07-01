@@ -40,11 +40,12 @@ export default function account(
 		fs.writeFileSync(keyPath, key.getPrivateKeyString())
 	} else {
 		const buffer = fs.readFileSync(keyPath)
-		const data = JSON.parse(buffer.toString())
+		console.log(`buffer`, buffer)
+		const bufferStr = buffer.toString()
 
-		if (data) {
+		if (bufferStr) {
 			console.log("Loading keypair from saved private key...")
-			key = keyChain.importKey(data)
+			key = keyChain.importKey(bufferStr)
 		} else {
 			console.log("Generating a new keypair...")
 			key = keyChain.makeKey()
