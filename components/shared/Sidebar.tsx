@@ -9,51 +9,51 @@ import { StepType } from "types/types";
 const { Step } = Steps;
 
 const Sidebar = ({
-  chain,
-  steps,
-  stepIndex
+	chain,
+	steps,
+	stepIndex
 }: {
-  chain: string
-  steps: StepType[]
-  stepIndex: number
+	chain: string
+	steps: StepType[]
+	stepIndex: number
 }) => {
-  return (
-    <Left span={8}>
-      <div style={{ marginBottom: "0px", fontSize: "16px", fontWeight: 600, color: "grey" }}>Figment Learn</div>
-      <div style={{ marginBottom: "40px", fontSize: "28px", fontWeight: 700 }}>{`${chain} Pathway`}</div>
+	return (
+		<Left span={8}>
+			<div style={{ marginBottom: "0px", fontSize: "16px", fontWeight: 600, color: "grey" }}>Figment Learn</div>
+			<div style={{ marginBottom: "40px", fontSize: "28px", fontWeight: 700 }}>{`${chain} Pathway`}</div>
 
-      <Steps direction="vertical" size="small" current={stepIndex}>
-        {steps.map((s: StepType) => <Step key={s.id} title={s.title} />)}
-      </Steps>
+			<Steps direction="vertical" size="small" current={stepIndex}>
+				{steps.map((s: StepType) => <Step key={s.id} title={s.title} />)}
+			</Steps>
 
-      <Footer>
-        <Space align="center">
-          <ArrowLeft size={20} style={{ marginTop: "7px" }} />
-          <Link href="/">See All Pathways</Link>
-        </Space>
-      </Footer>
-    </Left>
-  )
+			<Footer>
+				<Space align="center">
+					<ArrowLeft size={20} style={{ marginTop: "7px" }} />
+					<Link href="/">See All Pathways</Link>
+				</Space>
+			</Footer>
+		</Left>
+	)
 }
 
 const Left = styled(Col)`
-  background: rgb(255, 242, 155);
-  padding: 40px 0 0 40px;
-  height: 100vh;
+	background: rgb(255, 242, 155);
+	padding: 40px 0 0 40px;
+	height: 100vh;
 `;
 
 const Footer = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0 0 20px 35px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 0 0 20px 35px;
 
-  a {
-    color: black;
-    font-size: 15px;
-    font-weight: 600;
-  }
+	a {
+		color: black;
+		font-size: 15px;
+		font-weight: 600;
+	}
 `;
 
 export default Sidebar
