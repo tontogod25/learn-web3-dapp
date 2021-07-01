@@ -11,6 +11,7 @@ import Account from "./steps/2_Account";
 import Query from "./steps/3_Query";
 import TransferX from "./steps/5_Transfer_X";
 import TransferXPC from "./steps/6_Transfer_XPC"
+import { KeypairData } from "types/response-types";
 
 const { Text, Paragraph } = Typography;
 
@@ -19,7 +20,7 @@ const Avalanche = ({
 }: {
 	steps: StepType[]
 }) => {
-	const [keypair, setKeypair] = useState();
+	const [keypair, setKeypair] = useState<KeypairData | null>(null);
 
 	const {
 		next,
@@ -52,7 +53,7 @@ const Avalanche = ({
 						{step.id === "transferXPC" && <TransferXPC keypair={keypair} />}
 					</>
 				}
-				nav={<Nav keypair={keypair && keypair} />}
+				nav={<Nav keypair={keypair && keypair.addressString} />}
 			/>
 		</Row>
 	);
