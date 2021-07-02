@@ -81,12 +81,12 @@ const StepButtons = ({
 	return (
 		<StepFooter>
 			{!isFirstStep &&
-				<PrevButton style={{ marginRight: '8px' }} onClick={() => prev()} icon={<ArrowLeftOutlined />}>
+				<PrevButton size="large" style={{ marginRight: '8px' }} onClick={() => prev()} icon={<ArrowLeftOutlined />}>
 					Previous Step
 				</PrevButton>
 			}
 			{!isLastStep &&
-				<NextButton type="primary" onClick={() => next()} textColor={getButtonTextColor(chainId)} bgColor={getButtonBgColor(chainId)}>
+				<NextButton size="large" type="primary" onClick={() => next()} textColor={getButtonTextColor(chainId)} bgColor={getButtonBgColor(chainId)}>
 					<Row align="middle">
 						Next Step
 						<ArrowRightOutlined size={20} style={{ marginLeft: "6px" }} />
