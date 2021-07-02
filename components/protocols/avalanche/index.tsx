@@ -10,7 +10,6 @@ import Connect from "./steps/1_Connect";
 import Account from "./steps/2_Account";
 import Query from "./steps/3_Query";
 import TransferX from "./steps/5_Transfer_X";
-import TransferXPC from "./steps/6_Transfer_XPC"
 import { KeypairData } from "types/response-types";
 
 const { Text, Paragraph } = Typography;
@@ -50,7 +49,6 @@ const Avalanche = ({
 						{step.id === "account" && <Account keypair={keypair} setKeypair={setKeypair} />}
 						{step.id === "query" && <Query />}
 						{step.id === "transferX" && <TransferX keypair={keypair} />}
-						{step.id === "transferXPC" && <TransferXPC keypair={keypair} />}
 					</>
 				}
 				nav={<Nav keypair={keypair} />}

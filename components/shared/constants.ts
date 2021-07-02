@@ -26,11 +26,6 @@ export const PROTOCOLS: ProtocolsType = {
 				title: "Transfer AVAX on the X Chain",
 				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/4.-create-your-first-transaction"
 			},
-			{
-				id: "transferXPC",
-				title: "Transfer AVAX between chains",
-				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/5.-cross-chain-token-transfers"
-			},
 		]
 	},
 	CELO: {
