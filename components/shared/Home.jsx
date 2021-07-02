@@ -2,7 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { Col } from 'antd';
 import styled from "styled-components";
-import { CHAINS } from "./constants";
+
+import { CHAINS } from "lib/constants";
 
 const Home = () => {
 	return (

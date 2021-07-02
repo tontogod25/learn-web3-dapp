@@ -9,7 +9,7 @@ import Polygon from "components/protocols/polygon";
 import Secret from "components/protocols/secret";
 import Solana from "components/protocols/solana";
 import Tezos from "components/protocols/tezos";
-import { CHAINS } from "components/shared/constants";
+import { CHAINS } from "lib/constants";
 import { ChainType } from 'types/types';
 
 export default function Chain() {
