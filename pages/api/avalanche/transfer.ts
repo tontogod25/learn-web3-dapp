@@ -64,5 +64,7 @@ export default async function transfer(
 	console.log(`Visit https://explorer.avax-test.network/tx/${txID} to see transaction details`)
 	console.log("----------------------------------------------------------------")
 
-	res.status(200).json({ txID })
+	res.status(200).json({
+		 txID, 
+	})
 }

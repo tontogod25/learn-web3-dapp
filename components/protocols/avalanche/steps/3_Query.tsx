@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Alert, Button, Space, Col, Input, Typography } from 'antd';
+import { Button, Space, Col, Typography } from 'antd';
 import axios from 'axios';
 
 import { QueryResponseData } from "types/response-types"
 
 const { Text } = Typography;
-const { TextArea } = Input;
 
 const Query = () => {
 	const [queryData, setQueryData] = useState<QueryResponseData>(null);

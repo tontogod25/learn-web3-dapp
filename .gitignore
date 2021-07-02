@@ -39,10 +39,6 @@ yarn-error.log*
 # contracts
 /dist
 /contracts/solana/program/target/
-<<<<<<< HEAD
-.vscode
-=======
 
 # credentials
-/credentials
->>>>>>> 861a5e4a6df47e14f60a7cb8b5c7de4ff08fe7bf
+/credentials/*

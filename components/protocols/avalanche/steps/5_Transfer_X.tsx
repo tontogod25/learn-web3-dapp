@@ -7,6 +7,7 @@ import { Avalanche } from 'avalanche'
 import { getAvalancheClient } from "utils/avalanche-utils"
 import { getDatahubNodeURL } from "utils/datahub-utils"
 import { AVALANCHE_NETWORKS, CHAINS } from 'types/types'
+import { TransactionIdentifier } from 'types/response-types'
 
 const layout = {
 	labelCol: { span: 4 },
