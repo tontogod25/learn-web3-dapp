@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Col, Steps, Space } from 'antd';
 import { ArrowLeft } from 'react-feather';
 import Link from "next/link";
+import Image from 'next/image'
+import logoSVG from "public/figment-learn-color.svg"
 
 import { ChainType, StepType } from "types/types";
 
@@ -18,9 +20,9 @@ const Sidebar = ({
 	stepIndex: number
 }) => {
 	return (
-		<Left span={8}>
-			<div style={{ marginBottom: "0px", fontSize: "16px", fontWeight: 600, color: "grey" }}>Figment Learn</div>
-			<div style={{ marginBottom: "40px", fontSize: "28px", fontWeight: 700 }}>{`${chain.label} Pathway`}</div>
+		<Left span={8} chainId={chain.id}>
+			<Image src={logoSVG} alt="Figment Learn" height={40} width={100} />
+			<ChainTitle chainId={chain.id}>{`${chain.label} Pathway`}</ChainTitle>
 
 			<Steps direction="vertical" size="small" current={stepIndex}>
 				{steps.map((s: StepType) => <Step key={s.id} title={s.title} />)}
@@ -36,8 +38,55 @@ const Sidebar = ({
 	)
 }
 
-const Left = styled(Col)`
-	background: rgb(255, 242, 155);
+const Learn = styled.div<{ chainId: string }>`
+	margin-bottom: 0;
+	font-size: 16px;
+	font-weight: 600;
+	
+	color: ${({ chainId }) => {
+		if (chainId === "solana") {
+			return '#EEE';
+		} else if (chainId === "avalanche") {
+			return '#EEE';
+		} else if (chainId === "polygon") {
+			return '#EEE';
+		}
+		return '#EEE';
+	}};
+`;
+
+const ChainTitle = styled.div<{ chainId: string }>`
+	margin-bottom: 40px;
+	font-size: 28px;
+	font-weight: 600;
+	
+	color: ${({ chainId }) => {
+		if (chainId === "solana") {
+			return 'black';
+		} else if (chainId === "avalanche") {
+			return '#F6F6F6';
+		} else if (chainId === "polygon") {
+			return '#F6F6F6';
+		}
+		return '#F6F6F6';
+	}};
+`;
+
+const Left = styled(Col)<{ chainId: string }>`
+	background: ${({ chainId }) => {
+		if (chainId === "solana") {
+			return 'linear-gradient(253deg, #00FFA3, #DC1FFF)';
+		} else if (chainId === "avalanche") {
+			return '#e84141';
+		} else if (chainId === "polygon") {
+			return '#8247e5';
+		} else if (chainId === "polkadot") {
+			return '#e6007a';
+		} else if (chainId === "tezos") {
+			return '#0f62ff';
+		}
+		return 'rgb(255, 242, 155)';
+	}};
 	padding: 40px 0 0 40px;
 	height: 100vh;
 `;
