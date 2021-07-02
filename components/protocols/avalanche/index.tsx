@@ -53,22 +53,22 @@ const Avalanche = ({
 						{step.id === "transferXPC" && <TransferXPC keypair={keypair} />}
 					</>
 				}
-				nav={<Nav keypair={keypair && keypair.addressString} />}
+				nav={<Nav keypair={keypair} />}
 			/>
 		</Row>
 	);
 }
 
-const Nav = ({ keypair }) => {
+const Nav = ({ keypair }: { keypair : KeypairData | null}) => {
 	if (!keypair) return null;
 
-	const publicKey = keypair;
-	const publicKeyToDisplay = `${publicKey.slice(0,6)}...${publicKey.slice(-6)}`;
+	const address = keypair.addressString;
+	const addressToDisplay = `${address.slice(0,6)}...${address.slice(-6)}`;
 
 	return (
 		<div style={{ position: "fixed", top: 20, right: 60 }}>
-			<Paragraph copyable={{ text: keypair }}>
-				<Text code>{publicKeyToDisplay}</Text>
+			<Paragraph copyable={{ text: address }}>
+				<Text code>{addressToDisplay}</Text>
 			</Paragraph>
 		</div>
 	)

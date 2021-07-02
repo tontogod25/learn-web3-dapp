@@ -22,3 +22,7 @@ export const getAvalancheClient = () => {
 
   return client
 }
+
+export const getAvalancheExplorerURL = (txId: string) => {
+  return `https://explorer.avax-test.network/tx/${txId}`
+}

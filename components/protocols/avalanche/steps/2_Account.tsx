@@ -11,7 +11,7 @@ const Account = ({
 	keypair,
 	setKeypair
 }: { 
-	keypair: KeypairData,
+	keypair: KeypairData | null,
 	setKeypair: (keypair: KeypairData) => void
 }) => {
 	const [fetching, setFetching] = useState<boolean>(false);

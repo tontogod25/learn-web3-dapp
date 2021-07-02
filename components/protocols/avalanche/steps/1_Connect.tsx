@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { Alert, Col, Space, Spin, Typography } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
+import { ConnectReponse } from 'types/response-types';
 
 const { Text } = Typography;
 
@@ -18,7 +19,8 @@ const Connect = () => {
 		axios
 			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/avalanche/connect`)
 			.then(res => {
-				setVersion(res.data)
+				const version: ConnectReponse = res.data
+				setVersion(version)
 				setFetchingVersion(false)
 			})
 			.catch(err => {

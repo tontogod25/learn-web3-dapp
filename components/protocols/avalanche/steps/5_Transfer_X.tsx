@@ -2,12 +2,9 @@ import { useState } from "react"
 import axios from 'axios'
 import { Form, Input, Button, Alert, Space, Typography } from 'antd'
 import { LoadingOutlined, RedoOutlined } from '@ant-design/icons'
-import { Avalanche } from 'avalanche'
 
-import { getAvalancheClient } from "utils/avalanche-utils"
-import { getDatahubNodeURL } from "utils/datahub-utils"
-import { AVALANCHE_NETWORKS, CHAINS } from 'types/types'
-import { TransactionIdentifier } from 'types/response-types'
+import { getAvalancheClient, getAvalancheExplorerURL } from "utils/avalanche-utils"
+import { KeypairData, TransferReponse, TransferErrorResponse } from "types/response-types"
 
 const layout = {
 	labelCol: { span: 4 },
@@ -19,55 +16,59 @@ const tailLayout = {
 
 const { Text } = Typography
 
-const Transfer = ({ keypair }) => {
-	const [toAddress, setToAddress] = useState(null)
-	const [error, setError] = useState(null)
-	const [fetching, setFetching] = useState(false)
-	const [txSignature, setTxSignature] = useState(null)
+const Transfer = ({ keypair }: { keypair: KeypairData} ) => {
+	const [toAddress, setToAddress] = useState<string | null>(null)
+	const [error, setError] = useState<string | null>(null)
+	const [fetching, setFetching] = useState<boolean>(false)
+	const [txId, setTxId] = useState<string | null>(null)
 
 	const generateKeypair = () => {
-		const client = getAvalancheClient()
-		const chain = client.XChain()
-		const keyChain = chain.keyChain()
-		const key = keyChain.makeKey()
-		const address = key.getAddressString()
+		const address =
+			getAvalancheClient()
+			.XChain()
+			.keyChain()
+			.makeKey()
+			.getAddressString()
+
 		setToAddress(address)
 	}
 	
-	const transfer = (values) => {
+	const transfer = (values: any) => {
+		setError(null)
+		setTxId(null)
+
 		const amountNumber = parseFloat(values.amount)
+		console.log(`amountNumber`, amountNumber)
 		if (isNaN(amountNumber)) {
 			setError("Amount needs to be a valid number")
+			return
 		}
 
-		setError(null)
-		setTxSignature(null)
 		setFetching(true)
 
 		axios
 			.post(
 				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/avalanche/transfer`,
 				{
-					from: keypair,
+					from: keypair.addressString,
 					to: toAddress,
 					amount: amountNumber,
-				}
+				},
 			)
 			.then(res => {
-				console.log(res)
-				setTxSignature("")
+				const data: TransferReponse = res.data
+				const txID: string = data.txID
+				setTxId(txID)
 				setFetching(false)
 			})
 			.catch(err => {
-				console.log(err)
-				setTxSignature(null)
+				console.log(`err.response`, err.response)
+				const data: TransferErrorResponse = err.response.data
+				setTxId(null)
 				setFetching(false)
-				setError(null)
-			})
-		
+				setError(data.message)
+			})	
 	}
-
-	const explorerUrl = process.env.NEXT_PUBLIC_AVALANCHE_TESTNET_EXPLORER_URL
 
 	return (
 		<Form
@@ -76,16 +77,16 @@ const Transfer = ({ keypair }) => {
 			layout="horizontal"
 			onFinish={transfer}
 			initialValues={{
-				from: keypair.getPublicKeyString
+				from: keypair.addressString
 			}}
 		> 
 			<Form.Item label="Sender" name="from" required>
-				<Text code>{keypair}</Text>
+				<Text code>{keypair.addressString}</Text>
 			</Form.Item>
 
-			<Form.Item label="Amount" name="amount" required tooltip="1 AVAX = 0.00000000001 nAVAX">
+			<Form.Item label="Amount" name="amount" required tooltip="1 billion nAVAX = 1 AVAX">
 				<Space direction="vertical">
-					<Input suffix="AVAX" style={{ width: "200px" }} />
+					<Input suffix="nAVAX" style={{ width: "200px" }} />
 				</Space>
 			</Form.Item>
 
@@ -112,7 +113,7 @@ const Transfer = ({ keypair }) => {
 					</Form.Item>
 			}
 
-			{txSignature &&
+			{txId &&
 				<Form.Item {...tailLayout}>
 					<Alert
 						type="success"
@@ -121,7 +122,7 @@ const Transfer = ({ keypair }) => {
 							<Text strong>Transfer confirmed!</Text>
 						}
 						description={
-							<a href={explorerUrl} target="_blank" rel="noreferrer">View on Solana Explorer</a>
+							<a href={getAvalancheExplorerURL(txId)} target="_blank" rel="noreferrer">View on Avalanche Explorer</a>
 						}
 					/>
 				</Form.Item>

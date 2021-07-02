@@ -35,6 +35,7 @@ export default function account(
 		} else {
 			console.log("Generating a new keypair...")
 			key = keyChain.makeKey()
+			fs.writeFileSync(keyPath, key.getPrivateKeyString())
 		}
 	}
 	
