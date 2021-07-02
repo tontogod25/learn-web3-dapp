@@ -9,4 +9,4 @@ Learn more about [Figment](https://figment.io/)
 
 <img width="1526" alt="Screen Shot 2021-06-29 at 11 35 16 PM" src="https://user-images.githubusercontent.com/206753/123898137-c6b0cd80-d932-11eb-9db7-4972b8d43df4.png">
 
-<img width="1446" alt="Screen Shot 2021-06-15 at 5 43 00 PM" src="https://user-images.githubusercontent.com/206753/122127424-240c3100-ce01-11eb-83db-4fc99c19406f.png">
+<img width="1544" alt="Screen Shot 2021-07-02 at 12 32 50 PM" src="https://user-images.githubusercontent.com/206753/124304397-a0a54c00-db31-11eb-91bd-30df8b63d6b2.png">
