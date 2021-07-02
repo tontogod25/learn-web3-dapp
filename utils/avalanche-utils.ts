@@ -18,7 +18,7 @@ export const getAvalancheClient = () => {
   )
 
   // Apply DataHub API authentication token
-  client.setAuthToken(process.env.NEXT_PUBLIC_DATAHUB_AVALANCHE_API_KEY as string)
+  client.setAuthToken(process.env.DATAHUB_AVALANCHE_API_KEY as string)
 
   return client
 }
