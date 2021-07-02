@@ -36,6 +36,7 @@ const Chain = ({ chain }: { chain: ChainType }) => {
 				stepIndex={stepIndex}
 			/>
 			<Step
+				chain={chain}
 				step={step}
 				isFirstStep={isFirstStep}
 				isLastStep={isLastStep}

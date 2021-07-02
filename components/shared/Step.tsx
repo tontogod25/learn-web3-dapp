@@ -4,11 +4,12 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { ArrowUpRight } from 'react-feather';
 
-import { StepType } from 'types/types';
+import { ChainType, StepType } from 'types/types';
 
 const { Text } = Typography;
 
 const Step = ({
+	chain,
 	step,
 	isFirstStep,
 	isLastStep,
@@ -17,6 +18,7 @@ const Step = ({
 	body,
 	nav,
 }: {
+	chain: ChainType
 	step: StepType
 	isFirstStep: boolean
 	isLastStep: boolean
@@ -48,7 +50,14 @@ const Step = ({
 					{body}
 				</StepContent>
 
-				<StepButtons next={next} prev={prev} isFirstStep={isFirstStep} isLastStep={isLastStep} />
+				<StepButtons
+					key={step.id}
+					chainId={chain.id}
+					next={next}
+					prev={prev}
+					isFirstStep={isFirstStep}
+					isLastStep={isLastStep}
+				/>
 
 				{nav}
 			</Col>
@@ -57,11 +66,13 @@ const Step = ({
 }
 
 const StepButtons = ({
+	chainId,
 	next,
 	prev,
 	isFirstStep,
 	isLastStep,
 }: {
+	chainId: string
 	next(): void
 	prev(): void
 	isFirstStep: boolean
@@ -75,7 +86,7 @@ const StepButtons = ({
 				</PrevButton>
 			}
 			{!isLastStep &&
-				<NextButton type="primary" onClick={() => next()}>
+				<NextButton type="primary" onClick={() => next()} textColor={getButtonTextColor(chainId)} bgColor={getButtonBgColor(chainId)}>
 					<Row align="middle">
 						Next Step
 						<ArrowRightOutlined size={20} style={{ marginLeft: "6px" }} />
@@ -84,6 +95,28 @@ const StepButtons = ({
 			}
 		</StepFooter>
 	)
+}
+
+const getButtonBgColor = (chainId: string) => {
+	if (chainId === "solana") {
+		return 'linear-gradient(253deg, #00FFA3, #DC1FFF)';
+	} else if (chainId === "avalanche") {
+		return '#e84141';
+	} else if (chainId === "polygon") {
+		return '#8247e5';
+	} else if (chainId === "polkadot") {
+		return '#e6007a';
+	} else if (chainId === "tezos") {
+		return '#0f62ff';
+	}
+	return "rgb(255,242,155)"
+}
+
+const getButtonTextColor = (chainId: string) => {
+	if (chainId === "solana") {
+		return "white";
+	}
+	return "white"
 }
 
 const Right = styled(Col)`
@@ -118,21 +151,23 @@ const StepContent = styled.div`
 	margin-bottom: 100px;
 `;
 
-const NextButton = styled(Button)`
-	background: rgb(255,242,155);
-	border: solid #888 1px;
-	color: #555;
+const NextButton = styled(Button)<{ bgColor: string; textColor: string }>`
+	border: none;
+
+	color: ${({ textColor })=> textColor};
+	background: ${({ bgColor })=> bgColor};
 
 	&:hover {
-		background: rgb(255,242,155);
-		color: black;
-		border: solid black 1px;
+		background: ${({ bgColor })=> bgColor};
+		color: ${({ textColor })=> textColor};
+		border: none;
+		box-shadow: black 2px 2px 1px;
 	}
 `;
 
 const PrevButton = styled(Button)`
 	background: white;
-	border: solid #888 1px;
+	border: solid #BBB 1px;
 	color: #555;
 
 	&:hover {
