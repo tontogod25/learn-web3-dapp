@@ -3,6 +3,7 @@ import { Button, Space, Col, Typography } from 'antd'
 import axios from 'axios'
 import { LoadingOutlined } from '@ant-design/icons';
 
+
 import { QueryResponseData } from "types/response-types"
 import styled from "styled-components";
 
