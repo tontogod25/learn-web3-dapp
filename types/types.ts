@@ -17,18 +17,30 @@ export enum POLYGON_PROTOCOLS {
   WS = "WS"
 }
 
+// Solana
+export enum SOLANA_NETWORKS {
+  MAINNET = "MAINNET",
+  DEVNET = "DEVNET"
+}
+export enum SOLANA_PROTOCOLS {
+  RPC = "RPC",
+  WS = "WS"
+}
+
 // All
 export enum CHAINS {
   AVALANCHE = "AVALANCHE",
   POLYGON = "POLYGON",
+  SOLANA = "SOLANA",
 }
-export type NETWORKS = POLYGON_NETWORKS | AVALANCHE_NETWORKS
-export type PROTOCOLS = POLYGON_PROTOCOLS
+export type NETWORKS = POLYGON_NETWORKS | AVALANCHE_NETWORKS | SOLANA_NETWORKS
+export type PROTOCOLS = POLYGON_PROTOCOLS | SOLANA_PROTOCOLS
 
 // ---------------------------------------------------
 
 export type ChainType = {
   id: string
+  label: string
   active: boolean
   logoUrl: string
   steps: StepType[]

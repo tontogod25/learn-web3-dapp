@@ -11,10 +11,10 @@ export const getAvalancheClient = () => {
     url.hostname,
     parseInt(url.port),
     url.protocol.replace(":", ""),
-    parseInt(process.env.NEXT_PUBLIC_AVALANCHE_NETWORK_ID as string),
+    parseInt(process.env.AVALANCHE_NETWORK_ID as string),
     "X",
     "C",
-    process.env.NEXT_PUBLIC_AVALANCHE_NETWORK_NAME
+    process.env.AVALANCHE_NETWORK_NAME
   )
 
   // Apply DataHub API authentication token

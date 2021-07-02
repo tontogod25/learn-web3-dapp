@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getNodeRpcURL } from "../utils";
 import { Alert, Col, Space, Typography } from "antd";
 import { Connection } from "@solana/web3.js";
+
+import { getDatahubNodeURL } from "utils/datahub-utils";
+import { CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS } from 'types/types';
 
 const { Text } = Typography;
 
@@ -13,7 +15,7 @@ const Connect = () => {
   }, []);
 
   const getConnection = () => {
-    const url = getNodeRpcURL()
+    const url = getDatahubNodeURL(CHAINS.SOLANA, SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC)
   
     // Create a connection
     const connection = new Connection(url);

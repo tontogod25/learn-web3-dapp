@@ -11,7 +11,9 @@ import {
   Transaction,
   SystemProgram} from "@solana/web3.js";
 
-import { getNodeRpcURL, getAccountExplorerURL, getNodeWsURL, getTxExplorerURL } from "../utils";
+import { getAccountExplorerURL, getNodeWsURL, getTxExplorerURL } from "../utils";
+import { getDatahubNodeURL } from "utils/datahub-utils";
+import { CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS } from "types/types";
 
 const { Text } = Typography;
 
@@ -52,8 +54,9 @@ const Program = () => {
   }, [])
 
   const establishConnection = () => {
-    const url = getNodeRpcURL();
-    const connection = new Connection(url, { wsEndpoint: getNodeWsURL() });
+    const rpcUrl = getDatahubNodeURL(CHAINS.SOLANA, SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC)
+    const wsUrl = getDatahubNodeURL(CHAINS.SOLANA, SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.WS)
+    const connection = new Connection(rpcUrl, { wsEndpoint: wsUrl });
     setConnection(connection);
   }
 

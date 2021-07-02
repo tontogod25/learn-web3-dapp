@@ -3,6 +3,7 @@ import { ChainsType } from "types/types";
 export const CHAINS: ChainsType = {
 	AVALANCHE: {
 		id: "avalanche",
+		label: "Avalanche",
 		active: true,
 		logoUrl: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010",
 		steps: [
@@ -30,24 +31,46 @@ export const CHAINS: ChainsType = {
 	},
 	CELO: {
 		id: "celo",
-		active: false,
+		label: "Celo",
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/celo-celo-logo.svg?v=010",
-		steps: []
+		steps: [
+			{
+				id: "connect",
+				title: "Connect to Celo",
+				url: ""
+			},
+		]
 	},
 	NEAR: {
 		id: "near",
-		active: false,
+		label: "NEAR",
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
-		steps: []
+		steps: [
+			{
+				id: "connect",
+				title: "Connect to NEAR",
+				url: ""
+			},
+		]
 	},
 	POLKADOT: {
 		id: "polkadot",
-		active: false,
+		label: "Polkadot",
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
-		steps: []
+		steps: [
+			{
+				id: "connect",
+				title: "Connect to Polkadot",
+				url: ""
+			},
+		]
 	},
 	POLYGON: {
 		id: "polygon",
+		label: "Polygon",
 		active: true,
 		logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
 		steps: [
@@ -60,12 +83,20 @@ export const CHAINS: ChainsType = {
 	},
 	SECRET: {
 		id: "secret",
-		active: false,
+		label: "Secret",
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/secret-scrt-logo.svg?v=010",
-		steps: []
+		steps: [
+			{
+				id: "connect",
+				title: "Connect to Secret",
+				url: ""
+			},
+		]
 	},
 	SOLANA: {
 		id: "solana",
+		label: "Solana",
 		active: true,
 		logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
 		steps: [
@@ -108,8 +139,15 @@ export const CHAINS: ChainsType = {
 	},
 	TEZOS: {
 		id: "tezos",
-		active: false,
+		label: "Tezos",
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
-		steps: []
+		steps: [
+			{
+				id: "connect",
+				title: "Connect to Tezos",
+				url: ""
+			},
+		]
 	},
 }

@@ -2,8 +2,13 @@ import Head from 'next/head'
 import { useRouter } from 'next/router';
 
 import Avalanche from "components/protocols/avalanche"
+import Celo from "components/protocols/celo"
+import Near from "components/protocols/near"
+import Polkadot from "components/protocols/polkadot";
 import Polygon from "components/protocols/polygon";
+import Secret from "components/protocols/secret";
 import Solana from "components/protocols/solana";
+import Tezos from "components/protocols/tezos";
 import { CHAINS } from "components/shared/constants";
 import { ChainType } from 'types/types';
 
@@ -28,7 +33,17 @@ export default function Chain() {
 						? <Polygon chain={CHAINS.POLYGON as ChainType} />
 						: chain === CHAINS.AVALANCHE.id
 							? <Avalanche chain={CHAINS.AVALANCHE as ChainType} />
-							: null
+							: chain === CHAINS.TEZOS.id
+								? <Tezos chain={CHAINS.TEZOS as ChainType} />
+								: chain === CHAINS.NEAR.id
+									? <Near chain={CHAINS.NEAR as ChainType} />
+									: chain === CHAINS.POLKADOT.id
+										? <Polkadot chain={CHAINS.POLKADOT as ChainType} />
+										: chain === CHAINS.CELO.id
+											? <Celo chain={CHAINS.CELO as ChainType} />
+											: chain === CHAINS.SECRET.id
+												? <Secret chain={CHAINS.SECRET as ChainType} />
+												: null
 			}
 		</>
 	)

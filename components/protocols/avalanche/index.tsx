@@ -14,11 +14,7 @@ import { KeypairData } from "types/response-types";
 
 const { Text, Paragraph } = Typography;
 
-const Avalanche = ({
-	chain
-}: {
-	chain: ChainType
-}) => {
+const Chain = ({ chain }: { chain: ChainType }) => {
 	const [keypair, setKeypair] = useState<KeypairData | null>(null);
 
 	const { steps } = chain
@@ -35,7 +31,7 @@ const Avalanche = ({
 	return (
 		<Row>
 			<Sidebar
-				chain="Avalanche"
+				chain={chain}
 				steps={steps}
 				stepIndex={stepIndex}
 			/>
@@ -74,4 +70,4 @@ const Nav = ({ keypair }: { keypair : KeypairData | null}) => {
 	)
 }
 
-export default Avalanche
+export default Chain

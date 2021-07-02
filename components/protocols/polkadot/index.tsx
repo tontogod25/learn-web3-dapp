@@ -40,25 +40,10 @@ const Chain = ({ chain }: { chain: ChainType }) => {
             {step.id === "connect" && <Connect />}
           </>
         }
-        // nav={<Nav keypair={keypair} />}
+        nav={<div>nav</div>}
       />
     </Row>
   );
 }
-
-// const Nav = ({ keypair }: { keypair: any }) => {
-//   if (!keypair) return null;
-
-//   const publicKey = keypair.publicKey.toString();
-//   const publicKeyToDisplay = `${publicKey.slice(0,5)}...${publicKey.slice(-5)}`;
-
-//   return (
-//     <div style={{ position: "fixed", top: 20, right: 20 }}>
-//       <Paragraph copyable={{ text: keypair.publicKey.toString() }}>
-//         <Text code>{publicKeyToDisplay}</Text>
-//       </Paragraph>
-//     </div>
-//   )
-// }
 
 export default Chain

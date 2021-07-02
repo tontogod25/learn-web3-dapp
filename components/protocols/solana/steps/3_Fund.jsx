@@ -11,7 +11,7 @@ const Fund = () => {
   const fund = () => {
     alert("Implement the fund() function!")
 
-    const url = process.env.NEXT_PUBLIC_DEVNET_URL;
+    const url = process.env.DEVNET_URL;
     const connection = new Connection(url);
     
     // Create a PublicKey address from the input value

@@ -3,7 +3,8 @@ import { Connection, PublicKey, SystemProgram, Transaction, Keypair, sendAndConf
 import { Form, Input, Button, Alert, Space, Typography } from 'antd';
 import { LoadingOutlined, RedoOutlined } from '@ant-design/icons';
 
-import { getNodeRpcURL, getTxExplorerURL, getNodeWsURL } from '../utils';
+import { getDatahubNodeURL } from "utils/datahub-utils";
+import { getTxExplorerURL } from '../utils';
 
 const layout = {
   labelCol: { span: 4 },
@@ -36,8 +37,9 @@ const Transfer = ({ keypair }) => {
       setError("Amount needs to be a valid number")
     }
   
-    const url = getNodeRpcURL();
-    const connection = new Connection(url, { wsEndpoint: getNodeWsURL() });
+    const rpcUrl = getDatahubNodeURL(CHAINS.SOLANA, SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC)
+    const wsUrl = getDatahubNodeURL(CHAINS.SOLANA, SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.WS)
+    const connection = new Connection(rpcUrl, { wsEndpoint: wsUrl });
 
     const fromPubKey = new PublicKey(values.from);
     const toPubKey = new PublicKey(toAddress);

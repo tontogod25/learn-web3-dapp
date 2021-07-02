@@ -16,11 +16,7 @@ import { useSteps } from "hooks/steps-hooks";
 
 const { Text, Paragraph } = Typography;
 
-const Solana = ({
-  chain
-}: {
-  chain: ChainType
-}) => {
+const Chain = ({ chain }: { chain: ChainType }) => {
   const [keypair, setKeypair] = useState(null);
 
   const { steps } = chain
@@ -37,7 +33,7 @@ const Solana = ({
   return (
     <Row>
       <Sidebar
-        chain="Solana"
+        chain={chain}
         steps={steps}
         stepIndex={stepIndex}
       />
@@ -79,4 +75,4 @@ const Nav = ({ keypair }: {keypair: any}) => {
   )
 }
 
-export default Solana
+export default Chain

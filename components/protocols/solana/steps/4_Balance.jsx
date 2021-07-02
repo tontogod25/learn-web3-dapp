@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Alert, Col, Input, Button, Space, Typography } from 'antd';
-import { getAccountExplorerURL, getNodeRpcURL } from "../utils";
 import { Connection, PublicKey } from "@solana/web3.js";
+
+import { getDatahubNodeURL } from "utils/datahub-utils";
+import { getAccountExplorerURL } from "../utils";
 
 const { Text } = Typography;
 
@@ -14,7 +16,7 @@ const Balance = () => {
   const getBalance = () => {
     alert("Implement the getBalance() function!");
 
-    const url = getNodeRpcURL();
+    const url = getDatahubNodeURL(CHAINS.SOLANA, SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC)
     const connection = new Connection(url);
     
     // Create a PublicKey from the input value
