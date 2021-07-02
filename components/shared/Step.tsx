@@ -48,7 +48,7 @@ const Step = ({
 					{body}
 				</StepContent>
 
-				<StepsNav next={next} prev={prev} isFirstStep={isFirstStep} isLastStep={isLastStep} />
+				<StepButtons next={next} prev={prev} isFirstStep={isFirstStep} isLastStep={isLastStep} />
 
 				{nav}
 			</Col>
@@ -56,7 +56,7 @@ const Step = ({
 	)
 }
 
-const StepsNav = ({
+const StepButtons = ({
 	next,
 	prev,
 	isFirstStep,
