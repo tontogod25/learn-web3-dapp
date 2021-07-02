@@ -3,11 +3,11 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import fs from 'fs';
 
 import { getAvalancheClient } from 'utils/avalanche-utils';
-import { TransferReponse, TransferErrorResponse } from 'types/response-types';
+import { AvalancheTransferReponse, AvalancheTransferErrorResponse } from 'types/avalanche-types';
 
 export default async function transfer(
   req: NextApiRequest,
-  res: NextApiResponse<TransferReponse | TransferErrorResponse>
+  res: NextApiResponse<AvalancheTransferReponse | AvalancheTransferErrorResponse>
 ) {
 	const client = getAvalancheClient()
 	const credentialsPath = './credentials'

@@ -3,7 +3,7 @@ import { Alert, Button, Col, Space, Typography } from 'antd';
 import axios from 'axios'
 import { LoadingOutlined } from '@ant-design/icons';
 
-import { KeypairData } from "types/response-types"
+import { AvalancheKeypairType } from "types/avalanche-types"
 
 const { Text } = Typography;
 
@@ -11,8 +11,8 @@ const Account = ({
 	keypair,
 	setKeypair
 }: { 
-	keypair: KeypairData | null,
-	setKeypair: (keypair: KeypairData) => void
+	keypair: AvalancheKeypairType | null,
+	setKeypair: (keypair: AvalancheKeypairType) => void
 }) => {
 	const [fetching, setFetching] = useState<boolean>(false);
 
@@ -25,7 +25,7 @@ const Account = ({
 		axios
 			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/avalanche/account`)
 			.then(res => {
-				const data: KeypairData = res.data
+				const data: AvalancheKeypairType = res.data
 				setKeypair(data)
 				setFetching(false)
 			})

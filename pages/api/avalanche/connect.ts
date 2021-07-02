@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { ConnectReponse } from 'types/response-types';
 
 import { getAvalancheClient } from 'utils/avalanche-utils';
+import { AvalancheConnectReponse } from 'types/avalanche-types';
 
 export default function connect(
   req: NextApiRequest,
-  res: NextApiResponse<ConnectReponse>
+  res: NextApiResponse<AvalancheConnectReponse>
 ) {
   const client = getAvalancheClient()
   const info = client.Info()

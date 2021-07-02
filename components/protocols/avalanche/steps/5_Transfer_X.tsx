@@ -4,7 +4,7 @@ import { Form, Input, Button, Alert, Space, Typography } from 'antd'
 import { LoadingOutlined, RedoOutlined } from '@ant-design/icons'
 
 import { getAvalancheClient, getAvalancheExplorerURL } from "utils/avalanche-utils"
-import { KeypairData, TransferReponse, TransferErrorResponse } from "types/response-types"
+import { AvalancheKeypairType, AvalancheTransferReponse, AvalancheTransferErrorResponse } from "types/avalanche-types"
 
 const layout = {
 	labelCol: { span: 4 },
@@ -16,7 +16,7 @@ const tailLayout = {
 
 const { Text } = Typography
 
-const Transfer = ({ keypair }: { keypair: KeypairData | null} ) => {
+const Transfer = ({ keypair }: { keypair: AvalancheKeypairType | null} ) => {
 	const [toAddress, setToAddress] = useState<string | null>(null)
 	const [error, setError] = useState<string | null>(null)
 	const [fetching, setFetching] = useState<boolean>(false)
@@ -58,14 +58,14 @@ const Transfer = ({ keypair }: { keypair: KeypairData | null} ) => {
 				},
 			)
 			.then(res => {
-				const data: TransferReponse = res.data
+				const data: AvalancheTransferReponse = res.data
 				const txID: string = data.txID
 				setTxId(txID)
 				setFetching(false)
 			})
 			.catch(err => {
 				console.log(`err.response`, err.response)
-				const data: TransferErrorResponse = err.response.data
+				const data: AvalancheTransferErrorResponse = err.response.data
 				setTxId(null)
 				setFetching(false)
 				setError(data.message)

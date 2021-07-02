@@ -5,17 +5,16 @@ import Sidebar from "components/shared/Sidebar";
 import Step from "components/shared/Step";
 import { ChainType } from "types/types";
 import { useSteps } from "hooks/steps-hooks";
-
 import Connect from "./steps/1_Connect";
 import Account from "./steps/2_Account";
 import Query from "./steps/3_Query";
 import TransferX from "./steps/5_Transfer_X";
-import { KeypairData } from "types/response-types";
+import { AvalancheKeypairType } from "types/avalanche-types";
 
 const { Text, Paragraph } = Typography;
 
 const Chain = ({ chain }: { chain: ChainType }) => {
-	const [keypair, setKeypair] = useState<KeypairData | null>(null);
+	const [keypair, setKeypair] = useState<AvalancheKeypairType | null>(null);
 
 	const { steps } = chain
 
@@ -56,7 +55,7 @@ const Chain = ({ chain }: { chain: ChainType }) => {
 	);
 }
 
-const Nav = ({ keypair }: { keypair : KeypairData | null}) => {
+const Nav = ({ keypair }: { keypair : AvalancheKeypairType | null}) => {
 	if (!keypair) return null;
 
 	const address = keypair.addressString;
