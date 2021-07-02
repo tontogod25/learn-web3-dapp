@@ -16,11 +16,13 @@ const tailLayout = {
 
 const { Text } = Typography
 
-const Transfer = ({ keypair }: { keypair: KeypairData} ) => {
+const Transfer = ({ keypair }: { keypair: KeypairData | null} ) => {
 	const [toAddress, setToAddress] = useState<string | null>(null)
 	const [error, setError] = useState<string | null>(null)
 	const [fetching, setFetching] = useState<boolean>(false)
 	const [txId, setTxId] = useState<string | null>(null)
+
+	if (!keypair) return <Alert type="error" showIcon message={"Generate a Keypair first"} />
 
 	const generateKeypair = () => {
 		const address =
