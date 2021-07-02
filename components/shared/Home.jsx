@@ -2,16 +2,16 @@ import React from "react";
 import Link from "next/link";
 import { Col } from 'antd';
 import styled from "styled-components";
-import { PROTOCOLS } from "./constants";
+import { CHAINS } from "./constants";
 
 const Home = () => {
 	return (
 		<Container span={12} offset={6} align="center">
 			<Title>Figment Learn - All Pathways</Title>
-			<ProtocolRow gutter={[16, 24]}>
+			<ChainRow gutter={[16, 24]}>
 				{
-					Object.keys(PROTOCOLS).map(protocol => {
-						const { id, active, logoUrl } = PROTOCOLS[protocol];
+					Object.keys(CHAINS).map(chain => {
+						const { id, active, logoUrl } = CHAINS[chain];
 						const label = id.charAt(0).toUpperCase() + id.slice(1);
 
 						const box = (
@@ -24,7 +24,7 @@ const Home = () => {
 						return active ? <Link href={`/${id}`} key={id}>{box}</Link> : box;
 					})
 				}
-			</ProtocolRow>
+			</ChainRow>
 		</Container>
 	)
 }
@@ -37,7 +37,7 @@ const Title = styled.h1`
 	margin-bottom: 40px;
 `;
 
-const ProtocolRow = styled.div`
+const ChainRow = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	column-gap: 20px;

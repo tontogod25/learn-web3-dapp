@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Row, Typography } from 'antd';
 
 import Sidebar from "components/shared/Sidebar";
-import { StepType } from "types/types";
+import { ChainType } from "types/types";
 import Step from "components/shared/Step";
 
 import Balance from "./steps/4_Balance";
@@ -17,11 +17,13 @@ import { useSteps } from "hooks/steps-hooks";
 const { Text, Paragraph } = Typography;
 
 const Solana = ({
-  steps
+  chain
 }: {
-  steps: StepType[]
+  chain: ChainType
 }) => {
   const [keypair, setKeypair] = useState(null);
+
+  const { steps } = chain
 
   const {
     next,

@@ -27,15 +27,15 @@ export type PROTOCOLS = POLYGON_PROTOCOLS
 
 // ---------------------------------------------------
 
-export type ProtocolType = {
+export type ChainType = {
   id: string
   active: boolean
   logoUrl: string
-  steps?: StepType[]
+  steps: StepType[]
 }
 
-export type ProtocolsType = {
-  [key: string]: ProtocolType
+export type ChainsType = {
+  [key: string]: ChainType
 }
 
 export type StepType = {

@@ -1,6 +1,6 @@
-import { ProtocolsType } from "types/types";
+import { ChainsType } from "types/types";
 
-export const PROTOCOLS: ProtocolsType = {
+export const CHAINS: ChainsType = {
 	AVALANCHE: {
 		id: "avalanche",
 		active: true,
@@ -32,16 +32,19 @@ export const PROTOCOLS: ProtocolsType = {
 		id: "celo",
 		active: false,
 		logoUrl: "https://cryptologos.cc/logos/celo-celo-logo.svg?v=010",
+		steps: []
 	},
 	NEAR: {
 		id: "near",
 		active: false,
 		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
+		steps: []
 	},
 	POLKADOT: {
 		id: "polkadot",
 		active: false,
 		logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
+		steps: []
 	},
 	POLYGON: {
 		id: "polygon",
@@ -59,6 +62,7 @@ export const PROTOCOLS: ProtocolsType = {
 		id: "secret",
 		active: false,
 		logoUrl: "https://cryptologos.cc/logos/secret-scrt-logo.svg?v=010",
+		steps: []
 	},
 	SOLANA: {
 		id: "solana",
@@ -106,5 +110,6 @@ export const PROTOCOLS: ProtocolsType = {
 		id: "tezos",
 		active: false,
 		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
+		steps: []
 	},
 }

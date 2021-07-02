@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Row, Typography } from 'antd';
 
 import Sidebar from "components/shared/Sidebar";
-import { StepType } from "types/types";
+import { ChainType } from "types/types";
 import Step from "components/shared/Step";
 import Connect from "./steps/1_Connect";
 import { useSteps } from "hooks/steps-hooks";
@@ -10,11 +10,12 @@ import { useSteps } from "hooks/steps-hooks";
 const { Text, Paragraph } = Typography;
 
 const Polygon = ({
-  steps
+  chain
 }: {
-  steps: StepType[]
+  chain: ChainType
 }) => {
   const [keypair, setKeypair] = useState(null);
+  const { steps } = chain
 
   const {
     next,

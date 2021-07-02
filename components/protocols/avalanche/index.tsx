@@ -3,7 +3,7 @@ import { Row, Typography } from 'antd';
 
 import Sidebar from "components/shared/Sidebar";
 import Step from "components/shared/Step";
-import { StepType } from "types/types";
+import { ChainType } from "types/types";
 import { useSteps } from "hooks/steps-hooks";
 
 import Connect from "./steps/1_Connect";
@@ -15,11 +15,13 @@ import { KeypairData } from "types/response-types";
 const { Text, Paragraph } = Typography;
 
 const Avalanche = ({
-	steps
+	chain
 }: {
-	steps: StepType[]
+	chain: ChainType
 }) => {
 	const [keypair, setKeypair] = useState<KeypairData | null>(null);
+
+	const { steps } = chain
 
 	const {
 		next,
