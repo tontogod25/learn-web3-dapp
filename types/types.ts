@@ -1,4 +1,13 @@
-// ---------------------------------------------------
+export enum CHAINS {
+  AVALANCHE = "avalanche",
+  CELO = "celo",
+  NEAR = "near",
+  POLYGON = "polygon",
+  POLKADOT = "polkadot",
+  SECRET = "secret",
+  SOLANA = "solana",
+  TEZOS = "tezos",
+}
 
 // Avalanche
 export enum AVALANCHE_NETWORKS {
@@ -27,19 +36,13 @@ export enum SOLANA_PROTOCOLS {
   WS = "WS"
 }
 
-// All
-export enum CHAINS {
-  AVALANCHE = "AVALANCHE",
-  POLYGON = "POLYGON",
-  SOLANA = "SOLANA",
-}
 export type NETWORKS = POLYGON_NETWORKS | AVALANCHE_NETWORKS | SOLANA_NETWORKS
 export type PROTOCOLS = POLYGON_PROTOCOLS | SOLANA_PROTOCOLS
 
 // ---------------------------------------------------
 
 export type ChainType = {
-  id: string
+  id: CHAINS
   label: string
   active: boolean
   logoUrl: string

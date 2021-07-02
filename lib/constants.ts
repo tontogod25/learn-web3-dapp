@@ -1,8 +1,8 @@
-import { ChainsType } from "types/types";
+import { ChainsType, CHAINS } from "types/types";
 
-export const CHAINS: ChainsType = {
-	AVALANCHE: {
-		id: "avalanche",
+export const CHAINS_CONFIG: ChainsType = {
+	[CHAINS.AVALANCHE]: {
+		id: CHAINS.AVALANCHE,
 		label: "Avalanche",
 		active: true,
 		logoUrl: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010",
@@ -29,8 +29,8 @@ export const CHAINS: ChainsType = {
 			},
 		]
 	},
-	CELO: {
-		id: "celo",
+	[CHAINS.CELO]: {
+		id: CHAINS.CELO,
 		label: "Celo",
 		active: true,
 		logoUrl: "https://cryptologos.cc/logos/celo-celo-logo.svg?v=010",
@@ -42,8 +42,8 @@ export const CHAINS: ChainsType = {
 			},
 		]
 	},
-	NEAR: {
-		id: "near",
+	[CHAINS.NEAR]: {
+		id: CHAINS.NEAR,
 		label: "NEAR",
 		active: true,
 		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
@@ -55,8 +55,8 @@ export const CHAINS: ChainsType = {
 			},
 		]
 	},
-	POLKADOT: {
-		id: "polkadot",
+	[CHAINS.POLKADOT]: {
+		id: CHAINS.POLKADOT,
 		label: "Polkadot",
 		active: true,
 		logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
@@ -68,8 +68,8 @@ export const CHAINS: ChainsType = {
 			},
 		]
 	},
-	POLYGON: {
-		id: "polygon",
+	[CHAINS.POLYGON]: {
+		id: CHAINS.POLYGON,
 		label: "Polygon",
 		active: true,
 		logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
@@ -81,8 +81,8 @@ export const CHAINS: ChainsType = {
 			}
 		]
 	},
-	SECRET: {
-		id: "secret",
+	[CHAINS.SECRET]: {
+		id: CHAINS.SECRET,
 		label: "Secret",
 		active: true,
 		logoUrl: "https://cryptologos.cc/logos/secret-scrt-logo.svg?v=010",
@@ -94,8 +94,8 @@ export const CHAINS: ChainsType = {
 			},
 		]
 	},
-	SOLANA: {
-		id: "solana",
+	[CHAINS.SOLANA]: {
+		id: CHAINS.SOLANA,
 		label: "Solana",
 		active: true,
 		logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
@@ -137,8 +137,8 @@ export const CHAINS: ChainsType = {
 			},
 		]
 	},
-	TEZOS: {
-		id: "tezos",
+	[CHAINS.TEZOS]: {
+		id: CHAINS.TEZOS,
 		label: "Tezos",
 		active: true,
 		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",

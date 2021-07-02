@@ -1,14 +1,15 @@
-import React from "react";
-import styled from "styled-components";
-import { Col, Steps, Space } from 'antd';
-import { ArrowLeft } from 'react-feather';
-import Link from "next/link";
+import React from "react"
+import styled from "styled-components"
+import { Col, Steps, Space } from 'antd'
+import { ArrowLeft } from 'react-feather'
+import Link from "next/link"
 import Image from 'next/image'
 import logoSVG from "public/figment-learn-compact.svg"
 
-import { ChainType, StepType } from "types/types";
+import { ChainType, StepType } from "types/types"
+import { getChainColors } from "utils/colors-utils"
 
-const { Step } = Steps;
+const { Step } = Steps
 
 const Sidebar = ({
 	chain,
@@ -19,11 +20,13 @@ const Sidebar = ({
 	steps: StepType[]
 	stepIndex: number
 }) => {
+	const { bgColor, textColor } = getChainColors(chain.id)
+
 	return (
-		<Left span={8} chainId={chain.id}>
+		<Left span={8} bgColor={bgColor}>
 			<Space size="large" direction="horizontal" align="center" style={{ marginBottom: "40px" }}>
 				<Image src={logoSVG} alt="Figment Learn" height={41} width={100} />
-				<ChainTitle chainId={chain.id}>{`${chain.label} Pathway`}</ChainTitle>
+				<ChainTitle textColor={textColor}>{`${chain.label} Pathway`}</ChainTitle>
 			</Space>
 
 			<Steps direction="vertical" size="small" current={stepIndex}>
@@ -40,38 +43,15 @@ const Sidebar = ({
 	)
 }
 
-const ChainTitle = styled.div<{ chainId: string }>`
+const ChainTitle = styled.div<{ textColor: string }>`
+	color: ${({ textColor }) => textColor};
 	margin-bottom: 8px;
 	font-size: 28px;
 	font-weight: 600;
-	
-	color: ${({ chainId }) => {
-		if (chainId === "solana") {
-			return 'black';
-		} else if (chainId === "avalanche") {
-			return '#F6F6F6';
-		} else if (chainId === "polygon") {
-			return '#F6F6F6';
-		}
-		return 'black';
-	}};
 `;
 
-const Left = styled(Col)<{ chainId: string }>`
-	background: ${({ chainId }) => {
-		if (chainId === "solana") {
-			return 'linear-gradient(253deg, #00FFA3, #DC1FFF)';
-		} else if (chainId === "avalanche") {
-			return '#e84141';
-		} else if (chainId === "polygon") {
-			return '#8247e5';
-		} else if (chainId === "polkadot") {
-			return '#e6007a';
-		} else if (chainId === "tezos") {
-			return '#0f62ff';
-		}
-		return 'rgb(255, 242, 155)';
-	}};
+const Left = styled(Col)<{ bgColor: string }>`
+	background: ${({ bgColor }) => bgColor};
 	padding: 40px 0 0 40px;
 	height: 100vh;
 `;

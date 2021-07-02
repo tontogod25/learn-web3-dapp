@@ -3,20 +3,23 @@ import Link from "next/link";
 import { Col } from 'antd';
 import styled from "styled-components";
 
-import { CHAINS } from "lib/constants";
+import { CHAINS } from "types/types";
+import { CHAINS_CONFIG } from "lib/constants";
+import { getChainColors } from "utils/colors-utils";
 
 const Home = () => {
 	return (
-		<Container span={12} offset={6} align="center">
+		<Container span={12} offset={6}>
 			<Title>Figment Learn - All Pathways</Title>
-			<ChainRow gutter={[16, 24]}>
+			<ChainRow>
 				{
-					Object.keys(CHAINS).map(chain => {
-						const { id, active, logoUrl } = CHAINS[chain];
+					Object.keys(CHAINS_CONFIG).map((chain: string) => {
+						const { id, active, logoUrl } = CHAINS_CONFIG[chain];
 						const label = id.charAt(0).toUpperCase() + id.slice(1);
+						const { bgColor, textColor } = getChainColors(chain as CHAINS)
 
 						const box = (
-							<ProtocolBox span={6} active={active} key={id}>
+							<ProtocolBox key={id} active={active} bgColor={bgColor} textColor={textColor}>
 								<Logo src={logoUrl} />
 								<Label>{label}</Label>
 							</ProtocolBox>
@@ -45,7 +48,7 @@ const ChainRow = styled.div`
 	row-gap: 20px;
 `;
 
-const ProtocolBox = styled.div`
+const ProtocolBox = styled.div<{ active: boolean; bgColor: string; textColor: string }>`
 	height: 170px;
 	border: solid 1px #eee;
 	background-color: #f8f8f8;
@@ -55,14 +58,13 @@ const ProtocolBox = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-
 	opacity: ${({ active }) => active ? 1 : 0.4};
-	transition: all ease-in 0.2s;
 
-	${({ active }) => active && `
+	${({ active, bgColor, textColor }) => active && `
 		&:hover {
-			border: solid 1px #bfbfbf;
-			background-color: #fffce6;
+			border: none;
+			color: ${textColor};
+			background: ${bgColor};
 			cursor: pointer;
 		}
 	`}

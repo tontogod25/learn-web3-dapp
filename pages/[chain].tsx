@@ -9,8 +9,8 @@ import Polygon from "components/protocols/polygon";
 import Secret from "components/protocols/secret";
 import Solana from "components/protocols/solana";
 import Tezos from "components/protocols/tezos";
-import { CHAINS } from "lib/constants";
-import { ChainType } from 'types/types';
+import { CHAINS_CONFIG as CONFIG } from "lib/constants";
+import { CHAINS, ChainType } from 'types/types';
 
 export default function Chain() {
 	const router = useRouter();
@@ -27,22 +27,22 @@ export default function Chain() {
 			</Head>
 
 			{
-				chain === CHAINS.SOLANA.id
-					? <Solana chain={CHAINS.SOLANA as ChainType} />
-					: chain === CHAINS.POLYGON.id
-						? <Polygon chain={CHAINS.POLYGON as ChainType} />
-						: chain === CHAINS.AVALANCHE.id
-							? <Avalanche chain={CHAINS.AVALANCHE as ChainType} />
-							: chain === CHAINS.TEZOS.id
-								? <Tezos chain={CHAINS.TEZOS as ChainType} />
-								: chain === CHAINS.NEAR.id
-									? <Near chain={CHAINS.NEAR as ChainType} />
-									: chain === CHAINS.POLKADOT.id
-										? <Polkadot chain={CHAINS.POLKADOT as ChainType} />
-										: chain === CHAINS.CELO.id
-											? <Celo chain={CHAINS.CELO as ChainType} />
-											: chain === CHAINS.SECRET.id
-												? <Secret chain={CHAINS.SECRET as ChainType} />
+				chain === CHAINS.SOLANA
+					? <Solana chain={CONFIG[CHAINS.SOLANA] as ChainType} />
+					: chain === CHAINS.POLYGON
+						? <Polygon chain={CONFIG[CHAINS.POLYGON] as ChainType} />
+						: chain === CHAINS.AVALANCHE
+							? <Avalanche chain={CONFIG[CHAINS.AVALANCHE] as ChainType} />
+							: chain === CHAINS.TEZOS
+								? <Tezos chain={CONFIG[CHAINS.TEZOS] as ChainType} />
+								: chain === CHAINS.NEAR
+									? <Near chain={CONFIG[CHAINS.NEAR] as ChainType} />
+									: chain === CHAINS.POLKADOT
+										? <Polkadot chain={CONFIG[CHAINS.POLKADOT] as ChainType} />
+										: chain === CHAINS.CELO
+											? <Celo chain={CONFIG[CHAINS.CELO] as ChainType} />
+											: chain === CHAINS.SECRET
+												? <Secret chain={CONFIG[CHAINS.SECRET] as ChainType} />
 												: null
 			}
 		</>
