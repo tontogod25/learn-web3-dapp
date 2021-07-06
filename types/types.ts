@@ -1,6 +1,7 @@
 export enum CHAINS {
   AVALANCHE = "avalanche",
   CELO = "celo",
+  THE_GRAPH = "the_graph",
   NEAR = "near",
   POLYGON = "polygon",
   POLKADOT = "polkadot",

@@ -42,6 +42,19 @@ export const CHAINS_CONFIG: ChainsType = {
 			},
 		]
 	},
+	[CHAINS.THE_GRAPH]: {
+		id: CHAINS.THE_GRAPH,
+		label: "The Graph",
+		active: true,
+		logoUrl: "https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=012",
+		steps: [
+			{
+				id: "connect",
+				title: "Deploy a smart contract",
+				url: ""
+			},
+		]
+	},
 	[CHAINS.NEAR]: {
 		id: CHAINS.NEAR,
 		label: "NEAR",

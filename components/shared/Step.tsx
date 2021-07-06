@@ -79,7 +79,7 @@ const StepButtons = ({
 	isLastStep: boolean
 }) => {
 	return (
-		<StepFooter>
+		<StepFooter size="large">
 			{!isFirstStep &&
 				<PrevButton size="large" style={{ marginRight: '8px' }} onClick={() => prev()} icon={<ArrowLeftOutlined />}>
 					Previous Step
@@ -128,7 +128,7 @@ const StepHeader = styled(Col)`
 	margin-bottom: 40px;
 `;
 
-const StepFooter = styled(Row)`
+const StepFooter = styled(Space)`
 	margin-top: 20px;
 `;
 

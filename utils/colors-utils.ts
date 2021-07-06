@@ -17,6 +17,8 @@ const getBgColor = (chainId: CHAINS) => {
     return "linear-gradient(253deg, #00FFA3, #DC1FFF)"
   } else if (chainId === CHAINS.AVALANCHE) {
     return "#e84141"
+  } else if (chainId === CHAINS.THE_GRAPH) {
+    return "linear-gradient(130deg, #5943d0, #151324)"
   } else if (chainId === CHAINS.POLYGON) {
     return "#8247e5"
   } else if (chainId === CHAINS.POLKADOT) {
@@ -38,6 +40,8 @@ const getTextColor = (chainId: CHAINS) => {
   if (chainId === CHAINS.SOLANA) {
     return "black"
   } else if (chainId === CHAINS.AVALANCHE) {
+    return "#F6F6F6"
+  } else if (chainId === CHAINS.THE_GRAPH) {
     return "#F6F6F6"
   } else if (chainId === CHAINS.POLYGON) {
     return "#F6F6F6"

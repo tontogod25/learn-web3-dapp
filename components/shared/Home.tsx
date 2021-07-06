@@ -14,8 +14,7 @@ const Home = () => {
 			<ChainRow>
 				{
 					Object.keys(CHAINS_CONFIG).map((chain: string) => {
-						const { id, active, logoUrl } = CHAINS_CONFIG[chain];
-						const label = id.charAt(0).toUpperCase() + id.slice(1);
+						const { id, active, logoUrl, label } = CHAINS_CONFIG[chain];
 						const { bgColor, textColor } = getChainColors(chain as CHAINS)
 
 						const box = (

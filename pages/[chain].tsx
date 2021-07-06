@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import Avalanche from "components/protocols/avalanche"
 import Celo from "components/protocols/celo"
+import TheGraph from "components/protocols/the_graph"
 import Near from "components/protocols/near"
 import Polkadot from "components/protocols/polkadot";
 import Polygon from "components/protocols/polygon";
@@ -43,7 +44,9 @@ export default function Chain() {
 											? <Celo chain={CONFIG[CHAINS.CELO] as ChainType} />
 											: chain === CHAINS.SECRET
 												? <Secret chain={CONFIG[CHAINS.SECRET] as ChainType} />
-												: null
+												: chain === CHAINS.THE_GRAPH
+													? <TheGraph chain={CONFIG[CHAINS.THE_GRAPH] as ChainType} />
+													: null
 			}
 		</>
 	)
