@@ -64,7 +64,17 @@ export const CHAINS_CONFIG: ChainsType = {
 			{
 				id: "connect",
 				title: "Connect to NEAR",
-				url: ""
+				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+            },
+			{
+				id: "account",
+				title: "Connect to NEAR",
+				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+            },
+			{
+				id: "balance",
+				title: "Connect to NEAR",
+				url: "https://learn.figment.io/network-documentation/near/near-pathway"
 			},
 		]
 	},
