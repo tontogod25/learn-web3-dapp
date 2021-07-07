@@ -16,6 +16,15 @@ export enum AVALANCHE_NETWORKS {
   FUJI = "FUJI"
 }
 
+// Polkadot
+export enum POLKADOT_NETWORKS {
+  WESTEND = "WESTEND"
+}
+export enum POLKADOT_PROTOCOLS {
+  RPC = "RPC",
+  WS = "WS",
+}
+
 // Polygon
 export enum POLYGON_NETWORKS {
   MAINNET = "MAINNET",
@@ -37,8 +46,8 @@ export enum SOLANA_PROTOCOLS {
   WS = "WS"
 }
 
-export type NETWORKS = POLYGON_NETWORKS | AVALANCHE_NETWORKS | SOLANA_NETWORKS
-export type PROTOCOLS = POLYGON_PROTOCOLS | SOLANA_PROTOCOLS
+export type NETWORKS = POLYGON_NETWORKS | AVALANCHE_NETWORKS | SOLANA_NETWORKS | POLKADOT_NETWORKS
+export type PROTOCOLS = POLYGON_PROTOCOLS | SOLANA_PROTOCOLS | POLKADOT_PROTOCOLS
 
 // ---------------------------------------------------
 

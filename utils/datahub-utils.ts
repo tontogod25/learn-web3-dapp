@@ -3,6 +3,8 @@ import {
   PROTOCOLS,
   CHAINS,
   AVALANCHE_NETWORKS,
+  POLKADOT_NETWORKS,
+  POLKADOT_PROTOCOLS,
   POLYGON_NETWORKS,
   POLYGON_PROTOCOLS,
   SOLANA_NETWORKS,
@@ -13,6 +15,8 @@ export const getDatahubNodeURL = (chain: CHAINS, network: NETWORKS, protocol?: P
   switch (chain) {
     case CHAINS.AVALANCHE:
       return getDataHubAvalancheNodeUrl(network as AVALANCHE_NETWORKS)
+    case CHAINS.POLKADOT:
+      return getDataHubPolkadotNodeUrl(network as POLKADOT_NETWORKS, protocol as POLKADOT_PROTOCOLS)
     case CHAINS.POLYGON:
       return getDataHubPolygonNodeUrl(network as POLYGON_NETWORKS, protocol as POLYGON_PROTOCOLS)
     case CHAINS.SOLANA:
@@ -28,6 +32,18 @@ const getDataHubAvalancheNodeUrl = (network: AVALANCHE_NETWORKS): string => {
     return `https://${process.env.DATAHUB_AVALANCHE_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_AVALANCHE_API_KEY}`
   } else if (network === AVALANCHE_NETWORKS.FUJI) {
     return `https://${process.env.DATAHUB_AVALANCHE_FUJI_RPC_URL}/apikey/${process.env.DATAHUB_AVALANCHE_API_KEY}`
+  }
+
+  return ""
+}
+
+const getDataHubPolkadotNodeUrl = (network: POLKADOT_NETWORKS, protocol: POLKADOT_PROTOCOLS): string => {
+  if (network === POLKADOT_NETWORKS.WESTEND) {
+    if (protocol === POLKADOT_PROTOCOLS.RPC) {
+      return `https://${process.env.DATAHUB_POLKADOT_WESTEND_RPC_URL}/apikey/${process.env.DATAHUB_POLKADOT_API_KEY}`
+    } else if (protocol === POLKADOT_PROTOCOLS.WS) {
+      return `wss://${process.env.DATAHUB_POLKADOT_WESTEND_WS_URL}/apikey/${process.env.DATAHUB_POLKADOT_API_KEY}`
+    }
   }
 
   return ""
