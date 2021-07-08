@@ -3,16 +3,19 @@ import { Keypair } from "@solana/web3.js";
 
 const { Text, Paragraph } = Typography;
 
-const Account = ({ keypair, setKeypair }) => {
+const Account = ({
+  keypair,
+  setKeypair
+}: {
+  keypair: Keypair
+  setKeypair(keypair: Keypair): void
+}) => {
   const generateKeypair = () => {
-    alert("Implement the generateKeypair() function!");
-    
-    // Generate a Keypair
-    // Save it to <App />'s state
+    const keypair = Keypair.generate();
+    setKeypair(keypair);
   }
 
-  // parse the address (as a string) from the keypair object
-  const publicKeyStr = "TBD";
+  const publicKeyStr = keypair && keypair.publicKey.toString();
 
   return (
     <Col>
