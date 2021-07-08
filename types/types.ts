@@ -18,7 +18,8 @@ export enum AVALANCHE_NETWORKS {
 
 // Polkadot
 export enum POLKADOT_NETWORKS {
-  WESTEND = "WESTEND"
+  WESTEND = "WESTEND",
+  MAINNET = "MAINNET"
 }
 export enum POLKADOT_PROTOCOLS {
   RPC = "RPC",

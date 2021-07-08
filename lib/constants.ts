@@ -79,6 +79,11 @@ export const CHAINS_CONFIG: ChainsType = {
 				title: "Connect to Polkadot",
 				url: ""
 			},
+			{
+				id: "query",
+				title: "Query Polkadot",
+				url: ""
+			},
 		]
 	},
 	[CHAINS.POLYGON]: {

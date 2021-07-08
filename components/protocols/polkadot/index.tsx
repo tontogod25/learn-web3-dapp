@@ -5,6 +5,7 @@ import Sidebar from "components/shared/Sidebar";
 import { ChainType } from "types/types";
 import Step from "components/shared/Step";
 import Connect from "./steps/1_Connect";
+import Query from "./steps/2_Query";
 import { useSteps } from "hooks/steps-hooks";
 
 const { Text, Paragraph } = Typography;
@@ -39,9 +40,10 @@ const Chain = ({ chain }: { chain: ChainType }) => {
         body={
           <>
             {step.id === "connect" && <Connect />}
+            {step.id === "query" && <Query />}
           </>
         }
-        nav={<div>nav</div>}
+        nav={null}
       />
     </Row>
   );

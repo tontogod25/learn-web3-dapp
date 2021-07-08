@@ -44,6 +44,12 @@ const getDataHubPolkadotNodeUrl = (network: POLKADOT_NETWORKS, protocol: POLKADO
     } else if (protocol === POLKADOT_PROTOCOLS.WS) {
       return `wss://${process.env.DATAHUB_POLKADOT_WESTEND_WS_URL}/apikey/${process.env.DATAHUB_POLKADOT_API_KEY}`
     }
+  } else if (network === POLKADOT_NETWORKS.MAINNET) {
+    if (protocol === POLKADOT_PROTOCOLS.RPC) {
+      return `https://${process.env.DATAHUB_POLKADOT_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_POLKADOT_API_KEY}`
+    } else if (protocol === POLKADOT_PROTOCOLS.WS) {
+      return `wss://${process.env.DATAHUB_POLKADOT_MAINNET_WS_URL}/apikey/${process.env.DATAHUB_POLKADOT_API_KEY}`
+    }
   }
 
   return ""
