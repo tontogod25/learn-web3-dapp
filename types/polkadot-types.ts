@@ -16,3 +16,20 @@ export type PolkadotQueryResponse = {
 export type PolkadotQueryErrorResponse = {
   message: string
 }
+
+export type PolkadotAccountResponse = {
+  account: PolkadotAccount
+  mnemonic: string
+}
+
+export type PolkadotAccount = {
+  address: string
+  addressRaw: any
+  publicKey: any
+  type: string
+}
+
+export type PolkadotKeypairType = {
+  account: PolkadotAccount
+  mnemonic: string
+}

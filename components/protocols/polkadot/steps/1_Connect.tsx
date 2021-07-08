@@ -3,12 +3,12 @@ import axios from "axios"
 import { Alert, Col, Space, Typography } from "antd"
 import { LoadingOutlined } from '@ant-design/icons';
 
-import { PolkadotConnectReponse } from "types/polkadot-types"
+import { PolkadotConnectResponse } from "types/polkadot-types"
 
 const { Text } = Typography
 
 const Connect = () => {
-  const [version, setVersion] = useState<PolkadotConnectReponse | null>(null)
+  const [version, setVersion] = useState<PolkadotConnectResponse | null>(null)
 	const [fetchingVersion, setFetchingVersion] = useState<boolean>(false)
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Connect = () => {
 		axios
 			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/polkadot/connect`)
 			.then(res => {
-				const info: PolkadotConnectReponse = res.data
+				const info: PolkadotConnectResponse = res.data
 				setVersion(info)
 				setFetchingVersion(false)
 			})
