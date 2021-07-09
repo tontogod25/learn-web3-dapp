@@ -68,12 +68,12 @@ export const CHAINS_CONFIG: ChainsType = {
             },
 			{
 				id: "account",
-				title: "Connect to NEAR",
+				title: "Create an account",
 				url: "https://learn.figment.io/network-documentation/near/near-pathway"
             },
 			{
 				id: "balance",
-				title: "Connect to NEAR",
+				title: "Query the balance",
 				url: "https://learn.figment.io/network-documentation/near/near-pathway"
 			},
 		]

@@ -14,7 +14,7 @@ import { useSteps } from "hooks/steps-hooks";
 const { Text, Paragraph } = Typography;
 
 const Chain = ({ chain }: { chain: ChainType }) => {
-    const [keypair, setKeypair] = useState<string>('');
+    const [keypair, setKeypair] = useState<string | null>(null);
     
     const { steps } = chain
 
@@ -45,7 +45,7 @@ const Chain = ({ chain }: { chain: ChainType }) => {
           <>
             {step.id === "connect" && <Connect />}
             {step.id === "account" && <Account keypair={keypair} setKeypair={setKeypair} />}
-                {step.id === "balance" && <Balance keypair={ keypair }/>}
+            {step.id === "balance" && <Balance keypair={ keypair }/>}
           </>
         }
         nav={<Nav keypair={keypair} />}

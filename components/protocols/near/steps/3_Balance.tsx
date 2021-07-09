@@ -1,5 +1,5 @@
 interface Input {
-    keypair: string,
+    keypair: string | null,
 }
 
 const Balance = ({ keypair } : Input) => <div>Balance</div>

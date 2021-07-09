@@ -21,9 +21,6 @@ export enum NEAR_NETWORKS {
   MAINNET = "MAINNET",
   TESTNET = "TESTNET"
 }
-export enum NEAR_PROTOCOLS {
-  RPC = "RPC",
-}
 
 // Polygon
 export enum POLYGON_NETWORKS {
@@ -47,7 +44,7 @@ export enum SOLANA_PROTOCOLS {
 }
 
 export type NETWORKS = POLYGON_NETWORKS | AVALANCHE_NETWORKS | SOLANA_NETWORKS | NEAR_NETWORKS 
-export type PROTOCOLS = POLYGON_PROTOCOLS | SOLANA_PROTOCOLS | NEAR_PROTOCOLS
+export type PROTOCOLS = POLYGON_PROTOCOLS | SOLANA_PROTOCOLS
 
 // ---------------------------------------------------
 
