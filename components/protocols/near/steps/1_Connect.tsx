@@ -25,7 +25,7 @@ const Connect = () => {
 				setFetchingVersion(false)
 			})
 			.catch(err => {
-				console.log(err)
+				console.error(err)
 				setFetchingVersion(false)
 			})
 	}

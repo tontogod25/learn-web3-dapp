@@ -1,10 +1,11 @@
 import { keyStores, ConnectConfig  } from "near-api-js";
-
 import { CHAINS, NEAR_NETWORKS } from 'types/types';
 import { getDatahubNodeURL } from 'utils/datahub-utils';
 
 const networkfromString = (network: string) : NEAR_NETWORKS => 
-    network === "mainnet" ? NEAR_NETWORKS.MAINNET : NEAR_NETWORKS.TESTNET
+    network === "mainnet"
+        ? NEAR_NETWORKS.MAINNET
+        : NEAR_NETWORKS.TESTNET
 
 const networkId = networkfromString(`${process.env.NEAR_NETWORK}`)
 
@@ -19,7 +20,6 @@ export const getNearConfig = () => {
         keyStore,
         nodeUrl,
         networkId,
-        walletUrl: getWalletUrl(networkId),
         helperUrl: getHelperUrl(networkId),
     };
 

@@ -67,13 +67,18 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: "https://learn.figment.io/network-documentation/near/near-pathway"
             },
 			{
+				id: "keypair",
+				title: "Generate a keypair",
+				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+            },
+			{
 				id: "account",
 				title: "Create an account",
 				url: "https://learn.figment.io/network-documentation/near/near-pathway"
             },
 			{
-				id: "balance",
-				title: "Query the balance",
+				id: "transfer",
+				title: "Transfer some near",
 				url: "https://learn.figment.io/network-documentation/near/near-pathway"
 			},
 		]

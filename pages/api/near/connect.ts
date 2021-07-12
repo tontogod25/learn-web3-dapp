@@ -5,7 +5,6 @@ import { getNearConfig } from "utils/near-utils";
 
 import { connect as nearConnect  } from "near-api-js";
 
-
 export default async function connect(
   _req: NextApiRequest,
   res: NextApiResponse<NearConnectReponse>

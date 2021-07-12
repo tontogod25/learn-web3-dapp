@@ -86,7 +86,7 @@ const StepButtons = ({
 				</PrevButton>
 			}
 			{!isLastStep &&
-				<NextButton size="large" type="primary" onClick={() => next()} textColor={getButtonTextColor(chainId)} bgColor={getButtonBgColor(chainId)}>
+				<NextButton size="large" type="primary" onClick={() => next()} text_color={getButtonTextColor(chainId)} bg_color={getButtonBgColor(chainId)}>
 					<Row align="middle">
 						Next Step
 						<ArrowRightOutlined size={20} style={{ marginLeft: "6px" }} />
@@ -162,15 +162,15 @@ const StepContent = styled.div`
 	margin-bottom: 100px;
 `;
 
-const NextButton = styled(Button)<{ bgColor: string; textColor: string }>`
+const NextButton = styled(Button)<{ bg_color: string; text_color: string }>`
 	border: none;
 
-	color: ${({ textColor })=> textColor};
-	background: ${({ bgColor })=> bgColor};
+	color: ${({ text_color })=> text_color};
+	background: ${({ bg_color })=> bg_color};
 
 	&:hover {
-		background: ${({ bgColor })=> bgColor};
-		color: ${({ textColor })=> textColor};
+		background: ${({ bg_color })=> bg_color};
+		color: ${({ text_color })=> text_color};
 		border: none;
 		box-shadow: black 2px 2px 1px;
 	}
