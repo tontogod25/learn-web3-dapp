@@ -12,6 +12,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@maticnetwork/maticjs": "^2.0.43",
+    "@polkadot/api": "^4.17.1",
+    "@polkadot/rpc-provider": "^4.17.1",
     "@solana/web3.js": "^1.15.0",
     "@types/node": "^15.12.4",
     "@types/react": "^17.0.11",

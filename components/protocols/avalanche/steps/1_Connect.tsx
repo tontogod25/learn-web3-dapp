@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { Alert, Col, Space, Spin, Typography } from "antd";
+import { Alert, Col, Space, Typography } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
 
 import { AvalancheConnectReponse } from 'types/avalanche-types';
