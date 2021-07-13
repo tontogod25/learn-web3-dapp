@@ -64,5 +64,4 @@ export default function Chain({ chainConfig }: ChainT) {
             <DynChain chain={ chainConfig }/>
         </>
     )
-
 }
