@@ -18,7 +18,7 @@ const Home = () => {
 						const { bgColor, textColor } = getChainColors(chain as CHAINS)
 
 						const box = (
-							<ProtocolBox key={id} active={active} bgColor={bgColor} textColor={textColor}>
+							<ProtocolBox key={id} active={active} bg_color={bgColor} text_color={textColor}>
 								<Logo src={logoUrl} />
 								<Label>{label}</Label>
 							</ProtocolBox>
@@ -47,7 +47,7 @@ const ChainRow = styled.div`
 	row-gap: 20px;
 `;
 
-const ProtocolBox = styled.div<{ active: boolean; bgColor: string; textColor: string }>`
+const ProtocolBox = styled.div<{ active: boolean; bg_color: string; text_color: string }>`
 	height: 170px;
 	border: solid 1px #eee;
 	background-color: #f8f8f8;
@@ -59,11 +59,11 @@ const ProtocolBox = styled.div<{ active: boolean; bgColor: string; textColor: st
 	align-items: center;
 	opacity: ${({ active }) => active ? 1 : 0.4};
 
-	${({ active, bgColor, textColor }) => active && `
+	${({ active, bg_color, text_color }) => active && `
 		&:hover {
 			border: none;
-			color: ${textColor};
-			background: ${bgColor};
+			color: ${text_color};
+			background: ${bg_color};
 			cursor: pointer;
 		}
 	`}
