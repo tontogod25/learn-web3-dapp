@@ -1,87 +1,79 @@
-import { useState } from "react";
-// import { useContext } from "react";
-
-import { Row, Typography } from 'antd';
-
-import Sidebar from "components/shared/Sidebar";
+// import React, { useReducer, useContext, createContext, Dispatch } from "react";
+import { useEffect } from "react";
 import { ChainType } from "types/types";
-import Step from "components/shared/Step";
+// import { getSafeEnv } from './context/near-context';
+import NearApp from "./NearApp";
+import { AppStateProvider } from "./context/near-context";
 
-import Connect from "./steps/1_Connect";
-import KeyPairGenerator from "./steps/2_KeyPairGenerator";
-import Account from "./steps/3_Account";
-import Transfer from "./steps/4_Transfer";
-// import { NearContext } from './context/near-context';
+/*
+// Begin reducer stuff
+type Action =
+    | { type: 'SetNetworkId', networkId: string }
+    | { type: 'SetAccountId', accountId: string | undefined }
+    | { type: 'SetSecretKey', secretKey: string | undefined }
+    | { type: 'SetContractId', contractId: string | undefined}
 
-import { useSteps } from "hooks/steps-hooks";
-import { KeyPair, keyStores } from 'near-api-js';
+const initialState = {
+    networkId: getSafeEnv()
+}
 
-const { Text, Paragraph } = Typography;
+function appStateReducer(state: State, action: Action): State  {
+    switch (action.type) {
+        case 'SetAccountId':
+            return { ...state, accountId: action.accountId }
+        case 'SetSecretKey':
+            return { ...state, secretKey: action.secretKey }
+        case 'SetNetworkId':
+            return { ...state, networkId: action.networkId }
+        case 'SetContractId':
+            return { ...state, contractId: action.contractId }
+        default:
+            return state
+    }
+}
+// End reducer stuff 
 
-type KeyPairT = KeyPair | undefined;
+// Begin Context Stuff
+type State = {
+    networkId: string
+    accountId?: string
+    secretKey?: string
+    contractId?: string
+}
 
-const App = ({ chain }: { chain: ChainType }) => {
-    // const nearState = useContext(NearContext);
-    const keyStore = new keyStores.InMemoryKeyStore();
-    const [keypair, setKeypair] = useState<KeyPairT>();
+const AppContext = createContext<{
+    state: State;
+    dispatch: Dispatch<Action>;
+}>({
+    state: initialState,
+    dispatch: () => null
+});
+
+export function useAppState() {
+    return useContext(AppContext)
+}
+
+const AppStateProvider: React.FC = ({ children }) => {
+    const [state, dispatch] = useReducer(appStateReducer, initialState);
     
-    const { steps } = chain
-
-    const {
-        next,
-        prev,
-        stepIndex,
-        step,
-        isFirstStep,
-        isLastStep
-    } = useSteps(steps);
-
     return (
-        <Row>
-        <Sidebar
-            chain={chain}
-            steps={steps}
-            stepIndex={stepIndex}
-        />
-        <Step
-            chain={chain}
-            step={step}
-            isFirstStep={isFirstStep}
-            isLastStep={isLastStep}
-            prev={prev}
-            next={next}
-            body={
-            <>
-                {step.id === "connect" && <Connect />}
-                {step.id === "keypair" && <KeyPairGenerator keypair={ keypair } setKeypair={ setKeypair } />}
-                {step.id === "account" && <Account keypair={ keypair } keyStore={ keyStore } />}
-                {step.id === "transfer" && <Transfer keypair={ keypair } />}
-            </>
-            }
-            nav={<Nav keypair={keypair} />}
-        />
-        </Row>
-  );
+        <AppContext.Provider value={{ state, dispatch }}>
+            { children}
+        </AppContext.Provider>
+    );
+}
+*/
+// End Context Stuff
+
+const Near = ({ chain }: { chain: ChainType }) => {
+    useEffect(() => {
+        console.log('coucou A')
+    }, [])
+    return (
+        <AppStateProvider>
+            <NearApp chain={chain} />
+        </AppStateProvider>
+    )
 }
 
-const Nav = ({ keypair }: {keypair: any}) => {
-  if (!keypair) return null;
-
-  const publicKey = keypair?.getPublicKey().toString().slice(8);
-  const publicKeyToDisplay = `${publicKey.slice(0,5)}...${publicKey.slice(-5)}`;
-
-  return (
-    <div style={{ position: "fixed", top: 20, right: 20 }}>
-      <Paragraph copyable={{ text: publicKey }}>
-        <Text code>{publicKeyToDisplay}</Text>
-      </Paragraph>
-    </div>
-  )
-}
-
-const Chain = ({ chain }: { chain: ChainType }) =>
-    // <NearContext.Provider value={  }>
-        <App chain={chain} />
-    // </NearContext.Provider>
-
-export default Chain
+export default Near

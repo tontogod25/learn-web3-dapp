@@ -98,7 +98,7 @@ const Account = ({ keypair, keyStore }: AccountPropsT) => {
             await keyStore?.setKey('testnet', accountId, keypair as KeyPair);
         }
         accountId.length >= 8 && updateKeyStore();
-        console.log(keyStore)
+        // console.log(keyStore)
     }, [accountView])
 
     const publicKeyStr = keypair?.getPublicKey().toString().slice(8);

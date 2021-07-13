@@ -10,6 +10,7 @@ const networkfromString = (network: string) : NEAR_NETWORKS =>
 const networkId = networkfromString(`${process.env.NEAR_NETWORK}`)
 
 const getWalletUrl = (network: string) => `https://wallet.${network}.near.org`
+
 const getHelperUrl = (network: string) => `https://helper.${network}.near.org`
 
 export const getNearConfig = () => {
@@ -20,7 +21,7 @@ export const getNearConfig = () => {
         keyStore,
         nodeUrl,
         networkId,
-        helperUrl: getHelperUrl(networkId),
+        helperUrl: getHelperUrl(`${process.env.NEAR_NETWORK}`),
     };
 
     return config;
@@ -29,8 +30,8 @@ export const getNearConfig = () => {
 export const getExplorerUrl = (network: string) =>
     `https://explorer.${network}.near.org`
 
-export const getTransactionUrl = (network: string, hash: string) =>
-    `https://explorer.${network}.near.org/transactions/${hash}`
+export const getTransactionUrl = (network: string) => 
+    (hash: string) => `https://explorer.${network}.near.org/transactions/${hash}`
 
-export const getAccountUrl = (network: string, accountId: string) =>
-    `https://explorer.${network}.near.org/transactions/${accountId}`
+export const getAccountUrl = (network: string) =>
+    (accountId: string) => `https://explorer.${network}.near.org/transactions/${accountId}`

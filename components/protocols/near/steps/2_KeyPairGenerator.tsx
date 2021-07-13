@@ -1,24 +1,27 @@
-import { Dispatch, SetStateAction } from 'react'
 import { KeyPair } from "near-api-js";
 import { Alert, Button, Col, Space, Typography } from 'antd';
-
-type KeyPairT = KeyPair | undefined;
-
-type KeyPairGeneratorPropsT = {
-    keypair: KeyPairT,
-    setKeypair: Dispatch<SetStateAction<KeyPairT>>
-}
+import { useAppState } from '../context/near-context'
 
 const { Text } = Typography;
 
-const KeyPairGenerator = ({ keypair, setKeypair }: KeyPairGeneratorPropsT) => {
+const KeyPairGenerator = () => {
+    const {state, dispatch} = useAppState();
 
     const generateKeypair = () => {
         // alert("Implement the generateKeypair() function!");
         const keypair = KeyPair.fromRandom('ed25519');
-        setKeypair(keypair);
+        console.log(keypair?.getPublicKey().toString())
+
+        dispatch({
+            type: 'SetSecretKey',
+            secretKey: keypair.toString()
+        })
     }
-    const publicKeyStr = keypair?.getPublicKey().toString().slice(8);
+    const publicKeyStr = state?.secretKey && KeyPair
+        .fromString(state.secretKey)
+        .getPublicKey()
+        .toString()
+        .slice(8)
 
     const KeyPairStatusBox = () =>
         <Col>
@@ -52,7 +55,7 @@ const KeyPairGenerator = ({ keypair, setKeypair }: KeyPairGeneratorPropsT) => {
                 <Button type="primary" onClick={generateKeypair} style={{ marginBottom: "20px" }}>
                     Generate a Keypair
                 </Button>
-                { keypair && <KeyPairStatusBox /> }
+                { state?.secretKey && <KeyPairStatusBox /> }
             </Space>
         </Col>
     </>
