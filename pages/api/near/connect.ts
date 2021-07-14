@@ -1,16 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-
 import { NearConnectReponse } from 'types/near-types';
-import { getNearConfig } from "utils/near-utils";
-
+import { configFromNetworkId } from '@near/utils'
 import { connect as nearConnect  } from "near-api-js";
 
-export default async function connect(
-  _req: NextApiRequest,
+
+export default async function(
+  req: NextApiRequest,
   res: NextApiResponse<NearConnectReponse>
 ) {
+    const { networkId } = req.body;
+    console.log(networkId);
     try {
-        const config = getNearConfig();
+        const config = configFromNetworkId(networkId);
+        console.log(config);
         const client = await nearConnect(config);
         const providerStatus = await client.connection.provider.status();
         const version = providerStatus.version.version;

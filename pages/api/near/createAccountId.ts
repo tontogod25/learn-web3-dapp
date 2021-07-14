@@ -1,26 +1,23 @@
-
 import type { NextApiRequest, NextApiResponse } from 'next'
-
-import { getNearConfig } from "utils/near-utils";
-
-import { connect as nearConnect } from "near-api-js";
+import { configFromNetworkId } from "@near/utils";
+import { connect } from "near-api-js";
 import type { AccountView } from 'near-api-js/lib/providers/provider';
 import type { PublicKey } from 'near-api-js/src/utils';
 
-
 type AccountReq = {
-    accountId: string,
-    publicKey: PublicKey,
+    accountId: string
+    publicKey: PublicKey
+    networkId: string
 }
 
-export default async function connect(
+export default async function(
   req: NextApiRequest,
   res: NextApiResponse<AccountView | string>
 ) {
-    const { accountId, publicKey }: AccountReq = req.body
+    const { accountId, publicKey, networkId }: AccountReq = req.body
     try {
-        const config = getNearConfig();
-        const near = await nearConnect(config);
+        const config = configFromNetworkId(networkId);
+        const near = await connect(config);
         const account = await near.createAccount(accountId, publicKey);
         const accountInfo = await account.state();
         return res.status(200).json(accountInfo)

@@ -1,6 +1,6 @@
 import { KeyPair } from "near-api-js";
 import { Alert, Button, Col, Space, Typography } from 'antd';
-import { useAppState } from '../context/near-context'
+import { useAppState } from '@near/hooks'
 
 const { Text } = Typography;
 

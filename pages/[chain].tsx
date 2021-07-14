@@ -1,14 +1,16 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import { CHAINS_CONFIG } from "lib/constants";
-import { CHAINS, ChainType } from 'types/types';
+import { CHAINS_CONFIG } from "lib/constants"
+import { CHAINS, ChainType } from 'types/types'
 import { ComponentType } from 'react'
+import styled from "styled-components";
+import { SyncOutlined } from '@ant-design/icons';
 
 type StaticPropsT = {
     params : { chain : CHAINS }
 }
 export async function getStaticProps({ params }: StaticPropsT) {
-    const chainId = params.chain;
+    const chainId = params.chain
     const chainConfig = CHAINS_CONFIG[chainId]
     return {
         props: {
@@ -32,27 +34,36 @@ type ChainT = {
 export default function Chain({ chainConfig }: ChainT) {
     const chainLabel = chainConfig.label;
     const chainId = chainConfig.id;
-    
-    const DynChain:  DynChainT = (() => {
+
+    const Spinner = () => {
+        return (
+            <SpinContainer>
+                <SyncOutlined style={{  fontSize: '64px' }} spin />
+            </SpinContainer>
+        )
+    }
+
+    const dynOptions = { loading: () => <Spinner />, ssr: false };
+    const DynChain = (() => {
         if (chainId === CHAINS.AVALANCHE)
-            return dynamic(() => import('../components/protocols/avalanche'));
+            return dynamic(() => import('../components/protocols/avalanche'), dynOptions);
         if (chainId === CHAINS.CELO)
-            return dynamic(() => import('../components/protocols/celo'));
+            return dynamic(() => import('../components/protocols/celo'), dynOptions);
         if (chainId === CHAINS.NEAR)
-            return dynamic(() => import('../components/protocols/near'));
+            return dynamic(() => import('../components/protocols/near'), dynOptions);
         if (chainId === CHAINS.POLKADOT)
-            return dynamic(() => import('../components/protocols/polkadot'));
+            return dynamic(() => import('../components/protocols/polkadot'), dynOptions);
         if (chainId === CHAINS.POLYGON)
-            return dynamic(() => import('../components/protocols/polygon'));
+            return dynamic(() => import('../components/protocols/polygon'), dynOptions);
         if (chainId === CHAINS.SECRET)
-            return dynamic(() => import('../components/protocols/secret'));
+            return dynamic(() => import('../components/protocols/secret'), dynOptions);
         if (chainId === CHAINS.SOLANA)
-            return dynamic(() => import('../components/protocols/solana'));
+            return dynamic(() => import('../components/protocols/solana'), dynOptions);
         if (chainId === CHAINS.TEZOS)
-            return dynamic(() => import('../components/protocols/tezos'));
-        
-        return dynamic(() => import('../components/protocols/the_graph'));
-    })();
+            return dynamic(() => import('../components/protocols/tezos'), dynOptions);
+        if (chainId === CHAINS.THE_GRAPH)
+            return dynamic(() => import('../components/protocols/the_graph'), dynOptions);
+    })() as DynChainT;
 
     return (
         <>
@@ -64,5 +75,11 @@ export default function Chain({ chainConfig }: ChainT) {
             <DynChain chain={ chainConfig }/>
         </>
     )
-
 }
+
+const SpinContainer = styled.div`
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+`;
