@@ -15,7 +15,6 @@ export default async function(
             await accountInfo.state();
             return res.status(200).json(false)
         } catch (error) {
-            console.error(error)
             return res.status(200).json(true)
         }
     } catch (error) {
