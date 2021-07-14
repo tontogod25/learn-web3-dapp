@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { configFromNetworkId } from '@near/utils'
 import { connect, KeyPair } from "near-api-js";
 import { FinalExecutionOutcome } from 'near-api-js/lib/providers';
-import { format } from 'near-api-js/lib/utils';
 import BN from 'bn.js';
 
 export default async function(
@@ -16,7 +15,6 @@ export default async function(
         networkId,
         secretKey,
     } = req.body;
-        console.log(txAmount);
 
     try {
         const config = configFromNetworkId(networkId);
@@ -26,7 +24,6 @@ export default async function(
         
         const client = await connect(config);
         const account = await client.account(txSender);
-        // const provider = client.connection.provider;
         const amount = new BN(parseFloat(txAmount));
         const result = await account.sendMoney(txReceiver, amount);
         console.log(result)
