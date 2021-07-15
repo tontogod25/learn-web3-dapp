@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { Alert, Col, Space, Typography } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
-import { NearConnectReponse } from 'types/near-types';
+import { NearConnectReponse } from '@near/types';
 import { useAppState } from '@near/hooks'
 
 const { Text } = Typography;
@@ -11,6 +11,7 @@ const Connect = () => {
 	const [version, setVersion] = useState<string>('');
 	const [fetchingVersion, setFetchingVersion] = useState<boolean>(false);
     const { state } = useAppState();
+    const { networkId } = state
 
 	useEffect(() => {
 		getConnection();
@@ -18,7 +19,6 @@ const Connect = () => {
 
     const getConnection = () => {
         setFetchingVersion(true)
-        const { networkId } = state
 		axios
 			.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/near/connect`, { networkId })
 			.then(res => {
@@ -40,14 +40,15 @@ const Connect = () => {
 					? <Alert
 							message={
 								<Space>
-									Connected to Near!
+                                Connected to Near!
+									<Text code>{networkId}</Text>
 									<Text code>{version}</Text>
 								</Space>
 							}
 							type="success"
 							showIcon
 						/>
-					: <Alert message="Not connected to Near" type="error" showIcon />}
+                    : <Alert message={`Not connected to Near ${networkId}`} type="error" showIcon />}
 		</Col>
 	);
 }

@@ -6,11 +6,11 @@ export default async function(
   req: NextApiRequest,
   res: NextApiResponse<boolean | string>
 ) {
-    const { accountId, networkId } = req.body
+    const { freeAccountId, networkId } = req.body
     try {
         const config = configFromNetworkId(networkId);
         const near = await connect(config);
-        const accountInfo = await near.account(accountId);
+        const accountInfo = await near.account(freeAccountId);
         try {
             await accountInfo.state();
             return res.status(200).json(false)

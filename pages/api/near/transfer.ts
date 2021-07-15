@@ -4,6 +4,8 @@ import { connect, KeyPair } from "near-api-js";
 import { FinalExecutionOutcome } from 'near-api-js/lib/providers';
 import BN from 'bn.js';
 
+// const DECIMAL_OFFSET = 10 ** 24;
+
 export default async function(
   req: NextApiRequest,
   res: NextApiResponse<FinalExecutionOutcome | string>
@@ -19,9 +21,7 @@ export default async function(
     try {
         const config = configFromNetworkId(networkId);
         const keypair = KeyPair.fromString(secretKey);
-        console.log(keypair);
-        config.keyStore?.setKey(networkId, txSender, keypair);
-        
+        config.keyStore?.setKey(networkId, txSender, keypair);        
         const client = await connect(config);
         const account = await client.account(txSender);
         const amount = new BN(parseFloat(txAmount));

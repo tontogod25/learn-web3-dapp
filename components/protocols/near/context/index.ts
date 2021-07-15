@@ -1,4 +1,4 @@
-import { useContext, createContext, Dispatch } from 'react';
+import { createContext, Dispatch } from 'react';
 import { getSafeEnv } from '@near/utils'
 
 type Action =

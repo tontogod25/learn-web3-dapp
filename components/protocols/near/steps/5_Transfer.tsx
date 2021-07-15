@@ -16,6 +16,8 @@ const tailLayout = {
 
 const { Text } = Typography;
 
+// const DECIMAL_OFFSET = 10**24;
+
 const Transfer = () => {
     const [toAddress, _setToAddress] = useState('pizza.testnet');
     const [error, setError] = useState<string | null>(null);
@@ -25,7 +27,6 @@ const Transfer = () => {
 
     const transfer = (values: any) => {
         const txAmount = parseFloat(values.amount);
-
         if (isNaN(txAmount)) {
             setError("Amount needs to be a valid number")
             throw Error('Invalid Amount')
@@ -40,7 +41,6 @@ const Transfer = () => {
             secretKey,
         }
         console.log(options)
-        
         setFetching(true)
 		axios
 			.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/near/transfer`, options)

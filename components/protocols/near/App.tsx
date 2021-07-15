@@ -1,19 +1,16 @@
-import { Row, Typography, Popover, Button } from 'antd';
+import { Row } from 'antd';
 
 import Sidebar from "components/shared/Sidebar";
 import { ChainType } from "types/types";
 import Step from "components/shared/Step";
 
 import Connect from "@near/steps/1_Connect";
-import KeyPairGenerator from "@near/steps/2_KeyPairGenerator";
+import KeyPairGen from "@near/steps/2_KeyPairGen";
 import Account from "@near/steps/3_Account";
-import Transfer from "@near/steps/4_Transfer";
-import { getPrettyPublicKey } from '@near/utils';
+import Balance from "@near/steps/4_Balance";
+import Transfer from "@near/steps/5_Transfer";
 import { useSteps } from "hooks/steps-hooks";
-
-import { useAppState } from '@near/hooks'
-
-const { Text, Paragraph } = Typography;
+import Nav from '@near/Nav';
 
 const NearApp = ({ chain }: { chain: ChainType }) => {
     const { steps } = chain
@@ -44,8 +41,9 @@ const NearApp = ({ chain }: { chain: ChainType }) => {
             body={
             <>
                 {step.id === "connect" && <Connect />}
-                {step.id === "keypair" && <KeyPairGenerator />}
+                {step.id === "keypair" && <KeyPairGen />}
                 {step.id === "account" && <Account />}
+                {step.id === "balance" && <Balance />}
                 {step.id === "transfer" && <Transfer />}
             </>
             }
@@ -53,49 +51,6 @@ const NearApp = ({ chain }: { chain: ChainType }) => {
         />
         </Row>
   );
-}
-
-const Nav = () => {
-    const { state } = useAppState();
-    const { networkId, secretKey, accountId, contractId} = state;
-
-    const displaySecretKey = (secretKey: string) => `${getPrettyPublicKey(secretKey).slice(0,5)}...${getPrettyPublicKey(secretKey).slice(-5)}`
-    const displayNetworkId = (networkId: string) => networkId
-    const displayAccountId = (accountId: string) => accountId
-    const displayContractId = (contractId: string) => contractId
-
-    type EntryT = {
-        msg: string
-        display: (value: string) => string
-        value: string
-    }
-    const Entry = ({ msg, display, value }: EntryT) => {
-        return (
-            <Paragraph copyable={{ text: value }}>
-                <Text strong>{msg}</Text>
-                <Text code>{display(value)}</Text>
-            </Paragraph>
-        )
-    }
-
-    const AppState = () => {
-        return (
-        <>
-            <Entry msg={"Network: "} value={networkId} display={displayNetworkId} />
-            {secretKey && <Entry msg={"Public key: "} value={secretKey} display={displaySecretKey} />}
-            {accountId && <Entry msg={"Account Id: "} value={accountId} display={displayAccountId} />}
-            {contractId && <Entry msg={"Contratc Id"} value={ contractId} display={displayContractId} />}
-        </>
-        )
-    }
-
-    return (
-        <div style={{ position: "fixed", top: 20, right: 20 }}>
-            <Popover content={AppState} placement="rightBottom">
-                <Button type="primary">Storage</Button>
-            </Popover>
-        </div>
-    )
 }
 
 export default NearApp

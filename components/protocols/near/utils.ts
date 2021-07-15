@@ -22,7 +22,7 @@ export const configFromNetworkId = (networkId: string) : ConnectConfig => {
     const walletUrl: string = `https://wallet.${networkId}.near.org`;
     const helperUrl: string = `https://helper.${networkId}.near.org`;
     // const nodeUrl: string = getDatahubNodeURL(CHAINS.NEAR, networkfromString(networkId));
-    const nodeUrl: string = 'https://rpc.testnet.near.org'; //getDatahubNodeURL(CHAINS.NEAR, networkfromString(networkId));
+    const nodeUrl: string = 'https://rpc.testnet.near.org';
     const keyStore: InMemoryKeyStore = new keyStores.InMemoryKeyStore();
 
     const config = {
@@ -43,7 +43,7 @@ export const getTransactionUrl = (network: string) =>
     (hash: string) => `https://explorer.${network}.near.org/transactions/${hash}`
 
 export const getAccountUrl = (network: string) =>
-    (accountId: string) => `https://explorer.${network}.near.org/transactions/${accountId}`
+    (accountId: string) => `https://explorer.${network}.near.org/accounts/${accountId}`
 
 export const getPrettyPublicKey = (secretKey: string) =>
     KeyPair.fromString(secretKey)

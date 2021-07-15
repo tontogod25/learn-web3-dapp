@@ -1,5 +1,6 @@
-import { useState, useContext } from "react";
-import { State, NearContext } from "@near/context"
+import { useState, useContext } from "react"
+import type { State } from "@near/types"
+import { NearContext } from "@near/context"
 
 // Hook
 const useLocalStorage = (key: string, initialValue: State) => {
