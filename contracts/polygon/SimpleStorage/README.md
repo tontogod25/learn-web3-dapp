@@ -62,8 +62,19 @@ SimpleStorage example contract from Solidity docs https://docs.soliditylang.org/
       ```js
       const Web3 = require('web3')
       const rpc = `https://matic-mumbai.chainstacklabs.com`
-      const client = new Web3(rpc)
+      const HDWalletProvider = require('@truffle/hdwallet-provider');
+      const fs = require('fs');
+      const mnemonic = fs.readFileSync(".secret").toString().trim();
+      const localKeyProvider = new HDWalletProvider({
+        mnemonic: {
+          phrase: mnemonic
+        },
+        providerOrUrl:  rpc,
+        chainId: 80001
+      })
 
+      const client = new Web3(localKeyProvider)
+      const accountAddress  = '0x0DB939D9E17379f5a76E5b816d05a3d4eA969eBB'
       const contractAddress = '0xf7edDa225CfCE3245aF14a8E41B72CE4c623e3be'
       // find this in ./build/contracts/SimpleStorage.json
       const abi = [
@@ -108,5 +119,5 @@ SimpleStorage example contract from Solidity docs https://docs.soliditylang.org/
       const contract = new client.eth.Contract(abi, contractAddress)
       contract.methods.get().call().then(val => console.log(val))
 
-      contract.methods.set(20).send({ from: '0x0DB939D9E17379f5a76E5b816d05a3d4eA969eBB' })
+      contract.methods.set(20).send({ from: accountAddress })
       ```
