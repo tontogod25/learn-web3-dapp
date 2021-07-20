@@ -34,13 +34,5 @@ module.exports = {
       skipDryRun: true,
       chainId: 80001
     }
-   // matic: {
-   //    provider: () => new HDWalletProvider(mnemonic, `https://rpc-mumbai.maticvigil.com/`),
-   //    network_id: 80001,
-   //    confirmations: 2,
-   //    timeoutBlocks: 200,
-   //    skipDryRun: true
-   //  }
   }
-  //
 };

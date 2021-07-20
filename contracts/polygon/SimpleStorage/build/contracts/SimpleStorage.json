@@ -44,7 +44,7 @@
   "sourceMap": "66:249:1:-;;;117:49;8:9:-1;5:2;;;30:1;27;20:12;5:2;117:49:1;159:1;146:10;:14;;;;66:249;;;;;;",
   "deployedSourceMap": "66:249:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:249:1;;;;;;;;;;;;;;;;;;;;;;;;172:59;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;172:59:1;;;;;;;;;;;;;;;;;:::i;:::-;;237:76;;;:::i;:::-;;;;;;;;;;;;;;;;;;;172:59;223:1;210:10;:14;;;;172:59;:::o;237:76::-;273:4;296:10;;289:17;;237:76;:::o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.25 <0.7.0;\n\ncontract SimpleStorage {\n    uint storedData;\n\n    constructor() public {\n  \t\t  storedData = 0;\n  \t}\n\n    function set(uint x) public {\n        storedData = x;\n    }\n\n    function get() public view returns (uint) {\n        return storedData;\n    }\n}\n",
-  "sourcePath": "/Users/dvanderbeek/Web/figment/polygon/SimpleStorage/contracts/SimpleStorage.sol",
+  "sourcePath": "/Users/dvanderbeek/Web/figment/learn-web3-dapp/contracts/polygon/SimpleStorage/contracts/SimpleStorage.sol",
   "ast": {
     "absolutePath": "project:/contracts/SimpleStorage.sol",
     "exportedSymbols": {
@@ -806,7 +806,7 @@
     }
   },
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-07-15T00:05:18.472Z",
+  "updatedAt": "2021-07-20T00:08:13.554Z",
   "devdoc": {
     "methods": {}
   },
