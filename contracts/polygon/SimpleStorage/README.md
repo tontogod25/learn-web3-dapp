@@ -52,7 +52,7 @@ SimpleStorage example contract from Solidity docs https://docs.soliditylang.org/
       Enter your account address from MetaMask
       Wait until time limit is up, requests tokens 3-4 times so you have enough to deploy your contract
 
-8. Add a `.secret` file in this directory with your account's seed phrase or mnemonic (you should be required to write this down or store it securely when creating your account in MetaMask)
+8. Add a `.secret` file in this directory with your account's seed phrase or mnemonic (you should be required to write this down or store it securely when creating your account in MetaMask). In `truffle-config.js`, uncomment the three constant declarations at the top, along with the matic section of the networks section of the configuration object.
 
 9. Deploy contract
       `truffle migrate --network matic`
