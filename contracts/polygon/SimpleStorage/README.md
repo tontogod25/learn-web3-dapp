@@ -66,50 +66,8 @@ SimpleStorage example contract from Solidity docs https://docs.soliditylang.org/
       const rpc = `https://matic-mumbai.chainstacklabs.com`
       const provider = new ethers.providers.JsonRpcProvider(rpc)
 
-      // find this in ./build/contracts/SimpleStorage.json and replace placeholder
-      const contractAddress = '0xf7edDa225CfCE3245aF14a8E41B72CE4c623e3be'
-
-      // find this in ./build/contracts/SimpleStorage.json
-      const abi = [
-        {
-          "inputs": [],
-          "payable": false,
-          "stateMutability": "nonpayable",
-          "type": "constructor"
-        },
-        {
-          "constant": false,
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "x",
-              "type": "uint256"
-            }
-          ],
-          "name": "set",
-          "outputs": [],
-          "payable": false,
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "constant": true,
-          "inputs": [],
-          "name": "get",
-          "outputs": [
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
-            }
-          ],
-          "payable": false,
-          "stateMutability": "view",
-          "type": "function"
-        }
-      ]
-
-      const contract = new ethers.Contract(contractAddress, abi, signer.connect(provider))
+      const json = JSON.parse(fs.readFileSync('build/contracts/SimpleStorage.json').toString())
+      const contract = new ethers.Contract(json.networks['80001'].address, json.abi, signer.connect(provider))
 
       contract.get().then(val => console.log(val.toNumber()))
       // should log 0
