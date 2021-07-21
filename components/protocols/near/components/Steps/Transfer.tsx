@@ -16,8 +16,6 @@ const tailLayout = {
 
 const { Text } = Typography;
 
-// const DECIMAL_OFFSET = 10**24;
-
 const Transfer = () => {
     const [toAddress, _setToAddress] = useState('pizza.testnet');
     const [error, setError] = useState<string | null>(null);
@@ -26,11 +24,12 @@ const Transfer = () => {
     const { networkId, secretKey, accountId } = useAppState().state;
 
     const transfer = (values: any) => {
-        const txAmount = parseFloat(values.amount);
-        if (isNaN(txAmount)) {
+        const isValidAmount = parseFloat(values.amount);
+        if (isNaN(isValidAmount)) {
             setError("Amount needs to be a valid number")
             throw Error('Invalid Amount')
         }
+        const txAmount = values.amount;
         const txSender = values.from;
         const txReceiver = values.to;
         const options = {
