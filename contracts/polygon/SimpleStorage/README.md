@@ -62,10 +62,8 @@ SimpleStorage example contract from Solidity docs https://docs.soliditylang.org/
       const { ethers } = require('ethers')
       const fs = require('fs');
       const mnemonic = fs.readFileSync(".secret").toString().trim();
-      const signer = new ethers.Wallet.fromMnemonic(mnemonic)
-      const rpc = `https://matic-mumbai.chainstacklabs.com`
-      const provider = new ethers.providers.JsonRpcProvider(rpc)
-
+      const signer   = new ethers.Wallet.fromMnemonic(mnemonic)
+      const provider = new ethers.providers.JsonRpcProvider('https://matic-mumbai.chainstacklabs.com')
       const json = JSON.parse(fs.readFileSync('build/contracts/SimpleStorage.json').toString())
       const contract = new ethers.Contract(json.networks['80001'].address, json.abi, signer.connect(provider))
 
