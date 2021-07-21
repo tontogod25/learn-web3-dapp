@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Form, Input, Button, Alert, Space, Typography } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useAppState } from '@near/hooks';
-import { getTransactionUrl } from '@near/utils';
+import { getTransactionUrl } from '@near/lib';
 import axios from "axios";
 
 const layout = {
@@ -43,7 +43,7 @@ const Transfer = () => {
         console.log(options)
         setFetching(true)
 		axios
-			.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/near/transfer`, options)
+			.post(`/api/near/transfer`, options)
 			.then(res => {
                 const result = res.data
                 setTxSignature(result.transaction.hash)

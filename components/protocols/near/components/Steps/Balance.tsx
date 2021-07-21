@@ -3,7 +3,7 @@ import { Alert, Col, Input, Button, Space, Typography } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { useAppState } from '@near/hooks'
-import { getAccountUrl } from '@near/utils'
+import { getAccountUrl } from '@near/lib'
 
 const { Text } = Typography;
 

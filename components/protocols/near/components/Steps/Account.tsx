@@ -1,9 +1,12 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import axios from "axios";
 import { Alert, Button, Col, Space, Typography, Input } from 'antd';
 import { useAppState } from '@near/hooks'
-import { getPublicKey } from '@near/utils';
-import { getAccountUrl } from '@near/utils';
+import { getPublicKey } from '@near/lib';
+import { getAccountUrl } from '@near/lib';
+import { Notify } from '@near/components';
+
+import type { CheckAccountIdT, AlertT } from '@near/types';
 
 const { Text } = Typography;
 
@@ -18,7 +21,7 @@ const Account = () => {
         setIsFetching(true);
         const publicKey = state?.secretKey && getPublicKey(state.secretKey);
 		axios
-			.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/near/createAccountId`, { freeAccountId, publicKey, networkId })
+			.post(`/api/near/createAccountId`, { freeAccountId, publicKey, networkId })
             .then(res => {
                 const accountId = res.data;
                 dispatch({
@@ -72,31 +75,7 @@ const Account = () => {
     );
 }
 
-type AlertT = "success" | "info" | "warning" | "error" | undefined
-const Notify = ({ msg, status }: {msg: string, status: AlertT }) => 
-    <Alert
-        message={
-            <Space>
-                <Text strong>{msg}</Text>
-            </Space>
-        }
-        type={status}
-        showIcon
-    />
-
-type CheckAccountIdPropsT = {
-    networkId: string
-    freeAccountId: string
-    setFreeAccountId: Dispatch<SetStateAction<string>>
-    setIsFreeAccountId: Dispatch<SetStateAction<boolean>>
-}
-
-const CheckAccountId = ({
-    networkId,
-    freeAccountId,
-    setFreeAccountId,
-    setIsFreeAccountId,
-}: CheckAccountIdPropsT ) => {
+const CheckAccountId: React.FC<CheckAccountIdT> = ({ networkId, freeAccountId, setFreeAccountId, setIsFreeAccountId }) => {
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [alertMsg, setAlertMsg] = useState<string>('Valid account should look like NAME.testnet');
     const [alertStatus, setAlertStatus] = useState<AlertT>('info');
@@ -104,7 +83,7 @@ const CheckAccountId = ({
     const checkAvailabilityOfAccountId = () => {
         setIsFetching(true)
         axios
-            .post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/near/checkAccountId`, { freeAccountId, networkId })
+            .post(`/api/near/checkAccountId`, { freeAccountId, networkId })
             .then(res => {
                 if (res.data) {
                     setIsFreeAccountId(res.data);
@@ -148,43 +127,3 @@ const CheckAccountId = ({
 }
 
 export default Account
-
-
-
-
-
-
-
-/*
-import type { AccountView } from 'near-api-js/lib/providers/provider';
-        // const accountInfo = await account.state();
-
-
-    const AccountStatusBox = () =>
-        <Col>
-            <Space direction="vertical">
-                <Alert
-                    message={
-                        <Space>
-                            <Text strong>Account generated!</Text>
-                        </Space>
-                    }
-                    description={
-                        <ul>
-                            <li>
-                                Account: <Text code>{accountId}</Text>
-                            </li>
-                            <li>
-                                Public key: <Text code>{publicKeyStr}</Text>
-                            </li>
-                            <li>
-                                Amount: <Text code>{accountView?.amount}</Text>
-                            </li>
-                        </ul>
-                    }
-                    type="success"
-                    showIcon
-                />
-            </Space>
-        </Col>
-*/

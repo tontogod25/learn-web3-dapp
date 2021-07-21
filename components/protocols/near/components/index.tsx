@@ -1,6 +1,7 @@
-import { Typography, Popover, Button } from 'antd';
+import { Alert, Space, Typography, Popover, Button } from 'antd';
 import { useAppState } from '@near/hooks'
-import { getPrettyPublicKey } from '@near/utils';
+import { getPrettyPublicKey } from '@near/lib';
+import type { EntryT, AlertT } from '@near/types';
 
 const { Text, Paragraph } = Typography;
 
@@ -13,11 +14,6 @@ const Nav = () => {
     const displayAccountId = (accountId: string) => accountId
     const displayContractId = (contractId: string) => contractId
 
-    type EntryT = {
-        msg: string
-        display: (value: string) => string
-        value: string
-    }
     const Entry = ({ msg, display, value }: EntryT) => {
         return (
             <Paragraph copyable={{ text: value }}>
@@ -47,4 +43,17 @@ const Nav = () => {
     )
 }
 
-export default Nav
+const Notify = ({ msg, status }: {msg: string, status: AlertT }) => 
+    <Alert
+        message={
+            <Space>
+                <Text strong>{msg}</Text>
+            </Space>
+        }
+        type={status}
+        showIcon
+    />
+
+
+
+export { Nav, Notify }

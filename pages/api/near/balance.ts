@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { configFromNetworkId } from '@near/utils'
+import { configFromNetworkId } from '@near/lib'
 import { connect } from "near-api-js";
 import { AccountBalance } from "near-api-js/lib/account";
-
 
 export default async function(
   req: NextApiRequest,

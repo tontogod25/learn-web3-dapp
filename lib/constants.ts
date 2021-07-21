@@ -5,7 +5,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.AVALANCHE,
 		label: "Avalanche",
 		active: true,
-		logoUrl: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010",
+        logoUrl: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -33,7 +33,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.CELO,
 		label: "Celo",
 		active: true,
-		logoUrl: "https://cryptologos.cc/logos/celo-celo-logo.svg?v=010",
+        logoUrl: "https://cryptologos.cc/logos/celo-celo-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -46,7 +46,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.THE_GRAPH,
 		label: "The Graph",
 		active: true,
-		logoUrl: "https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=012",
+        logoUrl: "https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=012",
 		steps: [
 			{
 				id: "connect",
@@ -59,7 +59,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.NEAR,
 		label: "NEAR",
 		active: true,
-		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
+        logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -77,17 +77,22 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: "https://learn.figment.io/network-documentation/near/near-pathway"
             },
 			{
+				id: "balance",
+				title: "Get Account Balance",
+				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+			},
+			{
 				id: "transfer",
 				title: "Transfer some near",
 				url: "https://learn.figment.io/network-documentation/near/near-pathway"
 			},
-		]
+        ],
 	},
 	[CHAINS.POLKADOT]: {
 		id: CHAINS.POLKADOT,
 		label: "Polkadot",
 		active: true,
-		logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
+        logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -110,7 +115,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.POLYGON,
 		label: "Polygon",
 		active: true,
-		logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
+        logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -123,7 +128,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.SECRET,
 		label: "Secret",
 		active: true,
-		logoUrl: "https://cryptologos.cc/logos/secret-scrt-logo.svg?v=010",
+        logoUrl: "https://cryptologos.cc/logos/secret-scrt-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -136,7 +141,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.SOLANA,
 		label: "Solana",
 		active: true,
-		logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
+        logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -179,7 +184,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.TEZOS,
 		label: "Tezos",
 		active: true,
-		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
+        logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",

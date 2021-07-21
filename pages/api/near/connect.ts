@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { NearConnectReponse } from '@near/types';
-import { configFromNetworkId } from '@near/utils'
+import { configFromNetworkId } from '@near/lib'
 import { connect as nearConnect  } from "near-api-js";
 
 export default async function(

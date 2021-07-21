@@ -4,7 +4,7 @@ import { useAppState } from '@near/hooks'
 
 const { Text } = Typography;
 
-const KeyPairGen = () => {
+const Keys = () => {
     const {state, dispatch} = useAppState();
 
     const generateKeypair = () => {
@@ -61,4 +61,4 @@ const KeyPairGen = () => {
     );
 }
 
-export default KeyPairGen
+export default Keys

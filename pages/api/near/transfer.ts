@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { configFromNetworkId } from '@near/utils'
+import { configFromNetworkId } from '@near/lib'
 import { connect, KeyPair } from "near-api-js";
 import { FinalExecutionOutcome } from 'near-api-js/lib/providers';
 import BN from 'bn.js';

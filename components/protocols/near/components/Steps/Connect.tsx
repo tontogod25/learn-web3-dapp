@@ -20,7 +20,7 @@ const Connect = () => {
     const getConnection = () => {
         setFetchingVersion(true)
 		axios
-			.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/near/connect`, { networkId })
+			.post(`/api/near/connect`, { networkId })
 			.then(res => {
 				const version: NearConnectReponse = res.data
 				setVersion(version)
