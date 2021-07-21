@@ -59,24 +59,15 @@ SimpleStorage example contract from Solidity docs https://docs.soliditylang.org/
 
 8. Interact via web3.js
       ```js
-      const Web3 = require('web3')
-      const rpc = `https://matic-mumbai.chainstacklabs.com`
-      const HDWalletProvider = require('@truffle/hdwallet-provider');
+      const { ethers } = require('ethers')
       const fs = require('fs');
       const mnemonic = fs.readFileSync(".secret").toString().trim();
-      const localKeyProvider = new HDWalletProvider({
-        mnemonic: {
-          phrase: mnemonic
-        },
-        providerOrUrl:  rpc,
-        chainId: 80001
-      })
+      const signer = new ethers.Wallet.fromMnemonic(mnemonic)
+      const rpc = `https://matic-mumbai.chainstacklabs.com`
+      const provider = new ethers.providers.JsonRpcProvider(rpc)
 
-      const client = new Web3(localKeyProvider)
-      // replace with your account's address
-      const accountAddress  = '<< ACCOUNT ADDRESS >>'
       // find this in ./build/contracts/SimpleStorage.json and replace placeholder
-      const contractAddress = '<< CONTRACT ADDRESS >>'
+      const contractAddress = '0xf7edDa225CfCE3245aF14a8E41B72CE4c623e3be'
 
       // find this in ./build/contracts/SimpleStorage.json
       const abi = [
@@ -118,12 +109,13 @@ SimpleStorage example contract from Solidity docs https://docs.soliditylang.org/
         }
       ]
 
-      const contract = new client.eth.Contract(abi, contractAddress)
-      contract.methods.get().call().then(val => console.log(val))
+      const contract = new ethers.Contract(contractAddress, abi, signer.connect(provider))
+
+      contract.get().then(val => console.log(val.toNumber()))
       // should log 0
 
-      contract.methods.set(50).send({ from: accountAddress })
+      contract.set(50).then(receipt => console.log(receipt))
 
-      contract.methods.get().call().then(val => console.log(val))
+      contract.get().then(val => console.log(val.toNumber()))
       // should log 50
       ```
