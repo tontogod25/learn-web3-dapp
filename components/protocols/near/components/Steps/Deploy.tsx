@@ -1,59 +1,53 @@
 import { useState } from 'react';
+import axios from 'axios';
 import { Alert, Col, Input, Button, Space, Typography } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import axios from 'axios';
 import { useAppState } from '@near/hooks'
-import { getAccountUrl } from '@near/lib'
+import { getTransactionUrl } from '@near/lib'
 
 const { Text } = Typography;
 
-const DECIMAL_OFFSET = 10**24;
-
-const Balance = () => {
+const Deploy = () => {
     const [fetching, setFetching] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const [balance, setBalance] = useState<number>(0);
+    const [txhash, setTxhash] = useState<string>('');
     const { state } = useAppState();
-    const { networkId, accountId } = state;
+    const { networkId, accountId, secretKey } = state;
 
-    const getBalance = () => {
+    const deployContract = () => {
         setError(null)
         setFetching(true)
-        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/near/balance`, { networkId, accountId })
+        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/near/deploy`, { networkId, accountId, secretKey })
             .then(res => {
-                const data = res.data
-                const intoNear = (parseFloat(data.total) / DECIMAL_OFFSET).toFixed();
-                setBalance(parseFloat(intoNear))
+                setTxhash(res.data)
                 setFetching(false)
             })
             .catch(err => {
                 const data = err.response.data
                 setFetching(false)
-                setBalance(0)
-                setError(data.message)
+                setError(data)
             })
     }
 
-    const explorerUrl = getAccountUrl(networkId)(accountId as string);
+    const txUrl = getTransactionUrl(networkId)(txhash);
 
     return (
         <Col>
             <Space direction="vertical" size="large">
-                <Space direction="vertical">
-                    <Text>Below the <span style={{ fontWeight: "bold" }}>account Id</span> you generated previously:</Text>
-                    <Input style={{ width: "500px", fontWeight: "bold" }} disabled={true}  defaultValue={accountId} />
-                    <Button type="primary" onClick={getBalance}>Check Balance</Button>
+                <Space direction="horizontal">
+                    <Button type="primary" onClick={deployContract}>Deploy the contract</Button>
+                    <span></span><Input style={{ minWidth: "200px", fontWeight: "bold", textAlign: "center" }} disabled={true}  defaultValue={accountId} />
                 </Space>
                 {error && <Alert type="error" closable message={error} /> }
                 {fetching
                     ? <LoadingOutlined style={{ fontSize: 24 }} spin />
-                    : balance != 0
+                    : txhash.length !== 0
                         ? <Alert
                             message={
-                                <Text strong>{`This address has a balance of ${balance} NEAR`}</Text>
+                                <Text strong>{`The contract has been deployed`}</Text>
                             }
                             description={
-                                <a href={explorerUrl} target="_blank" rel="noreferrer">View the address on NEAR Explorer</a>
+                                <a href={txUrl} target="_blank" rel="noreferrer">View the transaction on NEAR Explorer</a>
                             }
                             type="success"
                             closable
@@ -66,4 +60,4 @@ const Balance = () => {
     );
 }
 
-export default Balance
+export default Deploy

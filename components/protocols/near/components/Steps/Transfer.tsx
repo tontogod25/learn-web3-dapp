@@ -39,7 +39,6 @@ const Transfer = () => {
             networkId,
             secretKey,
         }
-        console.log(options)
         setFetching(true)
 		axios
 			.post(`/api/near/transfer`, options)

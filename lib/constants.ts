@@ -85,6 +85,16 @@ export const CHAINS_CONFIG: ChainsType = {
 				id: "transfer",
 				title: "Transfer some near",
 				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+            },
+			{
+				id: "deploy",
+				title: "Deploy a contract",
+				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+            },
+			{
+				id: "call",
+				title: "Call a contract",
+				url: "https://learn.figment.io/network-documentation/near/near-pathway"
 			},
         ],
 	},

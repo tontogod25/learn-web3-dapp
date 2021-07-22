@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react";
 import { Row } from 'antd';
 
-import { Connect, Keys, Account, Balance, Transfer } from '@near/components/Steps';
+import { Connect, Keys, Account, Balance, Transfer, Deploy, Call } from '@near/components/Steps';
 import { appStateReducer, initialState, NearContext } from '@near/context'
 import { useAppState, useLocalStorage } from '@near/hooks'
 import { Sidebar, Step } from '@near/components/Layout'
@@ -47,6 +47,8 @@ const NearApp: React.FC<AppI> = ({ chain }) => {
                 { step.id === "account"  && <Account />  }
                 { step.id === "balance"  && <Balance />  }
                 { step.id === "transfer" && <Transfer /> }
+                { step.id === "deploy"   && <Deploy />   }
+                { step.id === "call"     && <Call />     }
             </>
             }
             nav={<Nav />}
