@@ -46,3 +46,6 @@ yarn-error.log*
 
 # credentials
 /credentials
+
+# Polygon account mnemonic
+/contracts/polygon/SimpleStorage/.secret

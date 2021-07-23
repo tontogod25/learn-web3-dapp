@@ -99,8 +99,13 @@ export const CHAINS_CONFIG: ChainsType = {
 		steps: [
 			{
 				id: "connect",
-				title: "Connect to the Matic testnet network",
-				url: ""
+				title: "Connect to the Polygon testnet network",
+				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/connect-to-polygon"
+			},
+			{
+				id: "fund",
+				title: "Fund your Polygon account",
+				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/get-matic-tokens-on-mumbai"
 			}
 		]
 	},

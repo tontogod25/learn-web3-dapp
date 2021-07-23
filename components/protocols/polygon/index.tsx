@@ -5,12 +5,17 @@ import Sidebar from "components/shared/Sidebar";
 import { ChainType } from "types/types";
 import Step from "components/shared/Step";
 import Connect from "./steps/1_Connect";
+import Fund from "./steps/2_Fund";
+
 import { useSteps } from "hooks/steps-hooks";
+import { PolygonAccount } from "types/polygon-types";
+
 
 const { Text, Paragraph } = Typography;
 
 const Chain = ({ chain }: { chain: ChainType }) => {
-  const [keypair, setKeypair] = useState(null);
+  const [account, setAccount] = useState<PolygonAccount | null>(null);
+
   const { steps } = chain
 
   const {
@@ -39,27 +44,28 @@ const Chain = ({ chain }: { chain: ChainType }) => {
         body={
           <>
             {step.id === "connect" && <Connect />}
+            {step.id === "fund" && <Fund />}
           </>
         }
-        // nav={<Nav keypair={keypair} />}
+        nav={<Nav account={account} />}
       />
     </Row>
   );
 }
 
-// const Nav = ({ keypair }: { keypair: any }) => {
-//   if (!keypair) return null;
+const Nav = ({ account }: { account: any }) => {
+  if (!account) return null;
 
-//   const publicKey = keypair.publicKey.toString();
-//   const publicKeyToDisplay = `${publicKey.slice(0,5)}...${publicKey.slice(-5)}`;
+  const publicKey = account.publicKey.toString();
+  const publicKeyToDisplay = `${publicKey.slice(0,5)}...${publicKey.slice(-5)}`;
 
-//   return (
-//     <div style={{ position: "fixed", top: 20, right: 20 }}>
-//       <Paragraph copyable={{ text: keypair.publicKey.toString() }}>
-//         <Text code>{publicKeyToDisplay}</Text>
-//       </Paragraph>
-//     </div>
-//   )
-// }
+  return (
+    <div style={{ position: "fixed", top: 20, right: 20 }}>
+      <Paragraph copyable={{ text: account.publicKey.toString() }}>
+        <Text code>{publicKeyToDisplay}</Text>
+      </Paragraph>
+    </div>
+  )
+}
 
 export default Chain
