@@ -8,13 +8,11 @@ import Connect from "./steps/1_Connect";
 import Fund from "./steps/2_Fund";
 
 import { useSteps } from "hooks/steps-hooks";
-import { PolygonAccount } from "types/polygon-types";
-
 
 const { Text, Paragraph } = Typography;
 
 const Chain = ({ chain }: { chain: ChainType }) => {
-  const [account, setAccount] = useState<PolygonAccount | null>(null);
+  const [account, setAccount] = useState(null);
 
   const { steps } = chain
 
@@ -47,25 +45,22 @@ const Chain = ({ chain }: { chain: ChainType }) => {
             {step.id === "fund" && <Fund />}
           </>
         }
-        nav={<Nav account={account} />}
+        // nav={<Nav account={account} />}
       />
     </Row>
   );
 }
 
-const Nav = ({ account }: { account: any }) => {
-  if (!account) return null;
+// const Nav = ({ account }: { account: any }) => {
+//   if (!account) return null;
 
-  const publicKey = account.publicKey.toString();
-  const publicKeyToDisplay = `${publicKey.slice(0,5)}...${publicKey.slice(-5)}`;
-
-  return (
-    <div style={{ position: "fixed", top: 20, right: 20 }}>
-      <Paragraph copyable={{ text: account.publicKey.toString() }}>
-        <Text code>{publicKeyToDisplay}</Text>
-      </Paragraph>
-    </div>
-  )
-}
+//   return (
+//     <div style={{ position: "fixed", top: 20, right: 20 }}>
+//       <Paragraph copyable={{ text: account }}>
+//         <Text code>{account}</Text>
+//       </Paragraph>
+//     </div>
+//   )
+// }
 
 export default Chain
