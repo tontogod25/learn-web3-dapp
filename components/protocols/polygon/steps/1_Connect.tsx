@@ -21,6 +21,7 @@ const Connect = () => {
     if (!window.ethereum) {
       alert("Please visit https://metamask.io & install the Metamask wallet extension to continue!")
     } else {
+      await window.ethereum.enable() // When a user has Metamask installed but not unlocked, this will prompt them to do so
       const web3provider = new ethers.providers.Web3Provider(window.ethereum, "any");
       const signer = web3provider.getSigner();
       
@@ -43,7 +44,7 @@ const Connect = () => {
       console.log(`Gas Price (in Gwei): ${ethers.utils.formatUnits(gasPrice, "gwei")}`);
 
       const account_nonce = await web3provider.getTransactionCount(selectedAddress);
-      console.log(`${account} has nonce: ${account_nonce}`);
+      console.log(`${selectedAddress} has nonce: ${account_nonce}`);
 
       const signature = await signer.signMessage('Welcome to the Polygon Pathway! Sign this message in Metamask to continue.');
 

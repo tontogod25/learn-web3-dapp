@@ -39,7 +39,7 @@ const Fund = () => {
       const explorerUrl = `https://mumbai.polygonscan.com/address/${selectedAddress}`
       setExplorerUrl(explorerUrl)
   
-      if (balanceToDisplay != "0") {
+      if (balanceToDisplay != "0.0") {
         setBalance(balanceToDisplay)
         console.log(`setBalance: ${balanceToDisplay}`)
       }
