@@ -39,6 +39,8 @@ yarn-error.log*
 # contracts
 /dist
 /contracts/solana/program/target/
+/contracts/polygon/SimpleStorage/node_modules
+/contracts/polygon/SimpleStorage/.secret
 
 .vscode
 
