@@ -2,16 +2,18 @@
 import { useEffect, useState } from 'react';
 import { Alert, Col, Tag, Space, Typography } from 'antd';
 import { ethers } from 'ethers';
-
 import { FundViewOutlined } from '@ant-design/icons';
 
+import { getPolygonAddressExplorerURL } from 'utils/polygon-utils'
+
 const { Text } = Typography;
+const EMPTY_BALANCE_STR = "0.0"
 
 declare let window: any; // Prevents "Property 'ethereum' does not exist on type 'Window & typeof globalThis'. ts(2339)" linter warning
 
 const Fund = () => {
   const [balance, setBalance] = useState< string | null >(null);
-  const [explorerUrl, setExplorerUrl] = useState("")
+  const [addressExplorerUrl, setAddressExplorerUrl] = useState< string | null >("")
   const [address, setAddress] = useState< string | null >(null)
 
   useEffect(() => {
@@ -36,10 +38,10 @@ const Fund = () => {
       const addressToDisplay = `${selectedAddress.slice(0,6)}...${selectedAddress.slice(-4)}`;
       setAddress(addressToDisplay)
 
-      const explorerUrl = `https://mumbai.polygonscan.com/address/${selectedAddress}`
-      setExplorerUrl(explorerUrl)
+      const explorerUrl = getPolygonAddressExplorerURL(selectedAddress)
+      setAddressExplorerUrl(explorerUrl)
   
-      if (balanceToDisplay != "0.0") {
+      if (balanceToDisplay != EMPTY_BALANCE_STR) {
         setBalance(balanceToDisplay)
         console.log(`setBalance: ${balanceToDisplay}`)
       }
