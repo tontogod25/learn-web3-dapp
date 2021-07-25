@@ -17,7 +17,7 @@ const Deploy = () => {
     const deployContract = () => {
         setError(null)
         setFetching(true)
-        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/near/deploy`, { networkId, accountId, secretKey })
+        axios.post(`/api/near/deploy`, { networkId, accountId, secretKey })
             .then(res => {
                 setTxhash(res.data)
                 setFetching(false)

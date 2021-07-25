@@ -19,7 +19,7 @@ const Balance = () => {
     const getBalance = () => {
         setError(null)
         setFetching(true)
-        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/near/balance`, { networkId, accountId })
+        axios.post(`/api/near/balance`, { networkId, accountId })
             .then(res => {
                 const data = res.data
                 const intoNear = (parseFloat(data.total) / DECIMAL_OFFSET).toFixed();
@@ -27,10 +27,10 @@ const Balance = () => {
                 setFetching(false)
             })
             .catch(err => {
-                const data = err.response.data
+                const data = err.data
                 setFetching(false)
                 setBalance(0)
-                setError(data.message)
+                setError(data)
             })
     }
 

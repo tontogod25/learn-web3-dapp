@@ -27,7 +27,6 @@ export async function getStaticPaths() {
 }
 
 type DynChainT = ComponentType<{chain: ChainType}>
-
 type ChainT = {
     chainConfig: ChainType
 }
@@ -43,7 +42,7 @@ export default function Chain({ chainConfig }: ChainT) {
         )
     }
 
-    const dynOptions = { loading: () => <Spinner />, ssr: false };
+    const dynOptions = { loading: function spinner(){ return ( <Spinner /> ) }, ssr: false };
     const DynChain = (() => {
         if (chainId === CHAINS.AVALANCHE)
             return dynamic(() => import('../components/protocols/avalanche'), dynOptions);
