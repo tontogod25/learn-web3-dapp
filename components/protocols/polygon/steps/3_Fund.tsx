@@ -5,16 +5,23 @@ import { ethers } from 'ethers';
 import { FundViewOutlined } from '@ant-design/icons';
 
 import { getPolygonAddressExplorerURL } from 'utils/polygon-utils'
+import { PolygonAccountT } from 'types/polygon-types'
+
 
 const { Text } = Typography;
 const EMPTY_BALANCE_STR = "0.0"
 
 declare let window: any; // Prevents "Property 'ethereum' does not exist on type 'Window & typeof globalThis'. ts(2339)" linter warning
 
-const Fund = () => {
-  const [balance, setBalance] = useState< string | null >(null);
-  const [addressExplorerUrl, setAddressExplorerUrl] = useState< string | null >("")
-  const [address, setAddress] = useState< string | null >(null)
+  const Fund = ({
+    account,
+  }: {
+    account: PolygonAccountT
+  }) => {
+
+  const [balance, setBalance] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [addressExplorerUrl, setAddressExplorerUrl] = useState<string>("");
 
   useEffect(() => {
     getBalance();
@@ -24,26 +31,18 @@ const Fund = () => {
     if (!window.ethereum) {
       alert("Please visit https://metamask.io & install the Metamask wallet extension to continue!")
     } else {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const blocknumber = await provider.getBlockNumber();
       console.log(`Block number: ${blocknumber}`);
-   
-      const accounts = await provider.listAccounts();
-  
-      const selectedAddress = window.ethereum.selectedAddress
+     
+      const selectedAddress = window.ethereum.selectedAddress;
       const selectedAddressBalance = await provider.getBalance(selectedAddress);
-      const balanceToDisplay = ethers.utils.formatEther(selectedAddressBalance.toString())
-  
-      const addressToDisplay = `${selectedAddress.slice(0,6)}...${selectedAddress.slice(-4)}`;
-      setAddress(addressToDisplay)
-
-      const explorerUrl = getPolygonAddressExplorerURL(selectedAddress)
-      setAddressExplorerUrl(explorerUrl)
+      const balanceToDisplay = ethers.utils.formatEther(selectedAddressBalance.toString());
   
       if (balanceToDisplay != EMPTY_BALANCE_STR) {
-        setBalance(balanceToDisplay)
-        console.log(`setBalance: ${balanceToDisplay}`)
+        setBalance(balanceToDisplay);
+        console.log(`setBalance: ${balanceToDisplay}`);
       }
     }
   }
@@ -55,18 +54,13 @@ const Fund = () => {
         message={
           <Space align="center">
             Balance of {address} is
-            <Tag color="purple">{balance}</Tag>MATIC!
-            <a href={explorerUrl} target="_blank" rel="noreferrer">
-              <Tag color="gold">
-                <FundViewOutlined />{" "} {/* Literal space character used for icon/text display */}
-                View on PolygonScan
-              </Tag>
-            </a>
+            <Tag color="purple">{balance}</Tag> MATIC!
           </Space>
         }
         type="success"
         showIcon
-      /> : <Alert message="No balance to display" type="error" showIcon />}
+      /> : <Alert message="No balance to display" type="error" showIcon />
+      }
     </Col>
   );
 }

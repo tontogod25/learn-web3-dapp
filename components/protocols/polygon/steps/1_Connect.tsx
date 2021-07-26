@@ -3,26 +3,45 @@ import { useEffect, useState } from 'react';
 import { Alert, Col, Space, Typography } from 'antd';
 import { ethers } from 'ethers';
 
-import { ChainId } from 'types/polygon-types';
+import { getPolygonAddressExplorerURL } from 'utils/polygon-utils'
+import { getDatahubNodeURL } from 'utils/datahub-utils'
+import { PolygonChainIdT, PolygonAccountT } from 'types/polygon-types';
+import { CHAINS, POLYGON_NETWORKS, POLYGON_PROTOCOLS } from 'types/types'
+import detectEthereumProvider from '@metamask/detect-provider';
 
 const { Text } = Typography;
 
 declare let window: any; // Prevents "Property 'ethereum' does not exist on type 'Window & typeof globalThis'. ts(2339)" linter warning
 
-const Connect = () => {
-  const [chainId, setChainId] = useState<ChainId | number | null>(null);
-  const [account, setAccount] = useState(null)
+const Connect = ({
+  account,
+  setAccount
+}: {
+  account: PolygonAccountT
+  setAccount: (account: PolygonAccountT) => void
+}) => {
+  const [chainId, setChainId] = useState<PolygonChainIdT | number | null>(null);
+  const [addressExplorerUrl, setAddressExplorerUrl] = useState<string>(" ");
+  const [addressToDisplay, setAddressToDisplay] = useState<string>("")
+
 
   useEffect(() => {
     getConnection();
-  }, []);
+  }, []); 
 
   const getConnection = async () => {
+    const providerCheck = await detectEthereumProvider();
+
+    if (providerCheck === window.ethereum) {
+      console.log(providerCheck)
+    }
+
     if (!window.ethereum) {
       alert("Please visit https://metamask.io & install the Metamask wallet extension to continue!")
     } else {
-      await window.ethereum.enable() // When a user has Metamask installed but not unlocked, this will prompt them to do so
-      const web3provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+
+      await window.ethereum.enable() // Prompts user to unlock Metamask, if it is installed
+      const web3provider = new ethers.providers.Web3Provider(window.ethereum, "any")
       const signer = web3provider.getSigner();
       
       web3provider.on("network", (newNetwork, oldNetwork) => {
@@ -32,25 +51,18 @@ const Connect = () => {
       });
 
       const selectedAddress = window.ethereum.selectedAddress;
-      setAccount(selectedAddress)
+      const addressToDisplay = `${selectedAddress.slice(0,6)}...${selectedAddress.slice(-4)}`;
+      const explorerUrl = getPolygonAddressExplorerURL(selectedAddress);
 
-      const network = await web3provider.detectNetwork();
-      console.log(`Network name: ${network.name}`);
-  
-      const blocknumber = await web3provider.getBlockNumber();
-      console.log(`Block number: ${blocknumber}`);
-  
-      const gasPrice = await web3provider.getGasPrice();
-      console.log(`Gas Price (in Gwei): ${ethers.utils.formatUnits(gasPrice, "gwei")}`);
-
-      const account_nonce = await web3provider.getTransactionCount(selectedAddress);
-      console.log(`${selectedAddress} has nonce: ${account_nonce}`);
+      setAddressToDisplay(addressToDisplay)
+      setAccount(addressToDisplay)
 
       const signature = await signer.signMessage('Welcome to the Polygon Pathway! Sign this message in Metamask to continue.');
 
       if (signature) {
         console.log(`Message signature: ${signature}`);
         setChainId(signer.provider.network.chainId);
+        setAddressExplorerUrl(explorerUrl);
       }
     }
   }

@@ -151,6 +151,8 @@ const StepContent = styled.div`
 	margin-bottom: 100px;
 `;
 
+// Generates a Warning: React does not recognize the `textColor` prop on a DOM element.
+// Generates a Warning: React does not recognize the `bgColor` prop on a DOM element.
 const NextButton = styled(Button)<{ bgColor: string; textColor: string }>`
 	border: none;
 
