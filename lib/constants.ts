@@ -99,7 +99,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		steps: [
 			{
 				id: "connect",
-				title: "Connect to the Polygon testnet network",
+				title: "Connect to the Polygon testnet",
 				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/connect-to-polygon"
 			},
 			{
