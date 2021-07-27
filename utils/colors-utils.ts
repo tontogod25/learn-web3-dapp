@@ -20,7 +20,7 @@ const getBgColor = (chainId: CHAINS) => {
   } else if (chainId === CHAINS.THE_GRAPH) {
     return "linear-gradient(130deg, #5943d0, #151324)"
   } else if (chainId === CHAINS.POLYGON) {
-    return "#8247e5"
+    return "#966ae0"
   } else if (chainId === CHAINS.POLKADOT) {
     return "#e6007a"
   } else if (chainId === CHAINS.TEZOS) {

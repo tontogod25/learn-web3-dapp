@@ -164,7 +164,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.TEZOS,
 		label: "Tezos",
 		active: false,
-		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
+		logoUrl: "https://cryptologos.cc/logos/tezos-xtz-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
