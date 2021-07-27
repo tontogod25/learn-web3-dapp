@@ -4,8 +4,8 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.AVALANCHE]: {
 		id: CHAINS.AVALANCHE,
 		label: "Avalanche",
-		active: true,
-        logoUrl: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010",
+		active: false,
+		logoUrl: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -32,8 +32,8 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.CELO]: {
 		id: CHAINS.CELO,
 		label: "Celo",
-		active: true,
-        logoUrl: "https://cryptologos.cc/logos/celo-celo-logo.svg?v=010",
+		active: false,
+		logoUrl: "https://cryptologos.cc/logos/celo-celo-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -45,8 +45,8 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.THE_GRAPH]: {
 		id: CHAINS.THE_GRAPH,
 		label: "The Graph",
-		active: true,
-        logoUrl: "https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=012",
+		active: false,
+		logoUrl: "https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=012",
 		steps: [
 			{
 				id: "connect",
@@ -58,8 +58,9 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.NEAR]: {
 		id: CHAINS.NEAR,
 		label: "NEAR",
-		active: true,
-        logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
+    logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
+		active: false,
+		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -101,8 +102,8 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.POLKADOT]: {
 		id: CHAINS.POLKADOT,
 		label: "Polkadot",
-		active: true,
-        logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
+		active: false,
+		logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -125,20 +126,30 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.POLYGON,
 		label: "Polygon",
 		active: true,
-        logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
+    logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
-				title: "Connect to the Matic testnet network",
-				url: ""
+				title: "Connect to the Polygon testnet",
+				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/connect-to-polygon"
+			},
+			{
+				id: "query",
+				title: "Query Polygon for information",
+				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/query-polygon"
+			},
+			{
+				id: "balance",
+				title: "Fund your Polygon account",
+				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/get-matic-tokens-on-mumbai"
 			}
 		]
 	},
 	[CHAINS.SECRET]: {
 		id: CHAINS.SECRET,
 		label: "Secret",
-		active: true,
-        logoUrl: "https://cryptologos.cc/logos/secret-scrt-logo.svg?v=010",
+		active: false,
+		logoUrl: "https://cryptologos.cc/logos/secret-scrt-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -151,7 +162,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.SOLANA,
 		label: "Solana",
 		active: true,
-        logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
+    logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -193,8 +204,8 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.TEZOS]: {
 		id: CHAINS.TEZOS,
 		label: "Tezos",
-		active: true,
-		logoUrl: "https://cryptologos.cc/logos/tezos-xtz-logo.svg?v=013",
+		active: false,
+		logoUrl: "https://cryptologos.cc/logos/tezos-xtz-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",

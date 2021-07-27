@@ -59,7 +59,7 @@
   "sourceMap": "66:311:0:-;;;218:50;8:9:-1;5:2;;;30:1;27;20:12;5:2;218:50:0;253:10;245:5;;:18;;;;;;;;;;;;;;;;;;66:311;;;;;;",
   "deployedSourceMap": "66:311:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:311:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;114:36;;;:::i;:::-;;;;;;;;;;;;;;;;;;;90:20;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;272:103;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;272:103:0;;;;;;;;;;;;;;;;;:::i;:::-;;114:36;;;;:::o;90:20::-;;;;;;;;;;;;;:::o;272:103::-;201:5;;;;;;;;;;;187:19;;:10;:19;;;183:26;;;361:9;334:24;:36;;;;183:26;272:103;:::o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.25 <0.7.0;\n\ncontract Migrations {\n  address public owner;\n  uint public last_completed_migration;\n\n  modifier restricted() {\n    if (msg.sender == owner) _;\n  }\n\n  constructor() public {\n    owner = msg.sender;\n  }\n\n  function setCompleted(uint completed) public restricted {\n    last_completed_migration = completed;\n  }\n}\n",
-  "sourcePath": "/Users/dvanderbeek/Web/figment/learn-web3-dapp/contracts/polygon/SimpleStorage/contracts/Migrations.sol",
+  "sourcePath": "/Users/rogan/Projects/learn-web3-dapp/contracts/polygon/SimpleStorage/contracts/Migrations.sol",
   "ast": {
     "absolutePath": "project:/contracts/Migrations.sol",
     "exportedSymbols": {
@@ -958,8 +958,8 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x7a77343B034aBDaA89b0755B40bD71495ef78A7b",
-      "transactionHash": "0x55ad1c06a7abd9cebd6887366a59965fc3b7df4400357cc890f899629d789e8c"
+      "address": "0x442D2F794bb2deB1cd7e6C919100d834eb0696aF",
+      "transactionHash": "0x964815ae95542b34503dd4937aeab8026ac7c2e64c287182b30b5aa0cb0f26bc"
     },
     "80001": {
       "events": {},
@@ -969,7 +969,8 @@
     }
   },
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-07-20T00:08:13.552Z",
+  "updatedAt": "2021-07-20T23:40:21.384Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },

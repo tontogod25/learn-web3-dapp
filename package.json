@@ -11,10 +11,12 @@
     "near:build:contract": "node contracts/near/compile.js",
     "near:build:contract:debug": "node contracts/near/compile.js --debug",
     "near:test": "npm run near:build:contract:debug && cd contracts/near && cargo test -- --nocapture && cd -"
+    "truffle-polygon": "yarn global add truffle && cd ./contracts/polygon/SimpleStorage && yarn && truffle obtain --solc 0.8.0"
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@maticnetwork/maticjs": "^2.0.43",
+    "@metamask/detect-provider": "^1.2.0",
     "@polkadot/api": "^4.17.1",
     "@polkadot/rpc-provider": "^4.17.1",
     "@solana/web3.js": "^1.15.0",
@@ -36,7 +38,6 @@
     "web3": "^1.3.6"
   },
   "devDependencies": {
-    "@types/react": "17.0.11",
     "babel-plugin-styled-components": "^1.13.1",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.1",

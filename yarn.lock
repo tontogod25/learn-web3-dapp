@@ -648,6 +648,11 @@
   resolved "https://registry.npmjs.org/@maticnetwork/meta/-/meta-2.4.16.tgz"
   integrity sha512-N8dgOEtetBWP0Cn33F7F9ZqL+bDwK6LHWPTHlVHR1X3CrrroC/I0jMkDWQdxmTuAkkyCFI34g4qdqh5QrbNnwA==
 
+"@metamask/detect-provider@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@metamask/detect-provider/-/detect-provider-1.2.0.tgz#3667a7531f2a682e3c3a43eaf3a1958bdb42a696"
+  integrity sha512-ocA76vt+8D0thgXZ7LxFPyqw3H7988qblgzddTDA6B8a/yU0uKV42QR/DhA+Jh11rJjxW0jKvwb5htA6krNZDQ==
+
 "@next/env@11.0.1":
   version "11.0.1"
   resolved "https://registry.npmjs.org/@next/env/-/env-11.0.1.tgz"

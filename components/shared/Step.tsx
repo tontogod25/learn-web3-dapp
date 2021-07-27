@@ -86,7 +86,13 @@ const StepButtons = ({
 				</PrevButton>
 			}
 			{!isLastStep &&
-				<NextButton size="large" type="primary" onClick={() => next()} text_color={getButtonTextColor(chainId)} bg_color={getButtonBgColor(chainId)}>
+				<NextButton
+					size="large"
+					type="primary"
+					onClick={() => next()}
+					text_color={getButtonTextColor(chainId)}
+					bg_color={getButtonBgColor(chainId)}
+				>
 					<Row align="middle">
 						Next Step
 						<ArrowRightOutlined size={20} style={{ marginLeft: "6px" }} />
@@ -162,6 +168,9 @@ const StepContent = styled.div`
 	margin-bottom: 100px;
 `;
 
+
+// Generates a Warning: React does not recognize the `textColor` prop on a DOM element.
+// Generates a Warning: React does not recognize the `bgColor` prop on a DOM element.
 const NextButton = styled(Button)<{ bg_color: string; text_color: string }>`
 	border: none;
 
