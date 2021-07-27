@@ -20,15 +20,47 @@ const Call = ({ account }: { account: PolygonAccountT }) => {
 	const [fetching, setFetching] = useState<boolean>(false)
 	const [error, setError] = useState<string | null>(null)
 
-	const call = () => {
-    // call
+	const getValue = () => {
+		setFetching(true)
+		axios
+			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/polygon/get`)
+			.then(res => {
+				const data = res.data
+				setQueryData(data)
+				setFetching(false)
+			})
+			.catch(err => {
+				console.log(err)
+				setFetching(false)
+			})
+  }
+
+	const setValue = () => {
+		setFetching(true)
+		axios
+			.post(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/polygon/set`,
+				{
+					amount: 20
+				}
+			)
+			.then(res => {
+				const data = res.data
+				setQueryData(data)
+				setFetching(false)
+			})
+			.catch(err => {
+				console.log(err)
+				setFetching(false)
+			})
   }
 
   return (
 		<Col>
 			<Space direction="vertical" size="large">
 				<Space direction="vertical">
-					<Button type="primary" onClick={call}>Call contract</Button>
+					<Button type="primary" onClick={setValue}>Set Value</Button>
+					<Button type="primary" onClick={getValue}>Get Value</Button>
 				</Space>
 			</Space>
 		</Col>

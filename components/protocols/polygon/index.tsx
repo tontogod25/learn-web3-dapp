@@ -8,7 +8,6 @@ import Step from "components/shared/Step";
 import Connect from "./steps/1_Connect";
 import Query from "./steps/2_Query";
 import Balance from "./steps/3_Balance";
-import Transfer from "./steps/4_Transfer";
 import Deploy from "./steps/5_Deploy";
 import Call from "./steps/6_Call";
 import { PolygonAccountT, PolygonChainIdT } from 'types/polygon-types'
