@@ -52,78 +52,26 @@ SimpleStorage example contract from Solidity docs https://docs.soliditylang.org/
       Enter your account address from MetaMask
       Wait until time limit is up, requests tokens 3-4 times so you have enough to deploy your contract
 
-8. Add a `.secret` file in this directory with your account's seed phrase or mnemonic (you should be required to write this down or store it securely when creating your account in MetaMask)
+8. Add a `.secret` file in this directory with your account's seed phrase or mnemonic (you should be required to write this down or store it securely when creating your account in MetaMask). In `truffle-config.js`, uncomment the three constant declarations at the top, along with the matic section of the networks section of the configuration object.
 
 9. Deploy contract
       `truffle migrate --network matic`
 
 8. Interact via web3.js
       ```js
-      const Web3 = require('web3')
-      const rpc = `https://matic-mumbai.chainstacklabs.com`
-      const HDWalletProvider = require('@truffle/hdwallet-provider');
+      const { ethers } = require('ethers')
       const fs = require('fs');
       const mnemonic = fs.readFileSync(".secret").toString().trim();
-      const localKeyProvider = new HDWalletProvider({
-        mnemonic: {
-          phrase: mnemonic
-        },
-        providerOrUrl:  rpc,
-        chainId: 80001
-      })
+      const signer   = new ethers.Wallet.fromMnemonic(mnemonic)
+      const provider = new ethers.providers.JsonRpcProvider('https://matic-mumbai.chainstacklabs.com')
+      const json = JSON.parse(fs.readFileSync('build/contracts/SimpleStorage.json').toString())
+      const contract = new ethers.Contract(json.networks['80001'].address, json.abi, signer.connect(provider))
 
-      const client = new Web3(localKeyProvider)
-      // replace with your account's address
-      const accountAddress  = '<< ACCOUNT ADDRESS >>'
-      // find this in ./build/contracts/SimpleStorage.json and replace placeholder
-      const contractAddress = '<< CONTRACT ADDRESS >>'
-
-      // find this in ./build/contracts/SimpleStorage.json
-      const abi = [
-        {
-          "inputs": [],
-          "payable": false,
-          "stateMutability": "nonpayable",
-          "type": "constructor"
-        },
-        {
-          "constant": false,
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "x",
-              "type": "uint256"
-            }
-          ],
-          "name": "set",
-          "outputs": [],
-          "payable": false,
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "constant": true,
-          "inputs": [],
-          "name": "get",
-          "outputs": [
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
-            }
-          ],
-          "payable": false,
-          "stateMutability": "view",
-          "type": "function"
-        }
-      ]
-
-      const contract = new client.eth.Contract(abi, contractAddress)
-      contract.methods.get().call().then(val => console.log(val))
+      contract.get().then(val => console.log(val.toNumber()))
       // should log 0
 
-      contract.methods.set(50).send({ from: accountAddress })
+      contract.set(50).then(receipt => console.log(receipt))
 
-      contract.methods.get().call().then(val => console.log(val))
+      contract.get().then(val => console.log(val.toNumber()))
       // should log 50
       ```
