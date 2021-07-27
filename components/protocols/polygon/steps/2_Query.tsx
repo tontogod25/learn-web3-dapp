@@ -15,7 +15,7 @@ declare let window: any;
 
 import { LoadingOutlined } from '@ant-design/icons';
 
-const Query = ({ account }: { account: PolygonAccountT }) => {
+const Query = () => {
   const [queryData, setQueryData] = useState<PolygonQueryResponse | null>(null)
 	const [fetching, setFetching] = useState<boolean>(false)
 	const [error, setError] = useState<string | null>(null)

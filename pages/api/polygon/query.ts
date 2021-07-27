@@ -11,20 +11,19 @@ export default async function query(
 ) {
     const url = getDatahubNodeURL(CHAINS.POLYGON, POLYGON_NETWORKS.TESTNET, POLYGON_PROTOCOLS.JSON_RPC)
     const provider = new ethers.providers.JsonRpcProvider(url, "any")
-    const signer = provider.getSigner()
-
-    console.log(provider)
 
     try {
-      // TODO: Add query parameters
-      const chainName = await provider.getNetwork().then(res => { return res.name })
-      const chainId = await signer.getChainId()
-      const blockHeight = await provider.getBlockNumber()
-      const gasPriceAsGwei = await provider.getGasPrice().then(res => { return ethers.utils.formatUnits(res, "gwei") })
-      const blockInfo = await provider.getBlockWithTransactions(blockHeight)
+      // TODO(rx)
+      // const chainId = await signer.getChainId()
+      // const blockHeight = await provider.getBlockNumber()
+      // const gasPriceAsGwei = await provider.getGasPrice().then(res => { return ethers.utils.formatUnits(res, "gwei") })
+      // const blockInfo = await provider.getBlockWithTransactions(blockHeight)
 
-      // Logs in an API page go to the Next.js development server console
-      console.log(blockInfo)
+      const chainName = await provider.getNetwork().then(res => { return res.name })
+      const chainId = 0
+      const blockHeight = 0
+      const gasPriceAsGwei = ""
+      const blockInfo = ""
 
       res
         .status(200)

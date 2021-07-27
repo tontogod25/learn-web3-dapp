@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from 'react';
-import { Alert, Button, Col, Space, Typography } from 'antd';
-import { ethers } from 'ethers';
-
-import { getPolygonAddressExplorerURL } from 'utils/polygon-utils'
-import { PolygonChainIdT, PolygonAccountT } from 'types/polygon-types';
+import { Alert, Button, Col, Space, Typography, Tag } from 'antd';
+import { ethers, providers } from 'ethers';
 import detectEthereumProvider from '@metamask/detect-provider';
+import { Network } from "@ethersproject/networks";
+
+import { PolygonAccountT } from 'types/polygon-types';
 
 const { Text } = Typography;
 
@@ -13,54 +13,36 @@ const { Text } = Typography;
 // 'Window & typeof globalThis' ts(2339)" linter warning
 declare let window: any;
 
-const Connect = ({ setAccount }: { setAccount(account: PolygonAccountT): void }) => {
-  const [chainId, setChainId] = useState<PolygonChainIdT | number | null>(null);
+const Connect = ({ account, setAccount }: { account: PolygonAccountT, setAccount(account: PolygonAccountT): void }) => {
+  const [network, setNetwork] = useState<Network | null>(null);
 
-  const getConnection = async () => {
-    const providerCheck = await detectEthereumProvider();
-    if (providerCheck === window.ethereum) {
-      console.log(providerCheck)
-    }
+  const checkConnection = async () => {
+    const provider = await detectEthereumProvider();
 
-    if (!window.ethereum) {
-      alert("Please visit https://metamask.io & install the Metamask wallet extension to continue!")
-      return
-    }
+    if (provider) {
+      const web3provider = new providers.Web3Provider(window.ethereum, "any")
+      const network = await web3provider.getNetwork()
 
-    await window.ethereum.enable() // Prompts user to unlock Metamask, if it is installed
-    const web3provider = new ethers.providers.Web3Provider(window.ethereum, "any")
-    const signer = web3provider.getSigner();
-    
-    web3provider.on("network", (newNetwork, oldNetwork) => {
-      if (oldNetwork) {
-        window.location.reload();
-      }
-    });
-
-    const signature = await signer.signMessage('Welcome to the Polygon Pathway! Sign this message in Metamask to continue.');
-
-    if (signature) {
-      console.log(`Message signature: ${signature}`);
       setAccount(window.ethereum.selectedAddress)
-      setChainId(signer.provider.network.chainId);
+      setNetwork(network)
+    } else {
+      alert("Please install Metamask at https://metamask.io")
     }
   }
 
   return (
     <Col>
       <Space direction="vertical"  style={{ width: "100%" }}>
-        {!chainId && <Button type="primary" onClick={getConnection}>Connect to Polygon (via Metamask)</Button>}
-        {chainId
+        {<Button type="primary" onClick={checkConnection}>Check Metamask Connection</Button>}
+        {(account && network)
           ? <Alert
-          message={
-            <Space>
-              Connected to Polygon
-              <Text code>ChainID: {chainId}</Text>
-            </Space>
-          }
-          type="success"
-          showIcon
-        /> : <Alert message="Not connected to Polygon" type="error" showIcon />}
+              message={
+                <Text strong>{`Connected to ${network.name}`}</Text>
+              }
+              type="success"
+              showIcon
+            />
+          : <Alert message="Not connected to Polygon" type="error" showIcon />}
       </Space>
     </Col>
   );

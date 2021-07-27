@@ -16,7 +16,9 @@ import { getPolygonAddressExplorerURL } from 'utils/polygon-utils'
 
 import { useSteps } from "hooks/steps-hooks";
 
-declare let window: any; // Prevents "Property 'ethereum' does not exist on type 'Window & typeof globalThis'. ts(2339)" linter warning
+// Prevents "Property 'ethereum' does not exist on type
+// 'Window & typeof globalThis' ts(2339)" linter warning
+declare let window: any;
 
 const { Paragraph } = Typography;
 
@@ -50,8 +52,8 @@ const Chain = ({ chain }: { chain: ChainType }) => {
         next={next}
         body={
           <>
-            {step.id === "connect" && <Connect setAccount={setAccount} />}
-            {step.id === "query" && <Query account={account} />}
+            {step.id === "connect" && <Connect account={account} setAccount={setAccount} />}
+            {step.id === "query" && <Query />}
             {step.id === "balance" && <Balance account={account} />}
             {step.id === "transfer" && <Transfer account={account} />}
             {step.id === "deploy" && <Deploy />}
