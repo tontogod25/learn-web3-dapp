@@ -7,7 +7,7 @@ import { ChainType } from "types/types";
 import Step from "components/shared/Step";
 import Connect from "./steps/1_Connect";
 import Query from "./steps/2_Query";
-import Fund from "./steps/3_Fund";
+import Balance from "./steps/Balance";
 import { PolygonAccountT, PolygonChainIdT } from 'types/polygon-types'
 import { getPolygonAddressExplorerURL } from 'utils/polygon-utils'
 
@@ -49,7 +49,7 @@ const Chain = ({ chain }: { chain: ChainType }) => {
           <>
             {step.id === "connect" && <Connect setAccount={setAccount} />}
             {step.id === "query" && <Query account={account} />}
-            {step.id === "fund" && <Fund account={account} />}
+            {step.id === "balance" && <Balance account={account} />}
           </>
         }
         nav={<Nav account={account} />}

@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import { PolygonAccountT, PolygonQueryResponse} from 'types/polygon-types';
+import { PolygonAccountT, PolygonQueryResponse, PolygonQueryErrorResponse } from 'types/polygon-types';
 
 const { Text } = Typography;
 
@@ -16,6 +16,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 const Query = ({ account }: { account: PolygonAccountT }) => {
   const [queryData, setQueryData] = useState<PolygonQueryResponse | null>(null)
 	const [fetching, setFetching] = useState<boolean>(false)
+	const [error, setError] = useState<string | null>(null)
 
 	const getQuery = () => {
 		setFetching(true)
@@ -33,8 +34,10 @@ const Query = ({ account }: { account: PolygonAccountT }) => {
 				setFetching(false)
 			})
 			.catch(err => {
-				console.log(err)
+				console.log(`err.response`, err.response)
+				const data: PolygonQueryErrorResponse = err.response.data
 				setFetching(false)
+				setError(data.message)
 			})
 	}
 
@@ -49,6 +52,16 @@ const Query = ({ account }: { account: PolygonAccountT }) => {
 							: queryData
 								? <Code>{JSON.stringify(queryData, null, 2)}</Code>
 								: null
+					}
+					{
+						error &&
+							<Alert
+								type="error"
+								showIcon
+								closable
+								message={error}
+								onClose={() => setError(null)}
+							/>
 					}
 				</Space>
 			</Space>

@@ -108,7 +108,7 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/query-polygon"
 			},
 			{
-				id: "fund",
+				id: "balance",
 				title: "Fund your Polygon account",
 				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/get-matic-tokens-on-mumbai"
 			}
