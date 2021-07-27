@@ -29,11 +29,11 @@ export default async function query(
       res
         .status(200)
         .json({
-            chainName,
-            chainId,
-            blockHeight,
-            gasPriceAsGwei,
-            blockInfo
+          chainName,
+          chainId,
+          blockHeight,
+          gasPriceAsGwei,
+          blockInfo
         });
     } catch(err) {
       res
