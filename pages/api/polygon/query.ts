@@ -25,12 +25,13 @@ export default async function query(
     // Logs in an API page go to the Next.js development server console
     console.log(blockInfo)
 
-	res.status(200)
-        .json({
-            chainName,
-            chainId,
-            blockHeight,
-            gasPriceAsGwei,
-            blockInfo
-        });
+	  res
+      .status(200)
+      .json({
+          chainName,
+          chainId,
+          blockHeight,
+          gasPriceAsGwei,
+          blockInfo
+      });
 }

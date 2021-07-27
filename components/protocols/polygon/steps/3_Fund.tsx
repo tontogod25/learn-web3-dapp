@@ -13,12 +13,7 @@ const EMPTY_BALANCE_STR = "0.0"
 
 declare let window: any; // Prevents "Property 'ethereum' does not exist on type 'Window & typeof globalThis'. ts(2339)" linter warning
 
-  const Fund = ({
-    account,
-  }: {
-    account: PolygonAccountT
-  }) => {
-
+const Fund = ({ account }: { account: PolygonAccountT }) => {
   const [balance, setBalance] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [addressExplorerUrl, setAddressExplorerUrl] = useState<string>("");

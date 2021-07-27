@@ -15,20 +15,10 @@ const { Text } = Typography;
 // ts(2339)"" linter warning
 declare let window: any;
 
-const Connect = ({
-  account,
-  setAccount
-}: {
-  account: PolygonAccountT
-  setAccount: (account: PolygonAccountT) => void
-}) => {
+const Connect = ({ setAccount }: { setAccount(account: PolygonAccountT): void }) => {
   const [chainId, setChainId] = useState<PolygonChainIdT | number | null>(null);
   const [addressExplorerUrl, setAddressExplorerUrl] = useState<string>(" ");
   const [addressToDisplay, setAddressToDisplay] = useState<string>("")
-
-  // useEffect(() => {
-  //   getConnection();
-  // }, []); 
 
   const getConnection = async () => {
     const providerCheck = await detectEthereumProvider();
@@ -47,7 +37,7 @@ const Connect = ({
       
       web3provider.on("network", (newNetwork, oldNetwork) => {
         if (oldNetwork) {
-            window.location.reload();
+          window.location.reload();
         }
       });
 

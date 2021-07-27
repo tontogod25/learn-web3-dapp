@@ -18,7 +18,7 @@ declare let window: any; // Prevents "Property 'ethereum' does not exist on type
 const { Text, Paragraph } = Typography;
 
 const Chain = ({ chain }: { chain: ChainType }) => {
-  const [account, setAccount] = useState<PolygonAccountT>("");
+  const [account, setAccount] = useState<PolygonAccountT>(null);
 
   const { steps } = chain
 
@@ -47,7 +47,7 @@ const Chain = ({ chain }: { chain: ChainType }) => {
         next={next}
         body={
           <>
-            {step.id === "connect" && <Connect account={account} setAccount={setAccount} />}
+            {step.id === "connect" && <Connect setAccount={setAccount} />}
             {step.id === "query" && <Query account={account} />}
             {step.id === "fund" && <Fund account={account} />}
           </>
@@ -58,14 +58,9 @@ const Chain = ({ chain }: { chain: ChainType }) => {
   );
 }
 
-const Nav = ({ account, addressExplorerUrl }: { account: PolygonAccountT, addressExplorerUrl: string}) => {
-  // const [addressExplorerUrl, setAddressExplorerUrl] = useState<string>("");
-
+const Nav = ({ account }: { account: PolygonAccountT }) => {
   if (!account) return null;
 
-  if (!addressExplorerUrl) {
-    console.log("No explorer URL set in Nav component!")
-  }
   const selectedAddress = window.ethereum.selectedAddress;
   const addressToDisplay = `${selectedAddress.slice(0,6)}...${selectedAddress.slice(-4)}`;
 

@@ -16,4 +16,4 @@ export type PolygonQueryErrorResponse = {
     message: string
 }
   
-export type PolygonAccountT = string
+export type PolygonAccountT = string | null
