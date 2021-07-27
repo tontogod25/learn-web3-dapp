@@ -54,7 +54,7 @@ const Chain = ({ chain }: { chain: ChainType }) => {
             {step.id === "query" && <Query account={account} />}
             {step.id === "balance" && <Balance account={account} />}
             {step.id === "transfer" && <Transfer account={account} />}
-            {step.id === "deploy" && <Deploy account={account} />}
+            {step.id === "deploy" && <Deploy />}
             {step.id === "call" && <Call account={account} />}
           </>
         }
