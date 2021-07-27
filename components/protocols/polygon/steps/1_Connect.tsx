@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { Alert, Col, Space, Typography } from 'antd';
+import { Alert, Button, Col, Space, Typography } from 'antd';
 import { ethers } from 'ethers';
 
 import { getPolygonAddressExplorerURL } from 'utils/polygon-utils'
@@ -11,7 +11,9 @@ import detectEthereumProvider from '@metamask/detect-provider';
 
 const { Text } = Typography;
 
-declare let window: any; // Prevents "Property 'ethereum' does not exist on type 'Window & typeof globalThis'. ts(2339)" linter warning
+// Prevents "Property 'ethereum' does not exist on type 'Window & typeof globalThis'
+// ts(2339)"" linter warning
+declare let window: any;
 
 const Connect = ({
   account,
@@ -24,10 +26,9 @@ const Connect = ({
   const [addressExplorerUrl, setAddressExplorerUrl] = useState<string>(" ");
   const [addressToDisplay, setAddressToDisplay] = useState<string>("")
 
-
-  useEffect(() => {
-    getConnection();
-  }, []); 
+  // useEffect(() => {
+  //   getConnection();
+  // }, []); 
 
   const getConnection = async () => {
     const providerCheck = await detectEthereumProvider();
@@ -68,18 +69,21 @@ const Connect = ({
   }
 
   return (
-    <Col style={{ width: "100%" }}>
-      {chainId
-        ? <Alert
-        message={
-          <Space>
-            Connected to Polygon
-            <Text code>ChainID: {chainId}</Text>
-          </Space>
-        }
-        type="success"
-        showIcon
-      /> : <Alert message="Not connected to Polygon" type="error" showIcon />}
+    <Col>
+      <Space direction="vertical"  style={{ width: "100%" }}>
+        {!chainId && <Button type="primary" onClick={getConnection}>Connect to Polygon (via Metamask)</Button>}
+        {chainId
+          ? <Alert
+          message={
+            <Space>
+              Connected to Polygon
+              <Text code>ChainID: {chainId}</Text>
+            </Space>
+          }
+          type="success"
+          showIcon
+        /> : <Alert message="Not connected to Polygon" type="error" showIcon />}
+      </Space>
     </Col>
   );
 }
