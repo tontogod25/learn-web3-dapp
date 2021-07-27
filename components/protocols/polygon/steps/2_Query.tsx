@@ -9,7 +9,9 @@ import { PolygonAccountT, PolygonQueryResponse, PolygonQueryErrorResponse } from
 
 const { Text } = Typography;
 
-declare let window: any; // Prevents "Property 'ethereum' does not exist on type 'Window & typeof globalThis'. ts(2339)" linter warning
+// Prevents "Property 'ethereum' does not exist on type
+// 'Window & typeof globalThis' ts(2339)" linter warning
+declare let window: any;
 
 import { LoadingOutlined } from '@ant-design/icons';
 

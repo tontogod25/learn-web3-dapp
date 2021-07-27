@@ -111,7 +111,22 @@ export const CHAINS_CONFIG: ChainsType = {
 				id: "balance",
 				title: "Fund your Polygon account",
 				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/get-matic-tokens-on-mumbai"
-			}
+			},
+			{
+				id: "transfer",
+				title: "Transfer MATIC tokens",
+				url: ""
+			},
+			{
+				id: "deploy",
+				title: "Deploy a Solidity smart contract",
+				url: ""
+			},
+			{
+				id: "call",
+				title: "Call the smart contract",
+				url: ""
+			},
 		]
 	},
 	[CHAINS.SECRET]: {
