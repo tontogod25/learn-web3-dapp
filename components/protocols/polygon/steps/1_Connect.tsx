@@ -20,10 +20,14 @@ const Connect = ({ account, setAccount }: { account: PolygonAccountT, setAccount
     const provider = await detectEthereumProvider();
 
     if (provider) {
-      const web3provider = new providers.Web3Provider(window.ethereum, "any")
-      const network = await web3provider.getNetwork()
+      // TODO
+      // Connect to Polygon using Web3Provider and Metamask
+      // Define address and network
+      const web3provider = undefined
+      const address = undefined
+      const network = undefined
 
-      setAccount(window.ethereum.selectedAddress)
+      setAccount(address)
       setNetwork(network)
     } else {
       alert("Please install Metamask at https://metamask.io")

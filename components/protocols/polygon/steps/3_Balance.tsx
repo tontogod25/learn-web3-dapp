@@ -19,13 +19,15 @@ const Balance = ({ account }: { account: PolygonAccountT }) => {
 
   const checkBalance = async () => {
     setFetching(true)
-
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const selectedAddress = window.ethereum.selectedAddress;
-    const selectedAddressBalance = await provider.getBalance(selectedAddress);
-    const balanceToDisplay = ethers.utils.formatEther(selectedAddressBalance.toString());
-    setBalance(balanceToDisplay);
 
+    // TODO
+    // Define those two variables
+    const selectedAddressBalance = undefined
+    const balanceToDisplay = undefined
+
+    setBalance(balanceToDisplay);
     setFetching(false)
   }
 
