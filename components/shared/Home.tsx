@@ -10,7 +10,7 @@ import ProtocolLogo from "components/icons";
 
 const Home = () => {
 	return (
-		<Container span={12} offset={6}>
+		<Container span={14} offset={5}>
 			<Title>Figment Learn - All Pathways</Title>
 			<ChainRow>
 				{
@@ -43,7 +43,7 @@ const Title = styled.h1`
 
 const ChainRow = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	column-gap: 20px;
 	row-gap: 20px;
 `;
@@ -77,7 +77,7 @@ const ProtocolBox = styled.div<{ active: boolean; primary_color: string; seconda
 `;
 
 const Label = styled.div`
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 500;
 `;
 
