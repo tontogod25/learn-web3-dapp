@@ -14,7 +14,7 @@ const Home = () => {
 			<Title>Figment Learn - All Pathways</Title>
 			<ChainRow>
 				{
-					Object.keys(CHAINS_CONFIG).map((chain: string) => {
+					Object.values(CHAINS_CONFIG).map(c => c.id).map((chain: CHAINS) => {
 						const { id, active, logoUrl, label } = CHAINS_CONFIG[chain];
 						const { bgColor, textColor } = getChainColors(chain as CHAINS)
 
