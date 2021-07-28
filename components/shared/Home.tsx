@@ -6,20 +6,21 @@ import styled from "styled-components";
 import { CHAINS } from "types/types";
 import { CHAINS_CONFIG } from "lib/constants";
 import { getChainColors } from "utils/colors-utils";
+import ProtocolLogo from "components/icons";
 
 const Home = () => {
 	return (
-		<Container span={12} offset={6}>
+		<Container span={14} offset={5}>
 			<Title>Figment Learn - All Pathways</Title>
 			<ChainRow>
 				{
-					Object.keys(CHAINS_CONFIG).map((chain: string) => {
-						const { id, active, logoUrl, label } = CHAINS_CONFIG[chain];
-						const { bgColor, textColor } = getChainColors(chain as CHAINS)
+					Object.values(CHAINS_CONFIG).map(c => c.id).map((chain: CHAINS) => {
+						const { id, active, label } = CHAINS_CONFIG[chain];
+						const { primaryColor, secondaryColor } = getChainColors(chain as CHAINS)
 
 						const box = (
-							<ProtocolBox key={id} active={active} bg_color={bgColor} text_color={textColor}>
-								<Logo src={logoUrl} />
+							<ProtocolBox key={id} active={active} primary_color={primaryColor} secondary_color={secondaryColor}>
+								<ProtocolLogo chainId={chain} />
 								<Label>{label}</Label>
 							</ProtocolBox>
 						);
@@ -42,12 +43,12 @@ const Title = styled.h1`
 
 const ChainRow = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	column-gap: 20px;
 	row-gap: 20px;
 `;
 
-const ProtocolBox = styled.div<{ active: boolean; bg_color: string; text_color: string }>`
+const ProtocolBox = styled.div<{ active: boolean; primary_color: string; secondary_color: string }>`
 	height: 170px;
 	border: solid 1px #eee;
 	background-color: #f8f8f8;
@@ -59,23 +60,24 @@ const ProtocolBox = styled.div<{ active: boolean; bg_color: string; text_color: 
 	align-items: center;
 	opacity: ${({ active }) => active ? 1 : 0.4};
 
-	${({ active, bg_color, text_color }) => active && `
+	${({ active, primary_color, secondary_color }) => active && `
 		&:hover {
 			border: none;
-			color: ${text_color};
-			background: ${bg_color};
+			color: ${secondary_color};
+			background: ${primary_color};
 			cursor: pointer;
 		}
 	`}
-`;
 
-const Logo = styled.img`
-	height: 50px;
-	margin-bottom: 20px;
+	&:hover > svg {
+		path {
+			fill: ${({ secondary_color }) => `${secondary_color}`};
+		}
+	}
 `;
 
 const Label = styled.div`
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 500;
 `;
 

@@ -1,18 +1,18 @@
 import { CHAINS } from "types/types"
 
 type ChainColorsType = {
-  bgColor: string
-  textColor: string
+  primaryColor: string
+  secondaryColor: string
 }
 
 export const getChainColors = (chainId: CHAINS): ChainColorsType => {
   return {
-    bgColor: getBgColor(chainId),
-    textColor: getTextColor(chainId)
+    primaryColor: getPrimaryColor(chainId),
+    secondaryColor: getSecondaryColor(chainId)
   }  
 }
 
-const getBgColor = (chainId: CHAINS) => {
+const getPrimaryColor = (chainId: CHAINS) => {
   if (chainId === CHAINS.SOLANA) {
     return "linear-gradient(253deg, #00FFA3, #DC1FFF)"
   } else if (chainId === CHAINS.AVALANCHE) {
@@ -36,7 +36,7 @@ const getBgColor = (chainId: CHAINS) => {
   return "rgb(255, 242, 155)"
 }
 
-const getTextColor = (chainId: CHAINS) => {
+const getSecondaryColor = (chainId: CHAINS) => {
   if (chainId === CHAINS.SOLANA) {
     return "black"
   } else if (chainId === CHAINS.AVALANCHE) {

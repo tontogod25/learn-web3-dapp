@@ -6,6 +6,7 @@ import { ComponentType } from 'react'
 
 import styled from "styled-components"
 import { LoadingOutlined } from '@ant-design/icons'
+import { getChainColors } from 'utils/colors-utils';
 
 type StaticPropsT = {
   params : { chain : CHAINS }
@@ -35,15 +36,16 @@ type ChainT = {
 export default function Chain({ chainConfig }: ChainT) {
   const chainLabel = chainConfig.label;
   const chainId = chainConfig.id;
+  const { primaryColor: spinnerColor } = getChainColors(chainId)
   
-  const Spinner = () => {
+  const Spinner = ({ color }: { color: string }) => {
     return (
       <SpinContainer>
-        <LoadingOutlined style={{  fontSize: '64px' }} spin />
+        <LoadingOutlined style={{ fontSize: '64px', color }} spin />
       </SpinContainer>
     )
   }
-  const dynOptions = { loading: function spinner(){ return ( <Spinner /> ) }, ssr: false };
+  const dynOptions = { loading: function spinner() { return ( <Spinner color={spinnerColor} /> ) }, ssr: false };
   const DynChain = (() => {
     if (chainId === CHAINS.AVALANCHE)
       return dynamic(() => import('../components/protocols/avalanche'), dynOptions);
