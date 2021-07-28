@@ -20,29 +20,31 @@ declare let window: any;
 
 const Call = () => {
   const [inputNumber, setInputNumber] = useState<number>(0)
+	const [fetchingGet, setFetchingGet] = useState<boolean>(false)
+	const [fetchingSet, setFetchingSet] = useState<boolean>(false)
 	const [txHash, setTxHash] = useState<string | null>(null)
 	const [contractNumber, setContractNumber] = useState<string | null>(null)
 	const [confirming, setConfirming] = useState<boolean>(false)
-	
-	const [fetchingGet, setFetchingGet] = useState<boolean>(false)
-	const [fetchingSet, setFetchingSet] = useState<boolean>(false)
 
 	const getValue = () => {
 		setFetchingGet(true)
 
 		const provider = new ethers.providers.Web3Provider(window.ethereum)
-		const contract = new ethers.Contract(
-			SimpleStorageJson.networks['80001'].address,
-			SimpleStorageJson.abi,
-			provider
-		)
+		// TODO
+		// -----------------------------
+		// Define the Contract object below
+		// const contract = ...
 
-		contract.get()
+		// Call the contract's methods here
 			.then((res: any) => {
 				setContractNumber(res.toString())
+			})
+			.catch((err: any) => {
+				console.log(err)
+			})
+			.finally(() => {
 				setFetchingGet(false)
 			})
-
   }
 
 	const setValue = () => {
@@ -50,14 +52,13 @@ const Call = () => {
 		setTxHash(null)
 
 		const provider = new ethers.providers.Web3Provider(window.ethereum)
-		const signer = provider.getSigner()
-		const contract = new ethers.Contract(
-			SimpleStorageJson.networks['80001'].address,
-			SimpleStorageJson.abi,
-			signer
-		)
+		// TODO
+		// -----------------------------
+		// Define the signer and Contract objects below
+		// const signer = ...
+		// const contract = ...
 
-		contract.set(inputNumber)
+		// Call the contract's methods here passing the `inputNumber`
 			.then((txRes: any) => {
 				console.log(JSON.stringify(txRes, null, 2))
 				setFetchingSet(false)
