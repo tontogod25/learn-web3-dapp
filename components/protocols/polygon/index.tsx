@@ -54,7 +54,6 @@ const Chain = ({ chain }: { chain: ChainType }) => {
             {step.id === "connect" && <Connect account={account} setAccount={setAccount} />}
             {step.id === "query" && <Query />}
             {step.id === "balance" && <Balance account={account} />}
-            {step.id === "transfer" && <Transfer account={account} />}
             {step.id === "deploy" && <Deploy />}
             {step.id === "call" && <Call account={account} />}
           </>
@@ -71,7 +70,7 @@ const Nav = ({ account }: { account: PolygonAccountT }) => {
   const addressToDisplay = `${account.slice(0,6)}...${account.slice(-4)}`;
 
   return (
-    <div style={{ position: "fixed", top: 20, right: 20 }}>
+    <div style={{ position: "fixed", top: 20, right: 60 }}>
       <Paragraph copyable={{ text: account, tooltips: `Click to copy!` }}>
         <a href={getPolygonAddressExplorerURL(account)} target="_blank" rel="noreferrer">
           <Tag color="gold">
