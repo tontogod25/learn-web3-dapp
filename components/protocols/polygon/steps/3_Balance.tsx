@@ -7,27 +7,25 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { getPolygonAddressExplorerURL } from 'utils/polygon-utils'
 import { PolygonAccountT } from 'types/polygon-types'
 
-const { Text } = Typography;
+const { Text } = Typography
 
 // Prevents "Property 'ethereum' does not exist on type
 // 'Window & typeof globalThis' ts(2339)" linter warning
-declare let window: any;
+declare let window: any
 
 const Balance = ({ account }: { account: PolygonAccountT }) => {
   const [balance, setBalance] = useState<string>("")
-  const [fetching, setFetching] = useState<boolean>(false);
+  const [fetching, setFetching] = useState<boolean>(false)
 
   const checkBalance = async () => {
     setFetching(true)
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
     const selectedAddress = window.ethereum.selectedAddress;
 
     // TODO
     // Define those two variables
-    const selectedAddressBalance = undefined
-    const balanceToDisplay = undefined
 
-    setBalance(balanceToDisplay);
+    setBalance(balanceToDisplay)
     setFetching(false)
   }
 
@@ -44,7 +42,7 @@ const Balance = ({ account }: { account: PolygonAccountT }) => {
                 message={
                   <Space direction="horizontal">
                     <Text strong>{`This address has a balance of ${balance} MATIC`}</Text>
-                    <a href={explorerUrl} target="_blank" rel="noreferrer">(View on Polyscan)</a>
+                    <a href={explorerUrl} target="_blank" rel="noreferrer">(View on PolygonScan)</a>
                   </Space>
                 }
                 description={
@@ -58,7 +56,7 @@ const Balance = ({ account }: { account: PolygonAccountT }) => {
         }
       </Space>
     </Col>
-  );
+  )
 }
 
 export default Balance
