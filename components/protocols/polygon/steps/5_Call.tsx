@@ -1,68 +1,134 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
-import { Alert, Button, Col, Space, Typography } from 'antd';
+import { useState } from 'react';
+import { Alert, Card, Button, Col, Row, InputNumber, Space, Statistic, Typography } from 'antd';
 import { ethers } from 'ethers';
-import axios from 'axios';
-import styled from 'styled-components';
+import { LoadingOutlined } from '@ant-design/icons';
 
-import { PolygonAccountT, PolygonQueryResponse, PolygonQueryErrorResponse } from 'types/polygon-types';
+// types
+// import { BigNumberish } from "@ethersproject/bignumber";
+// import { Bytes, BytesLike, Signature } from "@ethersproject/bytes";
+// import { Transaction, UnsignedTransaction } from "@ethersproject/transactions";
 
-const { Text } = Typography;
+import SimpleStorageJson from 'contracts/polygon/SimpleStorage/build/contracts/SimpleStorage.json'
+import { getPolygonTxExplorerURL } from 'utils/polygon-utils';
+
+const { Text } = Typography
 
 // Prevents "Property 'ethereum' does not exist on type
 // 'Window & typeof globalThis' ts(2339)" linter warning
 declare let window: any;
 
-import { LoadingOutlined } from '@ant-design/icons';
-
-const Call = ({ account }: { account: PolygonAccountT }) => {
-  const [queryData, setQueryData] = useState<PolygonQueryResponse | null>(null)
-	const [fetching, setFetching] = useState<boolean>(false)
-	const [error, setError] = useState<string | null>(null)
+const Call = () => {
+  const [inputNumber, setInputNumber] = useState<number>(0)
+	const [txHash, setTxHash] = useState<string | null>(null)
+	const [contractNumber, setContractNumber] = useState<string | null>(null)
+	const [confirming, setConfirming] = useState<boolean>(false)
+	
+	const [fetchingGet, setFetchingGet] = useState<boolean>(false)
+	const [fetchingSet, setFetchingSet] = useState<boolean>(false)
 
 	const getValue = () => {
-		setFetching(true)
-		axios
-			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/polygon/get`)
-			.then(res => {
-				const data = res.data
-				setQueryData(data)
-				setFetching(false)
+		setFetchingGet(true)
+
+		const provider = new ethers.providers.Web3Provider(window.ethereum)
+		const contract = new ethers.Contract(
+			SimpleStorageJson.networks['80001'].address,
+			SimpleStorageJson.abi,
+			provider
+		)
+
+		contract.get()
+			.then((res: any) => {
+				setContractNumber(res.toString())
+				setFetchingGet(false)
 			})
-			.catch(err => {
-				console.log(err)
-				setFetching(false)
-			})
+
   }
 
 	const setValue = () => {
-		setFetching(true)
-		axios
-			.post(
-				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/polygon/set`,
-				{
-					amount: 20
-				}
-			)
-			.then(res => {
-				const data = res.data
-				setQueryData(data)
-				setFetching(false)
+		setFetchingSet(true)
+		setTxHash(null)
+
+		const provider = new ethers.providers.Web3Provider(window.ethereum)
+		const signer = provider.getSigner()
+		const contract = new ethers.Contract(
+			SimpleStorageJson.networks['80001'].address,
+			SimpleStorageJson.abi,
+			signer
+		)
+
+		contract.set(inputNumber)
+			.then((txRes: any) => {
+				console.log(JSON.stringify(txRes, null, 2))
+				setFetchingSet(false)
+				setInputNumber(0)
+				setConfirming(true)
+				txRes.wait()
+					.then((txReceipt: any) => {
+						console.log("txReceipt", txReceipt)
+						setTxHash(txReceipt.transactionHash)
+					})
+					.catch((txError: any) => {
+						console.log("txError", txError)
+					})
+					.finally(() => {
+						setConfirming(false)
+					})
 			})
-			.catch(err => {
+			.catch((err: any) => {
 				console.log(err)
-				setFetching(false)
+				setFetchingSet(false)
 			})
   }
 
   return (
 		<Col>
-			<Space direction="vertical" size="large">
-				<Space direction="vertical">
-					<Button type="primary" onClick={setValue}>Set Value</Button>
-					<Button type="primary" onClick={getValue}>Get Value</Button>
-				</Space>
-			</Space>
+			<Row gutter={16}>
+				<Col span={12}>
+					<Card title="Set Value">
+						<Space direction="vertical">
+							<InputNumber value={inputNumber} onChange={setInputNumber} />
+							<Button type="primary" onClick={setValue}>Set Value</Button>
+							{
+								fetchingSet &&
+									<Space direction="horizontal">
+										<LoadingOutlined style={{ fontSize: 24 }} spin />
+										{'Sending transaction...'}
+									</Space>
+							}
+							{
+								confirming &&
+									<Space direction="horizontal">
+										<LoadingOutlined style={{ fontSize: 24 }} spin />
+										{'Waiting for transaction confirmation...'}
+									</Space>
+							}
+							{
+								txHash &&
+									<Alert
+										showIcon
+										type="success"
+										message={
+											<Text strong>Transaction confirmed!</Text>
+										}
+										description={
+											<a href={getPolygonTxExplorerURL(txHash)} target="_blank" rel="noreferrer">View on Polyscan</a>
+										}
+									/>
+							}
+						</Space>
+					</Card>
+				</Col>
+				<Col span={12}>
+					<Card title="Get Value">
+						<Space direction="vertical">
+							{!fetchingGet && <Statistic value={contractNumber} />}
+							{fetchingGet && <LoadingOutlined style={{ fontSize: 24 }} spin />}
+							<Button type="primary" onClick={getValue}>Get Value</Button>
+						</Space>
+					</Card>
+				</Col>
+			</Row>
 		</Col>
 	);
 }

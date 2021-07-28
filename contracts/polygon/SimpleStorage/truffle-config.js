@@ -29,7 +29,7 @@ module.exports = {
      port: 9545,
      network_id: "*"
    },
-   matic:  {
+  matic:  {
       provider: () => new HDWalletProvider({
         mnemonic: {
           phrase: mnemonic

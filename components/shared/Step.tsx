@@ -135,7 +135,7 @@ const StepHeader = styled(Col)`
 `;
 
 const StepFooter = styled(Space)`
-	margin-top: 20px;
+	margin: 20px 0 40px 0;
 `;
 
 const Title = styled.div`
