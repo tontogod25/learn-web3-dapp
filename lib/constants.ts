@@ -99,17 +99,17 @@ export const CHAINS_CONFIG: ChainsType = {
 		steps: [
 			{
 				id: "connect",
-				title: "Connect to the Polygon testnet",
+				title: "Connect to Polygon",
 				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/connect-to-polygon"
 			},
 			{
 				id: "query",
-				title: "Query Polygon for information",
+				title: "Query Polygon",
 				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/query-polygon"
 			},
 			{
 				id: "balance",
-				title: "Fund your Polygon account",
+				title: "Fund a Polygon account",
 				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/get-matic-tokens-on-mumbai"
 			},
 			{
@@ -140,7 +140,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.SOLANA]: {
 		id: CHAINS.SOLANA,
 		label: "Solana",
-		active: true,
+		active: false,
 		logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
 		steps: [
 			{
