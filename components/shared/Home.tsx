@@ -15,11 +15,11 @@ const Home = () => {
 			<ChainRow>
 				{
 					Object.values(CHAINS_CONFIG).map(c => c.id).map((chain: CHAINS) => {
-						const { id, active, logoUrl, label } = CHAINS_CONFIG[chain];
-						const { bgColor, textColor } = getChainColors(chain as CHAINS)
+						const { id, active, label } = CHAINS_CONFIG[chain];
+						const { primaryColor, secondaryColor } = getChainColors(chain as CHAINS)
 
 						const box = (
-							<ProtocolBox key={id} active={active} bg_color={bgColor} text_color={textColor}>
+							<ProtocolBox key={id} active={active} primary_color={primaryColor} secondary_color={secondaryColor}>
 								<ProtocolLogo chainId={chain} />
 								<Label>{label}</Label>
 							</ProtocolBox>
@@ -48,7 +48,7 @@ const ChainRow = styled.div`
 	row-gap: 20px;
 `;
 
-const ProtocolBox = styled.div<{ active: boolean; bg_color: string; text_color: string }>`
+const ProtocolBox = styled.div<{ active: boolean; primary_color: string; secondary_color: string }>`
 	height: 170px;
 	border: solid 1px #eee;
 	background-color: #f8f8f8;
@@ -60,18 +60,18 @@ const ProtocolBox = styled.div<{ active: boolean; bg_color: string; text_color: 
 	align-items: center;
 	opacity: ${({ active }) => active ? 1 : 0.4};
 
-	${({ active, bg_color, text_color }) => active && `
+	${({ active, primary_color, secondary_color }) => active && `
 		&:hover {
 			border: none;
-			color: ${text_color};
-			background: ${bg_color};
+			color: ${secondary_color};
+			background: ${primary_color};
 			cursor: pointer;
 		}
 	`}
 
-	&:hover > svg {         
+	&:hover > svg {
 		path {
-			fill: #ffffff
+			fill: ${({ secondary_color }) => `${secondary_color}`};
 		}
 	}
 `;
