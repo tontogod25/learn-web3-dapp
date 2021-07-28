@@ -100,27 +100,27 @@ export const CHAINS_CONFIG: ChainsType = {
 			{
 				id: "connect",
 				title: "Connect to Polygon",
-				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/connect-to-polygon"
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/connect-to-polygon"
 			},
 			{
 				id: "query",
 				title: "Query Polygon",
-				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/query-polygon"
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/query-polygon"
 			},
 			{
 				id: "balance",
 				title: "Fund a Polygon account",
-				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/get-matic-tokens-on-mumbai"
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/fund-a-polygon-account"
 			},
 			{
 				id: "deploy",
 				title: "Deploy a Solidity smart contract",
-				url: ""
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/deploy-a-solidity-smart-contract"
 			},
 			{
 				id: "call",
 				title: "Call the smart contract",
-				url: ""
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/call-the-smart-contract"
 			},
 		]
 	},
