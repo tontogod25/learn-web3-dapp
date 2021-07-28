@@ -1,78 +1,52 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
-import { Alert, Button, Col, Space, Typography } from 'antd';
-import { ethers } from 'ethers';
-
-import { getPolygonAddressExplorerURL } from 'utils/polygon-utils'
-import { getDatahubNodeURL } from 'utils/datahub-utils'
-import { PolygonChainIdT, PolygonAccountT } from 'types/polygon-types';
-import { CHAINS, POLYGON_NETWORKS, POLYGON_PROTOCOLS } from 'types/types'
+import { useState } from 'react';
+import { Alert, Button, Col, Space, Typography, Tag } from 'antd';
+import { ethers, providers } from 'ethers';
 import detectEthereumProvider from '@metamask/detect-provider';
+import { Network } from "@ethersproject/networks";
+
+import { PolygonAccountT } from 'types/polygon-types';
 
 const { Text } = Typography;
 
-// Prevents "Property 'ethereum' does not exist on type 'Window & typeof globalThis'
-// ts(2339)"" linter warning
+// Prevents "Property 'ethereum' does not exist on type
+// 'Window & typeof globalThis' ts(2339)" linter warning
 declare let window: any;
 
-const Connect = ({ setAccount }: { setAccount(account: PolygonAccountT): void }) => {
-  const [chainId, setChainId] = useState<PolygonChainIdT | number | null>(null);
-  const [addressExplorerUrl, setAddressExplorerUrl] = useState<string>(" ");
-  const [addressToDisplay, setAddressToDisplay] = useState<string>("")
+const Connect = ({ account, setAccount }: { account: PolygonAccountT, setAccount(account: PolygonAccountT): void }) => {
+  const [network, setNetwork] = useState<Network | null>(null);
 
-  const getConnection = async () => {
-    const providerCheck = await detectEthereumProvider();
+  const checkConnection = async () => {
+    const provider = await detectEthereumProvider();
 
-    if (providerCheck === window.ethereum) {
-      console.log(providerCheck)
-    }
+    if (provider) {
+      // TODO
+      // Connect to Polygon using Web3Provider and Metamask
+      // Define address and network
+      const web3provider = undefined
+      const address = undefined
+      const network = undefined
 
-    if (!window.ethereum) {
-      alert("Please visit https://metamask.io & install the Metamask wallet extension to continue!")
+      setAccount(address)
+      setNetwork(network)
     } else {
-
-      await window.ethereum.enable() // Prompts user to unlock Metamask, if it is installed
-      const web3provider = new ethers.providers.Web3Provider(window.ethereum, "any")
-      const signer = web3provider.getSigner();
-      
-      web3provider.on("network", (newNetwork, oldNetwork) => {
-        if (oldNetwork) {
-          window.location.reload();
-        }
-      });
-
-      const selectedAddress = window.ethereum.selectedAddress;
-      const addressToDisplay = `${selectedAddress.slice(0,6)}...${selectedAddress.slice(-4)}`;
-      const explorerUrl = getPolygonAddressExplorerURL(selectedAddress);
-
-      setAddressToDisplay(addressToDisplay)
-      setAccount(addressToDisplay)
-
-      const signature = await signer.signMessage('Welcome to the Polygon Pathway! Sign this message in Metamask to continue.');
-
-      if (signature) {
-        console.log(`Message signature: ${signature}`);
-        setChainId(signer.provider.network.chainId);
-        setAddressExplorerUrl(explorerUrl);
-      }
+      alert("Please install Metamask at https://metamask.io")
     }
   }
 
   return (
     <Col>
       <Space direction="vertical"  style={{ width: "100%" }}>
-        {!chainId && <Button type="primary" onClick={getConnection}>Connect to Polygon (via Metamask)</Button>}
-        {chainId
+        {<Button type="primary" onClick={checkConnection}>Check Metamask Connection</Button>}
+        {(account && network)
           ? <Alert
-          message={
-            <Space>
-              Connected to Polygon
-              <Text code>ChainID: {chainId}</Text>
-            </Space>
-          }
-          type="success"
-          showIcon
-        /> : <Alert message="Not connected to Polygon" type="error" showIcon />}
+              message={
+                <Text strong>{`Connected to ${network.name}`}</Text>
+              }
+              type="success"
+              showIcon
+            />
+          : <Alert message="Not connected to Polygon" type="error" showIcon />}
       </Space>
     </Col>
   );

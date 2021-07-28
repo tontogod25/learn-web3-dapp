@@ -130,19 +130,29 @@ export const CHAINS_CONFIG: ChainsType = {
 		steps: [
 			{
 				id: "connect",
-				title: "Connect to the Polygon testnet",
-				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/connect-to-polygon"
+				title: "Connect to Polygon",
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/connect-to-polygon"
 			},
 			{
 				id: "query",
-				title: "Query Polygon for information",
-				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/query-polygon"
+				title: "Query Polygon",
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/query-polygon"
 			},
 			{
 				id: "balance",
-				title: "Fund your Polygon account",
-				url: "https://app.gitbook.com/@figment-learn/s/pathway-sandbox/polygon-matic-pathway/get-matic-tokens-on-mumbai"
-			}
+				title: "Fund a Polygon account",
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/fund-a-polygon-account"
+			},
+			{
+				id: "deploy",
+				title: "Deploy a Solidity smart contract",
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/deploy-a-solidity-smart-contract"
+			},
+			{
+				id: "call",
+				title: "Call the smart contract",
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/call-the-smart-contract"
+			},
 		]
 	},
 	[CHAINS.SECRET]: {
@@ -161,8 +171,8 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.SOLANA]: {
 		id: CHAINS.SOLANA,
 		label: "Solana",
-		active: true,
     logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
+		active: false,
 		steps: [
 			{
 				id: "connect",

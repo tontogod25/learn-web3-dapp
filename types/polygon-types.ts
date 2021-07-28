@@ -5,7 +5,7 @@ export type PolygonChainIdT = {
 }
 
 export type PolygonQueryResponse = {
-    chainName: string
+    networkName: string
     chainId: number
 	blockHeight: number
     gasPriceAsGwei: string
