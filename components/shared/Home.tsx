@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { CHAINS } from "types/types";
 import { CHAINS_CONFIG } from "lib/constants";
 import { getChainColors } from "utils/colors-utils";
+import ProtocolLogo from "components/icons";
 
 const Home = () => {
 	return (
@@ -19,7 +20,7 @@ const Home = () => {
 
 						const box = (
 							<ProtocolBox key={id} active={active} bg_color={bgColor} text_color={textColor}>
-								<Logo src={logoUrl} />
+								<ProtocolLogo chainId={chain} />
 								<Label>{label}</Label>
 							</ProtocolBox>
 						);
@@ -67,11 +68,12 @@ const ProtocolBox = styled.div<{ active: boolean; bg_color: string; text_color: 
 			cursor: pointer;
 		}
 	`}
-`;
 
-const Logo = styled.img`
-	height: 50px;
-	margin-bottom: 20px;
+	&:hover > svg {         
+		path {
+			fill: #ffffff
+		}
+	}
 `;
 
 const Label = styled.div`
