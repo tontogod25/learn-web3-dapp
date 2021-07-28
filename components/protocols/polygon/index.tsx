@@ -8,8 +8,8 @@ import Step from "components/shared/Step";
 import Connect from "./steps/1_Connect";
 import Query from "./steps/2_Query";
 import Balance from "./steps/3_Balance";
-import Deploy from "./steps/5_Deploy";
-import Call from "./steps/6_Call";
+import Deploy from "./steps/4_Deploy";
+import Call from "./steps/5_Call";
 import { PolygonAccountT, PolygonChainIdT } from 'types/polygon-types'
 import { getPolygonAddressExplorerURL } from 'utils/polygon-utils'
 
