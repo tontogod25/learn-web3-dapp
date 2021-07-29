@@ -4,7 +4,8 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { ArrowUpRight } from 'react-feather';
 
-import { ChainType, StepType, CHAINS } from 'types/types';
+import { CHAINS, ChainType, StepType } from 'types/types';
+import { getChainColors } from 'utils/colors-utils';
 
 const { Text } = Typography;
 
@@ -78,6 +79,8 @@ const StepButtons = ({
 	isFirstStep: boolean
 	isLastStep: boolean
 }) => {
+	const { primaryColor, secondaryColor } = getChainColors(chainId)
+
 	return (
 		<StepFooter size="large">
 			{!isFirstStep &&
@@ -90,8 +93,8 @@ const StepButtons = ({
 					size="large"
 					type="primary"
 					onClick={() => next()}
-					text_color={getButtonTextColor(chainId)}
-					bg_color={getButtonBgColor(chainId)}
+					secondary_color={secondaryColor}
+					primary_color={primaryColor}
 				>
 					<Row align="middle">
 						Next Step
@@ -168,18 +171,14 @@ const StepContent = styled.div`
 	margin-bottom: 100px;
 `;
 
-
-// Generates a Warning: React does not recognize the `textColor` prop on a DOM element.
-// Generates a Warning: React does not recognize the `bgColor` prop on a DOM element.
-const NextButton = styled(Button)<{ bg_color: string; text_color: string }>`
+const NextButton = styled(Button)<{ primary_color: string; secondary_color: string }>`
 	border: none;
-
-	color: ${({ text_color })=> text_color};
-	background: ${({ bg_color })=> bg_color};
+	color: ${({ secondary_color })=> secondary_color};
+	background: ${({ primary_color })=> primary_color};
 
 	&:hover {
-		background: ${({ bg_color })=> bg_color};
-		color: ${({ text_color })=> text_color};
+		background: ${({ primary_color })=> primary_color};
+		color: ${({ secondary_color })=> secondary_color};
 		border: none;
 		box-shadow: black 2px 2px 1px;
 	}
@@ -187,8 +186,8 @@ const NextButton = styled(Button)<{ bg_color: string; text_color: string }>`
 
 const PrevButton = styled(Button)`
 	background: white;
-	border: solid #BBB 1px;
-	color: #555;
+	border: solid #777 1px;
+	color: #777;
 
 	&:hover {
 		color: black;

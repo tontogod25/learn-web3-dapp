@@ -20,13 +20,13 @@ const Sidebar = ({
 	steps: StepType[]
 	stepIndex: number
 }) => {
-	const { bgColor, textColor } = getChainColors(chain.id)
+	const { primaryColor, secondaryColor } = getChainColors(chain.id)
 
 	return (
-		<Left span={8} bg_color={bgColor}>
+		<Left span={8} primary_color={primaryColor}>
 			<Space size="large" direction="horizontal" align="center" style={{ marginBottom: "40px" }}>
 				<Image src={logoSVG} alt="Figment Learn" height={41} width={100} />
-				<ChainTitle text_color={textColor}>{`${chain.label} Pathway`}</ChainTitle>
+				<ChainTitle secondary_color={secondaryColor}>{`${chain.label} Pathway`}</ChainTitle>
 			</Space>
 
 			<Steps direction="vertical" size="small" current={stepIndex}>
@@ -43,15 +43,15 @@ const Sidebar = ({
 	)
 }
 
-const ChainTitle = styled.div<{ text_color: string }>`
-	color: ${({ text_color }) => text_color};
+const ChainTitle = styled.div<{ secondary_color: string }>`
+	color: ${({ secondary_color }) => secondary_color};
 	margin-bottom: 8px;
 	font-size: 28px;
 	font-weight: 600;
 `;
 
-const Left = styled(Col)<{ bg_color: string }>`
-	background: ${({ bg_color }) => bg_color};
+const Left = styled(Col)<{ primary_color: string }>`
+	background: ${({ primary_color }) => primary_color};
 	padding: 40px 0 0 40px;
 	height: 100vh;
 `;
