@@ -1,8 +1,8 @@
 import { BN } from 'avalanche';
 
-export type AvalancheConnectReponse = string
+export type AvalancheConnectResponse = string
 
-export type AvalancheTransferReponse = {
+export type AvalancheTransferResponse = {
 	txID: string
 }
 

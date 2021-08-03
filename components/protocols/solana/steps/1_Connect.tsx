@@ -4,7 +4,7 @@ import { Col, Alert, Space, Typography } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-import { SolanaConnectReponse } from "types/solana-types"
+import { SolanaConnectResponse } from "types/solana-types"
 
 const { Text } = Typography;
 
@@ -21,7 +21,7 @@ const Connect = () => {
 		axios
 			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/connect`)
 			.then(res => {
-				const version: SolanaConnectReponse = res.data
+				const version: SolanaConnectResponse = res.data
 				setVersion(version["solana-core"])
 				setFetchingVersion(false)
 			})
