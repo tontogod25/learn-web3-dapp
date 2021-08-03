@@ -10,7 +10,7 @@
     "build:program-rust": "cargo build-bpf --manifest-path=contracts/solana/program/Cargo.toml --bpf-out-dir=dist/solana/program",
     "near:build:contract": "node contracts/near/compile.js",
     "near:build:contract:debug": "node contracts/near/compile.js --debug",
-    "near:test": "npm run near:build:contract:debug && cd contracts/near && cargo test -- --nocapture && cd -"
+    "near:test": "npm run near:build:contract:debug && cd contracts/near && cargo test -- --nocapture && cd -",
     "truffle-polygon": "yarn global add truffle && cd ./contracts/polygon/SimpleStorage && yarn && truffle obtain --solc 0.8.0"
   },
   "dependencies": {
