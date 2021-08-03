@@ -3,6 +3,7 @@ import {
   PROTOCOLS,
   CHAINS,
   AVALANCHE_NETWORKS,
+  NEAR_NETWORKS,
   POLKADOT_NETWORKS,
   POLKADOT_PROTOCOLS,
   POLYGON_NETWORKS,
@@ -14,18 +15,19 @@ import {
 export const getDatahubNodeURL = (chain: CHAINS, network: NETWORKS, protocol?: PROTOCOLS): string => {
   switch (chain) {
     case CHAINS.AVALANCHE:
-      return getDataHubAvalancheNodeUrl(network as AVALANCHE_NETWORKS)
+        return getDataHubAvalancheNodeUrl(network as AVALANCHE_NETWORKS)
+    case CHAINS.NEAR:
+        return getDataHubNearNodeUrl(network as NEAR_NETWORKS)
     case CHAINS.POLKADOT:
       return getDataHubPolkadotNodeUrl(network as POLKADOT_NETWORKS, protocol as POLKADOT_PROTOCOLS)
     case CHAINS.POLYGON:
-      return getDataHubPolygonNodeUrl(network as POLYGON_NETWORKS, protocol as POLYGON_PROTOCOLS)
+        return getDataHubPolygonNodeUrl(network as POLYGON_NETWORKS, protocol as POLYGON_PROTOCOLS)
     case CHAINS.SOLANA:
-      return getDataHubSolanaNodeUrl(network as SOLANA_NETWORKS, protocol as SOLANA_PROTOCOLS)
+        return getDataHubSolanaNodeUrl(network as SOLANA_NETWORKS, protocol as SOLANA_PROTOCOLS)
     default:
-      return ""
+        return ""
   }
 }
-
 
 const getDataHubAvalancheNodeUrl = (network: AVALANCHE_NETWORKS): string => {
   if (network === AVALANCHE_NETWORKS.MAINNET) {
@@ -37,6 +39,11 @@ const getDataHubAvalancheNodeUrl = (network: AVALANCHE_NETWORKS): string => {
   return ""
 }
 
+const getDataHubNearNodeUrl = (network: NEAR_NETWORKS): string => 
+    network === NEAR_NETWORKS.MAINNET
+        ? `https://${process.env.DATAHUB_NEAR_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_NEAR_API_KEY}`
+        : `https://${process.env.DATAHUB_NEAR_TESTNET_RPC_URL}/apikey/${process.env.DATAHUB_NEAR_API_KEY}`
+     
 const getDataHubPolkadotNodeUrl = (network: POLKADOT_NETWORKS, protocol: POLKADOT_PROTOCOLS): string => {
   if (network === POLKADOT_NETWORKS.WESTEND) {
     if (protocol === POLKADOT_PROTOCOLS.RPC) {

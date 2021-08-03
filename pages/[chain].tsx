@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import { CHAINS_CONFIG } from "lib/constants";
-import { CHAINS, ChainType } from 'types/types';
+import { CHAINS_CONFIG } from "lib/constants"
+import { CHAINS, ChainType } from 'types/types'
 import { ComponentType } from 'react'
+import styled from "styled-components";
+import { SyncOutlined } from '@ant-design/icons';
 
 import styled from "styled-components"
 import { LoadingOutlined } from '@ant-design/icons'
@@ -12,7 +14,7 @@ type StaticPropsT = {
   params : { chain : CHAINS }
 }
 export async function getStaticProps({ params }: StaticPropsT) {
-  const chainId = params.chain;
+  const chainId = params.chain
   const chainConfig = CHAINS_CONFIG[chainId]
   return {
     props: {
@@ -29,7 +31,6 @@ export async function getStaticPaths() {
 }
 
 type DynChainT = ComponentType<{chain: ChainType}>
-
 type ChainT = {
   chainConfig: ChainType
 }

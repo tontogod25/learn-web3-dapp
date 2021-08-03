@@ -1,50 +1,73 @@
-import { useState } from "react";
-import { Row, Typography } from 'antd';
+import { useEffect, useReducer } from "react";
+import { Row } from 'antd';
 
-import Sidebar from "components/shared/Sidebar";
-import { ChainType } from "types/types";
-import Step from "components/shared/Step";
-import Connect from "./steps/1_Connect";
-import { useSteps } from "hooks/steps-hooks";
+import { Connect, Keys, Account, Balance, Transfer, Deploy, Call } from '@near/components/Steps';
+import { appStateReducer, initialState, NearContext } from '@near/context'
+import { useAppState, useLocalStorage } from '@near/hooks'
+import { Sidebar, Step } from '@near/components/Layout'
+import { Nav } from '@near/components';
 
-const { Text, Paragraph } = Typography;
+import type { AppI } from '@near/types';
 
-const Chain = ({ chain }: { chain: ChainType }) => {
-  const [keypair, setKeypair] = useState(null);
-  const { steps } = chain
+const NearApp: React.FC<AppI> = ({ chain }) => {
+    const { state, dispatch } = useAppState();
+    const { steps } = chain
+    const step = steps[state.index];
+    const nextHandler = () => {
+        dispatch({
+            type: 'SetIndex',
+            index: state.index + 1
+        })
+    }
+    const prevHandler = () => {
+        dispatch({
+            type: 'SetIndex',
+            index: state.index - 1
+        })
+    }
+    const isFirstStep = state.index == 0;
+    const isLastStep = state.index === steps.length - 1;
 
-  const {
-    next,
-    prev,
-    stepIndex,
-    step,
-    isFirstStep,
-    isLastStep
-  } = useSteps(steps);
-
-  return (
-    <Row>
-      <Sidebar
-        chain={chain}
-        steps={steps}
-        stepIndex={stepIndex}
-      />
-      <Step
-        chain={chain}
-        step={step}
-        isFirstStep={isFirstStep}
-        isLastStep={isLastStep}
-        prev={prev}
-        next={next}
-        body={
-          <>
-            {step.id === "connect" && <Connect />}
-          </>
-        }
-        nav={<div>nav</div>}
-      />
-    </Row>
+    return (
+        <Row>
+        <Sidebar
+            steps={steps}
+            stepIndex={state.index}
+        />
+        <Step
+            step={step}
+            isFirstStep={isFirstStep}
+            isLastStep={isLastStep}
+            prev={prevHandler}
+            next={nextHandler}
+            body={
+            <>
+                { step.id === "connect"  && <Connect />  }
+                { step.id === "keypair"  && <Keys />     }
+                { step.id === "account"  && <Account />  }
+                { step.id === "balance"  && <Balance />  }
+                { step.id === "transfer" && <Transfer /> }
+                { step.id === "deploy"   && <Deploy />   }
+                { step.id === "call"     && <Call />     }
+            </>
+            }
+            nav={<Nav />}
+        />
+        </Row>
   );
 }
 
-export default Chain
+const Near: React.FC<AppI> = ({ chain }) => {
+    const [storageState, setStorageState] = useLocalStorage("near", initialState)
+    const [state, dispatch] = useReducer(appStateReducer, storageState);
+    useEffect(() => {
+        setStorageState(state)
+    }, [state])
+    return (
+        <NearContext.Provider value={{ state, dispatch }}>
+            <NearApp chain={chain} />
+        </NearContext.Provider>
+    )
+}
+
+export default Near
