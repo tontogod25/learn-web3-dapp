@@ -3,9 +3,6 @@ import dynamic from 'next/dynamic'
 import { CHAINS_CONFIG } from "lib/constants"
 import { CHAINS, ChainType } from 'types/types'
 import { ComponentType } from 'react'
-import styled from "styled-components";
-import { SyncOutlined } from '@ant-design/icons';
-
 import styled from "styled-components"
 import { LoadingOutlined } from '@ant-design/icons'
 import { getChainColors } from 'utils/colors-utils';

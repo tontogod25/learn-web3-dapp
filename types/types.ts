@@ -16,6 +16,13 @@ export enum AVALANCHE_NETWORKS {
   FUJI = "FUJI"
 }
 
+// Celo
+export enum CELO_NETWORKS {
+  MAINNET = "MAINNET",
+  ALFAJORES = "alfajores"
+}
+
+
 // Near
 export enum NEAR_NETWORKS {
     MAINNET = "MAINNET",
@@ -55,7 +62,13 @@ export enum SOLANA_PROTOCOLS {
 }
 
 
-export type NETWORKS = POLYGON_NETWORKS | AVALANCHE_NETWORKS | SOLANA_NETWORKS | POLKADOT_NETWORKS | NEAR_NETWORKS
+export type NETWORKS = POLYGON_NETWORKS 
+  | AVALANCHE_NETWORKS 
+  | SOLANA_NETWORKS 
+  | POLKADOT_NETWORKS 
+  | NEAR_NETWORKS 
+  | CELO_NETWORKS
+  
 export type PROTOCOLS = POLYGON_PROTOCOLS | SOLANA_PROTOCOLS | POLKADOT_PROTOCOLS
 
 // ---------------------------------------------------
