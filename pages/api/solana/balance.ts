@@ -1,26 +1,22 @@
-import { Connection, PublicKey, PublicKeyInitData } from '@solana/web3.js'
+import { Connection, PublicKey  } from '@solana/web3.js';
+import { SOLANA_NETWORKS, SOLANA_PROTOCOLS } from 'types/types';
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { getSolanaUrl } from '@solana/lib';
 
-import { SolanaBalanceReponse, SolanaBalanceErrorResponse } from 'types/solana-types'
-import { CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS } from 'types/types'
-import { getDatahubNodeURL } from 'utils/datahub-utils'
-
-export default function balance(
+export default async function fund(
   req: NextApiRequest,
-  res: NextApiResponse<SolanaBalanceReponse | SolanaBalanceErrorResponse>
+  res: NextApiResponse<string | number>
 ) {
-  const url = getDatahubNodeURL(CHAINS.SOLANA, SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC)
-  const connection = new Connection(url)
-  const address = new PublicKey(req.body.address as PublicKeyInitData)
-  
-  connection
-    .getBalance(address)
-    .then((balance) => {
-      res.status(200).json(balance)
-    })
-    .catch((error) => {
-      res.status(500).json({
-        message: error.message
-      })
-    })
+  try {
+    // const url = getSolanaUrl(SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC);
+    // const connection = new Connection(url)
+    const connection = new Connection("https://api.testnet.solana.com", "confirmed");
+    const address = new PublicKey(req.body.address as PublicKey)  
+    const balance = await connection.getBalance(address)
+    console.log(balance)
+    res.status(200).json(balance)
+  } catch(error) {
+    console.error(error)
+    res.status(500).json('balance failed')
+  }
 }

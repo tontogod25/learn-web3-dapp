@@ -170,8 +170,8 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.SOLANA]: {
 		id: CHAINS.SOLANA,
 		label: "Solana",
-    logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
-		active: false,
+    	logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
+		active: true,
 		steps: [
 			{
 				id: "connect",

@@ -11,16 +11,17 @@ import {
   Transaction,
   SystemProgram} from "@solana/web3.js";
 
-import { getAccountExplorerURL, getNodeWsURL, getTxExplorerURL } from "../utils";
-import { getDatahubNodeURL } from "utils/datahub-utils";
+import { getAccountExplorerURL, getTxExplorerURL } from "@solana/lib";
 import { CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS } from "types/types";
 
 const { Text } = Typography;
 
-// The state of a greeting account managed by the hello world program
-class GreetingAccount {
+/**
+ * The state of a greeting account managed by the hello world program
+ */
+ class GreetingAccount {
   counter = 0;
-  constructor(fields = undefined) {
+  constructor(fields: {counter: number} | undefined = undefined) {
     if (fields) {
       this.counter = fields.counter;
     }
@@ -38,29 +39,28 @@ const GREETING_SIZE = borsh.serialize(
   new GreetingAccount(),
 ).length;
 
-const PAYER_SECRET_KEY = null;
-const PROGRAM_SECRET_KEY = null;
+const PAYER_SECRET_KEY: number[] = [];
+const PROGRAM_SECRET_KEY: number[] = [];
 
 const Program = () => {
-  const [connection, setConnection] = useState(null);
-  const [programId, setProgramId] = useState(null);
-  const [greeterPublicKey, setGreeterPublicKey] = useState(null);
+  const [connection, setConnection] = useState<Connection | null>(null);
+  const [programId, setProgramId] = useState<PublicKey | null>(null);
+  const [greeterPublicKey, setGreeterPublicKey] = useState<PublicKey | null>(null);
   const [greetingsCounter, setGreetingsCounter] = useState(null);
   const [greetFetching, setGreetFetching] = useState(false);
-  const [greetTxSignature, setGreetTxSignature] = useState(null);
+  const [greetTxSignature, setGreetTxSignature] = useState<string | null>(null);
 
   useEffect(() => {
     establishConnection();
   }, [])
 
   const establishConnection = () => {
-    const rpcUrl = getDatahubNodeURL(CHAINS.SOLANA, SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC)
-    const wsUrl = getDatahubNodeURL(CHAINS.SOLANA, SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.WS)
-    const connection = new Connection(rpcUrl, { wsEndpoint: wsUrl });
+    const rpcUrl = "https://api.testnet.solana.com" 
+    const connection = new Connection(rpcUrl, "confirmed");
     setConnection(connection);
   }
 
-  const checkProgram = async () => {
+  const checkProgram = async (cnx: Connection) => {
     if (!PAYER_SECRET_KEY || !PROGRAM_SECRET_KEY) {
       alert("Set PAYER_SECRET_KEY and PROGRAM_SECRET_KEY first!")
     }
@@ -87,10 +87,10 @@ const Program = () => {
     setGreeterPublicKey(greetedPubkey)
   
     // Check if the greeting account has already been created
-    const greetedAccount = await connection.getAccountInfo(greetedPubkey);
+    const greetedAccount = await cnx.getAccountInfo(greetedPubkey);
     if (greetedAccount === null) {
       console.log('Creating account', greetedPubkey.toBase58(), 'to say hello to');
-      const lamports = await connection.getMinimumBalanceForRentExemption(GREETING_SIZE);
+      const lamports = await cnx.getMinimumBalanceForRentExemption(GREETING_SIZE);
   
       const transaction = new Transaction().add(
         SystemProgram.createAccountWithSeed({
@@ -104,7 +104,7 @@ const Program = () => {
         }),
       );
 
-      sendAndConfirmTransaction(connection, transaction, [payerKeypair])
+      sendAndConfirmTransaction(cnx, transaction, [payerKeypair])
         .then(res => console.log(`res`, res))
         .catch(err => console.log(`err`, err))
     }
@@ -125,8 +125,8 @@ const Program = () => {
     // On success, call getGreetings() to fetch the greetings counter
   }
 
-  const getGreetings = async () => {
-    const accountInfo = await connection.getAccountInfo(greeterPublicKey);
+  const getGreetings = async (cnx: Connection) => {
+    const accountInfo = await cnx.getAccountInfo(greeterPublicKey as PublicKey);
 
     if (accountInfo === null) throw 'Error: cannot find the greeted account';
 
@@ -142,7 +142,7 @@ const Program = () => {
   if (!greeterPublicKey) {
     return (
       <Space>
-        <Button type="primary" onClick={checkProgram}>Check Program Info</Button>
+        <Button type="primary" onClick={async () => { await checkProgram(connection as Connection)}}>Check Program Info</Button>
       </Space>
     )
   }
@@ -151,9 +151,9 @@ const Program = () => {
     <Col>
       <Space direction="vertical" size="large">
         <Space direction="horizontal" size="large">
-          <Button type="default" onClick={checkProgram}>Check Program Info</Button>
+          <Button type="default" onClick={async () => { checkProgram(connection as Connection)}}>Check Program Info</Button>
           <Text strong>Program deployed!</Text>
-          <a href={getAccountExplorerURL(programId.toString())} target="_blank" rel="noreferrer">View program on Solana Explorer</a>
+          <a href={programId ? getAccountExplorerURL(programId.toString()) : "#"} target="_blank" rel="noreferrer">View program on Solana Explorer</a>
         </Space>
         <Button type="primary" onClick={greet}>Send a greeting to the program</Button>
         {
@@ -173,7 +173,7 @@ const Program = () => {
                 </Space>
               }
               description={
-                <a href={getTxExplorerURL(greetTxSignature)} target="_blank" rel="noreferrer">View transaction on Solana Explorer</a>
+                <a href={greetTxSignature ? getTxExplorerURL(greetTxSignature): "#"} target="_blank" rel="noreferrer">View transaction on Solana Explorer</a>
               }
               type="success"
               showIcon
