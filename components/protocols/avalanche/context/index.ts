@@ -3,14 +3,14 @@ import { createContext, Dispatch } from 'react';
 export type State = {
     index: number
     networkId?: string
-    publicKey?: string
     secretKey?: string 
+    address?: string 
 }
 
 type Action =
     | { type: 'SetIndex', index: number }
     | { type: 'SetNetworkId', networkId?: string }
-    | { type: 'SetPublicKey', publicKey?: string }
+    | { type: 'SetAddress', address?: string }
     | { type: 'SetSecretKey', secretKey?: string }
 
 const initialState = {
@@ -25,8 +25,8 @@ function appStateReducer(state: State, action: Action): State  {
             return { ...state, networkId: action.networkId }
         case 'SetSecretKey':
             return { ...state, secretKey: action.secretKey }
-        case 'SetPublicKey':
-            return { ...state, publicKey: action.publicKey }    
+        case 'SetAddress':
+            return { ...state, address: action.address }    
         default:
             return state
     }

@@ -1,69 +1,93 @@
 import { useEffect, useState } from 'react'
 import { Alert, Button, Col, Space, Typography } from 'antd';
-import axios from 'axios'
-import { LoadingOutlined } from '@ant-design/icons';
-import { useAppState } from '@near/hooks';
+import { useAppState } from '@avalanche/hooks';
+import { getAvalancheClient } from '@avalanche/lib'
+import axios from "axios";
 
 const { Text } = Typography;
 
+
+type ReponseT = {
+	secret: string
+	address: string
+}
+
 const Account = () => {
 	const [fetching, setFetching] = useState<boolean>(false);
-	const [keypair, setKeypair] = useState<string | null>(null)
+	const [address, setAdress] = useState<string | null>(null)
 	const { state, dispatch } = useAppState();
 
-	useEffect(() => {
-		generateKeypair();
-	}, []);
+	useEffect( () => {
+		if (state?.address) {
+			setAdress(state.address)
+		}
+	}, [])
 
-	const generateKeypair = () => {
-		setFetching(true)
-		axios
-			.get(`/api/avalanche/account`)
-			.then(res => {
-				const data = res.data
-				setKeypair(data)
-				setFetching(false)
+	const generateKeypair = async () => {
+		try {
+			setFetching(true)
+			const response = await axios.get(`/api/avalanche/account`)
+			const data = response.data
+			console.log(data)
+			const secret = data.secret;
+			const address = data.address;
+			setAdress(address)
+			setFetching(false)
+			dispatch({
+				type: 'SetSecretKey',
+				secretKey: secret
 			})
-			.catch(err => {
-				console.log(err)
-				setFetching(false)
-			})
+			dispatch({
+				type: 'SetAddress',
+				address: address
+			})	
+		} catch (error) {
+			console.error(error)
+			setFetching(false)
+		}
 	}
 
-	const publicKeyStr = keypair ? keypair.addressString : null
-
 	return (
-		<Space direction="vertical">
-			<Button type="primary" onClick={generateKeypair} style={{ marginBottom: "20px" }}>Generate a Keypair</Button>
-			{fetching
-				? <LoadingOutlined style={{ fontSize: 24 }} spin />
-				: keypair &&
-					<Col>
-						<Space direction="vertical">
-							<Alert
-								message={
-									<Space>
-										<Text strong>Keypair generated!</Text>
-									</Space>
-								}
-								description={
-									<div>
-										<Text>Open the JS console to inspect the Keypair.</Text>
-										<div>
-											This is the string representation of the keypair address :
-											<Text code>{publicKeyStr}</Text>.
-										</div>
-										<Text>It is accessible (and copyable) at the top right of this page.</Text>
-									</div>
-								}
-								type="success"
-								showIcon
-							/>
-						</Space>
-					</Col>
-			}
-		</Space>
-	);
-}
+		<Col>
+		  <Button type="primary" onClick={generateKeypair} style={{ marginBottom: "20px" }}>Generate a Keypair</Button>
+		  {address &&
+			<Col>
+			  <Space direction="vertical">
+				<Alert
+				  message={
+					<Space>
+					  <Text strong>Keypair generated!</Text>
+					</Space>
+				  }
+				  description={
+					<div>
+					  <div>
+						This is the string representation of the public key <br/>
+						<Text code>{address}</Text>.
+					  </div>
+					  <Text>It's accessible (and copyable) at the top right of this page.</Text>
+					</div>
+				  }
+				  type="success"
+				  showIcon
+				/>
+				<Alert
+				  message={
+					<Space>
+					  <Text strong>Fund your new account</Text>
+					</Space>
+				  }
+				  description={
+					<a href={`https://faucet.avax-test.network/`} target="_blank" rel="noreferrer">Go to the faucet</a>
+				}
+				  type="warning"
+				  showIcon
+				/>
+			  </Space>
+			</Col>
+		  }
+		</Col>
+	  );
+	}
 
 export default Account

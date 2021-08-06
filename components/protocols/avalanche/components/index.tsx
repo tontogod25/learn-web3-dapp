@@ -6,10 +6,10 @@ const { Text, Paragraph } = Typography;
 
 const Nav = () => {
     const { state } = useAppState();
-    const { networkId, publicKey } = state;
+    const { networkId, address } = state;
 
     const displayNetworkId = (networkId: string) => networkId
-    const displayPublicKey = (publicKey: string) => `${publicKey.slice(0,5)}...${publicKey.slice(-5)}`
+    const displayAddress = (address: string) => `${address.slice(0,5)}...${address.slice(-5)}`
 
     const Entry = ({ msg, display, value }: EntryT) => {
         return (
@@ -24,7 +24,7 @@ const Nav = () => {
         return (
         <>
             {networkId && <Entry msg={"Network Id: "} value={networkId} display={displayNetworkId} />}
-            {publicKey && <Entry msg={"Public key: "} value={publicKey} display={displayPublicKey} />}
+            {address && <Entry msg={"Address: "} value={address} display={displayAddress} />}
         </>
         )
     }

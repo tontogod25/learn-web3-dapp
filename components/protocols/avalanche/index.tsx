@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { Row } from 'antd';
-import { Connect, Account, Query, Transfer_X } from '@avalanche/components/steps';
+import { Connect, Account, Balance, Query, Transfer_X } from '@avalanche/components/steps';
 import { appStateReducer, initialState, AvalancheContext } from '@avalanche/context'
 import { useAppState, useLocalStorage } from '@avalanche/hooks'
 import { Sidebar, Step } from '@avalanche/components/layout'
@@ -42,6 +42,8 @@ const AvalanceApp: React.FC<AppI> = ({ chain }) => {
             <>
                 { step.id === "connect"  && <Connect /> }
                 { step.id === "account"  && <Account /> }
+                { step.id === "balance"  && <Balance />   }
+                { step.id === "query"    && <Query />   }
             </>
             }
             nav={<Nav />}
@@ -51,7 +53,6 @@ const AvalanceApp: React.FC<AppI> = ({ chain }) => {
 }
 
 const Avalance: React.FC<AppI> = ({ chain }) => {
-	console.log(chain)
   const [storageState, setStorageState] = useLocalStorage("avalanche", initialState)
   const [state, dispatch] = useReducer(appStateReducer, storageState);
   useEffect(() => {
