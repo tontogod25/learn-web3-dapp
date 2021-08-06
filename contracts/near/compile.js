@@ -23,8 +23,6 @@ sh.cd(__dirname)
 // --debug`. Let's set a variable to track whether `--debug` was used.
 const debug = process.argv.pop() === '--debug'
 
-// You can call this script with `node compile.js` or `node compile.js --debug`.
-// Let's set a variable to track whether `--debug` was used.
 // Note: see other flags in ./cargo/config. Unfortunately, you cannot set the
 // `--target option` in Cargo.toml.
 const buildCmd = debug
@@ -34,7 +32,7 @@ const buildCmd = debug
 // Execute the build command, storing exit code for later use
 const { code } = sh.exec(buildCmd)
 
-// Assuming this is compiled from the root project directory, link the compiled
+// Assuming this is compiled from the project root directory, link the compiled
 // contract to the `out` folder –
 // When running commands like `near deploy`, near-cli looks for a contract at
 // <CURRENT_DIRECTORY>/out/main.wasm
