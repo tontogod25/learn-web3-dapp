@@ -10,7 +10,7 @@ export default async function fund(
   try {
     // const url = getSolanaUrl(SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC);
     // const connection = new Connection(url)
-    const connection = new Connection("https://api.testnet.solana.com", "confirmed");
+    const connection = new Connection("https://api.devnet.solana.com", "confirmed");
     const address = new PublicKey(req.body.address as PublicKey)  
     const balance = await connection.getBalance(address)
     console.log(balance)

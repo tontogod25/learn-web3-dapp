@@ -9,7 +9,8 @@ import {
   TransactionInstruction,
   sendAndConfirmTransaction,
   Transaction,
-  SystemProgram} from "@solana/web3.js";
+  SystemProgram
+} from "@solana/web3.js";
 
 import { getAccountExplorerURL, getTxExplorerURL } from "@solana/lib";
 import { CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS } from "types/types";
@@ -56,12 +57,16 @@ const PROGRAM_SECRET_KEY: number[] = [
   ,247,98,208,157,221,68,209,120,249,83,191,13,15,73,143,57,6,2
 ];
 
+const programSecretKey0 = new Uint8Array(PROGRAM_SECRET_KEY);
+const programKeypair0 = Keypair.fromSecretKey(programSecretKey0);
+const programId0 = programKeypair0.publicKey;
+
 const Program = () => {
   const [connection, setConnection] = useState<Connection | null>(null);
-  const [programId, setProgramId] = useState<PublicKey | null>(null);
+  const [programId, setProgramId] = useState<PublicKey>(programId0);
   const [greeterPublicKey, setGreeterPublicKey] = useState<PublicKey | null>(null);
   const [greetingsCounter, setGreetingsCounter] = useState(null);
-  const [greetFetching, setGreetFetching] = useState(false);
+  const [fetching, setFetching] = useState(false);
   const [greetTxSignature, setGreetTxSignature] = useState<string | null>(null);
 
   useEffect(() => {
@@ -69,7 +74,7 @@ const Program = () => {
   }, [])
 
   const establishConnection = () => {
-    const rpcUrl = "https://api.testnet.solana.com" 
+    const rpcUrl = "https://api.devnet.solana.com" 
     const connection = new Connection(rpcUrl, "confirmed");
     setConnection(connection);
   }
@@ -79,22 +84,27 @@ const Program = () => {
       alert("Set PAYER_SECRET_KEY and PROGRAM_SECRET_KEY first!")
     }
 
-    const programSecretKey = new Uint8Array(PROGRAM_SECRET_KEY);
-    const programKeypair = Keypair.fromSecretKey(programSecretKey);
-    const programId = programKeypair.publicKey;
-    setProgramId(programId);
-  
-    // // Check if the program has been deployed
-    // await connection.getAccountInfo(programId);
-    // console.log(`Using program ${programId.toBase58()}`);
+    // const programSecretKey = new Uint8Array(PROGRAM_SECRET_KEY);
+    // const programKeypair = Keypair.fromSecretKey(programSecretKey);
+    // const programId = programKeypair.publicKey;
+    // setProgramId(programId);
 
-    const payerSecretKey = new Uint8Array(PAYER_SECRET_KEY);
-    const payerKeypair = Keypair.fromSecretKey(payerSecretKey);
-  
+    // Check if the program has been deployed
+    console.log(await cnx.getVersion())
+    console.log(`Using program ${programId.toBase58()}`);
+    const programInfo = await cnx.getAccountInfo(programId);  
+    if (programInfo === null) {
+        throw new Error('Program needs to be built and deployed');
+    } else if (!programInfo.executable) {
+      throw new Error(`Program is not executable`);
+    }
+    console.log(`Using program ${programId.toBase58()}`);
+    
     // Derive the address of a greeting account from the program so that it's easy to find later.
+    const payer = Keypair.fromSecretKey(new Uint8Array(PAYER_SECRET_KEY));
     const GREETING_SEED = 'hello';
     const greetedPubkey = await PublicKey.createWithSeed(
-      payerKeypair.publicKey,
+      payer.publicKey,
       GREETING_SEED,
       programId,
     );
@@ -105,11 +115,11 @@ const Program = () => {
     if (greetedAccount === null) {
       console.log('Creating account', greetedPubkey.toBase58(), 'to say hello to');
       const lamports = await cnx.getMinimumBalanceForRentExemption(GREETING_SIZE);
-  
+      console.log('Balance of', greetedPubkey.toBase58(), lamports);    
       const transaction = new Transaction().add(
         SystemProgram.createAccountWithSeed({
-          fromPubkey: payerKeypair.publicKey,
-          basePubkey: payerKeypair.publicKey,
+          fromPubkey: payer.publicKey,
+          basePubkey: payer.publicKey,
           seed: GREETING_SEED,
           newAccountPubkey: greetedPubkey,
           lamports,
@@ -118,25 +128,46 @@ const Program = () => {
         }),
       );
 
-      sendAndConfirmTransaction(cnx, transaction, [payerKeypair])
+      sendAndConfirmTransaction(cnx, transaction, [payer])
         .then(res => console.log(`res`, res))
-        .catch(err => console.log(`err`, err))
+        .catch(err => console.log(`err here`, err))
     }
   }
 
-  const greet = async () => {
-    alert("Implement the greet() function!");
+  const greet = async (cnx: Connection) => {
+    // alert("Implement the greet() function!");
 
     // Load the payer's Keypair from the Uint8Array PAYER_SECRET_KEY
-    // by using Keypair.fromsecretkey
+    // by using Keypair.fromSecretKey
     // https://solana-labs.github.io/solana-web3.js/classes/keypair.html#fromsecretkey
-  
+    const payerSecretKey = new Uint8Array(PAYER_SECRET_KEY);
+    const payerKeypair = Keypair.fromSecretKey(payerSecretKey);
     // Create the TransactionInstruction by passing keys, programId and data
     // For data you can pass Buffer.alloc(0) as all the program's instructions are the same
-  
+    const pubkey = greeterPublicKey as PublicKey;
+    const instruction = new TransactionInstruction({
+      keys: [{pubkey: greeterPublicKey as PublicKey, isSigner: false, isWritable: true}],
+      programId,
+      data: Buffer.alloc(0), // All instructions are hellos
+    });
+
     // Call sendAndConfirmTransaction
     // https://solana-labs.github.io/solana-web3.js/modules.html#sendandconfirmtransaction
     // On success, call getGreetings() to fetch the greetings counter
+    setFetching(true);
+    sendAndConfirmTransaction(
+      cnx,
+      new Transaction().add(instruction),
+      [payerKeypair],
+    ).then(res => {
+      console.log(`SUCCESS`, res);
+      setGreetTxSignature(res);
+      setFetching(false);
+      getGreetings(cnx);
+    }).catch(err => {
+      console.log(`ERROR`, err);
+      setFetching(false);
+    });
   }
 
   const getGreetings = async (cnx: Connection) => {
@@ -156,7 +187,7 @@ const Program = () => {
   if (!greeterPublicKey) {
     return (
       <Space>
-        <Button type="primary" onClick={async () => { await checkProgram(connection as Connection)}}>Check Program Info</Button>
+        <Button type="primary" onClick={() => { checkProgram(connection as Connection) }}>Check Program Info</Button>
       </Space>
     )
   }
@@ -165,20 +196,20 @@ const Program = () => {
     <Col>
       <Space direction="vertical" size="large">
         <Space direction="horizontal" size="large">
-          <Button type="default" onClick={async () => { checkProgram(connection as Connection)}}>Check Program Info</Button>
+          <Button type="default" onClick={() => { checkProgram(connection as Connection) }}>Check Program Info</Button>
           <Text strong>Program deployed!</Text>
           <a href={programId ? getAccountExplorerURL(programId.toString()) : "#"} target="_blank" rel="noreferrer">View program on Solana Explorer</a>
         </Space>
-        <Button type="primary" onClick={greet}>Send a greeting to the program</Button>
+        <Button type="primary" onClick={() => { greet(connection as Connection) }}>Send a greeting to the program</Button>
         {
-          greetFetching &&
+          fetching &&
             <Space size="large">
               <LoadingOutlined style={{ fontSize: 24, color: "#1890ff" }} spin />
               <Text italic={true} type="secondary">Transaction initiated. Waiting for confirmations...</Text>
             </Space>
         }
         {
-          greetTxSignature && !greetFetching &&
+          greetTxSignature && !fetching &&
             <Alert
               message={
                 <Space direction="horizontal">

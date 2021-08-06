@@ -41,7 +41,7 @@ const Transfer = () => {
     setTxSignature(null);
     setFetching(true);
 
-    const rpcUrl = "https://api.testnet.solana.com" 
+    const rpcUrl = "https://api.devnet.solana.com" 
     const connection = new Connection(rpcUrl, "confirmed");
 
     const fromPubkey = new PublicKey(publicKey as string);

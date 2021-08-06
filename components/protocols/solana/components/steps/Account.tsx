@@ -18,6 +18,7 @@ const Account = () => {
 
   const generateKeypair = () => {
     const keypair = Keypair.generate();
+    setKeypair(keypair)
     console.log(keypair.secretKey);
       dispatch({
         type: "SetSecretKey",
