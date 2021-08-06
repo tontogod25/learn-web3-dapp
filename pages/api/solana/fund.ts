@@ -1,7 +1,7 @@
 import { Connection, PublicKey, PublicKeyInitData, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { SOLANA_NETWORKS, SOLANA_PROTOCOLS } from 'types/types';
 import type { NextApiRequest, NextApiResponse } from 'next'
-// import { getSolanaUrl } from '@solana/lib';
+import { getSolanaUrl } from '@solana/lib';
 
 export default async function fund(
   req: NextApiRequest,
