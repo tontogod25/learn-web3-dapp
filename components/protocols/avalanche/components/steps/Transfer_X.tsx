@@ -3,8 +3,8 @@ import axios from 'axios'
 import { Form, Input, Button, Alert, Space, Typography } from 'antd'
 import { LoadingOutlined, RedoOutlined } from '@ant-design/icons'
 
-import { getAvalancheClient, getAvalancheExplorerURL } from "utils/avalanche-utils"
-import { AvalancheKeypairType, AvalancheTransferResponse, AvalancheTransferErrorResponse } from "types/avalanche-types"
+import { getAvalancheClient, getAvalancheExplorerURL } from "@avalanche/lib"
+import { AvalancheKeypairType, AvalancheTransferResponse, AvalancheTransferErrorResponse } from "@avalanche/types"
 
 const layout = {
 	labelCol: { span: 4 },

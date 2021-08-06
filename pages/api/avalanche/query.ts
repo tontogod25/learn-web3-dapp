@@ -1,3 +1,5 @@
+export const VERSION = "0.0.1"
+/*
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { AvalancheQueryResponse } from "types/avalanche-types"
@@ -30,3 +32,4 @@ export default async function query(
 			txFee,
 		});
 }
+*/

@@ -1,10 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Avalanche } from 'avalanche';
 import fs from 'fs';
-
 import { AVALANCHE_NETWORKS, CHAINS } from 'types/types';
-import { getDatahubNodeURL } from 'utils/datahub-utils';
-import { getAvalancheClient } from 'utils/avalanche-utils'
+import { getDataHubAvalancheNodeUrl } from '@avalanche/lib';
+import { getAvalancheClient } from '@avalanche/lib'
 type Data = any;
 
 export default function account(
@@ -12,10 +11,6 @@ export default function account(
 	res: NextApiResponse<Data>
 ) {
 	const client = getAvalancheClient()
-
-	// Define the path where our keypair will be saved in JSON format
-	const credentialsPath = './credentials'
-	const keyPath = `${credentialsPath}/avalanche_privkey.json`
 	const chain = client.XChain(); // the chainID can be altered if necessary, but we are on XChain here
 	const keyChain = chain.keyChain(); // keyChain will be the returned instance of KeyChain from AVMAPI
 

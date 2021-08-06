@@ -1,73 +1,67 @@
-import { useState } from "react";
-import { Row, Typography } from 'antd';
+import { useEffect, useReducer } from "react";
+import { Row } from 'antd';
+import { Connect, Account, Query, Transfer_X } from '@avalanche/components/steps';
+import { appStateReducer, initialState, AvalancheContext } from '@avalanche/context'
+import { useAppState, useLocalStorage } from '@avalanche/hooks'
+import { Sidebar, Step } from '@avalanche/components/layout'
+import { Nav } from '@avalanche/components';
+import type { AppI } from '@avalanche/types';
 
-import Sidebar from "components/shared/Sidebar";
-import Step from "components/shared/Step";
-import { ChainType } from "types/types";
-import { useSteps } from "hooks/steps-hooks";
-import Connect from "./steps/1_Connect";
-import Account from "./steps/2_Account";
-import Query from "./steps/3_Query";
-import TransferX from "./steps/5_Transfer_X";
-import { AvalancheKeypairType } from "types/avalanche-types";
+const AvalanceApp: React.FC<AppI> = ({ chain }) => {
+    const { state, dispatch } = useAppState();
+    const { steps } = chain
+    const step = steps[state.index];
+    const nextHandler = () => {
+        dispatch({
+            type: 'SetIndex',
+            index: state.index + 1
+        })
+    }
+    const prevHandler = () => {
+        dispatch({
+            type: 'SetIndex',
+            index: state.index - 1
+        })
+    }
+    const isFirstStep = state.index == 0;
+    const isLastStep = state.index === steps.length - 1;
 
-const { Text, Paragraph } = Typography;
-
-const Chain = ({ chain }: { chain: ChainType }) => {
-	const [keypair, setKeypair] = useState<AvalancheKeypairType | null>(null);
-
-	const { steps } = chain
-
-	const {
-		next,
-		prev,
-		stepIndex,
-		step,
-		isFirstStep,
-		isLastStep
-	} = useSteps(steps);
-
-	return (
-		<Row>
-			<Sidebar
-				chain={chain}
-				steps={steps}
-				stepIndex={stepIndex}
-			/>
-			<Step
-				chain={chain}
-				step={step}
-				isFirstStep={isFirstStep}
-				isLastStep={isLastStep}
-				prev={prev}
-				next={next}
-				body={
-					<>
-						{step.id === "connect" && <Connect />}
-						{step.id === "account" && <Account keypair={keypair} setKeypair={setKeypair} />}
-						{step.id === "query" && <Query />}
-						{step.id === "transferX" && <TransferX keypair={keypair} />}
-					</>
-				}
-				nav={<Nav keypair={keypair} />}
-			/>
-		</Row>
-	);
+    return (
+        <Row>
+        <Sidebar
+            steps={steps}
+            stepIndex={state.index}
+        />
+        <Step
+            step={step}
+            isFirstStep={isFirstStep}
+            isLastStep={isLastStep}
+            prev={prevHandler}
+            next={nextHandler}
+            body={
+            <>
+                { step.id === "connect"  && <Connect /> }
+                { step.id === "account"  && <Account /> }
+            </>
+            }
+            nav={<Nav />}
+        />
+        </Row>
+  );
 }
 
-const Nav = ({ keypair }: { keypair : AvalancheKeypairType | null}) => {
-	if (!keypair) return null;
-
-	const address = keypair.addressString;
-	const addressToDisplay = `${address.slice(0,6)}...${address.slice(-6)}`;
-
-	return (
-		<div style={{ position: "fixed", top: 20, right: 60 }}>
-			<Paragraph copyable={{ text: address }}>
-				<Text code>{addressToDisplay}</Text>
-			</Paragraph>
-		</div>
-	)
+const Avalance: React.FC<AppI> = ({ chain }) => {
+	console.log(chain)
+  const [storageState, setStorageState] = useLocalStorage("avalanche", initialState)
+  const [state, dispatch] = useReducer(appStateReducer, storageState);
+  useEffect(() => {
+      setStorageState(state)
+  }, [state])
+  return (
+      <AvalancheContext.Provider value={{ state, dispatch }}>
+          <AvalanceApp chain={chain} />
+      </AvalancheContext.Provider>
+  )
 }
 
-export default Chain
+export default Avalance
