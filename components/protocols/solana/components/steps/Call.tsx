@@ -39,8 +39,22 @@ const GREETING_SIZE = borsh.serialize(
   new GreetingAccount(),
 ).length;
 
-const PAYER_SECRET_KEY: number[] = [];
-const PROGRAM_SECRET_KEY: number[] = [];
+// cat ~/dist/solana/program/helloworld-keypair.json
+const PAYER_SECRET_KEY: number[] =[
+  203,45,78,150,193,20,175,50,207,192,239,85,86,175
+  ,166,104,3,98,189,126,75,15,53,8,148,44,107,198
+  ,132,212,77,231,126,3,236,53,86,103,180,222,142,15
+  ,198,225,6,101,100,241,45,225,23,114,100,242,241,206
+  ,146,83,88,12,229,170,253,125
+]
+
+// cat ~/.config/solana/id.json
+const PROGRAM_SECRET_KEY: number[] = [
+  82,233,192,228,196,175,32,125,191,102,164,216,86,72,101
+  ,115,149,72,184,228,185,107,93,99,19,201,248,14,187,138
+  ,54,242,80,26,34,124,18,107,112,71,149,156,255,112,57,189
+  ,247,98,208,157,221,68,209,120,249,83,191,13,15,73,143,57,6,2
+];
 
 const Program = () => {
   const [connection, setConnection] = useState<Connection | null>(null);

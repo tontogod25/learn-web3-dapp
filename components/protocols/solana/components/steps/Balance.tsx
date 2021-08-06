@@ -42,8 +42,7 @@ const Balance = () => {
           <Button type="primary" onClick={getBalance} loading={fetching}>Check Balance</Button>
         </Space>
         {error && <Alert type="error" closable message={error} onClose={() => setError(null)} /> }
-        {balance
-            ? <Alert
+        {balance && <Alert 
                 message={
                   <Text strong>{`This address has a balance of ◎${balance}`}</Text>
                 }
@@ -54,7 +53,6 @@ const Balance = () => {
                 closable
                 showIcon
               />
-            : null
         }
       </Space>
     </Col>

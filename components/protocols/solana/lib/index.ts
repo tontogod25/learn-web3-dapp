@@ -21,3 +21,6 @@ export const getSolanaUrl = (network: SOLANA_NETWORKS, protocol: SOLANA_PROTOCOL
             : `wss://${process.env.DATAHUB_SOLANA_DEVNET_WS_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`
     }
 }
+
+
+export const getSafeUrl = () => "https://api.testnet.solana.com" 
