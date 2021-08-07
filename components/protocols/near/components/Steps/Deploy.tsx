@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import axios from 'axios';
-import { Alert, Col, Input, Button, Space, Typography } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { useState } from 'react'
+import axios from 'axios'
+import { Alert, Col, Input, Button, Space, Typography } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 import { useAppState } from '@near/hooks'
 import { getTransactionUrl } from '@near/lib'
 
-const { Text } = Typography;
+const { Text } = Typography
 
 const Deploy = () => {
-    const [fetching, setFetching] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-    const [txhash, setTxhash] = useState<string>('');
-    const { state } = useAppState();
-    const { networkId, accountId, secretKey } = state;
+    const [fetching, setFetching] = useState<boolean>(false)
+    const [error, setError] = useState<string | null>(null)
+    const [txhash, setTxhash] = useState<string>('')
+    const { state } = useAppState()
+    const { networkId, accountId, secretKey } = state
 
     const deployContract = () => {
         setError(null)
@@ -29,7 +29,7 @@ const Deploy = () => {
             })
     }
 
-    const txUrl = getTransactionUrl(networkId)(txhash);
+    const txUrl = getTransactionUrl(networkId)(txhash)
 
     return (
         <Col>
@@ -44,7 +44,7 @@ const Deploy = () => {
                     : txhash.length !== 0
                         ? <Alert
                             message={
-                                <Text strong>{`The contract has been deployed`}</Text>
+                                <Text strong>{`The contract has been deployed!`}</Text>
                             }
                             description={
                                 <a href={txUrl} target="_blank" rel="noreferrer">View the transaction on NEAR Explorer</a>
@@ -57,7 +57,7 @@ const Deploy = () => {
                 }
             </Space>
         </Col>
-    );
+    )
 }
 
 export default Deploy
