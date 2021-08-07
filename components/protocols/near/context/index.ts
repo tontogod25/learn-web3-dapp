@@ -1,6 +1,6 @@
-import { createContext, Dispatch } from 'react';
-import { getSafeEnv } from '@near/lib';
-import type { State } from '@near/types';
+import { createContext, Dispatch } from 'react'
+import { getSafeEnv } from '@near/lib'
+import type { State } from '@near/types'
 
 type Action =
     | { type: 'SetNetworkId', networkId: string }
@@ -32,8 +32,8 @@ function appStateReducer(state: State, action: Action): State  {
 }
 
 const NearContext = createContext<{
-    state: State;
-    dispatch: Dispatch<Action>;
+    state: State
+    dispatch: Dispatch<Action>
 }>({
     state: initialState,
     dispatch: () => null

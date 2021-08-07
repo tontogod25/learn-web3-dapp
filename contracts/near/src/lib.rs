@@ -64,7 +64,7 @@ impl Welcome {
  * cargo test -- --nocapture
  *
  * From project root, to run in combination with frontend tests:
- * yarn test
+ * yarn near:test
  *
  */
 #[cfg(test)]
