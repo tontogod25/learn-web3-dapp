@@ -18,6 +18,6 @@ export default async function(
         return res.status(200).json(balance)
     } catch (error) {
         console.error(error)
-        return res.status(500).json('Error transfer to NEAR')
+        return res.status(500).json('Error transferring NEAR: ' + error.message)
     } 
 }

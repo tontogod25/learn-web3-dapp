@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Alert, Col, Input, Button, Space, Typography } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
-import axios from 'axios';
+import { LoadingOutlined } from '@ant-design/icons'
+import axios from 'axios'
 import { useAppState } from '@near/hooks'
 import { getTransactionUrl } from '@near/lib'
 
 const { Text } = Typography;
 
 const Call = () => {
-    const [fetching, setFetching] = useState<boolean>(false);
-    const [reseting, setResiting] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-    const [txhash, setTxhash] = useState<string>('');
-    const [message, setMessage] = useState<string>('');
-    const [newMessage, setNewMessage] = useState<string>('');
-    const { state } = useAppState();
+    const [fetching, setFetching] = useState<boolean>(false)
+    const [resetting, setResetting] = useState<boolean>(false)
+    const [error, setError] = useState<string | null>(null)
+    const [txhash, setTxhash] = useState<string>('')
+    const [message, setMessage] = useState<string>('')
+    const [newMessage, setNewMessage] = useState<string>('')
+    const { state } = useAppState()
 
     useEffect(() => {
         const contractCallView = () => {
@@ -31,30 +31,30 @@ const Call = () => {
                     setError(data.message)
                 })
         }
-        contractCallView();
+        contractCallView()
     }, [txhash, state])
 
     const contractCallFunction = () => {
         setError(null)
-        setResiting(true)
+        setResetting(true)
         axios.post(`/api/near/callFunction`, { ...state, newMessage })
             .then(res => {
                 setTxhash(res.data)
-                setResiting(false)
+                setResetting(false)
             })
             .catch(err => {
                 const data = err.response.data
-                setResiting(false)
+                setResetting(false)
                 setError(data.message)
             })
     }
 
-    const txUrl = getTransactionUrl(state.networkId)(txhash);
+    const txUrl = getTransactionUrl(state.networkId)(txhash)
 
     return (
     <>
         <Space direction="vertical" size="large">
-        <Text>Below the message stored on contract:</Text>
+        <Text>Below is the message stored on our &quot;greeter&quot; contract:</Text>
         <Col>
             {fetching
                 ? <LoadingOutlined style={{ fontSize: 24 }} spin />
@@ -64,11 +64,11 @@ const Call = () => {
         <Col>
             <Space direction="vertical" size="large">
                 <Space direction="horizontal">
-                    <Button type="primary" onClick={contractCallFunction}>Reset the message</Button>
+                    <Button type="primary" onClick={contractCallFunction}>Set greeting</Button>
                     <Input style={{ minWidth: "200px", fontWeight: "bold", textAlign: "center" }} defaultValue={message} onChange={ e => setNewMessage(e.target.value) }/>
                 </Space>
                 {error && <Alert type="error" closable message={error} /> }
-                {reseting
+                {resetting
                     ? <LoadingOutlined style={{ fontSize: 24 }} spin />
                     : txhash.length !== 0
                         ? <Alert
@@ -88,7 +88,7 @@ const Call = () => {
         </Col>
         </Space>
     </>
-    );
+    )
 }
 
 export default Call

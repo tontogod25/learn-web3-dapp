@@ -1,37 +1,37 @@
-import { useState } from "react"
-import { Form, Input, Button, Alert, Space, Typography } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
-import { useAppState } from '@near/hooks';
-import { getTransactionUrl } from '@near/lib';
-import axios from "axios";
+import { useState } from 'react'
+import { Form, Input, Button, Alert, Space, Typography } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
+import { useAppState } from '@near/hooks'
+import { getTransactionUrl } from '@near/lib'
+import axios from 'axios'
 
 const layout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 20 },
-};
+}
 
 const tailLayout = {
     wrapperCol: { offset: 4, span: 20 },
-};
+}
 
-const { Text } = Typography;
+const { Text } = Typography
 
 const Transfer = () => {
-    const [toAddress, _setToAddress] = useState('pizza.testnet');
-    const [error, setError] = useState<string | null>(null);
-    const [fetching, setFetching] = useState(false);
-    const [txSignature, setTxSignature] = useState(null);
-    const { networkId, secretKey, accountId } = useAppState().state;
+    const [toAddress, _setToAddress] = useState('pizza.testnet')
+    const [error, setError] = useState<string | null>(null)
+    const [fetching, setFetching] = useState(false)
+    const [txSignature, setTxSignature] = useState(null)
+    const { networkId, secretKey, accountId } = useAppState().state
 
     const transfer = (values: any) => {
-        const isValidAmount = parseFloat(values.amount);
+        const isValidAmount = parseFloat(values.amount)
         if (isNaN(isValidAmount)) {
             setError("Amount needs to be a valid number")
             throw Error('Invalid Amount')
         }
-        const txAmount = values.amount;
-        const txSender = values.from;
-        const txReceiver = values.to;
+        const txAmount = values.amount
+        const txSender = values.from
+        const txReceiver = values.to
         const options = {
             txSender,
             txAmount,
@@ -69,13 +69,13 @@ const Transfer = () => {
         <Text code>{accountId}</Text>
       </Form.Item>
 
-      <Form.Item label="Amount" name="amount" required tooltip="1 NEAR = 0.00_000_000_1 nNEAR">
+      <Form.Item label="Amount" name="amount" required tooltip="0.000000000000000000000001 NEAR = 1 yoctoNEAR">
         <Space direction="vertical">
           <Input suffix="NEAR" style={{ width: "200px" }} />
         </Space>
       </Form.Item>
 
-      <Form.Item label="Recipeint" name="to" required>
+      <Form.Item label="Recipient" name="to" required>
         <Text code>{toAddress}</Text>
       </Form.Item>
 

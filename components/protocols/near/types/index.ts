@@ -1,10 +1,10 @@
 import type { Dispatch, SetStateAction } from 'react'
 import { ChainType } from "types/types";
 
-// api call
+// API call
 export type NearConnectResponse = string
 
-// context stuff 
+// Context stuff 
 export type Action =
     | { type: 'SetNetworkId', networkId: string }
     | { type: 'SetAccountId', accountId: string | undefined }
@@ -36,7 +36,7 @@ export type EntryT = {
 }
 
 
-// components : Layout
+// Components : Layout
 export interface StepButtonsI {
 	next(): void
 	prev(): void
