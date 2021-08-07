@@ -213,7 +213,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.TEZOS]: {
 		id: CHAINS.TEZOS,
 		label: "Tezos",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/tezos-xtz-logo.svg?v=010",
 		steps: [
 			{
@@ -223,4 +223,4 @@ export const CHAINS_CONFIG: ChainsType = {
 			},
 		]
 	},
-}
+};
