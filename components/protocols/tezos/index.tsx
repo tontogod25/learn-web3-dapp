@@ -50,7 +50,7 @@ const TezosApp: React.FC<AppI> = ({ chain }) => {
 }
 
 const Tezos: React.FC<AppI> = ({ chain }) => {
-  const [storageState, setStorageState] = useLocalStorage("solana", initialState)
+  const [storageState, setStorageState] = useLocalStorage("tezos", initialState)
   const [state, dispatch] = useReducer(appStateReducer, storageState);
   useEffect(() => {
       setStorageState(state)
