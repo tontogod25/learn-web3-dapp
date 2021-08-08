@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { CHAINS, SECRET_NETWORKS } from 'types/types';
-import { getDatahubNodeURL } from 'utils/datahub-utils';
+import { SECRET_NETWORKS } from 'types/types';
+import { getDataHubSecretNodeUrl } from 'components/protocols/secret/lib';
 import { CosmWasmClient } from 'secretjs';
 
 export default async function connect(
@@ -8,7 +8,7 @@ export default async function connect(
   res: NextApiResponse<string>
 ) {
     try {
-        const url = getDatahubNodeURL(CHAINS.SECRET, SECRET_NETWORKS.TESTNET)
+        const url = getDataHubSecretNodeUrl(SECRET_NETWORKS.TESTNET)
         console.log(url)
         const client = new CosmWasmClient(url)
         const nodeInfo = await client.restClient.nodeInfo();

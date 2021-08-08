@@ -165,6 +165,11 @@ export const CHAINS_CONFIG: ChainsType = {
 				title: "Connect to Secret",
 				url: ""
 			},
+			{
+				id: "account",
+				title: "Get an Account",
+				url: ""
+			},
 		]
 	},
 	[CHAINS.SOLANA]: {

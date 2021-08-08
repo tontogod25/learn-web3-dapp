@@ -1,50 +1,65 @@
-import { useState } from "react";
-import { Row, Typography } from 'antd';
+import { useEffect, useReducer } from "react";
+import { Row } from 'antd';
+import { Connect} from 'components/protocols/secret/components/steps';
+import { appStateReducer, initialState, SecretContext } from 'components/protocols/secret/context'
+import { useAppState, useLocalStorage } from 'components/protocols/secret/hooks'
+import { Sidebar, Step } from 'components/protocols/secret/components/layout'
+import { Nav } from 'components/protocols/secret/components';
+import type { AppI } from 'components/protocols/secret/types';
 
-import Sidebar from "components/shared/Sidebar";
-import { ChainType } from "types/types";
-import Step from "components/shared/Step";
-import Connect from "./steps/1_Connect";
-import { useSteps } from "hooks/steps-hooks";
+const SecretApp: React.FC<AppI> = ({ chain }) => {
+    const { state, dispatch } = useAppState();
+    const { steps } = chain
+    const step = steps[state.index];
+    const nextHandler = () => {
+        dispatch({
+            type: 'SetIndex',
+            index: state.index + 1
+        })
+    }
+    const prevHandler = () => {
+        dispatch({
+            type: 'SetIndex',
+            index: state.index - 1
+        })
+    }
+    const isFirstStep = state.index == 0;
+    const isLastStep = state.index === steps.length - 1;
 
-const { Text, Paragraph } = Typography;
-
-const Chain = ({ chain }: { chain: ChainType }) => {
-  const [keypair, setKeypair] = useState(null);
-  const { steps } = chain
-
-  const {
-    next,
-    prev,
-    stepIndex,
-    step,
-    isFirstStep,
-    isLastStep
-  } = useSteps(steps);
-
-  return (
-    <Row>
-      <Sidebar
-        chain={chain}
-        steps={steps}
-        stepIndex={stepIndex}
-      />
-      <Step
-        chain={chain}
-        step={step}
-        isFirstStep={isFirstStep}
-        isLastStep={isLastStep}
-        prev={prev}
-        next={next}
-        body={
-          <>
-            {step.id === "connect" && <Connect />}
-          </>
-        }
-        nav={<div>nav</div>}
-      />
-    </Row>
+    return (
+        <Row>
+        <Sidebar
+            steps={steps}
+            stepIndex={state.index}
+        />
+        <Step
+            step={step}
+            isFirstStep={isFirstStep}
+            isLastStep={isLastStep}
+            prev={prevHandler}
+            next={nextHandler}
+            body={
+            <>
+                { step.id === "connect"  && <Connect /> }
+            </>
+            }
+            nav={<Nav />}
+        />
+        </Row>
   );
 }
 
-export default Chain
+const Secret: React.FC<AppI> = ({ chain }) => {
+  const [storageState, setStorageState] = useLocalStorage("secret", initialState)
+  const [state, dispatch] = useReducer(appStateReducer, storageState);
+  useEffect(() => {
+      setStorageState(state)
+  }, [state])
+  return (
+      <SecretContext.Provider value={{ state, dispatch }}>
+          <SecretApp chain={chain} />
+      </SecretContext.Provider>
+  )
+}
+
+export default Secret
