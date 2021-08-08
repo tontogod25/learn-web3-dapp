@@ -3,7 +3,7 @@ import axios from "axios"
 import { Alert, Col, Space, Typography } from "antd"
 import { LoadingOutlined } from '@ant-design/icons';
 
-import { PolkadotConnectResponse } from "types/polkadot-types"
+import { PolkadotConnectResponse } from "@polka/types"
 
 const { Text } = Typography
 

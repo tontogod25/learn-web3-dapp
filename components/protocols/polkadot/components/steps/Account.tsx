@@ -1,3 +1,5 @@
+export const VERSION = "0.0.1"
+/*
 import { useEffect, useState } from 'react'
 import { Alert, Button, Col, Space, Typography } from 'antd';
 import axios from 'axios'
@@ -73,3 +75,4 @@ const Account = ({
 }
 
 export default Account
+*/
