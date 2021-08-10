@@ -1,11 +1,11 @@
 import { useEffect, useReducer } from "react";
 import { Row } from 'antd';
-import { Connect} from 'components/protocols/secret/components/steps';
-import { appStateReducer, initialState, SecretContext } from 'components/protocols/secret/context'
-import { useAppState, useLocalStorage } from 'components/protocols/secret/hooks'
-import { Sidebar, Step } from 'components/protocols/secret/components/layout'
-import { Nav } from 'components/protocols/secret/components';
-import type { AppI } from 'components/protocols/secret/types';
+import { Connect, Account, Balance } from '@secret/components/steps';
+import { appStateReducer, initialState, SecretContext } from '@secret/context'
+import { useAppState, useLocalStorage } from '@secret/hooks'
+import { Sidebar, Step } from '@secret/components/layout'
+import { Nav } from '@secret/components';
+import type { AppI } from '@secret/types';
 
 const SecretApp: React.FC<AppI> = ({ chain }) => {
     const { state, dispatch } = useAppState();
@@ -41,6 +41,8 @@ const SecretApp: React.FC<AppI> = ({ chain }) => {
             body={
             <>
                 { step.id === "connect"  && <Connect /> }
+                { step.id === "account"  && <Account /> }
+                { step.id === "balance"  && <Balance /> }
             </>
             }
             nav={<Nav />}

@@ -6,10 +6,10 @@ const { Text, Paragraph } = Typography;
 
 const Nav = () => {
     const { state } = useAppState();
-    const { network } = state;
+    const { network, address } = state;
 
     const displayNetwork = (network: string) => network
-    // const displayPublicKey = (publicKey: string) => `${publicKey.slice(0,5)}...${publicKey.slice(-5)}`
+    const displayPublicKey = (publicKey: string) => `${publicKey.slice(0,5)}...${publicKey.slice(-5)}`
     // const displayContractKey = (contractKey: string) => `${contractKey.slice(0,5)}...${contractKey.slice(-5)}`
 
     const Entry = ({ msg, display, value }: EntryT) => {
@@ -25,7 +25,7 @@ const Nav = () => {
         return (
         <>
             {network && <Entry msg={"Network: "} value={network} display={displayNetwork} />}
-            {/* {publicKey && <Entry msg={"Public key: "} value={publicKey} display={displayPublicKey} />} */}
+            {address && <Entry msg={"Public key: "} value={address} display={displayPublicKey} />}
             {/* {contractKey && <Entry msg={"Contratc Id"} value={contractKey} display={displayContractKey} />} */}
         </>
         )

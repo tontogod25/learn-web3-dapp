@@ -170,6 +170,11 @@ export const CHAINS_CONFIG: ChainsType = {
 				title: "Get an Account",
 				url: ""
 			},
+			{
+				id: "balance",
+				title: "Get the Balance",
+				url: ""
+			},
 		]
 	},
 	[CHAINS.SOLANA]: {

@@ -8,14 +8,18 @@ export default async function connect(
   res: NextApiResponse<string>
 ) {
     try {
-        // const url = getDataHubSecretNodeUrl(SECRET_NETWORKS.TESTNET)
-        const url = getSafeUrl()
+        const url = getDataHubSecretNodeUrl(SECRET_NETWORKS.TESTNET)
         console.log(url)
-        const client = new CosmWasmClient(url)
-        const nodeInfo = await client.restClient.nodeInfo();
-        const version = nodeInfo.application_version.version;
-        console.log(version)
-        res.status(200).json(version)
+
+        const { address }= req.body
+        console.log(address)
+
+        const client = new CosmWasmClient(getSafeUrl())
+        const account = await client.getAccount(address)
+        const balance = account?.balance[0].amount;
+        console.log('balance: ', balance);
+
+        res.status(200).json(balance as string)
     } catch(error) {
         console.log(error)
         res.status(500).json('failed to connect to secret')
