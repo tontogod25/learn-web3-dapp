@@ -20,7 +20,6 @@ const Balance = () => {
         axios.post(`/api/secret/balance`, state)
             .then(res => {
                 const amount = res.data
-                console.log(typeof amount)
                 const intoSCRT = (amount / DECIMAL_OFFSET).toFixed();
                 setBalance(parseFloat(intoSCRT))
                 setFetching(false)

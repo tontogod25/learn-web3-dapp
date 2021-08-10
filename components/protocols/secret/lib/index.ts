@@ -1,4 +1,5 @@
 import { SECRET_NETWORKS } from "types/types"
+import { CosmWasmClient } from 'secretjs';
 
 /*
 SECRET_REST_URL='https://chainofsecrets.secrettestnet.io/'
@@ -18,7 +19,20 @@ export const getDataHubSecretNodeUrl = (network: SECRET_NETWORKS): string => {
         : `https://${process.env.DATAHUB_SECRET_TESTNET_RPC_URL}/apikey/${process.env.DATAHUB_SECRET_API_KEY}/`
 }
 
-
-export const getSafeUrl = () => {
+export const getSafeUrl = ()  => {
     return 'https://chainofsecrets.secrettestnet.io/'
+}
+
+export const getSafeClient = async (): Promise<CosmWasmClient> => {
+    try {
+        const url = getDataHubSecretNodeUrl(SECRET_NETWORKS.TESTNET)
+        const client = new CosmWasmClient(url)
+        console.log('connected to testnet figment DATAHUB')
+        return client;
+    } catch(err) {
+        const url = getSafeUrl()
+        console.log('connected to testnet secret network')
+        const client = new CosmWasmClient(url)
+        return client
+    } 
 }

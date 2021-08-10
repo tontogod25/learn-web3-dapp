@@ -180,6 +180,11 @@ export const CHAINS_CONFIG: ChainsType = {
 				title: "Transfer SCRT",
 				url: ""
 			},
+			{
+				id: "deploy",
+				title: "Deploy a contract",
+				url: ""
+			},
 		]
 	},
 	[CHAINS.SOLANA]: {

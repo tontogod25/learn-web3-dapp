@@ -42,6 +42,7 @@ yarn-error.log*
 /contracts/solana/program/target/
 /contracts/polygon/SimpleStorage/node_modules
 /contracts/polygon/SimpleStorage/.secret
+/contracts/secret/mysimplecounter
 
 # credentials
 /credentials
