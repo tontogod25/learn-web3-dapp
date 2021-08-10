@@ -175,6 +175,11 @@ export const CHAINS_CONFIG: ChainsType = {
 				title: "Get the Balance",
 				url: ""
 			},
+			{
+				id: "transfer",
+				title: "Transfer SCRT",
+				url: ""
+			},
 		]
 	},
 	[CHAINS.SOLANA]: {

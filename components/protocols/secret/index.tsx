@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { Row } from 'antd';
-import { Connect, Account, Balance } from '@secret/components/steps';
+import { Connect, Account, Balance, Transfer } from '@secret/components/steps';
 import { appStateReducer, initialState, SecretContext } from '@secret/context'
 import { useAppState, useLocalStorage } from '@secret/hooks'
 import { Sidebar, Step } from '@secret/components/layout'
@@ -43,6 +43,7 @@ const SecretApp: React.FC<AppI> = ({ chain }) => {
                 { step.id === "connect"  && <Connect /> }
                 { step.id === "account"  && <Account /> }
                 { step.id === "balance"  && <Balance /> }
+                { step.id === "transfer" && <Transfer /> }
             </>
             }
             nav={<Nav />}

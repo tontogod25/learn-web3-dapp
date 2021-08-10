@@ -45,8 +45,8 @@ const Connect = () => {
 					? <Alert
 							message={
 								<Space>
-									Connected to Secret!
-									<Text code>{version}</Text>
+									Connected to Secret! version: 
+									<Text code>{version.slice(0,5)}</Text>
 								</Space>
 							}
 							type="success"

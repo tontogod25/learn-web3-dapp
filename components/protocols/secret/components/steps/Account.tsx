@@ -22,7 +22,7 @@ const Account = () => {
 			const response = await axios.get(`/api/secret/account`)
 			const data = response.data
 			console.log(data)
-			const mnemonic = data.secret;
+			const mnemonic = data.mnemonic;
 			const address = data.address;
             console.log(address)
 			setAdress(address)

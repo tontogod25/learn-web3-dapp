@@ -83,13 +83,23 @@ export const Sidebar: React.FC<SidebarI> = ({ steps, stepIndex }) => {
 
 			<Footer>
 				<Space align="center">
-					<ArrowLeft size={20} style={{ marginTop: "7px" }} />
-					<Link href="/">See All Pathways</Link>
+					<ArrowLeft size={20} style={{ marginTop: "7px", color: "khaki", fontWeight: "bold"}} />
+					<Link href="/"><Home>See All Pathways</Home></Link>
 				</Space>
 			</Footer>
 		</Left>
 	)
 }
+
+const Home = styled.span`
+	color: khaki;
+	font-weight: bold;
+	&:hover {
+		text-decoration: underline;
+        cursor: pointer;
+		padding-bottomm: 10px;
+	}
+`
 
 const Right = styled(Col)`
 	padding: 60px;
