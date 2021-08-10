@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { SECRET_NETWORKS } from 'types/types';
-import { getDataHubSecretNodeUrl, getSafeUrl } from 'components/protocols/secret/lib';
+import { getSafeUrl } from 'components/protocols/secret/lib';
 import { CosmWasmClient, Secp256k1Pen, pubkeyToAddress, encodeSecp256k1Pubkey, } from 'secretjs';
 import { Bip39, Random } from '@iov/crypto';
 
@@ -14,9 +13,7 @@ export default async function connect(
   res: NextApiResponse<ResponseT | string>
 ) {
     try {
-        const url = 
-            getDataHubSecretNodeUrl(SECRET_NETWORKS.TESTNET)
-            ?? getSafeUrl()
+        const url = await getSafeUrl()
         console.log(url)
 
         const mnemonic = Bip39.encode(Random.getBytes(16)).toString();
@@ -25,7 +22,7 @@ export default async function connect(
         const address = pubkeyToAddress(pubkey, 'secret');
 
 
-        const client = new CosmWasmClient(getSafeUrl())
+        const client = new CosmWasmClient(url)
         const account = await client.getAccount(address)
         console.log('mnemonic: ', mnemonic);
         console.log('address: ', address);

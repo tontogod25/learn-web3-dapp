@@ -185,6 +185,11 @@ export const CHAINS_CONFIG: ChainsType = {
 				title: "Deploy a contract",
 				url: ""
 			},
+			{
+				id: "call",
+				title: "Call the smart contract",
+				url: ""
+			},
 		]
 	},
 	[CHAINS.SOLANA]: {

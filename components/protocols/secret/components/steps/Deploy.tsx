@@ -12,15 +12,22 @@ const Deploy = () => {
     const [fetching, setFetching] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
     const [txhash, setTxhash] = useState<string>('')
-    const { state } = useAppState()
+    const { state, dispatch } = useAppState()
 
     const deployContract = () => {
         setError(null)
         setFetching(true)
         axios.post(`/api/secret/deploy`, state)
             .then(res => {
+                const hash = res.data.hash 
+                const addr = res.data.contractAddress 
+                console.log(hash, addr)
                 setTxhash(res.data)
                 setFetching(false)
+                dispatch({
+                    type: 'SetContractAddress',
+                    contractAddress: addr
+                })
             })
             .catch(err => {
                 const data = err.response.data
@@ -29,13 +36,16 @@ const Deploy = () => {
             })
     }
 
-
     return (
         <Col>
             <Space direction="vertical" size="large">
                 <Space direction="horizontal">
                     <Button type="primary" onClick={deployContract}>Deploy the contract</Button>
-                    <Input style={{ minWidth: "200px", fontWeight: "bold", textAlign: "center" }} disabled={true}  defaultValue={'simplecounter'} />
+                    <Input 
+                        style={{ minWidth: "200px", fontWeight: "bold", textAlign: "center" }} 
+                        disabled={true}  
+                        defaultValue={'simplecounter'} 
+                    />
                 </Space>
                 {error && <Alert type="error" closable message={error} /> }
                 {fetching

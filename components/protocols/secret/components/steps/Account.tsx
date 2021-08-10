@@ -20,11 +20,8 @@ const Account = () => {
 		try {
 			setFetching(true)
 			const response = await axios.get(`/api/secret/account`)
-			const data = response.data
-			console.log(data)
-			const mnemonic = data.mnemonic;
-			const address = data.address;
-            console.log(address)
+			const mnemonic = response.data.mnemonic;
+			const address = response.data.address;
 			setAdress(address)
 			dispatch({
 				type: 'SetMnemonic',

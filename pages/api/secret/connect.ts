@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { SECRET_NETWORKS } from 'types/types';
-import { getDataHubSecretNodeUrl, getSafeUrl } from 'components/protocols/secret/lib';
+import { getSafeUrl } from 'components/protocols/secret/lib';
 import { CosmWasmClient } from 'secretjs';
 
 export default async function connect(
@@ -8,8 +7,7 @@ export default async function connect(
   res: NextApiResponse<string>
 ) {
     try {
-        // const url = getDataHubSecretNodeUrl(SECRET_NETWORKS.TESTNET)
-        const url = getSafeUrl()
+        const url = await getSafeUrl()
         console.log(url)
         const client = new CosmWasmClient(url)
         const nodeInfo = await client.restClient.nodeInfo();

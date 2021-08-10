@@ -6,7 +6,7 @@ const { Text, Paragraph } = Typography;
 
 const Nav = () => {
     const { state } = useAppState();
-    const { network, address, mnemonic } = state;
+    const { network, address, mnemonic, contractAddress } = state;
 
     const displayNetwork = (network: string) => network.slice(0,5)
     const displayPublicKey = (publicKey: string) => `${publicKey.slice(7,13)}...${publicKey.slice(-5)}`
@@ -27,6 +27,7 @@ const Nav = () => {
             {network && <Entry msg={"Network: "} value={network} display={displayNetwork} />}
             {address && <Entry msg={"Address: "} value={address} display={displayPublicKey} />}
             {mnemonic && <Entry msg={"mnemonic: "} value={mnemonic} display={displayMnemonic} />}
+            {contractAddress && <Entry msg={"contractAddress: "} value={contractAddress} display={displayPublicKey} />}
         </>
         )
     }
