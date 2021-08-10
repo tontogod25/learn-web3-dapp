@@ -5,12 +5,6 @@ import axios from "axios";
 
 const { Text } = Typography;
 
-
-type ReponseT = {
-	secret: string
-	address: string
-}
-
 const Account = () => {
 	const [fetching, setFetching] = useState<boolean>(false);
 	const [address, setAdress] = useState<string | null>(null)
