@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Alert, Button, Col, Space, Typography } from 'antd';
 import { useAppState } from '@avalanche/hooks';
-import { getAvalancheClient } from '@avalanche/lib'
 import axios from "axios";
 
 const { Text } = Typography;
@@ -49,7 +48,7 @@ const Account = () => {
 
 	return (
 		<Col>
-		  <Button type="primary" onClick={generateKeypair} style={{ marginBottom: "20px" }}>Generate a Keypair</Button>
+		  <Button type="primary" onClick={generateKeypair} style={{ marginBottom: "20px" }} loading={fetching}>Generate a Keypair</Button>
 		  {address &&
 			<Col>
 			  <Space direction="vertical">
