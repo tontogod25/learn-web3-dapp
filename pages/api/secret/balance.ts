@@ -15,6 +15,7 @@ export default async function connect(
 
         const client = new CosmWasmClient(url)
         const account = await client.getAccount(address)
+        console.log(account)
         const balance = account?.balance[0].amount;
         console.log('balance: ', balance);
 

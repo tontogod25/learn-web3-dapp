@@ -19,7 +19,8 @@ export const getSecretTestnetUrl = ()  => {
     return 'https://chainofsecrets.secrettestnet.io/'
 }
 
-export const getSafeUrl = async (): Promise<string> => {
+export const getSafeUrl = async (force = true): Promise<string> => {
+    if (force) return getSecretTestnetUrl()  
     const url = getDataHubSecretNodeUrl(SECRET_NETWORKS.TESTNET)
     const client = new CosmWasmClient(url)
     try {
