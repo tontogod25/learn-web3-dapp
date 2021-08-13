@@ -124,7 +124,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.POLYGON]: {
 		id: CHAINS.POLYGON,
 		label: "Polygon",
-		active: true,
+		active: false,
     logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
 		steps: [
 			{

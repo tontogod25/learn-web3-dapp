@@ -9,11 +9,9 @@ export const getDataHubSecretNodeUrl = (network: SECRET_NETWORKS): string => {
         : `https://${process.env.DATAHUB_SECRET_TESTNET_RPC_URL}/apikey/${process.env.DATAHUB_SECRET_API_KEY}/`
 }
 
-/*
-export const getSafeUrl = ()  => {
-    return 'https://chainofsecrets.secrettestnet.io/'
-}
-*/
+export const transactionUrl = (hash: string) => `https://secretnodes.com/secret/chains/holodeck-2/transactions/${hash}`
+
+export const contractsUrl = (hash: string) => `https://secretnodes.com/secret/chains/holodeck-2/contracts/${hash}`
 
 export const getSecretTestnetUrl = ()  => {
     return 'https://chainofsecrets.secrettestnet.io/'
