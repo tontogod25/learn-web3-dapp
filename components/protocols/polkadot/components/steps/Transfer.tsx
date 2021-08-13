@@ -15,7 +15,7 @@ const tailLayout = {
 
 const { Text } = Typography
 
-const RECIPIENT_ADDR = '5FjUdXXa2QRvvSsN7wpnPMevfGsehDNVkyThjt7zGzAPBZfE'
+const RECIPIENT_ADDR = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY'
 
 const transactionUrl = (hash: string) => 
   `https://westend.subscan.io/extrinsic/${hash}`
@@ -36,7 +36,7 @@ const Transfer = () => {
 
         setFetching(true)
 		axios
-			.post(`/api/polkadot/transfer`, {...state, RECIPIENT_ADDR })
+			.post(`/api/polkadot/transfer`, {...state, txAmount })
 			.then(res => {
         const hash = res.data
         setHash(hash)
@@ -93,6 +93,7 @@ const Transfer = () => {
       {hash &&
         <Form.Item {...tailLayout}>
           <Alert
+            style={{ maxWidth: '365px'}}
             type="success"
             showIcon
             message={

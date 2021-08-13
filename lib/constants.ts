@@ -115,6 +115,11 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: ""
 			},
 			{
+				id: "restore",
+				title: "Restore an account",
+				url: ""
+			},
+			{
 				id: "balance",
 				title: "Get the Balance",
 				url: ""
@@ -125,21 +130,16 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: ""
 			},
 			{
-				id: "stacking",
-				title: "Stack your DOT",
+				id: "estimate",
+				title: "Estimate transaction fees",
 				url: ""
-			},
-			{
-				id: "explore",
-				title: "Search for transaction",
-				url: ""
-			},
+			}
 		]
 	},
 	[CHAINS.POLYGON]: {
 		id: CHAINS.POLYGON,
 		label: "Polygon",
-		active: true,
+		active: false,
     logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
 		steps: [
 			{

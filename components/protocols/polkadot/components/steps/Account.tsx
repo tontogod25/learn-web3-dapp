@@ -34,6 +34,29 @@ const Account = () => {
 	const { state, dispatch } = useAppState();
 
 	useEffect( () => {
+		/*
+		const fromMnemonic = () => {
+			setFetching(true)
+			axios
+				.post(`/api/polkadot/fromMnemonic`, state)
+				.then(res => {
+					setAdress(res.data.address)
+					setJsonWallet(res.data.jsonWallet)
+					dispatch({
+						type: 'SetAddress',
+						address: res.data.address
+					})			
+					setFetching(false)
+				})
+				.catch(err => {
+					console.error(err)
+					setFetching(false)
+				})
+		}
+		if (state?.mnemonic) {
+			fromMnemonic();
+		}
+		*/
 		if (state?.address) {
 			setAdress(state.address)
 		}

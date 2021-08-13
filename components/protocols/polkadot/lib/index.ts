@@ -17,5 +17,5 @@ export const getDataHubPolkadotNodeUrl = (network: POLKADOT_NETWORKS, protocol: 
 
 export const getSafeUrl = (force = true)  => 
     force 
-    ? 'wss://westend-rpc.polkadot.io'
-    : getDataHubPolkadotNodeUrl(POLKADOT_NETWORKS.MAINNET, POLKADOT_PROTOCOLS.WS)
+        ? 'wss://westend-rpc.polkadot.io'
+        : getDataHubPolkadotNodeUrl(POLKADOT_NETWORKS.MAINNET, POLKADOT_PROTOCOLS.WS)

@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { Row } from 'antd';
-import { Connect, Account, Balance, Transfer } from '@polka/components/steps';
+import { Connect, Account, Balance, Transfer, Estimate, Restore } from '@polka/components/steps';
 import { appStateReducer, initialState, PolkadotContext } from '@polka/context'
 import { useAppState, useLocalStorage } from '@polka/hooks'
 import { Sidebar, Step } from '@polka/components/layout'
@@ -42,8 +42,10 @@ const PolkadotApp: React.FC<AppI> = ({ chain }) => {
             <>
                 { step.id === "connect"  && <Connect /> }
                 { step.id === "account"  && <Account /> }
+                { step.id === "restore"  && <Restore /> }
                 { step.id === "balance"  && <Balance /> }
                 { step.id === "transfer" && <Transfer /> }
+                { step.id === "estimate" && <Estimate /> }
             </>
             }
             nav={<Nav />}

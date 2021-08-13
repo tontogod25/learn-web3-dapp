@@ -14,22 +14,21 @@ export default async function connect(
     const url = getSafeUrl();
     const provider = new WsProvider(url);
     const api = await ApiPromise.create({ provider: provider })
-    
+
     // Initialize account from the mnemonic
     const keyring = new Keyring({type: 'sr25519'});
     const account = keyring.addFromUri(mnemonic);
-  
+
     // Initialize account from the mnemonic
     const recipient = keyring.addFromUri('//Alice');
     const recipientAddr = recipient.address
 
-
     // Transfer tokens
-    const transfer = await api.tx.balances.transfer(recipientAddr, txAmount)
-    const hash = await transfer.signAndSend(account)
-    console.log('Transfer sent with hash', hash.toHex());
-    
-    res.status(200).json(hash.toString())
+    const transfer =  api.tx.balances.transfer(recipientAddr, txAmount)
+    const info = await transfer.paymentInfo(account)
+    const fees = info.partialFee.toNumber()
+
+    res.status(200).json(fees)
   } catch (error) {
     console.log(error)
     res.status(500).json("Connection to network failed")
