@@ -58,7 +58,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.NEAR]: {
 		id: CHAINS.NEAR,
 		label: "NEAR",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
 		steps: [
 			{
