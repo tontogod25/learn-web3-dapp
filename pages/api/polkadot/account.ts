@@ -1,38 +1,35 @@
-export const VERSION = "0.0.1"
-/*import type { NextApiRequest, NextApiResponse } from 'next';
-const {ApiPromise, Keyring, WsProvider} = require('@polkadot/api');
-const {mnemonicGenerate, mnemonicValidate} = require('@polkadot/util-crypto');
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { PolkadotAccountResponse } from '@polka/types';
 
-import { getDatahubNodeURL } from 'utils/datahub-utils';
-import { CHAINS, POLKADOT_NETWORKS, POLKADOT_PROTOCOLS } from 'types/types';
-import { PolkadotAccountResponse } from 'types/polkadot-types';
+import { Keyring } from '@polkadot/api';
+import { mnemonicGenerate, mnemonicValidate } from '@polkadot/util-crypto';
 
 export default async function account(
-	req: NextApiRequest,
-	res: NextApiResponse<PolkadotAccountResponse>
-) {
-  const url = getDatahubNodeURL(CHAINS.POLKADOT, POLKADOT_NETWORKS.MAINNET, POLKADOT_PROTOCOLS.WS)
-  const httpProvider = new WsProvider(url)
-  const api = await ApiPromise.create({ provider: httpProvider })
+	_req: NextApiRequest,
+	res: NextApiResponse<PolkadotAccountResponse | string>
+  ) {
+    try {
+      const keyring = new Keyring({ type: "sr25519" });
 
-  const keyring = new Keyring({ type: "sr25519" });
+      // Create mnemonic string
+      const mnemonic = mnemonicGenerate();
+      console.log(`Generated mnemonic: ${mnemonic}`);
 
-  // Create mnemonic string
-  const mnemonic = mnemonicGenerate();
-  console.log(`Generated mnemonic: ${mnemonic}`);
+      const isValidMnemonic = mnemonicValidate(mnemonic);
+      if (!isValidMnemonic) {
+        throw Error('Invalid Mnemonic')
+      }
 
-  // Validate the mnemonic string that was generated
-  const isValidMnemonic = mnemonicValidate(mnemonic);
-  console.log(`isValidMnemonic: ${isValidMnemonic}`);
-
-  // Add an account derived from the mnemonic
-  const account = keyring.addFromUri(mnemonic);
-  console.log(`Address: ${account.address}`);
-  console.log(`newAccount: ${JSON.stringify(account)}`);
-	
-	res.status(200).json({
-    account,
-    mnemonic,
-	});
+      // Add an account derived from the mnemonic
+      const account = keyring.addFromUri(mnemonic);
+      const address = account.address;
+      const jsonWallet = JSON.stringify(keyring.toJson(account.address), null, 2)
+      res.status(200).json({
+        address,
+        mnemonic,
+        jsonWallet,
+      });
+  } catch (error) {
+    res.status(500).json("Account creation failed")
+  }
 }
-*/

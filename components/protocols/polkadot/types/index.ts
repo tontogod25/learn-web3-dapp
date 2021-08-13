@@ -18,8 +18,9 @@ export type PolkadotQueryErrorResponse = {
 }
 
 export type PolkadotAccountResponse = {
-  account: PolkadotAccount
+  address: string
   mnemonic: string
+  jsonWallet: string
 }
 
 export type PolkadotAccount = {

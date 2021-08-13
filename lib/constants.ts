@@ -110,13 +110,28 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: ""
 			},
 			{
-				id: "query",
-				title: "Query Polkadot",
+				id: "account",
+				title: "Create an account",
 				url: ""
 			},
 			{
-				id: "account",
-				title: "Create an account",
+				id: "balance",
+				title: "Get the Balance",
+				url: ""
+			},
+			{
+				id: "transfer",
+				title: "Transfer DOT",
+				url: ""
+			},
+			{
+				id: "stacking",
+				title: "Stack your DOT",
+				url: ""
+			},
+			{
+				id: "explore",
+				title: "Search for transaction",
 				url: ""
 			},
 		]
