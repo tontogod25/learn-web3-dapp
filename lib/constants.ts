@@ -126,7 +126,7 @@ export const CHAINS_CONFIG: ChainsType = {
 			},
 			{
 				id: "transfer",
-				title: "Transfer DOT",
+				title: "Transfer some Token",
 				url: ""
 			},
 			{
