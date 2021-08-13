@@ -130,7 +130,7 @@ const Account = () => {
 				  type="warning"
 				  showIcon
 				/>
-			  {state?.address && <DownloadBox jsonWallet={jsonWallet} address={state.address} /> }	
+			  {/* {state?.address && <DownloadBox jsonWallet={jsonWallet} address={state.address} /> }	 */}
 			  </Space>
 			</Col>
 		  }
