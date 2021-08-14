@@ -24,6 +24,6 @@ export default async function connect(
         })
     } catch(error) {
         console.error(error)
-        res.status(500).json('connection failed')
+        res.status(500).json('Account creation failed')
     }
 }

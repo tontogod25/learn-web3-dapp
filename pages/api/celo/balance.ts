@@ -28,6 +28,6 @@ export default async function connect(
         res.status(200).json({ attoCELO, attoUSD })
     } catch(error) {
         console.error(error)
-        res.status(500).json('connection to celo failed')
+        res.status(500).json('Querying of balance failed')
     }
 }
