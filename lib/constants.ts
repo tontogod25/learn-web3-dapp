@@ -51,8 +51,13 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: "https://learn2.figment.io/pathways/celo-pathway"
 			},
 			{
-				id: "transfert",
+				id: "transfer",
 				title: "Transfer some Token",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "change",
+				title: "Change cUSD to CELO",
 				url: "https://learn2.figment.io/pathways/celo-pathway"
 			},
 			{

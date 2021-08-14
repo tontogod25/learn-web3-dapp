@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { Row } from 'antd';
-import { Connect, Account, Balance } from '@ccelo/components/steps';
+import { Connect, Account, Balance, Transfer, Change } from '@ccelo/components/steps';
 import { appStateReducer, initialState, CeloContext } from '@ccelo/context'
 import { useAppState, useLocalStorage } from '@ccelo/hooks'
 import { Sidebar, Step } from '@ccelo/components/layout'
@@ -43,6 +43,8 @@ const CeloApp: React.FC<AppI> = ({ chain }) => {
                     { step.id === "connect" && <Connect /> }
                     { step.id === "account" && <Account /> }
                     { step.id === "balance" && <Balance /> }
+                    { step.id === "transfer" && <Transfer />}
+                    { step.id === "change" && <Change />}
                 </>
             }
             nav={<Nav />}

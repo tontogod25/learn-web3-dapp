@@ -12,3 +12,5 @@ export const getSafeUrl = (hub = true) =>
     hub 
     ? getDataHubCeloNodeUrl(CELO_NETWORKS.ALFAJORES)
     : 'https://alfajores-forno.celo-testnet.org'
+
+export const transactionUrl = (hash: string) => `https://alfajores-blockscout.celo-testnet.org/tx/${hash}`
