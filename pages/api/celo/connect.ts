@@ -1,19 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { CHAINS, CELO_NETWORKS } from 'types/types';
-import { getDatahubNodeURL } from 'utils/datahub-utils';
+import { getSafeUrl } from '@ccelo/lib';
 import { newKit } from '@celo/contractkit';
 
 export default async function connect(
-  req: NextApiRequest,
+  _req: NextApiRequest,
   res: NextApiResponse<string>
 ) {
     try {
-        const url = getDatahubNodeURL(CHAINS.CELO, CELO_NETWORKS.ALFAJORES)
+        const url = getSafeUrl();
         const kit = newKit(url);
         const version = await kit.web3.eth.getNodeInfo();
-        res.status(200).json(version)
+        res.status(200).json(version.slice(5, 11))
     } catch(error) {
         console.error(error)
-        res.status(500).json('connection failed')
+        res.status(500).json('connection to celo failed')
     }
 }

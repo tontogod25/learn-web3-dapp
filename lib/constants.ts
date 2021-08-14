@@ -38,7 +38,32 @@ export const CHAINS_CONFIG: ChainsType = {
 			{
 				id: "connect",
 				title: "Connect to Celo",
-				url: ""
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "account",
+				title: "Creacte an account",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "balance",
+				title: "Get the balance",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "transfert",
+				title: "Transfer fom Token",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "deploy",
+				title: "Deploy a smart contract",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "interact",
+				title: "Interact with contract",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
 			},
 		]
 	},
@@ -124,7 +149,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.POLYGON]: {
 		id: CHAINS.POLYGON,
 		label: "Polygon",
-		active: true,
+		active: false,
     logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
 		steps: [
 			{

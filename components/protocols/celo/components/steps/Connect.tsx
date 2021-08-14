@@ -31,14 +31,14 @@ const Connect = () => {
 	useEffect(() => {
 		if (version) {
 			dispatch({
-				type: 'SetNetworkId',
-				networkId: version
+				type: 'SetNetwork',
+				network: version
 			})
 		}
 	}, [version, setVersion])
 
 	return (
-		<Col style={{ width: "100%" }}>
+		<Col style={{ width: "50%" }}>
 			{fetchingVersion
 				? <LoadingOutlined style={{ fontSize: 24 }} spin />
 				: version
