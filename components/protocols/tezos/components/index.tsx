@@ -1,12 +1,12 @@
-import { Alert, Space, Typography, Popover, Button } from 'antd';
+import { Typography, Popover, Button } from 'antd';
 import { useAppState } from '@tezos/hooks'
-import type { EntryT, AlertT } from '@tezos/types';
+import type { EntryT } from '@tezos/types';
 
 const { Text, Paragraph } = Typography;
 
 const Nav = () => {
     const { state } = useAppState();
-    const { networkId } = state;
+    const { network } = state;
 
     const displayNetworkId = (networkId: string) => networkId
     // const displayPublicKey = (publicKey: string) => `${publicKey.slice(0,5)}...${publicKey.slice(-5)}`
@@ -24,7 +24,7 @@ const Nav = () => {
     const AppState = () => {
         return (
         <>
-            {networkId && <Entry msg={"Network Id: "} value={networkId} display={displayNetworkId} />}
+            {network && <Entry msg={"Network Id: "} value={network} display={displayNetworkId} />}
             {/* {publicKey && <Entry msg={"Public key: "} value={publicKey} display={displayPublicKey} />} */}
             {/* {contractKey && <Entry msg={"Contratc Id"} value={contractKey} display={displayContractKey} />} */}
         </>

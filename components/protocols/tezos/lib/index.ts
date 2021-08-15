@@ -1,5 +1,10 @@
-import { TEZOS_NETWORKS } from "types/types"
-/*
+// Tezos
+export enum TEZOS_NETWORKS {
+    MAINNET = "MAINNET",
+    TESTNET = "TESTNET"
+  }
+
+  /*
 // Helper for generating an account URL on Solana Explorer
 export const getAccountExplorerURL = (address: string) => {
     return `https://explorer.solana.com/address/${address}?cluster=devnet`;
@@ -24,8 +29,6 @@ export const getTezosUrl = (network: TEZOS_NETWORKS): string =>
 
 export const getTezosUrl = (): string => 
     `https://${process.env.DATAHUB_TEZOS_TESTNET_URL}/apikey/${process.env.DATAHUB_TEZOS_API_KEY}`
-
-        
 
 // export const getSafeUrl = () => "https://tezos--rpc--florencenet--full.datahub.figment.io/apikey
 // https://api.tez.ie/rpc/florencenet

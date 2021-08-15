@@ -1,52 +1,60 @@
-import { useEffect, useState } from "react";
-import { Alert, Col, Space, Typography } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { useEffect, useState } from 'react';
 import axios from "axios";
+import { Alert, Col, Space, Typography } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
+import { useAppState } from 'components/protocols/tezos/hooks'
 
 const { Text } = Typography;
 
 const Connect = () => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [fetching, setFetching] = useState(false);
+	const [version, setVersion] = useState<string | null>(null);
+	const [fetchingVersion, setFetchingVersion] = useState<boolean>(false);
+    const { state, dispatch } = useAppState();
+	useEffect(() => {
+		const getConnection = () => {
+			setFetchingVersion(true)
+			axios
+				.post(`/api/tezos/connect`, state)
+				.then(res => {
+					setVersion(res.data)
+					setFetchingVersion(false)
 
-  useEffect(() => {
-    const getConnection = async () => {
-      setFetching(true);
-      axios
-        .get(`/api/tezos/connect`)
-        .then((_res) => {
-          setIsConnected(true);
-          setFetching(false);
-        })
-        .catch((err) => {
-          console.error(err);
-          setIsConnected(false);
-          setFetching(false);
-        });
-    };
-    getConnection()
-    }, []);
+				})
+				.catch(err => {
+					console.error(err)
+					setFetchingVersion(false)
+				})
+		}
+		getConnection()
+    }, [state]);
 
+	useEffect(() => {
+		if (version) {
+			dispatch({
+				type: 'SetNetwork',
+				network: version
+			})
+		}
+	}, [version, setVersion])
 
-  return (
-    <Col style={{ width: "100%" }}>
-      {fetching ? (
-        <LoadingOutlined style={{ fontSize: 24 }} spin />
-      ) : isConnected ? (
-        <Alert
-          message={
-            <Space>
-              Connected to Tezos
-            </Space>
-          }
-          type="success"
-          showIcon
-        />
-      ) : (
-        <Alert message="Not connected to Tezos" type="error" showIcon />
-      )}
-    </Col>
-  );
-};
+	return (
+		<Col style={{ width: "100%" }}>
+			{fetchingVersion
+				? <LoadingOutlined style={{ fontSize: 24 }} spin />
+				: version
+					? <Alert
+							message={
+								<Space>
+									Connected to Tezos! version: 
+									<Text code>{version}</Text>
+								</Space>
+							}
+							type="success"
+							showIcon
+						/>
+					: <Alert message="Not connected to Tezos" type="error" showIcon />}
+		</Col>
+	);
+}
 
-export default Connect;
+export default Connect
