@@ -7,46 +7,37 @@ import { useAppState } from 'components/protocols/tezos/hooks'
 const { Text } = Typography;
 
 const Connect = () => {
-	const [version, setVersion] = useState<string | null>(null);
-	const [fetchingVersion, setFetchingVersion] = useState<boolean>(false);
-    const { state, dispatch } = useAppState();
+	const [chainId, setChainId] = useState<string | null>(null);
+	const [fetching, setFetching] = useState<boolean>(false);
+
 	useEffect(() => {
 		const getConnection = () => {
-			setFetchingVersion(true)
+			setFetching(true)
 			axios
-				.post(`/api/tezos/connect`, state)
+				.get(`/api/tezos/connect`)
 				.then(res => {
-					setVersion(res.data)
-					setFetchingVersion(false)
+					setChainId(res.data)
+					setFetching(false)
 
 				})
 				.catch(err => {
 					console.error(err)
-					setFetchingVersion(false)
+					setFetching(false)
 				})
 		}
 		getConnection()
-    }, [state]);
-
-	useEffect(() => {
-		if (version) {
-			dispatch({
-				type: 'SetNetwork',
-				network: version
-			})
-		}
-	}, [version, setVersion])
+    }, []);
 
 	return (
-		<Col style={{ width: "100%" }}>
-			{fetchingVersion
+		<Col style={{ minHeight: '350px'}}>
+			{fetching
 				? <LoadingOutlined style={{ fontSize: 24 }} spin />
-				: version
+				: chainId
 					? <Alert
 							message={
 								<Space>
-									Connected to Tezos! version: 
-									<Text code>{version}</Text>
+									Connected to Tezos! Chain Id: 
+									<Text code>{chainId}</Text>
 								</Space>
 							}
 							type="success"

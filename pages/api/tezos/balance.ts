@@ -3,18 +3,20 @@ import { TezosToolkit } from "@taquito/taquito";
 import { getTezosUrl } from "@tezos/lib";
 
 export default async function connect(
-  _req: NextApiRequest, 
-  res: NextApiResponse<string | boolean>
+  req: NextApiRequest, 
+  res: NextApiResponse<string>
 ) {
   try {
+    const { address } = req.body
+    console.log(address)
     const url = getTezosUrl();
-    console.log(url)
+    // const url = 'https://api.tez.ie/rpc/florencenet'
     const toolkit = new TezosToolkit(url);
-    const chainId = await toolkit.rpc.getChainId()
-    console.log(chainId)
-    res.status(200).json(chainId);
+    const balance = await toolkit.tz.getBalance(address)
+    console.log(balance)
+    res.status(200).json(balance.toString());
   } catch (error) {
     console.log(error)
-    res.status(500).json('Connection failed');
+    res.status(500).json('Balance retrieving failed');
   }
 }
