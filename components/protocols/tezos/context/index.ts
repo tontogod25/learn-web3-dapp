@@ -8,6 +8,7 @@ export type State = {
     password?: string
     email?: string
     mnemonic?: string
+    contractAddress?: string
 }
 
 type Action =
@@ -18,6 +19,7 @@ type Action =
     | { type: 'SetPassword', password?: string }
     | { type: 'SetEmail', email?: string }
     | { type: 'SetMnemonic', mnemonic?: string }
+    | { type: 'SetContractAddress', contractAddress?: string }
 
 const initialState = {
     index: 0,
@@ -40,6 +42,8 @@ function appStateReducer(state: State, action: Action): State  {
             return { ...state, email: action.email }
         case 'SetMnemonic':
             return { ...state, mnemonic: action.mnemonic }  
+        case 'SetContractAddress':
+            return { ...state, contractAddress: action.contractAddress }  
         default:
             return state
     }

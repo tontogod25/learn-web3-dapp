@@ -232,12 +232,17 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: ""
 			},
 			{
+				id: "transfer",
+				title: "Transfer some Token",
+				url: ""
+			},
+			{
 				id: "deploy",
 				title: "Deploy a Smart contract",
 				url: ""
 			},
 			{
-				id: "interact",
+				id: "call",
 				title: "interact with a contract",
 				url: ""
 			},

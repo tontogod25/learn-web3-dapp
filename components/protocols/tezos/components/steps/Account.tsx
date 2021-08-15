@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Alert, Button, Col, Space, Typography, Input } from 'antd';
 import { useAppState } from '@tezos/hooks';
+import { accountUrl } from '@tezos/lib'
 import axios from "axios";
 
 const { Text } = Typography;
@@ -16,8 +17,10 @@ type WalletT= {
 }
 const Account = () => {
 	const [fetching, setFetching] = useState<boolean>(false);
+	const [activated, setActivated] = useState<boolean>(false);
 	const [wallet, setWallet] = useState<string>('')
 	const { state, dispatch } = useAppState();
+
 	const feedStorage = () => {
 		try {
 			const walletInfo: WalletT = JSON.parse(wallet)
@@ -47,18 +50,18 @@ const Account = () => {
 		}
 	}
 
-
 	const createAccount = async () => {
 		try {
 			setFetching(true)
 			const response = await axios.post(`/api/tezos/account`, state)
+			setActivated(true)
 			setFetching(false)
 		} catch (error) {
 			console.error(error)
 			setFetching(false)
+			setActivated(false)
 		}
 	}
-
 
 	if (state?.secret) {
 		return (
@@ -71,19 +74,37 @@ const Account = () => {
 
 						</Space>
 						}
-						type="warning"
+						type="success"
 						showIcon
 					/>
-							<Button type="primary" onClick={createAccount} style={{ marginBottom: "20px" }}>
-								Activate Account
-							</Button>	
+					<Button type="primary" onClick={createAccount} style={{ marginBottom: "20px" }} loading={fetching} disabled={activated}>
+						Activate Account
+					</Button>
+					{activated && 
+						<Alert
+						message={
+						<Space>
+							<Text strong>Account activated</Text>
+						</Space>
+						}
+						type="success"
+						showIcon
+						description={
+							<Text strong>
+								<a href={accountUrl(state?.address ?? '')} target="_blank" rel="noreferrer">
+									View the account in the explorer
+								</a>
+							</Text>
+						}
+						/>
+					}	
 				</Space>
 			</Col>
 		)
 	}
 
 	return (
-		<Col>
+		<Col style={{ minHeight: '350px'}}>
 			<Space direction="vertical">
 				<Alert
 					message={
@@ -107,20 +128,6 @@ const Account = () => {
 				<Button type="primary" onClick={feedStorage} style={{ marginBottom: "20px" }}>
 					Feed the storage
 				</Button>
-				{ state?.address && <Alert
-					message={
-					<Space>
-						<Text strong><a href={`https://faucet.secrettestnet.io/`} target="_blank" rel="noreferrer">Look at the storage</a></Text>
-					</Space>
-					}
-					description={
-					<Text>
-						Copy and paste the json information into the text area below
-					</Text>
-				}
-					type="warning"
-					showIcon
-				/>}
 		  	</Space>
 		</Col>
 	);

@@ -2,20 +2,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { TezosToolkit } from "@taquito/taquito";
 import { getTezosUrl } from "@tezos/lib";
 import { importKey } from '@taquito/signer';
-import { CONTRACT_JSON } from 'contracts/tezos/counter.js';
-
-type ResponseT = {
-  contractAddress: string
-  hash: string
-}
 
 export default async function connect(
   req: NextApiRequest, 
-  res: NextApiResponse<ResponseT | string>
+  res: NextApiResponse<string>
 ) {
   try {
     const { mnemonic, email, password, secret, amount } = req.body
-    console.log(CONTRACT_JSON)
+
     const url = getTezosUrl();
     const tezos = new TezosToolkit(url);
 
@@ -26,19 +20,14 @@ export default async function connect(
         mnemonic,
         secret
       )
+    const recipeint = 'tz1h3rQ8wBxFd8L9B3d7Jhaawu6Z568XU3xY';
     const operation = await tezos.contract
-      .originate({
-        code: CONTRACT_JSON,
-        storage: 0
-      })
+      .transfer({ to: recipeint, amount: amount })
     
-    const contract = await operation.contract() 
     console.log(`Waiting for ${operation.hash} to be confirmed...`);
+    await operation.confirmation(1) 
 
-    res.status(200).json({
-      contractAddress: contract.address,
-      hash: operation.hash
-    });
+    res.status(200).json(operation.hash);
   } catch (error) {
     console.log(error)
     res.status(500).json('Balance retrieving failed');
