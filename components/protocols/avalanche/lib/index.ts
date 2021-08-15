@@ -1,8 +1,13 @@
 import { Avalanche } from 'avalanche';
-import { AVALANCHE_NETWORKS, CHAINS } from 'types/types';
+
+// Avalanche
+export enum AVALANCHE_NETWORKS {
+  MAINNET = "MAINNET",
+  FUJI = "FUJI"
+}
 
 export const getAvalancheClient = () => {
-  const url = new URL(process.env.DATAHUB_AVALANCHE_FUJI_RPC_URL as string)
+  const url = new URL(getDataHubAvalancheNodeUrl(AVALANCHE_NETWORKS.FUJI))
 
   const client = new Avalanche(
     url.hostname,

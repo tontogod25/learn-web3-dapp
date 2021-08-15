@@ -31,8 +31,8 @@ const Connect = () => {
 	useEffect(() => {
 		if (version) {
 			dispatch({
-				type: 'SetNetworkId',
-				networkId: version
+				type: 'SetNetwork',
+				network: version
 			})
 		}
 	}, [version, setVersion])

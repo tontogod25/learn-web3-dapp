@@ -6,9 +6,9 @@ const { Text, Paragraph } = Typography;
 
 const Nav = () => {
     const { state } = useAppState();
-    const { networkId, address } = state;
+    const { network, address } = state;
 
-    const displayNetworkId = (networkId: string) => networkId
+    const displayNetwork = (networkId: string) => networkId
     const displayAddress = (address: string) => `${address.slice(0,5)}...${address.slice(-5)}`
 
     const Entry = ({ msg, display, value }: EntryT) => {
@@ -23,7 +23,7 @@ const Nav = () => {
     const AppState = () => {
         return (
         <>
-            {networkId && <Entry msg={"Network Id: "} value={networkId} display={displayNetworkId} />}
+            {network && <Entry msg={"Network Id: "} value={network} display={displayNetwork} />}
             {address && <Entry msg={"Address: "} value={address} display={displayAddress} />}
         </>
         )
