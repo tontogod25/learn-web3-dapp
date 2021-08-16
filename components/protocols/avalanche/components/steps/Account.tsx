@@ -27,8 +27,8 @@ const Account = () => {
 			setAdress(address)
 			setFetching(false)
 			dispatch({
-				type: 'SetSecretKey',
-				secretKey: secret
+				type: 'SetSecret',
+				secret: secret
 			})
 			dispatch({
 				type: 'SetAddress',

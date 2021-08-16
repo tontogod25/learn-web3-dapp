@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { Row } from 'antd';
-import { Connect, Account, Balance, Query, Transfer_X } from '@avalanche/components/steps';
+import { Connect, Account, Balance, Transfer, Import, Export } from '@avalanche/components/steps';
 import { appStateReducer, initialState, AvalancheContext } from '@avalanche/context'
 import { useAppState, useLocalStorage } from '@avalanche/hooks'
 import { Sidebar, Step } from '@avalanche/components/layout'
@@ -28,26 +28,28 @@ const AvalanceApp: React.FC<AppI> = ({ chain }) => {
 
     return (
         <Row>
-        <Sidebar
-            steps={steps}
-            stepIndex={state.index}
-        />
-        <Step
-            step={step}
-            isFirstStep={isFirstStep}
-            isLastStep={isLastStep}
-            prev={prevHandler}
-            next={nextHandler}
-            body={
-            <>
-                { step.id === "connect"  && <Connect /> }
-                { step.id === "account"  && <Account /> }
-                { step.id === "balance"  && <Balance />   }
-                { step.id === "query"    && <Query />   }
-            </>
-            }
-            nav={<Nav />}
-        />
+            <Sidebar
+                steps={steps}
+                stepIndex={state.index}
+            />
+            <Step
+                step={step}
+                isFirstStep={isFirstStep}
+                isLastStep={isLastStep}
+                prev={prevHandler}
+                next={nextHandler}
+                body={
+                <>
+                    { step.id === "connect"  && <Connect /> }
+                    { step.id === "account"  && <Account /> }
+                    { step.id === "balance"  && <Balance /> }
+                    { step.id === "transfer" && <Transfer /> }
+                    { step.id === "export" && <Export /> }
+                    { step.id === "import" && <Import /> }
+                </>
+                }
+                nav={<Nav />}
+            />
         </Row>
   );
 }

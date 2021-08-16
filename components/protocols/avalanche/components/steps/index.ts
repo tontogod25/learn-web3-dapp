@@ -1,9 +1,10 @@
 import Account from '@avalanche/components/steps/Account'
 import Connect from '@avalanche/components/steps/Connect'
-import Query from '@avalanche/components/steps/Query'
-import Transfer_X from '@avalanche/components/steps/Transfer_X'
+import Transfer from '@avalanche/components/steps/Transfer'
 import Balance from '@avalanche/components/steps/Balance'
+import Import from '@avalanche/components/steps/Import'
+import Export from '@avalanche/components/steps/Export'
 
 export {
-    Account, Connect, Query, Balance, Transfer_X
+    Account, Connect, Balance, Transfer, Import, Export
 }

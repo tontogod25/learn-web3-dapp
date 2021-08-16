@@ -23,13 +23,18 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/3.-query-the-avalanche-network"
 			},
 			{
-				id: "query",
-				title: "Query Avalanche",
+				id: "transfer",
+				title: "Transfer some AVAX",
 				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/3.-query-the-avalanche-network"
 			},
 			{
-				id: "transferX",
-				title: "Transfer AVAX on the X Chain",
+				id: "export",
+				title: "Export Token from X-Chain to C-Chain",
+				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/4.-create-your-first-transaction"
+			},
+			{
+				id: "import",
+				title: "Import Token from X-Chain to C-Chain",
 				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/4.-create-your-first-transaction"
 			},
 		]

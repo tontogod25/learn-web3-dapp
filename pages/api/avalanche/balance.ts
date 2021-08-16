@@ -17,9 +17,12 @@ export default async function account(
 	res: NextApiResponse<string>
 ) {
     try {
-        const { address } = req.body
+        const { secret } = req.body
         const client = getAvalancheClient()
         const chain = client.XChain(); 
+		const keychain = chain.keyChain()
+		const key = keychain.importKey(secret)
+		const address = key.getAddressString()
         const balance = await chain.getBalance(address, "AVAX") as BalanceT; 
         res.status(200).json(balance.balance)
     } catch(error) {

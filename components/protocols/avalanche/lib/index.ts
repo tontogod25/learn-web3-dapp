@@ -1,6 +1,5 @@
 import { Avalanche } from 'avalanche';
 
-// Avalanche
 export enum AVALANCHE_NETWORKS {
   MAINNET = "MAINNET",
   FUJI = "FUJI"
@@ -19,13 +18,12 @@ export const getAvalancheClient = () => {
     process.env.AVALANCHE_NETWORK_NAME
   )
 
-  // Apply DataHub API authentication token
   client.setAuthToken(process.env.DATAHUB_AVALANCHE_API_KEY as string)
 
   return client
 }
 
-export const getAvalancheExplorerURL = (txId: string) => {
+export const transactionUrl = (txId: string) => {
   return `https://explorer.avax-test.network/tx/${txId}`
 }
 
