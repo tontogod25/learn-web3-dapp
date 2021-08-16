@@ -1,7 +1,7 @@
-import { InMemoryKeyStore } from 'near-api-js/lib/key_stores';
-import { keyStores, ConnectConfig, KeyPair  } from "near-api-js";
-import { CHAINS, NEAR_NETWORKS } from 'types/types';
-// import { getDatahubNodeURL } from 'utils/datahub-utils';
+import { InMemoryKeyStore } from 'near-api-js/lib/key_stores'
+import { keyStores, ConnectConfig, KeyPair  } from 'near-api-js'
+import { CHAINS, NEAR_NETWORKS } from 'types/types'
+// import { getDatahubNodeURL } from 'utils/datahub-utils'
 
 export const networkfromString = (network: string) : NEAR_NETWORKS => 
     network === "mainnet"
@@ -24,7 +24,6 @@ export const configFromNetworkId = (networkId: string) : ConnectConfig => {
     // const nodeUrl: string = getDatahubNodeURL(CHAINS.NEAR, networkfromString(networkId));
     const nodeUrl: string = 'https://rpc.testnet.near.org';
     const keyStore: InMemoryKeyStore = new keyStores.InMemoryKeyStore();
-
     const config = {
         keyStore,
         networkId,
@@ -32,7 +31,6 @@ export const configFromNetworkId = (networkId: string) : ConnectConfig => {
         helperUrl,
         walletUrl,
     }
-
     return config;
 }
 
