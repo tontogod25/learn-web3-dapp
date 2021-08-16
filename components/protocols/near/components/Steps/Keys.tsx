@@ -1,15 +1,15 @@
-import { KeyPair } from "near-api-js";
-import { Alert, Button, Col, Space, Typography } from 'antd';
+import { KeyPair } from 'near-api-js'
+import { Alert, Button, Col, Space, Typography } from 'antd'
 import { useAppState } from '@near/hooks'
 
-const { Text } = Typography;
+const { Text } = Typography
 
 const Keys = () => {
-    const {state, dispatch} = useAppState();
+    const {state, dispatch} = useAppState()
 
     const generateKeypair = () => {
         // alert("Implement the generateKeypair() function!");
-        const keypair = KeyPair.fromRandom('ed25519');
+        const keypair = KeyPair.fromRandom('ed25519')
         console.log(keypair?.getPublicKey().toString())
 
         dispatch({
@@ -38,7 +38,7 @@ const Keys = () => {
                                 This is the string representation of the public key
                                 <Text code>{publicKeyStr}</Text>.
                             </div>
-                            <Text>It's accessible (and copyable) at the top right of this page.</Text>
+                            <Text>It&apos;s accessible (and copyable) at the top right of this page.</Text>
                         </div>
                     }
                     type="success"
@@ -58,7 +58,7 @@ const Keys = () => {
             </Space>
         </Col>
     </>
-    );
+    )
 }
 
 export default Keys

@@ -1,16 +1,16 @@
-import { useEffect, useReducer } from "react";
-import { Row } from 'antd';
+import { useEffect, useReducer } from 'react'
+import { Row } from 'antd'
 
-import { Connect, Keys, Account, Balance, Transfer, Deploy, Call } from '@near/components/Steps';
+import { Connect, Keys, Account, Balance, Transfer, Deploy, Call } from '@near/components/Steps'
 import { appStateReducer, initialState, NearContext } from '@near/context'
 import { useAppState, useLocalStorage } from '@near/hooks'
 import { Sidebar, Step } from '@near/components/Layout'
-import { Nav } from '@near/components';
+import { Nav } from '@near/components'
 
-import type { AppI } from '@near/types';
+import type { AppI } from '@near/types'
 
 const NearApp: React.FC<AppI> = ({ chain }) => {
-    const { state, dispatch } = useAppState();
+    const { state, dispatch } = useAppState()
     const { steps } = chain
     const step = steps[state.index];
     const nextHandler = () => {
@@ -25,8 +25,8 @@ const NearApp: React.FC<AppI> = ({ chain }) => {
             index: state.index - 1
         })
     }
-    const isFirstStep = state.index == 0;
-    const isLastStep = state.index === steps.length - 1;
+    const isFirstStep = state.index == 0
+    const isLastStep = state.index === steps.length - 1
 
     return (
         <Row>
@@ -54,7 +54,7 @@ const NearApp: React.FC<AppI> = ({ chain }) => {
             nav={<Nav />}
         />
         </Row>
-  );
+  )
 }
 
 const Near: React.FC<AppI> = ({ chain }) => {

@@ -32,7 +32,6 @@ const getPrimaryColor = (chainId: CHAINS) => {
   } else if (chainId === CHAINS.SECRET) {
     return "black"
   }
-
   return "rgb(255, 242, 155)"
 }
 
@@ -50,7 +49,7 @@ const getSecondaryColor = (chainId: CHAINS) => {
   } else if (chainId === CHAINS.TEZOS) {
     return "#F6F6F6"
   } else if (chainId === CHAINS.SECRET) {
-    return "white"
+    return "khaki"
   } else if (chainId === CHAINS.NEAR) {
     return "white"
   }

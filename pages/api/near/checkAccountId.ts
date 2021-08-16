@@ -19,6 +19,6 @@ export default async function(
         }
     } catch (error) {
         console.error(error)
-        return res.status(500).json('Error connection to NEAR')
+        return res.status(500).json('Error checking account name availability: ' + error.message)
     } 
 }

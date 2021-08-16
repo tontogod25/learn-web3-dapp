@@ -68,7 +68,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.NEAR]: {
 		id: CHAINS.NEAR,
 		label: "NEAR",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
 		steps: [
 			{
@@ -167,7 +167,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.SECRET]: {
 		id: CHAINS.SECRET,
 		label: "Secret",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/secret-scrt-logo.svg?v=010",
 		steps: [
 			{
@@ -175,12 +175,37 @@ export const CHAINS_CONFIG: ChainsType = {
 				title: "Connect to Secret",
 				url: ""
 			},
+			{
+				id: "account",
+				title: "Get an Account",
+				url: ""
+			},
+			{
+				id: "balance",
+				title: "Get the Balance",
+				url: ""
+			},
+			{
+				id: "transfer",
+				title: "Transfer SCRT",
+				url: ""
+			},
+			{
+				id: "deploy",
+				title: "Deploy a contract",
+				url: ""
+			},
+			{
+				id: "call",
+				title: "Call the smart contract",
+				url: ""
+			},
 		]
 	},
 	[CHAINS.SOLANA]: {
 		id: CHAINS.SOLANA,
 		label: "Solana",
-   		logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
+    	logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
 		active: false,
 		steps: [
 			{

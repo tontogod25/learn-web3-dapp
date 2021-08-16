@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
-import axios from "axios";
-import { Alert, Col, Space, Typography } from "antd";
-import { LoadingOutlined } from '@ant-design/icons';
-import { NearConnectReponse } from '@near/types';
+import axios from 'axios'
+import { Alert, Col, Space, Typography } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
+import { NearConnectResponse } from '@near/types'
 import { useAppState } from '@near/hooks'
 
-const { Text } = Typography;
+const { Text } = Typography
 
 const Connect = () => {
-	const [version, setVersion] = useState<string>('');
-	const [fetchingVersion, setFetchingVersion] = useState<boolean>(false);
-    const { state } = useAppState();
+	const [version, setVersion] = useState<string>('')
+	const [fetchingVersion, setFetchingVersion] = useState<boolean>(false)
+    const { state } = useAppState()
     const { networkId } = state
 
 	useEffect(() => {
-		getConnection();
+		getConnection()
 	}, []);
 
     const getConnection = () => {
@@ -22,7 +22,7 @@ const Connect = () => {
 		axios
 			.post(`/api/near/connect`, { networkId })
 			.then(res => {
-				const version: NearConnectReponse = res.data
+				const version: NearConnectResponse = res.data
 				setVersion(version)
 				setFetchingVersion(false)
 			})
@@ -50,7 +50,7 @@ const Connect = () => {
 						/>
                     : <Alert message={`Not connected to Near ${networkId}`} type="error" showIcon />}
 		</Col>
-	);
+	)
 }
 
 export default Connect
