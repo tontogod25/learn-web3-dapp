@@ -9,7 +9,7 @@ export default async function(
     const { networkId, accountId, secretKey, newMessage } = req.body;
 
     try {
-       const config = configFromNetworkId(networkId);
+        const config = configFromNetworkId(networkId);
         const keypair = KeyPair.fromString(secretKey);
         config.keyStore?.setKey(networkId, accountId, keypair);        
 
@@ -26,6 +26,6 @@ export default async function(
         return res.status(200).json(response.transaction.hash)
     } catch (error) {
         console.error(error)
-        return res.status(500).json('cannot change the value')
+        return res.status(500).json('Error changing the value: ' + error.message)
     } 
 }

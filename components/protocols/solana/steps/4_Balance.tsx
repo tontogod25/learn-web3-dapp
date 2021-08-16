@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Alert, Col, Input, Button, Space, Typography } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
-import { SolanaBalanceReponse, SolanaBalanceErrorResponse } from "types/solana-types"
+import { SolanaBalanceResponse, SolanaBalanceErrorResponse } from "types/solana-types"
 import { getAccountExplorerURL } from "../utils";
 import axios from 'axios';
 
@@ -27,7 +27,7 @@ const Balance = () => {
 				},
       )
 			.then(res => {
-				const data: SolanaBalanceReponse = res.data
+				const data: SolanaBalanceResponse = res.data
 				setBalance(data / DECIMAL_OFFSET)
 				setFetching(false)
 			})
