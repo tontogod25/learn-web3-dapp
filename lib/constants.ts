@@ -4,7 +4,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.AVALANCHE]: {
 		id: CHAINS.AVALANCHE,
 		label: "Avalanche",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010",
 		steps: [
 			{
@@ -18,13 +18,23 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/2.-create-your-first-avalanche-account"
 			},
 			{
-				id: "query",
-				title: "Query Avalanche",
+				id: "balance",
+				title: "Get the balance",
 				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/3.-query-the-avalanche-network"
 			},
 			{
-				id: "transferX",
-				title: "Transfer AVAX on the X Chain",
+				id: "transfer",
+				title: "Transfer some AVAX",
+				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/3.-query-the-avalanche-network"
+			},
+			{
+				id: "export",
+				title: "Export Token from X-Chain to C-Chain",
+				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/4.-create-your-first-transaction"
+			},
+			{
+				id: "import",
+				title: "Import Token from X-Chain to C-Chain",
 				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/4.-create-your-first-transaction"
 			},
 		]
@@ -125,7 +135,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.POLYGON,
 		label: "Polygon",
 		active: true,
-    logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
+  		logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
