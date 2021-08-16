@@ -42,13 +42,43 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.CELO]: {
 		id: CHAINS.CELO,
 		label: "Celo",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/celo-celo-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
 				title: "Connect to Celo",
-				url: ""
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "account",
+				title: "Creacte an account",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "balance",
+				title: "Get the balance",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "transfer",
+				title: "Transfer some Token",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "change",
+				title: "Change cUSD to CELO",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "deploy",
+				title: "Deploy a smart contract",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
+			},
+			{
+				id: "interact",
+				title: "Interact with contract",
+				url: "https://learn2.figment.io/pathways/celo-pathway"
 			},
 		]
 	},
@@ -135,7 +165,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.POLYGON,
 		label: "Polygon",
 		active: true,
-  		logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
+  	logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
