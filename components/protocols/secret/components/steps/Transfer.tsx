@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Form, Input, Button, Alert, Space, Typography } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useAppState } from '@secret/hooks'
+import { transactionUrl } from '@secret/lib'
 import axios from 'axios'
 
 const layout = {
@@ -15,7 +16,6 @@ const tailLayout = {
 
 const { Text } = Typography
 
-const transactionUrl = (hash: string) => `https://explorer.secrettestnet.io/transactions/${hash}`
 
 const Transfer = () => {
     const [error, setError] = useState<string | null>(null)
@@ -90,6 +90,7 @@ const Transfer = () => {
       {hash &&
         <Form.Item {...tailLayout}>
           <Alert
+          style={{ maxWidth: '350px'}}
             type="success"
             showIcon
             message={

@@ -21,7 +21,7 @@ export default async function connect(
         const txEncryptionSeed = EnigmaUtils.GenerateNewSeed();
         const fees = {
           send: {
-            amount: [{ amount: txAmount, denom: 'uscrt' }],
+            amount: [{ amount: '80000', denom: 'uscrt' }],
             gas: '80000',
           },
         };
@@ -36,15 +36,15 @@ export default async function connect(
         const rcpt = address; // Set recipient to sender for testing, or generate another account as you did previously.
         const memo = 'sendTokens example'; // optional memo
         const sent = await client.sendTokens(rcpt, [{ 
-          amount: '1000000', 
+          amount: txAmount, 
           denom: 'uscrt' 
         }], memo) // Send 1 SCRT / 1_000_000 uscrt
           
         // 3. Query the tx result
         const query = { id: sent.transactionHash };
-        const tx = await client.searchTx(query);
-        console.log('Transaction: ', tx);
-        const hash = tx[0].hash;
+        const transaction = await client.searchTx(query);
+        console.log('Transaction: ', transaction);
+        const hash = transaction[0].hash;
 
         res.status(200).json(hash)
     } catch(error) {
