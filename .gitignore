@@ -23,6 +23,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+yarn.lock
+package-lock.json
 
 # local env files
 .env.local
@@ -50,4 +52,3 @@ yarn-error.log*
 # near
 neardev
 contracts/near/target/
-contracts/near/out/main.wasm
