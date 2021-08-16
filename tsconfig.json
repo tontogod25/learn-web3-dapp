@@ -15,6 +15,8 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
+      "@near/*": ["components/protocols/near/*"], 
+      "@solana/*": ["components/protocols/solana/*"],
       "@near/*": ["components/protocols/near/*"],
       "@ccelo/*": ["components/protocols/celo/*"],
       "@avalanche/*": ["components/protocols/avalanche/*"], 

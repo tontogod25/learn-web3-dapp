@@ -1,16 +1,15 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { Version } from '@solana/web3.js';
 import { Col, Alert, Space, Typography } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-
-import { SolanaConnectResponse } from "types/solana-types"
+import { useAppState } from '@solana/hooks'
 
 const { Text } = Typography;
 
 const Connect = () => {
-  const [version, setVersion] = useState<string | null>(null);
+  	const [version, setVersion] = useState<string | null>(null);
 	const [fetchingVersion, setFetchingVersion] = useState<boolean>(false);
+	const { dispatch } = useAppState();
 
 	useEffect(() => {
 		getConnection();
@@ -19,11 +18,15 @@ const Connect = () => {
 	const getConnection = () => {
 		setFetchingVersion(true)
 		axios
-			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/connect`)
+			.get(`/api/solana/connect`)
 			.then(res => {
-				const version: SolanaConnectResponse = res.data
-				setVersion(version["solana-core"])
+				const version = res.data
+				setVersion(version)
 				setFetchingVersion(false)
+				dispatch({
+					type: "SetNetworkId",
+					networkId: res.data
+				})
 			})
 			.catch(err => {
 				console.log(err)

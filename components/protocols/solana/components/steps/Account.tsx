@@ -1,20 +1,34 @@
 import { Alert, Button, Col, Space, Typography } from 'antd';
 import { Keypair } from "@solana/web3.js";
+import { useAppState } from '@solana/hooks'
+import { useEffect, useState } from 'react';
 
-const { Text, Paragraph } = Typography;
+const { Text } = Typography;
 
-const Account = ({
-  keypair,
-  setKeypair
-}: {
-  keypair: Keypair
-  setKeypair(keypair: Keypair): void
-}) => {
+const Account = () => {
+  const [keypair, setKeypair] = useState<Keypair | null>(null)
+  const { dispatch, state } = useAppState();
+
+  useEffect( () => {
+    if (state?.secretKey) {
+      const secret = Uint8Array.from(JSON.parse(state.secretKey))
+      setKeypair(Keypair.fromSecretKey(secret))
+    }
+  }, [])
+
   const generateKeypair = () => {
     const keypair = Keypair.generate();
-    setKeypair(keypair);
+    setKeypair(keypair)
+    console.log(keypair.secretKey);
+      dispatch({
+        type: "SetSecretKey",
+        secretKey: JSON.stringify(Array.from(keypair?.secretKey)),
+    })
+    dispatch({
+      type: "SetPublicKey",
+      publicKey: keypair?.publicKey.toString()
+    })
   }
-
   const publicKeyStr = keypair && keypair.publicKey.toString();
 
   return (
