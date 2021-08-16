@@ -15,9 +15,11 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@near/*": ["components/protocols/near/*"], 
-      "@secret/*": ["components/protocols/secret/*"],
-    }
+      "@near/*": ["components/protocols/near/*"],
+      "@ccelo/*": ["components/protocols/celo/*"],
+      "@avalanche/*": ["components/protocols/avalanche/*"], 
+      "@secret/*": ["components/protocols/secret/*"]
+    },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
