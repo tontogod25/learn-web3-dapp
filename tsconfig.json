@@ -18,7 +18,6 @@
       "@near/*": ["components/protocols/near/*"],
       "@ccelo/*": ["components/protocols/celo/*"],
       "@avalanche/*": ["components/protocols/avalanche/*"], 
-      "@near/*": ["components/protocols/near/*"], 
       "@secret/*": ["components/protocols/secret/*"]
     },
   },
