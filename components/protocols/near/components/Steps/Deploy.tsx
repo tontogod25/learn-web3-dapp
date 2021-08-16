@@ -36,7 +36,7 @@ const Deploy = () => {
             <Space direction="vertical" size="large">
                 <Space direction="horizontal">
                     <Button type="primary" onClick={deployContract}>Deploy the contract</Button>
-                    <span></span><Input style={{ minWidth: "200px", fontWeight: "bold", textAlign: "center" }} disabled={true}  defaultValue={accountId} />
+                    <Input style={{ minWidth: "200px", fontWeight: "bold", textAlign: "center" }} disabled={true}  defaultValue={accountId} />
                 </Space>
                 {error && <Alert type="error" closable message={error} /> }
                 {fetching
