@@ -15,10 +15,10 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@near/*": ["components/protocols/near/*"], 
       "@solana/*": ["components/protocols/solana/*"],
       "@near/*": ["components/protocols/near/*"],
       "@ccelo/*": ["components/protocols/celo/*"],
+      "@tezos/*": ["components/protocols/tezos/*"], 
       "@avalanche/*": ["components/protocols/avalanche/*"], 
       "@secret/*": ["components/protocols/secret/*"]
     },

@@ -165,7 +165,7 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.POLYGON,
 		label: "Polygon",
 		active: true,
-  	logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
+	  	logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
@@ -278,7 +278,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.TEZOS]: {
 		id: CHAINS.TEZOS,
 		label: "Tezos",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/tezos-xtz-logo.svg?v=010",
 		steps: [
 			{
@@ -286,6 +286,31 @@ export const CHAINS_CONFIG: ChainsType = {
 				title: "Connect to Tezos",
 				url: ""
 			},
+			{
+				id: "account",
+				title: "Create an account",
+				url: ""
+			},
+			{
+				id: "balance",
+				title: "Get balance",
+				url: ""
+			},
+			{
+				id: "transfer",
+				title: "Transfer some Token",
+				url: ""
+			},
+			{
+				id: "deploy",
+				title: "Deploy a Smart contract",
+				url: ""
+			},
+			{
+				id: "call",
+				title: "interact with a contract",
+				url: ""
+			},
 		]
 	},
-}
+};
