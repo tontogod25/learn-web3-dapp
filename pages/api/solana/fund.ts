@@ -1,29 +1,23 @@
-import { Connection, PublicKey, PublicKeyInitData } from '@solana/web3.js';
+import { Connection, PublicKey, PublicKeyInitData, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { SOLANA_NETWORKS, SOLANA_PROTOCOLS } from 'types/types';
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { getSolanaUrl } from '@solana/lib';
 
-import { SolanaFundReponse, SolanaTransferErrorResponse } from 'types/solana-types';
-import { CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS } from 'types/types';
-import { getDatahubNodeURL } from 'utils/datahub-utils';
-
-const AIRDROP_AMOUNT = 1000000000
-
-export default function fund(
+export default async function fund(
   req: NextApiRequest,
-  res: NextApiResponse<SolanaFundReponse | SolanaTransferErrorResponse>
+  res: NextApiResponse<string>
 ) {
-  const url = process.env.SOLANA_DEVNET_URL as string
-  const connection = new Connection(url)
-  const address = new PublicKey(req.body.address as PublicKeyInitData)
-  
-  connection
-    .requestAirdrop(address, AIRDROP_AMOUNT)
-    .then(response => {
-      console.log(`response`, response)
-      res.status(200).json(response)
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: error.message
-      })
-    })
+  try {
+    // const url = getSolanaUrl(SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC);
+    // const connection = new Connection(url)
+    const connection = new Connection("https://api.devnet.solana.com", "confirmed");
+    const address = new PublicKey(req.body.address as PublicKey)  
+    const signature = await connection.requestAirdrop(address, LAMPORTS_PER_SOL)
+    await connection.confirmTransaction(signature);
+    console.log(signature)
+    res.status(200).json(signature)
+  } catch(error) {
+    console.error(error)
+    res.status(500).json('airdrop failed')
+  }
 }
