@@ -141,7 +141,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.POLKADOT]: {
 		id: CHAINS.POLKADOT,
 		label: "Polkadot",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
 		steps: [
 			{
@@ -150,22 +150,37 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: ""
 			},
 			{
-				id: "query",
-				title: "Query Polkadot",
-				url: ""
-			},
-			{
 				id: "account",
 				title: "Create an account",
 				url: ""
 			},
+			{
+				id: "restore",
+				title: "Restore an account",
+				url: ""
+			},
+			{
+				id: "balance",
+				title: "Get the Balance",
+				url: ""
+			},
+			{
+				id: "transfer",
+				title: "Transfer some Token",
+				url: ""
+			},
+			{
+				id: "estimate",
+				title: "Estimate transaction fees",
+				url: ""
+			}
 		]
 	},
 	[CHAINS.POLYGON]: {
 		id: CHAINS.POLYGON,
 		label: "Polygon",
 		active: true,
-	  	logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
+	  logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
