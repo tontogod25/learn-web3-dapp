@@ -1,4 +1,3 @@
-
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSafeUrl } from 'components/protocols/secret/lib';
 import { EnigmaUtils, SigningCosmWasmClient, Secp256k1Pen, pubkeyToAddress, encodeSecp256k1Pubkey, } from 'secretjs';
@@ -7,23 +6,23 @@ import fs from 'fs'
 const CONTRACT_PATH = './contracts/secret/contract.wasm' 
 
 const customFees = {
-    upload: {
-      amount: [{ amount: '2000000', denom: 'uscrt' }],
-      gas: '2000000',
-    },
-    init: {
-      amount: [{ amount: '500000', denom: 'uscrt' }],
-      gas: '500000',
-    },
-    exec: {
-      amount: [{ amount: '500000', denom: 'uscrt' }],
-      gas: '500000',
-    },
-    send: {
-      amount: [{ amount: '80000', denom: 'uscrt' }],
-      gas: '80000',
-    },
-  };
+  upload: {
+    amount: [{ amount: '2000000', denom: 'uscrt' }],
+    gas: '2000000',
+  },
+  init: {
+    amount: [{ amount: '500000', denom: 'uscrt' }],
+    gas: '500000',
+  },
+  exec: {
+    amount: [{ amount: '500000', denom: 'uscrt' }],
+    gas: '500000',
+  },
+  send: {
+    amount: [{ amount: '80000', denom: 'uscrt' }],
+    gas: '80000',
+  },
+};
 
 type ResponseT = {
     contractAddress: string
@@ -56,7 +55,9 @@ export default async function connect(
         const wasm = fs.readFileSync(CONTRACT_PATH);
         console.log('Uploading contract');
         const uploadReceipt = await client.upload(wasm, {})
-
+        if (!uploadReceipt) {
+          throw new Error("uploadReceipt error");
+        }
         // Get the code ID from the receipt
         const { codeId } = uploadReceipt;
 

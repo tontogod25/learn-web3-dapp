@@ -16,6 +16,13 @@ export enum AVALANCHE_NETWORKS {
   FUJI = "FUJI"
 }
 
+// Celo
+export enum CELO_NETWORKS {
+  MAINNET = "MAINNET",
+  ALFAJORES = "alfajores"
+}
+
+
 // Secret
 export enum SECRET_NETWORKS {
   MAINNET = "MAINNET",
@@ -27,6 +34,14 @@ export enum NEAR_NETWORKS {
     MAINNET = "MAINNET",
     TESTNET = "TESTNET"
 }
+
+
+// Tezos
+export enum TEZOS_NETWORKS {
+  MAINNET = "MAINNET",
+  TESTNET = "TESTNET"
+}
+
 
 // Polkadot
 export enum POLKADOT_NETWORKS {
@@ -68,8 +83,10 @@ export type NETWORKS =
   | POLKADOT_NETWORKS 
   | NEAR_NETWORKS
   | SECRET_NETWORKS
+  | CELO_NETWORKS
 
 
+  
 export type PROTOCOLS = POLYGON_PROTOCOLS | SOLANA_PROTOCOLS | POLKADOT_PROTOCOLS
 
 // ---------------------------------------------------

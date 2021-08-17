@@ -3,10 +3,10 @@ import { Alert, Col, Input, Button, Space, Typography } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { useAppState } from '@secret/hooks'
+import { transactionUrl } from '@secret/lib'
 
 const { Text } = Typography;
 
-const transactionUrl = (hash: string) => `https://explorer.secrettestnet.io/transactions/${hash}`
 
 const Call = () => {
     const [fetching, setFetching] = useState<boolean>(false)

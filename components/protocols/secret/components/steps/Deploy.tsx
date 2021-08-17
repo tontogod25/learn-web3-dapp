@@ -3,10 +3,9 @@ import axios from 'axios'
 import { Alert, Col, Input, Button, Space, Typography } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useAppState } from '@secret/hooks'
+import { transactionUrl } from '@secret/lib'
 
 const { Text } = Typography
-
-const transactionUrl = (hash: string) => `https://explorer.secrettestnet.io/transactions/${hash}`
 
 const Deploy = () => {
     const [fetching, setFetching] = useState<boolean>(false)
@@ -19,10 +18,10 @@ const Deploy = () => {
         setFetching(true)
         axios.post(`/api/secret/deploy`, state)
             .then(res => {
-                const hash = res.data.hash 
+                const hash = res.data.transactionHash 
                 const addr = res.data.contractAddress 
                 console.log(hash, addr)
-                setTxhash(res.data)
+                setTxhash(hash)
                 setFetching(false)
                 dispatch({
                     type: 'SetContractAddress',
