@@ -57,7 +57,7 @@ A footnote below the instructions reminds us to:
 
 Quick overview:
 * `configFromNetworkId()` takes the network identifier such as 'mainnet' or 'testnet' and returns a `config` object containing the correct URLs.
-* `nearConnect()` takes the `config` object and returns an instance of `Near`, which represents the connection. From here e can 
+* `nearConnect()` takes the `config` object and returns an instance of `Near`, which represents the connection.
 * `client.connection.provider.status()` returns a `NodeStatusResult` which contains information about the node such as its ChainID, RPC address and software version.
 * Drilling down to the `version` property of the `Version` interface contained in the `NodeStatusResult` yields the NEAR version string.
 
