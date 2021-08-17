@@ -13,14 +13,14 @@ The main difference here is in the protocol. To connect to Secret, we'll be usin
 * `rpc`, stands for **R**emote **P**rocedure **C**all - a way to [call a server-side function](https://en.wikipedia.org/wiki/Remote_procedure_call) from the client-side.
 
 
-Need more info? => [Secret ApiPromise](https://Secret.js.org/docs/api/examples/promise/simple-connect)
+Need more info? => [SecretJS Examples](https://github.com/enigmampc/SecretJS-Templates)
 
 ------------------------
 
 ## Challenge
 
 You are stuck in the web2.0 waiting room and need to *connect* to the web3 world. On the wall, an instruction is engraved:   
-> Decode **pages/api/Secret/connect.ts** and the door will open!
+> Decode **pages/api/secret/connect.ts** and the door will open!
 
 ```typescript
 // Fill in the gaps to connect with Secret & be one of us :)
@@ -36,7 +36,7 @@ try {
 ```
 
 A footnote below the instruction reminds us to: 
-* Await the `getSafeUrl` helper function.
+* Await the `getSafeUrl()` helper function.
 * Instantiate a new `CosmWasmClient` using that `url`.
 * Await the `nodeInfo()` on the client.
 * Access the version property of `nodeInfo.application_version`

@@ -35,9 +35,9 @@ You are stuck in the web2.0 waiting room and need to *connect* to the web3 world
 ```
 
 A footnote below the instructions reminds us to: 
-* Use the `getSafeUrl` helper function.
-* Use the `newKit` method on the client.
-* Use the `kit.web3.eth.getNodeInfo` method on the kit instance.
+* Use the `getSafeUrl` helper function to get a valid RPC endpoint.
+* Use the `newKit` function to connect, passing the `url`.
+* Await the `kit.web3.eth.getNodeInfo` method on the kit instance to query the node software version.
 
 ------------------------
 
@@ -54,7 +54,7 @@ A footnote below the instructions reminds us to:
 
 Quick overview:
 * Use the `getSafeUrl` helper function to return an endpoint URL to connect with.
-* Instantiate a new `ContractKit` object with the endpoint URL.
+* Instantiate a new `ContractKit` object, passing the endpoint URL from `getSafeUrl` as a function argument.
 * `web3.eth.getNodeInfo` returns the software version the Celo node is running.
 
 ------------------------

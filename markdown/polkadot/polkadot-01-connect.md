@@ -60,10 +60,10 @@ A footnote below the instruction reminds us to:
 
 Quick overview:
 * The `getSafeUrl()` helper function returns a valid endpoint URL.
-* We can use either a WsProvider or a JsonRpcProvider with the endpoint URL.
+* In this context, a [provider](https://polkadot.js.org/docs/api/start/create/#providers) is referring to the *type* of connection. The [WebSocket](https://en.wikipedia.org/wiki/WebSocket) provider is the officially supported type on Polygon.
 * `ApiPromise.create()` returns a Promise containing the actual API instance.
 * `api.rpc.system.version()` queries the version from the node.
-* Then use `toHuman()` to make the version string reader friendly.
+* Then the method `toHuman()` can be used to make the version string reader friendly.
 ------------------------
 
 ## Next

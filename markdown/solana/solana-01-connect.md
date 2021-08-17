@@ -35,7 +35,9 @@ You are stuck in the web2.0 waiting room and need to *connect* to the web3 world
 ```
 
 A footnote below the instruction reminds us to: 
-* 
+* Use the `getSolanaUrl` helper function to get a valid endpoint URL.
+* Instantiate a new `Connection` using that `url`.
+* Await the `getVersion()` method on the connection.
 
 ------------------------
 
@@ -51,7 +53,9 @@ A footnote below the instruction reminds us to:
 ```
 
 Quick overview:
-* 
+* `getSolanaUrl` will return a valid endpoint URL - it takes environment variables as arguments to construct the URL.
+* A `Connection` instance takes an endpoint URL and communicates with that endpoint via JSON-RPC.
+* The `getVersion()` method returns a `Version` type which includes the `version` and `feature-set` properties.
 ------------------------
 
 ## Next
