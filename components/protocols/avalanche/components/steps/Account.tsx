@@ -20,19 +20,15 @@ const Account = () => {
 		try {
 			setFetching(true)
 			const response = await axios.get(`/api/avalanche/account`)
-			const data = response.data
-			console.log(data)
-			const secret = data.secret;
-			const address = data.address;
-			setAdress(address)
+			setAdress(response.data.address)
 			setFetching(false)
 			dispatch({
 				type: 'SetSecret',
-				secret: secret
+				secret: response.data.secret
 			})
 			dispatch({
 				type: 'SetAddress',
-				address: address
+				address: response.data.address
 			})	
 		} catch (error) {
 			console.error(error)
@@ -42,7 +38,9 @@ const Account = () => {
 
 	return (
 		<Col>
-		  <Button type="primary" onClick={generateKeypair} style={{ marginBottom: "20px" }} loading={fetching}>Generate a Keypair</Button>
+		  <Button type="primary" onClick={generateKeypair} style={{ marginBottom: "20px" }} loading={fetching}>
+			  Generate a Keypair
+		  </Button>
 		  {address &&
 			<Col>
 			  <Space direction="vertical">

@@ -8,21 +8,21 @@ const { Text } = Typography;
 
 const Connect = () => {
 	const [version, setVersion] = useState<string | null>(null);
-	const [fetchingVersion, setFetchingVersion] = useState<boolean>(false);
+	const [fetching, setFetching] = useState<boolean>(false);
     const { state, dispatch } = useAppState();
 	useEffect(() => {
 		const getConnection = () => {
-			setFetchingVersion(true)
+			setFetching(true)
 			axios
 				.post(`/api/avalanche/connect`, state)
 				.then(res => {
 					setVersion(res.data)
-					setFetchingVersion(false)
+					setFetching(false)
 
 				})
 				.catch(err => {
 					console.error(err)
-					setFetchingVersion(false)
+					setFetching(false)
 				})
 		}
 		getConnection()
@@ -39,7 +39,7 @@ const Connect = () => {
 
 	return (
 		<Col style={{ width: "100%" }}>
-			{fetchingVersion
+			{fetching
 				? <LoadingOutlined style={{ fontSize: 24 }} spin />
 				: version
 					? <Alert

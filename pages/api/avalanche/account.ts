@@ -6,7 +6,7 @@ type ReponseT = {
 	address: string
 }
 export default function account(
-	req: NextApiRequest,
+	_req: NextApiRequest,
 	res: NextApiResponse<ReponseT>
 ) {
 	const client = getAvalancheClient()
