@@ -124,7 +124,7 @@ const Account = () => {
 							Go to the faucet, connect and enter
 						</a>
 						<br />
-						<Text code style={{ fontWeight: 'bold' }}>!drip ${address}</Text>
+						<Text code style={{ fontWeight: 'bold' }}>!drip {address}</Text>
 					</div>
 				}
 				  type="warning"
