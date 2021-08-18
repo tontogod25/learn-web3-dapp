@@ -1,1 +1,0 @@
-skeleton of the new pathway lessons'

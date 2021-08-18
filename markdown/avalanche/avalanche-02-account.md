@@ -1,6 +1,6 @@
 # Take your keys
 
-Whitout identity how could you expect to interact with any others entities populating the Avalanche Moutains ? 
+Whitout identity how could you expect to interact with any others entities populating the web3 space ? 
 
 ------------------------
 
@@ -11,26 +11,34 @@ Conceptually an identity in web3 space is a keypair:
 * A public one, available to anyone. This is your current location in space. Anyone knowing the key can etablish a communication with you.
 
 I like to make the following mapping:
-If a public key is a 
+If a public key is your mobile phone number then your private key is your sim card
+
+Here you learn how pratically set up a keypair.
 
 ------------------------
 
 ## Challenge
 
-You are stuck on account *room*, crypto-punk police officer ask your identity:   
-> Decode **pages/api/connect.ts** and you'll be released.
+A crypto-punk police's officer ask for your identity:   
+> Decode **pages/api/account.ts** and you'll be released.
 
 ```typescript
-// fill the gap an identity :)
+// fill the gap to obtain your identity :)
 	const client = getAvalancheClient()
 	const chain = client.XChain(); 
-	const keyChain = undefined 
-	const key = undefined
+	const keyChain = chain.keyChain(); 
+	const keypair = keyChain..... //
+	const secret = undefined
+	const address = undefined
+	res.status(200).json({
+		secret, address
+	})
 ```
 
-A footnote tell us to: 
-* Use `getAvalanceClient` function
-* Use `getNodeVersion` method of an unknow class.
+Some hints : 
+* Using code completion feature of your favorite code editor find a method which retrieve a KeyPair object
+* On keypair instance call the good method to retrieve the `PrivateKey` in string format
+* On keypair instance call the good method to retrieve the `Address` in string format
 
 ------------------------
 
@@ -40,16 +48,22 @@ A footnote tell us to:
 	const client = getAvalancheClient()
 	const chain = client.XChain(); 
 	const keyChain = chain.keyChain(); 
-	const key = keyChain.makeKey()
+	const keypair = keyChain.makeKey()
+	const secret = keypair.getPrivateKeyString()
+	const address = keypair.getAddressString()
+	res.status(200).json({
+		secret, address
+	})
 ```
 
 Quick overview:
-* We instanciate an `Avalanche`object
-* Calling `Info` method will set-up some high-level variable of our rpc-call
-* `getNodeVersion` send the message and retrieve the answer.
+* Calling `makeKey` method will give us a keypair
+* `getPrivateKeyString` retrieve the string formated private key
+* `getAddressString` retrieve the string formated public key
 
 ------------------------
 
 ## Next
 
-
+Nice now, you hold an identity it's time to interact, don't forget to go on a faucet to earn some token.
+You want to know the amount of token you hold ? Good, this is exactly what the next challenge is asking for. 
