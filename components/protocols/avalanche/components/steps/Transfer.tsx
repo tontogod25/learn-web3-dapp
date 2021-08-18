@@ -99,7 +99,7 @@ const Transfer = () => {
             }
             description={
               <a href={transactionUrl(hash ?? '')} target="_blank" rel="noreferrer">
-                View on Secret Explorer
+                View on Avalanche Explorer
               </a>
             }
           />

@@ -6,7 +6,7 @@ import axios from "axios";
 const { Text } = Typography;
 
 const FAUCET_ADDR = `https://app.element.io/#/room/#westend_faucet:matrix.org`
-
+/*
 type downloadBoxT = {
     jsonWallet: string,
     address: string
@@ -26,7 +26,7 @@ const DownloadBox = ({ jsonWallet, address }: downloadBoxT) => {
         </Button>
     )
 }
-
+*/
 const Account = () => {
 	const [fetching, setFetching] = useState<boolean>(false);
 	const [address, setAdress] = useState<string | null>(null)
