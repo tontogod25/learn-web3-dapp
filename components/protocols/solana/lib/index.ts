@@ -1,10 +1,21 @@
-import { SOLANA_NETWORKS, SOLANA_PROTOCOLS } from "types/types"
 
 // Helper for generating an account URL on Solana Explorer
 export const getAccountExplorerURL = (address: string) => {
     return `https://explorer.solana.com/address/${address}?cluster=devnet`;
 }
-  
+
+
+// Polkadot
+export enum POLKADOT_NETWORKS {
+  WESTEND = "WESTEND",
+  MAINNET = "MAINNET"
+}
+
+export enum POLKADOT_PROTOCOLS {
+  RPC = "RPC",
+  WS = "WS",
+}
+
 // Helper for generating a transaction URL on Solana Explorer
 export const getTxExplorerURL = (signature: string) => {
     return `https://explorer.solana.com/tx/${signature}?cluster=devnet`;
