@@ -1,29 +1,31 @@
 # A first contact
 
-Ability to established a contact is the first step for anyone wanting to discoverd and travel through web3 space. Fasten your seat belt, it's time to take off.
+The ability to establish a connection is the first step for anyone wanting to discover and travel through web3 space. Fasten your seat belt, it's time to take off 🚀!
 
 ------------------------
 
 ## Lesson
 
-Connecting to a node work pretty much the same as for web server. You have two actors client/server and a protocol managing how data are transfered from one to another. 
+Connecting to a node works pretty much the same as for a standard web server. There are two actors: Client & server, with a protocol managing how data are transferred from one to the other. 
 
-The Main difference here rely on the protocol. We'll be using `json-rpc`: 
-* `rpc`, it's just a way to call server-side function from client-side.
-* `json`, do I need to explain this point ?
+The main difference here is in the protocol. To connect to Avalanche, we'll be using `json-rpc`: 
+* `json`, stands for **J**ava**S**cript **O**bject **N**otation, which is a [text format for transferring data](https://www.w3schools.com/js/js_json_intro.asp).
+* `rpc`, stands for **R**emote **P**rocedure **C**all - a way to [call a server-side function](https://en.wikipedia.org/wiki/Remote_procedure_call) from the client-side.
 
-Need more => [avalancheGo APIs](https://docs.avax.network/build/avalanchego-apis)
+
+Need more info? => [AvalancheGo APIs](https://docs.avax.network/build/avalanchego-apis)
 
 ------------------------
 
 ## Challenge
 
-You are stuck on connect *room*, on the wall an unexpected old instruction is engraved:   
-> Decode **pages/api/connect.ts** and the door will open.
+You are stuck in the web2.0 waiting room and need to *connect* to the web3 world. On the wall, an instruction is engraved:   
+> Decode **pages/api/avalanche/connect.ts** and the door will open!
 
 ```typescript
-// fill the gap and be one of us :)
-// Do not forget we'are in an async world.
+// Fill in the gaps to connect with Avalanche & be one of us :)
+// Do not forget we're in an "async" world,
+// so you may need to "await" some results.
   try {
     const client = undefined
     const info = undefined
@@ -32,9 +34,10 @@ You are stuck on connect *room*, on the wall an unexpected old instruction is en
   }
 ```
 
-A footnote tell us to: 
-* Use `getAvalanceClient` function
-* Use `getNodeVersion` method of an unknow class.
+A footnote engraved on the wall below the instructions reminds us to: 
+* Use the `getAvalancheClient` helper function.
+* Use the `Info` method on the client.
+* Use the `getNodeVersion` method on the client info.
 
 ------------------------
 
@@ -50,12 +53,12 @@ A footnote tell us to:
 ```
 
 Quick overview:
-* We instanciate an `Avalanche` object
-* Calling `Info` method will set-up some high-level variable of our rpc-call
-* `getNodeVersion` send the message and retrieve the answer.
+* We instantiate an `Avalanche` object with `getAvalancheClient`.
+* Calling the `Info` method returns a reference to the Info RPC.
+* `getNodeVersion` sends the request and retrieves the answer.
 
 ------------------------
 
 ## Next
 
-Well done you are now almost fluent in avalanche dialect. As a newcomer building an identity could be a great thing. Ready to make another step forward ?
+Well done! Your fluency in the Avalanche dialect of web3 is growing. As a newcomer, building an identity is important so you can distinguish yourself from other users on the Avalanche network. Ready to take the next step forward?

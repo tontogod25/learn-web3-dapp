@@ -71,7 +71,7 @@ export const Sidebar: React.FC<SidebarI> = ({ steps, stepIndex }) => {
 		<Left span={8}>
 			<Space size="large" direction="horizontal" align="center" style={{ marginBottom: "40px" }}>
 				<Image src="/figment-learn-compact.svg" alt="Figment Learn" height={41} width={100} />
-				<ChainTitle>{`Solana Pathway`}</ChainTitle>
+				<ChainTitle>{`Avalanche Pathway`}</ChainTitle>
 			</Space>
 
 			<Steps direction="vertical" size="small" current={stepIndex}>

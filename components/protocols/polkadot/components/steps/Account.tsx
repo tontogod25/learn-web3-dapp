@@ -6,7 +6,7 @@ import axios from "axios";
 const { Text } = Typography;
 
 const FAUCET_ADDR = `https://app.element.io/#/room/#westend_faucet:matrix.org`
-
+/*
 type downloadBoxT = {
     jsonWallet: string,
     address: string
@@ -26,7 +26,7 @@ const DownloadBox = ({ jsonWallet, address }: downloadBoxT) => {
         </Button>
     )
 }
-
+*/
 const Account = () => {
 	const [fetching, setFetching] = useState<boolean>(false);
 	const [address, setAdress] = useState<string | null>(null)
@@ -124,7 +124,7 @@ const Account = () => {
 							Go to the faucet, connect and enter
 						</a>
 						<br />
-						<Text code style={{ fontWeight: 'bold' }}>!drip ${address}</Text>
+						<Text code style={{ fontWeight: 'bold' }}>!drip {address}</Text>
 					</div>
 				}
 				  type="warning"

@@ -9,11 +9,12 @@ import type { SidebarI, StepButtonsI, StepI, StepType } from 'components/protoco
 const { Text } = Typography;
 
 const primaryColor = "linear-gradient(90deg, #000000, #636363)"
+
 const secondaryColor = "khaki"
 
 export const Step: React.FC<StepI> = (props) => {
 	return (
-		<Right span={18}>
+		<Right span={16}>
 			<Col>
 				<StepHeader>
 					<Title>{props.step.title}</Title>
@@ -71,7 +72,7 @@ const StepButtons: React.FC<StepButtonsI> = ({ next, prev, isFirstStep, isLastSt
 export const Sidebar: React.FC<SidebarI> = ({ steps, stepIndex }) => {
 	const TitleStep = ({ title }: {title: string}) => <div style={{color: 'khaki', fontWeight: 'bold'}}>{title}</div>
 	return (
-		<Left span={6}>
+		<Left span={8}>
 			<Space size="large" direction="horizontal" align="center" style={{ marginBottom: "40px" }}>
 				<Image src="/figment-learn-compact.svg" alt="Figment Learn" height={41} width={100} />
 				<ChainTitle>{`Secret Pathway`}</ChainTitle>

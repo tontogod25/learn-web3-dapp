@@ -10,13 +10,12 @@ export default function account(
 	res: NextApiResponse<ReponseT>
 ) {
 	const client = getAvalancheClient()
-	const chain = client.XChain(); // the chainID can be altered if necessary, but we are on XChain here
-	const keyChain = chain.keyChain(); // keyChain will be the returned instance of KeyChain from AVMAPI
-	const key = keyChain.makeKey()
-	console.log(key.getPrivateKeyString())
-	console.log(key.getAddressString())
+	const chain = client.XChain(); 
+	const keyChain = chain.keyChain(); 
+	const keypair = keyChain.makeKey()
+	const secret = keypair.getPrivateKeyString()
+	const address = keypair.getAddressString()
 	res.status(200).json({
-		secret: key.getPrivateKeyString(),
-		address: key.getAddressString(),
+		secret, address
 	})
 }
