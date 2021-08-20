@@ -6,7 +6,7 @@ The ability to establish a connection is the first step for anyone wanting to di
 
 ## Lesson
 
-Connecting to a node works pretty much the same as for a standard web server. There are two actors: Client & server, with a protocol managing how data are transferred from one to the other. 
+Connecting to a node works pretty much the same as for a standard web server. There are two actors: Client & server, with a protocol managing how data are transferred from one to the other. dsdsd
 
 The main difference here is in the protocol. To connect to Avalanche, we'll be using `json-rpc`: 
 * `json`, stands for **J**ava**S**cript **O**bject **N**otation, which is a [text format for transferring data](https://www.w3schools.com/js/js_json_intro.asp).
