@@ -193,7 +193,7 @@ const Program = () => {
   }
   
   return (
-    <Col>
+    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
         <Space direction="horizontal" size="large">
           <Button type="default" onClick={() => { checkProgram(connection as Connection) }}>Check Program Info</Button>

@@ -5,7 +5,8 @@ import axios from 'axios';
 
 const { Text } = Typography;
 
-const DECIMAL_OFFSET = 1000000000;
+// 1_000_000_000
+const DECIMAL_OFFSET = 10**9;
 
 const Balance = () => {
   const [value, setValue] = useState<string | null>(null);
@@ -34,7 +35,7 @@ const Balance = () => {
   const explorerUrl = getAccountExplorerURL(value as string);
 
   return (
-    <Col>
+    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
           <Text>Paste the address you generated previously:</Text>
@@ -44,7 +45,7 @@ const Balance = () => {
         {error && <Alert type="error" closable message={error} onClose={() => setError(null)} /> }
         {balance && <Alert 
                 message={
-                  <Text strong>{`This address has a balance of ◎${balance}`}</Text>
+                  <Text strong>{`This address has a balance of ${balance} SOL`}</Text>
                 }
                 description={
                   <a href={explorerUrl} target="_blank" rel="noreferrer">View the address on Solana Explorer</a>

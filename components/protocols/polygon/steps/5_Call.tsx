@@ -36,6 +36,7 @@ const Call = () => {
 		// const contract = ...
 
 		// Call the contract's methods here
+		/*
 			.then((res: any) => {
 				setContractNumber(res.toString())
 			})
@@ -45,6 +46,7 @@ const Call = () => {
 			.finally(() => {
 				setFetchingGet(false)
 			})
+		*/
   }
 
 	const setValue = () => {
@@ -59,6 +61,7 @@ const Call = () => {
 		// const contract = ...
 
 		// Call the contract's methods here passing the `inputNumber`
+		/*
 			.then((txRes: any) => {
 				console.log(JSON.stringify(txRes, null, 2))
 				setFetchingSet(false)
@@ -80,6 +83,7 @@ const Call = () => {
 				console.log(err)
 				setFetchingSet(false)
 			})
+		*/
   }
 
   return (
@@ -123,7 +127,7 @@ const Call = () => {
 				<Col span={12}>
 					<Card title="Get Value">
 						<Space direction="vertical">
-							{!fetchingGet && <Statistic value={contractNumber} />}
+							{/* {!fetchingGet && <Statistic value={contractNumber} />} */}
 							{fetchingGet && <LoadingOutlined style={{ fontSize: 24 }} spin />}
 							<Button type="primary" onClick={getValue}>Get Value</Button>
 						</Space>

@@ -1,8 +1,10 @@
+import { Col } from 'antd';
+
 const Deploy = () => {
   return (
-    <div>
-      Follow the instructions on Figment Learn and hit Next once you've deployed the Solana program
-    </div>
+    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
+      Follow the instructions on Figment Learn and deployed the Solana program
+    </Col>
   );
 }
 

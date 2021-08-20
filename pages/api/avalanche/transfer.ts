@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getAvalancheClient } from '@avalanche/lib'
 import { BinTools, BN } from "avalanche";
 
-
 export default async function account(
 	req: NextApiRequest,
 	res: NextApiResponse<string>
@@ -17,7 +16,7 @@ export default async function account(
 		// constants
 		const receiver = "X-fuji1j2zasjlkkvptegp6dpm222q6sn02k0rp9fj92d" 
 		const asset = "AVAX" 
-		
+
 		// Fetch UTXO (i.e unspent transaction outputs)
 		const address = key.getAddressString()
 		const { utxos } = await chain.getUTXOs(address)

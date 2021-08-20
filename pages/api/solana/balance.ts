@@ -1,22 +1,20 @@
 import { Connection, PublicKey  } from '@solana/web3.js';
-import { SOLANA_NETWORKS, SOLANA_PROTOCOLS } from 'types/types';
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { getSolanaUrl } from '@solana/lib';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { getSafeUrl } from '@solana/lib';
 
-export default async function fund(
+export default async function balance(
   req: NextApiRequest,
   res: NextApiResponse<string | number>
 ) {
   try {
-    // const url = getSolanaUrl(SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC);
-    // const connection = new Connection(url)
-    const connection = new Connection("https://api.devnet.solana.com", "confirmed");
-    const address = new PublicKey(req.body.address as PublicKey)  
-    const balance = await connection.getBalance(address)
-    console.log(balance)
-    res.status(200).json(balance)
+    const address = req.body.address as PublicKey;
+    const url = getSafeUrl();
+    const connection = new Connection(url, "confirmed");
+    const publicKey = new PublicKey(address);
+    const balance = await connection.getBalance(publicKey);
+    res.status(200).json(balance);
   } catch(error) {
-    console.error(error)
-    res.status(500).json('balance failed')
+    console.error(error);
+    res.status(500).json('Get balance failed');
   }
 }

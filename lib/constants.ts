@@ -82,6 +82,7 @@ export const CHAINS_CONFIG: ChainsType = {
 			},
 		]
 	},
+	/*
 	[CHAINS.THE_GRAPH]: {
 		id: CHAINS.THE_GRAPH,
 		label: "The Graph",
@@ -95,6 +96,7 @@ export const CHAINS_CONFIG: ChainsType = {
 			},
 		]
 	},
+	*/
 	[CHAINS.NEAR]: {
 		id: CHAINS.NEAR,
 		label: "NEAR",

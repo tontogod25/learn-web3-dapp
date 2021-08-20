@@ -106,7 +106,7 @@ const Account = () => {
 						This is the string representation of the public key <br/>
 						<Text code style={{ fontWeight: 'bold' }}>{address}</Text>.
 					  </div>
-					  <Text>It's accessible (and copyable) at the top right of this page.</Text>
+					  <Text>Accessible (and copyable) at the top right of this page.</Text>
 					</div>
 				  }
 				  type="success"

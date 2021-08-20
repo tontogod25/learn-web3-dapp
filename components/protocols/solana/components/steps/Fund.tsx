@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Alert, Button, Space, Col, Input, Typography } from 'antd'
 import axios from "axios"
+import { getTxExplorerURL } from  "@solana/lib";
 
 const { Text } = Typography
 
@@ -9,6 +10,7 @@ const Fund = () => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [isFunded, setIsFunded] = useState<boolean>(false)
+  const [hash, setHash] = useState<string>('')
 
   const fund = () => {
     if (!value) return null
@@ -22,8 +24,7 @@ const Fund = () => {
 				},
       )
 			.then(res => {
-				const data = res.data
-        console.log(`data`, data)
+        setHash(res.data)
 				setIsFunded(true)
 				setFetching(false)
 			})
@@ -33,9 +34,9 @@ const Fund = () => {
 				setError('unable to do the transfer')
 			})
   }
-  
+
   return (
-    <Col>
+    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
           <Text>Paste the address you generated (you can copy it in the top right corner of the page):</Text>
@@ -44,6 +45,15 @@ const Fund = () => {
         </Space>
           {error && <Alert type="error" showIcon closable message={error} onClose={() => setError(null)} />}
           {isFunded && <Alert message={<Text strong>Address Funded!</Text>} type="success" closable showIcon />}
+          {hash &&
+          <Alert
+            type="success"
+            showIcon
+            message={
+              <a href={getTxExplorerURL(hash)} target="_blank" rel="noreferrer">View on Solana Explorer</a>
+            }
+          />
+      }
       </Space>
     </Col>
   )

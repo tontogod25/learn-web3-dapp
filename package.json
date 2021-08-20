@@ -48,6 +48,7 @@
     "web3": "^1.5.0"
   },
   "devDependencies": {
+    "@types/depd": "^1.1.32",
     "babel-plugin-styled-components": "^1.13.1",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.1",

@@ -25,8 +25,8 @@ const Balance = ({ account }: { account: PolygonAccountT }) => {
     // TODO
     // Define those two variables
 
-    setBalance(balanceToDisplay)
-    setFetching(false)
+    // setBalance(balanceToDisplay)
+    // setFetching(false)
   }
 
   const explorerUrl = getPolygonAddressExplorerURL(account as string)

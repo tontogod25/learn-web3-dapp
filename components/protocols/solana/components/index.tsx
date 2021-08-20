@@ -5,12 +5,12 @@ import type { EntryT, AlertT } from '@solana/types';
 const { Text, Paragraph } = Typography;
 
 const Nav = () => {
-    const { state } = useAppState();
-    const { networkId, publicKey, contractKey } = state;
+    const { state, dispatch } = useAppState();
+    const { network, address, contract, secret,  } = state;
 
-    const displayNetworkId = (networkId: string) => networkId
-    const displayPublicKey = (publicKey: string) => `${publicKey.slice(0,5)}...${publicKey.slice(-5)}`
-    const displayContractKey = (contractKey: string) => `${contractKey.slice(0,5)}...${contractKey.slice(-5)}`
+    const displayNetwork = (network: string) => network
+    const displayAddress = (address: string) => `${address.slice(0,5)}...${address.slice(-5)}`
+    const displayContract = (contract: string) => `${contract.slice(0,5)}...${contract.slice(-5)}`
 
     const Entry = ({ msg, display, value }: EntryT) => {
         return (
@@ -24,19 +24,46 @@ const Nav = () => {
     const AppState = () => {
         return (
         <>
-            {networkId && <Entry msg={"Network Id: "} value={networkId} display={displayNetworkId} />}
-            {publicKey && <Entry msg={"Public key: "} value={publicKey} display={displayPublicKey} />}
-            {contractKey && <Entry msg={"Contratc Id"} value={contractKey} display={displayContractKey} />}
+            {network && <Entry msg={"Network: "} value={network} display={displayNetwork} />}
+            {address && <Entry msg={"Address: "} value={address} display={displayAddress} />}
+            {secret && <Entry msg={"secret: "} value={secret} display={displayAddress} />}
+            {contract && <Entry msg={"Contratc Id"} value={contract} display={displayContract} />}
         </>
         )
     }
 
+    const clearStorage = () => {
+        alert('You are going to clear the storage')
+        localStorage.removeItem('tezos')
+        dispatch({
+            type: 'SetNetwork',
+            network: 'devnet'
+        })
+        dispatch({
+            type: 'SetAddress',
+            address: undefined
+        })
+        dispatch({
+            type: 'SetSecret',
+            secret: undefined
+        })
+        dispatch({
+            type: 'SetContract',
+            contract: undefined
+        })
+    }
+
     return (
-        <div style={{ position: "fixed", top: 20, right: 20 }}>
+    <>
+        <div style={{ position: "fixed", top: 25, right: 60 }}>
             <Popover content={AppState} placement="rightBottom">
                 <Button type="primary">Storage</Button>
             </Popover>
         </div>
+        <div style={{ position: "fixed", top: 25, right: 165 }}>
+            <Button danger onClick={clearStorage}>Clear Storage</Button>
+        </div>
+    </>
     )
 }
 

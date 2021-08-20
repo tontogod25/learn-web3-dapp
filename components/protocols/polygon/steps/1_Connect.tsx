@@ -23,12 +23,14 @@ const Connect = ({ account, setAccount }: { account: PolygonAccountT, setAccount
       // TODO
       // Connect to Polygon using Web3Provider and Metamask
       // Define address and network
+      /*
       const web3provider = undefined
       const address = undefined
       const network = undefined
 
       setAccount(address)
       setNetwork(network)
+      */
     } else {
       alert("Please install Metamask at https://metamask.io")
     }
