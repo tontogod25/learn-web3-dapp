@@ -10,9 +10,9 @@ export default async function fund(
     const url = getSafeUrl();
     const connection = new Connection(url, "confirmed")
     const address = req.body.address as PublicKey;
-    const publicKey = new PublicKey(address)  
-    const hash = await connection.requestAirdrop(publicKey, LAMPORTS_PER_SOL)
-    await connection.confirmTransaction(hash);
+    const publicKey = undefined  
+    const hash = undefined
+    await undefined
     res.status(200).json(hash)
   } catch(error) {
     console.error(error)

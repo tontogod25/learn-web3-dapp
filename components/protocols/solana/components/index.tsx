@@ -55,6 +55,10 @@ const Nav = () => {
             type: 'SetGreeter',
             greeter: undefined
         })
+        dispatch({
+            type: 'SetIndex',
+            index: 0
+        })
     }
 
     return (
