@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Alert, Col, Input, Button, Space, Typography } from 'antd';
-import { accountExplorer } from "@solana/lib";
 import axios from 'axios';
 
 const { Text } = Typography;
@@ -31,8 +30,6 @@ const Balance = () => {
 			})
   }
 
-  const explorerUrl = accountExplorer(value as string);
-
   return (
     <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
@@ -45,9 +42,6 @@ const Balance = () => {
         {balance && <Alert 
                 message={
                   <Text strong>{`This address has a balance of ${balance} SOL`}</Text>
-                }
-                description={
-                  <a href={explorerUrl} target="_blank" rel="noreferrer">View the address on Solana Explorer</a>
                 }
                 type="success"
                 closable

@@ -49,7 +49,7 @@ const CallGreeting = () => {
     }
 
     return (
-    <>
+    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
         <Space direction="vertical" size="large">
           <Text>Number of greetings:</Text>
           <Col>
@@ -85,7 +85,7 @@ const CallGreeting = () => {
               </Space>
           </Col>
         </Space>
-    </>
+    </Col>
     )
 }
 
