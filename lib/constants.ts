@@ -237,53 +237,53 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.SOLANA]: {
 		id: CHAINS.SOLANA,
 		label: "Solana",
-    logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
+    	logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=010",
 		active: true,
 		steps: [
 			{
 				id: "connect",
 				title: "Connect to the Solana devnet cluster",
-				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/connect"
+				url: "https://learn2.figment.io/tutorials/connect-to-devnet"
 			},
 			{
 				id: "account",
 				title: "Create an Account/Keypair",
-				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/keypair"
+				url: "https://learn2.figment.io/tutorials/create-solana-keypair"
 			},
 			{
 				id: "fund",
 				title: "Fund the account with SOL",
-				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/fund"
+				url: "https://learn2.figment.io/tutorials/fund-solana-account"
 			},
 			{
 				id: "balance",
 				title: "Check your account's balance",
-				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/balance"
+				url: "https://learn2.figment.io/tutorials/check-solana-account-balance"
 			},
 			{
 				id: "transfer",
 				title: "Transfer SOL tokens between accounts",
-				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/transfer"
+				url: "https://learn2.figment.io/tutorials/transfer-sol-tokens"
 			},
 			{
 				id: "deploy",
 				title: "Deploy the Program",
-				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/deploy"
+				url: "https://learn2.figment.io/tutorials/deploy-solana-program"
 			},
 			{
 				id: "greeter",
 				title: "Create a Storage for the Program",
-				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/call"
+				url: "https://learn2.figment.io/tutorials/how-to-store-state"
 			},
 			{
 				id: "getter",
 				title: "Get the greeting counter",
-				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/call"
+				url: "https://learn2.figment.io/tutorials/get-greetings"
 			},
 			{
 				id: "setter",
 				title: "Send a greeting to program",
-				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/call"
+				url: "https://learn2.figment.io/tutorials/send-greetings"
 			},
 		]
 	},
