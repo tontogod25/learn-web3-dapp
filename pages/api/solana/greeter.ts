@@ -28,8 +28,7 @@ type ResponseT = {
     hash: string
     greeter: string
 }
-
-export default async function getGreetings(
+export default async function greeter(
   req: NextApiRequest,
   res: NextApiResponse<string | ResponseT>
 ) {
@@ -51,19 +50,18 @@ export default async function getGreetings(
     const lamports = await connection.getMinimumBalanceForRentExemption(GREETING_SIZE);
 
     const transaction = new Transaction().add(
-        SystemProgram.createAccountWithSeed({
-            fromPubkey: payer.publicKey,
-            basePubkey: payer.publicKey,
-            seed: GREETING_SEED,
-            newAccountPubkey: greetedPubkey,
-            lamports,
-            space: GREETING_SIZE,
-            programId,
-        }),
+      SystemProgram.createAccountWithSeed({
+        fromPubkey: payer.publicKey,
+        basePubkey: payer.publicKey,
+        seed: GREETING_SEED,
+        newAccountPubkey: greetedPubkey,
+        lamports,
+        space: GREETING_SIZE,
+        programId,
+      }),
     );
+
     const hash = await sendAndConfirmTransaction(connection, transaction, [payer])
-    console.log(greetedPubkey.toBase58())
-    console.log(hash)
 
     res.status(200).json({
         hash: hash, 

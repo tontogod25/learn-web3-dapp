@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Keypair } from "@solana/web3.js";
 import { Form, Input, Button, Alert, Space, Typography, Col } from 'antd';
 import { LoadingOutlined, RedoOutlined } from '@ant-design/icons';
-import { getTxExplorerURL } from  "@solana/lib";
+import { transactionExplorer } from  "@solana/lib";
 import { useAppState } from "@solana/hooks";
 import axios from 'axios'
 
@@ -52,7 +52,7 @@ const Transfer = () => {
       })
 	}
 
-  const explorerUrl = getTxExplorerURL(hash as string);
+  const explorerUrl = transactionExplorer(hash as string);
 
   return (
     <Col style={{ minHeight: '350px', maxWidth: '600px'}}>

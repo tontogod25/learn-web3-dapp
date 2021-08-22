@@ -5,7 +5,7 @@ type ResponseT = {
     secret: string
     address: string
 }
-export default async function balance(
+export default async function keypair(
   _req: NextApiRequest,
   res: NextApiResponse<string | ResponseT>
 ) {

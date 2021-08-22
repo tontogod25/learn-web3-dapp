@@ -40,9 +40,6 @@ export default async function getGreetings(
       accountInfo.data,
     );
 
-    console.log(greeting)
-    console.log(typeof greeting)
-
     res.status(200).json(greeting.counter);
   } catch(error) {
     console.error(error);

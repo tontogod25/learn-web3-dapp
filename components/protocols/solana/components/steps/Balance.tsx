@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Alert, Col, Input, Button, Space, Typography } from 'antd';
-import { getAccountExplorerURL } from "@solana/lib";
+import { accountExplorer } from "@solana/lib";
 import axios from 'axios';
 
 const { Text } = Typography;
 
-// 1_000_000_000
 const DECIMAL_OFFSET = 10**9;
 
 const Balance = () => {
@@ -32,7 +31,7 @@ const Balance = () => {
 			})
   }
 
-  const explorerUrl = getAccountExplorerURL(value as string);
+  const explorerUrl = accountExplorer(value as string);
 
   return (
     <Col style={{ minHeight: '350px', maxWidth: '600px'}}>

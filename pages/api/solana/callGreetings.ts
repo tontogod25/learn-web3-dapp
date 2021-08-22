@@ -1,7 +1,6 @@
 import { Connection, PublicKey, Keypair, TransactionInstruction, Transaction, sendAndConfirmTransaction } from '@solana/web3.js';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSafeUrl } from '@solana/lib';
-import * as borsh from 'borsh';
 
 // The state of a greeting account managed by the hello world program
 class GreetingAccount {
@@ -34,11 +33,10 @@ export default async function getGreetings(
     const payerKeypair = Keypair.fromSecretKey(payerSecretKey);
 
     const instruction = new TransactionInstruction({
-      keys: [{pubkey: greeterPublicKey as PublicKey, isSigner: false, isWritable: true}],
+      keys: [{pubkey: greeterPublicKey, isSigner: false, isWritable: true}],
       programId: programKey,
       data: Buffer.alloc(0), // All instructions are hellos
     });
-
 
     const hash = await sendAndConfirmTransaction(
       connection,

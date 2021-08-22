@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import { Alert, Button, Col, Space, Typography } from 'antd';
+import { useEffect, useState } from 'react';
 import { useAppState } from '@solana/hooks';
 import axios from "axios";
 
@@ -21,14 +21,14 @@ const Account = () => {
 			setFetching(true)
 			const response = await axios.get(`/api/solana/keypair`)
 			setAdress(response.data.address)
-      dispatch({
-        type: "SetSecret",
-        secret: response.data.secret,
-      })
-      dispatch({
-        type: "SetAddress",
-        address: response.data.address
-      })
+			dispatch({
+				type: "SetSecret",
+				secret: response.data.secret,
+			})
+			dispatch({
+				type: "SetAddress",
+				address: response.data.address
+			})
 			setFetching(false)
 		} catch (error) {
 			console.error(error)

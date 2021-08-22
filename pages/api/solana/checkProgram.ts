@@ -5,10 +5,9 @@ import path from 'path';
 import fs from 'mz/fs';
 
 const PROGRAM_PATH = path.resolve('dist/solana/program');
-
 const PROGRAM_SO_PATH = path.join(PROGRAM_PATH, 'helloworld.so');
 
-export default async function checkProgramId(
+export default async function checkProgram(
   req: NextApiRequest,
   res: NextApiResponse<string | boolean>
 ) {
@@ -21,14 +20,14 @@ export default async function checkProgramId(
 
     if (programInfo === null) {
         if (fs.existsSync(PROGRAM_SO_PATH)) {
-            throw new Error(
-                'Program needs to be deployed with `solana program deploy`',
-            );
+          throw new Error(
+            'Program needs to be deployed with `solana program deploy`',
+          );
         } else {
-            throw new Error('Program needs to be built and deployed');
+          throw new Error('Program needs to be built and deployed');
         }
     } else if (!programInfo.executable) {
-        throw new Error(`Program is not executable`);
+      throw new Error(`Program is not executable`);
     }
 
     res.status(200).json(true);

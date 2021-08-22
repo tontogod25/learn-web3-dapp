@@ -1,5 +1,5 @@
 import { Alert, Col, Input, Button, Space, Typography } from 'antd';
-import { getAccountExplorerURL } from "@solana/lib";
+import { accountExplorer } from "@solana/lib";
 import { useAppState } from '@solana/hooks';
 import { useState } from 'react';
 import axios from 'axios';
@@ -17,7 +17,7 @@ const Deploy = () => {
     setError(null)
     setFetching(true)
 		axios
-			.post(`/api/solana/checkProgramId`, { programId: value })
+			.post(`/api/solana/checkProgram`, { programId: value })
 			.then(res => {
         const result: boolean = res.data
         dispatch({
@@ -48,7 +48,9 @@ const Deploy = () => {
                   <Text strong>{`The program is correctly deployed`}</Text>
                 }
                 description={
-                  <a href={getAccountExplorerURL(state?.programId ?? '')} target="_blank" rel="noreferrer">View the program on Solana Explorer</a>
+                  <a href={accountExplorer(state?.programId ?? '')} target="_blank" rel="noreferrer">
+                    View the program on Solana Explorer
+                  </a>
                 }
                 type="success"
                 closable

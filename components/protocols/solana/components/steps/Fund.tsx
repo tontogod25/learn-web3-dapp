@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Alert, Button, Space, Col, Input, Typography } from 'antd'
 import axios from "axios"
-import { getTxExplorerURL } from  "@solana/lib";
+import { transactionExplorer } from  "@solana/lib";
 
 const { Text } = Typography
 
@@ -50,7 +50,7 @@ const Fund = () => {
             type="success"
             showIcon
             message={
-              <a href={getTxExplorerURL(hash)} target="_blank" rel="noreferrer">View on Solana Explorer</a>
+              <a href={transactionExplorer(hash)} target="_blank" rel="noreferrer">View on Solana Explorer</a>
             }
           />
       }

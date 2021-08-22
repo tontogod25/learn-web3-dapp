@@ -51,6 +51,10 @@ const Nav = () => {
             type: 'SetProgramId',
             programId: undefined
         })
+        dispatch({
+            type: 'SetGreeter',
+            greeter: undefined
+        })
     }
 
     return (

@@ -3,7 +3,7 @@ import { Alert, Col, Button, Space, Typography } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { useAppState } from '@solana/hooks'
-import { getTxExplorerURL } from '@solana/lib'
+import { transactionExplorer } from '@solana/lib'
 
 const { Text } = Typography;
 
@@ -61,7 +61,7 @@ const CallGreeting = () => {
           <Col>
               <Space direction="vertical" size="large">
                   <Space direction="horizontal">
-                      <Button type="primary" onClick={callGreetings}>Send A Greeting to program</Button>
+                      <Button type="primary" onClick={callGreetings}>Send A Greeting</Button>
                   </Space>
                   {error && <Alert type="error" closable message={error} /> }
                   {resetting
@@ -72,7 +72,7 @@ const CallGreeting = () => {
                                   <Text strong>{`The greeting have been sent`}</Text>
                               }
                               description={
-                                  <a href={getTxExplorerURL(txhash)} target="_blank" rel="noreferrer">
+                                  <a href={transactionExplorer(txhash)} target="_blank" rel="noreferrer">
                                     View the transaction on Solana Explorer
                                   </a>
                               }

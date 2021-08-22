@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { Alert, Col, Button, Space, Typography } from 'antd';
-import axios from 'axios';
 import { useAppState } from '@solana/hooks';
+import { useState } from 'react';
+import axios from 'axios';
 
 const { Text } = Typography;
 
@@ -23,7 +23,7 @@ const GetGreeting = () => {
 			.catch(err => {
 				const data = err.response.data
 				setFetching(false)
-                setGreeting(null)
+        setGreeting(null)
 				setError(data.message)
 			})
   }
@@ -37,13 +37,13 @@ const GetGreeting = () => {
         </Space>
         {error && <Alert type="error" closable message={error} onClose={() => setError(null)} /> }
         {greeting && <Alert 
-                message={
-                  <Text strong>{`The account have been greeted ${greeting} times`}</Text>
-                }
-                type="success"
-                closable
-                showIcon
-              />
+          message={
+            <Text strong>{`The account have been greeted ${greeting} times`}</Text>
+          }
+          type="success"
+          closable
+          showIcon
+        />
         }
       </Space>
     </Col>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Alert, Col, Input, Button, Space, Typography } from 'antd';
-import { getAccountExplorerURL, getTxExplorerURL } from "@solana/lib";
+import { accountExplorer, transactionExplorer } from "@solana/lib";
 import axios from 'axios';
 import { useAppState } from "@solana/hooks";
 
@@ -20,16 +20,16 @@ const Greeter = () => {
 			.post(`/api/solana/greeter`, state)
 			.then(res => {
 				setFetching(false)
-                dispatch({
-                    type: 'SetGreeter',
-                    greeter: res.data.greeter
-                })
-                setHash(res.data.hash)
+          dispatch({
+            type: 'SetGreeter',
+            greeter: res.data.greeter
+          })
+          setHash(res.data.hash)
 			})
 			.catch(err => {
 				const data = err.response.data
 				setFetching(false)
-                setHash(null)
+        setHash(null)
 				setError(data.message)
 			})
   }
@@ -41,7 +41,7 @@ const Greeter = () => {
                 <Text>Greeter Account created</Text>
                 <Alert 
                     message={
-                        <a href={getAccountExplorerURL(state?.greeter ?? '')} target="_blank" rel="noreferrer">
+                        <a href={accountExplorer(state?.greeter ?? '')} target="_blank" rel="noreferrer">
                             View the Account on Solana Explorer
                         </a>
                     }
@@ -52,7 +52,7 @@ const Greeter = () => {
                     <Alert 
                         message={
                             <Text>
-                                <a href={getTxExplorerURL(hash ?? '')} target="_blank" rel="noreferrer">
+                                <a href={transactionExplorer(hash ?? '')} target="_blank" rel="noreferrer">
                                     View the transaction on Solana Explorer
                                 </a>
                             </Text>
@@ -72,7 +72,7 @@ const Greeter = () => {
         <Space direction="vertical">
           <Text>We're going to derive the greeter Account from programId</Text>
           <Input placeholder={state?.programId} disabled={true} style={{ width: "500px" }} />
-          <Button type="primary" onClick={setGreeterAccount} loading={fetching}>Set Greeter Account</Button>
+          <Button type="primary" onClick={setGreeterAccount} loading={fetching}>Create Greeter</Button>
         </Space>
         {error && <Alert type="error" closable message={error} onClose={() => setError(null)} /> }
       </Space>
