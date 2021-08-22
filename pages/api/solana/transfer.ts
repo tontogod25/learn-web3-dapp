@@ -48,28 +48,3 @@ export default async function transfer(
     res.status(500).json(error);
   }
 }
-
-/*
-useEffect( () => {
-  if (state?.secret) {
-    const secret0 = Uint8Array.from(JSON.parse(state.secret))
-    setKeypair(Keypair.fromSecretKey(secret0))
-  }
-}, [])
-
-const publicKeyStr = keypair?.publicKey.toString();
-
-const generateKeypair = () => {
-  const keypair = Keypair.generate();
-  setKeypair(keypair)
-  console.log(keypair.secretKey);
-    dispatch({
-      type: "SetSecret",
-      secret: JSON.stringify(Array.from(keypair?.secretKey)),
-  })
-  dispatch({
-    type: "SetAddress",
-    address: keypair?.publicKey.toString()
-  })
-}
-*/

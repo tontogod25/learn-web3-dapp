@@ -5,7 +5,8 @@ export type State = {
     network?: string
     address?: string
     secret?: string 
-    contract?: string 
+    programId?: string 
+    greeter?: string 
 }
 
 type Action =
@@ -13,7 +14,8 @@ type Action =
     | { type: 'SetNetwork', network?: string }
     | { type: 'SetAddress', address?: string }
     | { type: 'SetSecret', secret?: string }
-    | { type: 'SetContract', contract?: string }
+    | { type: 'SetProgramId', programId?: string }
+    | { type: 'SetGreeter', greeter?: string }
 
 const initialState = {
     index: 0,
@@ -30,8 +32,10 @@ function appStateReducer(state: State, action: Action): State  {
             return { ...state, secret: action.secret }
         case 'SetAddress':
             return { ...state, address: action.address }    
-        case 'SetContract':
-            return { ...state, contract: action.contract }
+        case 'SetProgramId':
+            return { ...state, programId: action.programId }
+        case 'SetGreeter':
+            return { ...state, greeter: action.greeter }
         default:
             return state
     }

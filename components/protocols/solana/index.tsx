@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { Row } from 'antd';
-import { Connect, Account, Fund, Balance, Transfer, Call, Deploy } from '@solana/components/steps';
+import { Connect, Account, Fund, Balance, Transfer, Deploy, Greeter, GetGreeting, CallGreeting } from '@solana/components/steps';
 import { appStateReducer, initialState, SolanaContext } from '@solana/context'
 import { useAppState, useLocalStorage } from '@solana/hooks'
 import { Sidebar, Step } from '@solana/components/layout'
@@ -40,13 +40,15 @@ const SolanaApp: React.FC<AppI> = ({ chain }) => {
             next={nextHandler}
             body={
             <>
-                { step.id === "connect"  && <Connect /> }
-                { step.id === "account"  && <Account /> }
-                { step.id === "fund"     && <Fund />    }
-                { step.id === "balance"  && <Balance />  }
-                { step.id === "transfer" && <Transfer />  }
-                { step.id === "deploy"   && <Deploy />  }
-                { step.id === "call"     && <Call />  }
+                { step.id === "connect" && <Connect /> }
+                { step.id === "account" && <Account /> }
+                { step.id === "fund"    && <Fund /> }
+                { step.id === "balance" && <Balance /> }
+                { step.id === "transfer" && <Transfer /> }
+                { step.id === "deploy" && <Deploy /> }
+                { step.id === "greeter" && <Greeter /> }
+                { step.id === "getter" && <GetGreeting /> }
+                { step.id === "setter" && <CallGreeting /> }
             </>
             }
             nav={<Nav />}

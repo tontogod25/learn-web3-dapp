@@ -82,21 +82,6 @@ export const CHAINS_CONFIG: ChainsType = {
 			},
 		]
 	},
-	/*
-	[CHAINS.THE_GRAPH]: {
-		id: CHAINS.THE_GRAPH,
-		label: "The Graph",
-		active: false,
-		logoUrl: "https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=012",
-		steps: [
-			{
-				id: "connect",
-				title: "Deploy a smart contract",
-				url: ""
-			},
-		]
-	},
-	*/
 	[CHAINS.NEAR]: {
 		id: CHAINS.NEAR,
 		label: "NEAR",
@@ -282,12 +267,22 @@ export const CHAINS_CONFIG: ChainsType = {
 			},
 			{
 				id: "deploy",
-				title: "Deploy a Program",
+				title: "Deploy the Program",
 				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/deploy"
 			},
 			{
-				id: "call",
-				title: "Call a Program",
+				id: "greeter",
+				title: "Create a Storage for the Program",
+				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/call"
+			},
+			{
+				id: "getter",
+				title: "Get the greeting counter",
+				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/call"
+			},
+			{
+				id: "setter",
+				title: "Send a greeting to program",
 				url: "https://learn.figment.io/network-documentation/solana/solana-pathway/call"
 			},
 		]

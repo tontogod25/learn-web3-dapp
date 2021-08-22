@@ -6,11 +6,10 @@ const { Text, Paragraph } = Typography;
 
 const Nav = () => {
     const { state, dispatch } = useAppState();
-    const { network, address, contract, secret,  } = state;
+    const { network, address, programId, secret, greeter } = state;
 
     const displayNetwork = (network: string) => network
     const displayAddress = (address: string) => `${address.slice(0,5)}...${address.slice(-5)}`
-    const displayContract = (contract: string) => `${contract.slice(0,5)}...${contract.slice(-5)}`
 
     const Entry = ({ msg, display, value }: EntryT) => {
         return (
@@ -26,8 +25,9 @@ const Nav = () => {
         <>
             {network && <Entry msg={"Network: "} value={network} display={displayNetwork} />}
             {address && <Entry msg={"Address: "} value={address} display={displayAddress} />}
-            {secret && <Entry msg={"secret: "} value={secret} display={displayAddress} />}
-            {contract && <Entry msg={"Contratc Id"} value={contract} display={displayContract} />}
+            {secret && <Entry msg={"Secret: "} value={secret} display={displayAddress} />}
+            {programId && <Entry msg={"Program: "} value={programId} display={displayAddress} />}
+            {greeter && <Entry msg={"Greeter: "} value={greeter} display={displayAddress} />}
         </>
         )
     }
@@ -48,8 +48,8 @@ const Nav = () => {
             secret: undefined
         })
         dispatch({
-            type: 'SetContract',
-            contract: undefined
+            type: 'SetProgramId',
+            programId: undefined
         })
     }
 
