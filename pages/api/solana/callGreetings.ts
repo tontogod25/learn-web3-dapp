@@ -17,7 +17,7 @@ const GreetingSchema = new Map([
   [GreetingAccount, {kind: 'struct', fields: [['counter', 'u32']]}],
 ]);
 
-export default async function getGreetings(
+export default async function setGreetings(
   req: NextApiRequest,
   res: NextApiResponse<string>
 ) {
