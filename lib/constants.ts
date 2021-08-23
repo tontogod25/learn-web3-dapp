@@ -180,8 +180,18 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/query-polygon"
 			},
 			{
+				id: "restore",
+				title: "Restore your account",
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/query-polygon"
+			},
+			{
 				id: "balance",
 				title: "Fund a Polygon account",
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/fund-a-polygon-account"
+			},
+			{
+				id: "transfer",
+				title: "Transfer some MATIC",
 				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/fund-a-polygon-account"
 			},
 			{
@@ -190,10 +200,16 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/deploy-a-solidity-smart-contract"
 			},
 			{
-				id: "call",
-				title: "Call the smart contract",
+				id: "setter",
+				title: "Set the storage of the contract",
 				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/call-the-smart-contract"
 			},
+			{
+				id: "getter",
+				title: "Get the storage of the contract",
+				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/call-the-smart-contract"
+			},
+
 		]
 	},
 	[CHAINS.SECRET]: {

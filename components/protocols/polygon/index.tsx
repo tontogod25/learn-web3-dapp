@@ -5,12 +5,15 @@ import { FundViewOutlined } from '@ant-design/icons';
 import Sidebar from "components/shared/Sidebar";
 import { ChainType } from "types/types";
 import Step from "components/shared/Step";
-import Connect from "./steps/1_Connect";
-import Query from "./steps/2_Query";
-import Balance from "./steps/3_Balance";
-import Deploy from "./steps/4_Deploy";
-import Call from "./steps/5_Call";
-import { PolygonAccountT, PolygonChainIdT } from 'types/polygon-types'
+import Connect from "./steps/Connect";
+import Query from "./steps/Query";
+import Balance from "./steps/Balance";
+import Deploy from "./steps/Deploy";
+import GetStorage from "./steps/GetStorage";
+import SetStorage from "./steps/SetStorage";
+import Transfer from "./steps/Transfer";
+import Restore from "./steps/Restore";
+import { PolygonAccountT } from 'types/polygon-types'
 import { getPolygonAddressExplorerURL } from 'utils/polygon-utils'
 
 import { useSteps } from "hooks/steps-hooks";
@@ -53,9 +56,12 @@ const Chain = ({ chain }: { chain: ChainType }) => {
           <>
             {step.id === "connect" && <Connect account={account} setAccount={setAccount} />}
             {step.id === "query" && <Query />}
+            {step.id === "restore" && <Restore />}
             {step.id === "balance" && <Balance account={account} />}
+            {step.id === "transfer" && <Transfer />}
             {step.id === "deploy" && <Deploy />}
-            {step.id === "call" && <Call />}
+            {step.id === "setter" && <SetStorage />}
+            {step.id === "getter" && <GetStorage />}
           </>
         }
         nav={<Nav account={account} />}

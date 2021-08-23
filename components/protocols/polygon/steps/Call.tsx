@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from 'react';
-import { Alert, Card, Button, Col, Row, InputNumber, Space, Statistic, Typography } from 'antd';
+import { Alert, Card, Button, Col, Row, InputNumber, Space, Typography, Statistic } from 'antd';
 import { ethers } from 'ethers';
 import { LoadingOutlined } from '@ant-design/icons';
 
@@ -28,16 +28,18 @@ const Call = () => {
 
 	const getValue = () => {
 		setFetchingGet(true)
-
+	
 		const provider = new ethers.providers.Web3Provider(window.ethereum)
-		// TODO
-		// -----------------------------
-		// Define the Contract object below
-		// const contract = ...
+		const contract = new ethers.Contract(
+			SimpleStorageJson.networks['80001'].address,
+			SimpleStorageJson.abi,
+			provider
+		)
 
-		// Call the contract's methods here
-		/*
+		// contract.methods.get().call().then((res: any) => console.log("yay", res))
+		contract.get()
 			.then((res: any) => {
+				console.log('coucou', res.toString())
 				setContractNumber(res.toString())
 			})
 			.catch((err: any) => {
@@ -46,24 +48,22 @@ const Call = () => {
 			.finally(() => {
 				setFetchingGet(false)
 			})
-		*/
-  }
-
+	  }
+	
 	const setValue = () => {
 		setFetchingSet(true)
 		setTxHash(null)
-
+	
 		const provider = new ethers.providers.Web3Provider(window.ethereum)
-		// TODO
-		// -----------------------------
-		// Define the signer and Contract objects below
-		// const signer = ...
-		// const contract = ...
-
-		// Call the contract's methods here passing the `inputNumber`
-		/*
+		const signer = provider.getSigner()
+		const contract = new ethers.Contract(
+			SimpleStorageJson.networks['80001'].address,
+			SimpleStorageJson.abi,
+			signer
+		)
+	
+		contract.set(inputNumber)
 			.then((txRes: any) => {
-				console.log(JSON.stringify(txRes, null, 2))
 				setFetchingSet(false)
 				setInputNumber(0)
 				setConfirming(true)
@@ -83,11 +83,10 @@ const Call = () => {
 				console.log(err)
 				setFetchingSet(false)
 			})
-		*/
-  }
+	 }
 
   return (
-		<Col>
+    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
 			<Row gutter={16}>
 				<Col span={12}>
 					<Card title="Set Value">
@@ -127,7 +126,7 @@ const Call = () => {
 				<Col span={12}>
 					<Card title="Get Value">
 						<Space direction="vertical">
-							{/* {!fetchingGet && <Statistic value={contractNumber} />} */}
+							{!fetchingGet && <Statistic value={contractNumber as string} />}
 							{fetchingGet && <LoadingOutlined style={{ fontSize: 24 }} spin />}
 							<Button type="primary" onClick={getValue}>Get Value</Button>
 						</Space>

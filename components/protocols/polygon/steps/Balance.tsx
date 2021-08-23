@@ -21,18 +21,16 @@ const Balance = ({ account }: { account: PolygonAccountT }) => {
     setFetching(true)
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const selectedAddress = window.ethereum.selectedAddress;
-
-    // TODO
-    // Define those two variables
-
-    // setBalance(balanceToDisplay)
-    // setFetching(false)
+    const selectedAddressBalance = await provider.getBalance(selectedAddress)
+    const balanceToDisplay = ethers.utils.formatEther(selectedAddressBalance.toString())
+    setBalance(balanceToDisplay)
+    setFetching(false)
   }
 
   const explorerUrl = getPolygonAddressExplorerURL(account as string)
 
   return (
-    <Col style={{ width: "100%" }}>
+    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical"  style={{ width: "100%" }} size="large">
         <Button type="primary" onClick={checkBalance}>Check Balance</Button>
         {fetching && <LoadingOutlined style={{ fontSize: 24, color: "#1890ff" }} spin />}
