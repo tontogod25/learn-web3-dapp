@@ -172,42 +172,42 @@ export const CHAINS_CONFIG: ChainsType = {
 			{
 				id: "connect",
 				title: "Connect to Polygon",
-				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/connect-to-polygon"
+				url: "https://learn2.figment.io/tutorials/connect-to-polygon"
 			},
 			{
 				id: "query",
 				title: "Query Polygon",
-				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/query-polygon"
+				url: "https://learn2.figment.io/tutorials/query-polygon"
 			},
 			{
 				id: "restore",
 				title: "Restore your account",
-				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/query-polygon"
+				url: "https://learn2.figment.io/tutorials/restore-from-mnemonic"
 			},
 			{
 				id: "balance",
 				title: "Fund a Polygon account",
-				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/fund-a-polygon-account"
+				url: "https://learn2.figment.io/tutorials/fund-a-polygon-account"
 			},
 			{
 				id: "transfer",
 				title: "Transfer some MATIC",
-				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/fund-a-polygon-account"
+				url: "https://learn2.figment.io/tutorials/transfer-some-matic"
 			},
 			{
 				id: "deploy",
 				title: "Deploy a Solidity smart contract",
-				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/deploy-a-solidity-smart-contract"
+				url: "https://learn2.figment.io/tutorials/deploy-a-solidity-smart-contract"
 			},
 			{
 				id: "setter",
 				title: "Set the storage of the contract",
-				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/call-the-smart-contract"
+				url: "https://learn2.figment.io/tutorials/set-contract-storage"
 			},
 			{
 				id: "getter",
 				title: "Get the storage of the contract",
-				url: "https://learn.figment.io/network-documentation/matic/polygon-matic-pathway/call-the-smart-contract"
+				url: "https://learn2.figment.io/tutorials/get-contract-storage"
 			},
 
 		]
