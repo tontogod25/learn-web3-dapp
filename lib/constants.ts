@@ -4,7 +4,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.AVALANCHE]: {
 		id: CHAINS.AVALANCHE,
 		label: "Avalanche",
-		active: true,
+		active: false,
 		logoUrl: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010",
 		steps: [
 			{
@@ -42,7 +42,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.CELO]: {
 		id: CHAINS.CELO,
 		label: "Celo",
-		active: true,
+		active: false,
 		logoUrl: "https://cryptologos.cc/logos/celo-celo-logo.svg?v=010",
 		steps: [
 			{
@@ -85,7 +85,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.NEAR]: {
 		id: CHAINS.NEAR,
 		label: "NEAR",
-		active: true,
+		active: false,
 		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
 		steps: [
 			{
@@ -128,7 +128,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.POLKADOT]: {
 		id: CHAINS.POLKADOT,
 		label: "Polkadot",
-		active: true,
+		active: false,
 		logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
 		steps: [
 			{
@@ -167,47 +167,47 @@ export const CHAINS_CONFIG: ChainsType = {
 		id: CHAINS.POLYGON,
 		label: "Polygon",
 		active: true,
-	  logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
+	  	logoUrl: "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
 				title: "Connect to Polygon",
-				url: "https://learn2.figment.io/tutorials/connect-to-polygon"
+				url: "https://learn.figment.io/tutorials/connect-to-polygon"
 			},
 			{
 				id: "query",
 				title: "Query Polygon",
-				url: "https://learn2.figment.io/tutorials/query-polygon"
+				url: "https://learn.figment.io/tutorials/query-polygon"
 			},
 			{
 				id: "restore",
 				title: "Restore your account",
-				url: "https://learn2.figment.io/tutorials/restore-from-mnemonic"
+				url: "https://learn.figment.io/tutorials/restore-from-mnemonic"
 			},
 			{
 				id: "balance",
 				title: "Fund a Polygon account",
-				url: "https://learn2.figment.io/tutorials/fund-a-polygon-account"
+				url: "https://learn.figment.io/tutorials/fund-a-polygon-account"
 			},
 			{
 				id: "transfer",
 				title: "Transfer some MATIC",
-				url: "https://learn2.figment.io/tutorials/transfer-some-matic"
+				url: "https://learn.figment.io/tutorials/transfer-some-matic"
 			},
 			{
 				id: "deploy",
 				title: "Deploy a Solidity smart contract",
-				url: "https://learn2.figment.io/tutorials/deploy-a-solidity-smart-contract"
+				url: "https://learn.figment.io/tutorials/deploy-a-solidity-smart-contract"
 			},
 			{
 				id: "setter",
 				title: "Set the storage of the contract",
-				url: "https://learn2.figment.io/tutorials/set-contract-storage"
+				url: "https://learn.figment.io/tutorials/set-contract-storage"
 			},
 			{
 				id: "getter",
 				title: "Get the storage of the contract",
-				url: "https://learn2.figment.io/tutorials/get-contract-storage"
+				url: "https://learn.figment.io/tutorials/get-contract-storage"
 			},
 
 		]
@@ -215,7 +215,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.SECRET]: {
 		id: CHAINS.SECRET,
 		label: "Secret",
-		active: true,
+		active: false,
 		logoUrl: "https://cryptologos.cc/logos/secret-scrt-logo.svg?v=010",
 		steps: [
 			{
@@ -259,54 +259,54 @@ export const CHAINS_CONFIG: ChainsType = {
 			{
 				id: "connect",
 				title: "Connect to the Solana devnet cluster",
-				url: "https://learn2.figment.io/tutorials/connect-to-devnet"
+				url: "https://learn.figment.io/tutorials/connect-to-devnet"
 			},
 			{
 				id: "account",
 				title: "Create an Account/Keypair",
-				url: "https://learn2.figment.io/tutorials/create-solana-keypair"
+				url: "https://learn.figment.io/tutorials/create-solana-keypair"
 			},
 			{
 				id: "fund",
 				title: "Fund the account with SOL",
-				url: "https://learn2.figment.io/tutorials/fund-solana-account"
+				url: "https://learn.figment.io/tutorials/fund-solana-account"
 			},
 			{
 				id: "balance",
 				title: "Check your account's balance",
-				url: "https://learn2.figment.io/tutorials/check-solana-account-balance"
+				url: "https://learn.figment.io/tutorials/check-solana-account-balance"
 			},
 			{
 				id: "transfer",
 				title: "Transfer SOL tokens between accounts",
-				url: "https://learn2.figment.io/tutorials/transfer-sol-tokens"
+				url: "https://learn.figment.io/tutorials/transfer-sol-tokens"
 			},
 			{
 				id: "deploy",
 				title: "Deploy the Program",
-				url: "https://learn2.figment.io/tutorials/deploy-solana-program"
+				url: "https://learn.figment.io/tutorials/deploy-solana-program"
 			},
 			{
 				id: "greeter",
 				title: "Create a Storage for the Program",
-				url: "https://learn2.figment.io/tutorials/how-to-store-state"
+				url: "https://learn.figment.io/tutorials/how-to-store-state"
 			},
 			{
 				id: "getter",
 				title: "Get the greeting counter",
-				url: "https://learn2.figment.io/tutorials/get-greetings"
+				url: "https://learn.figment.io/tutorials/get-greetings"
 			},
 			{
 				id: "setter",
 				title: "Send a greeting to program",
-				url: "https://learn2.figment.io/tutorials/send-greetings"
+				url: "https://learn.figment.io/tutorials/send-greetings"
 			},
 		]
 	},
 	[CHAINS.TEZOS]: {
 		id: CHAINS.TEZOS,
 		label: "Tezos",
-		active: true,
+		active: false,
 		logoUrl: "https://cryptologos.cc/logos/tezos-xtz-logo.svg?v=010",
 		steps: [
 			{
