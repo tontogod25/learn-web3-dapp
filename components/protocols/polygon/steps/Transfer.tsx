@@ -41,16 +41,13 @@ const Transfer = () => {
     
             const currentGasPrice = await provider.getGasPrice();
             const gas_price = ethers.utils.hexlify(parseInt(currentGasPrice.toString()));
-    
-            const transaction = {
-                from: send_account,
-                to: recipient,
-                value: ethers.utils.parseEther('0.1'),
-                nonce: provider.getTransactionCount(send_account, "latest"),
-                gasLimit: ethers.utils.hexlify(100000),
-                gasPrice: gas_price 
-            }
-            const hash = await provider.getSigner().sendTransaction(transaction)
+
+    		// try to figure out the expected parameters
+            // to build a transaction
+            const transaction = undefined 
+
+			// try to figure out the expected method 
+            const hash = undefined
             const receipt = await hash.wait()
             setHash(receipt.transactionHash)
             setFetching(false)

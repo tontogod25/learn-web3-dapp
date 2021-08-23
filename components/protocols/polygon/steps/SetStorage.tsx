@@ -25,13 +25,12 @@ const SetStorage = () => {
 	
 		const provider = new ethers.providers.Web3Provider(window.ethereum)
 		const signer = provider.getSigner()
-		const contract = new ethers.Contract(
-			SimpleStorageJson.networks['80001'].address,
-			SimpleStorageJson.abi,
-			signer
-		)
+		// try to figure out the expected parameters
+		const contract = new ethers.Contract(undefined)
 		try {
-			const transactionResult = await contract.set(inputNumber)
+			// try to figure out the expected method 
+			const transactionResult = undefined
+
 			setFetchingSet(false)
 			setInputNumber(0)
 			setConfirming(true)

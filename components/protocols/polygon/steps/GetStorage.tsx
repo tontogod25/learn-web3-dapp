@@ -19,12 +19,10 @@ const GetStorage = () => {
         try {
             setFetchingGet(true)        
             const provider = new ethers.providers.Web3Provider(window.ethereum)
-            const contract = new ethers.Contract(
-                SimpleStorageJson.networks['80001'].address,
-                SimpleStorageJson.abi,
-                provider
-            )
-            const storage = await contract.get();
+		    // try to figure out the expected parameters
+            const contract = new ethers.Contract(undefined)
+			// try to figure out the expected method 
+            const storage = undefined
             setContractNumber(storage.toString())
             setFetchingGet(false)
         } catch(error) {
