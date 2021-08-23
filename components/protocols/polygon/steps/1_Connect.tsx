@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from 'react';
 import { Alert, Button, Col, Space, Typography, Tag } from 'antd';
-import { ethers, providers } from 'ethers';
+import { ethers } from 'ethers';
 import detectEthereumProvider from '@metamask/detect-provider';
 import { Network } from "@ethersproject/networks";
 
@@ -23,21 +23,23 @@ const Connect = ({ account, setAccount }: { account: PolygonAccountT, setAccount
       // TODO
       // Connect to Polygon using Web3Provider and Metamask
       // Define address and network
-      /*
-      const web3provider = undefined
-      const address = undefined
-      const network = undefined
+      
+      const web3provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+      await web3provider.send("eth_requestAccounts", []);
+      const signer = web3provider.getSigner();
+      const address = await signer.getAddress();
+      const network = ethers.providers.getNetwork(await signer.getChainId());
 
       setAccount(address)
       setNetwork(network)
-      */
+      
     } else {
       alert("Please install Metamask at https://metamask.io")
     }
   }
 
   return (
-    <Col>
+    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical"  style={{ width: "100%" }}>
         {<Button type="primary" onClick={checkConnection}>Check Metamask Connection</Button>}
         {(account && network)

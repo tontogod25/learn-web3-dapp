@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Alert, Button, Col, Space, Typography } from 'antd';
-import { ethers } from 'ethers';
 import axios from 'axios';
 import styled from 'styled-components';
+import ReactJson from 'react-json-view'
 
-import { PolygonAccountT, PolygonQueryResponse, PolygonQueryErrorResponse } from 'types/polygon-types';
+import { PolygonQueryResponse, PolygonQueryErrorResponse } from 'types/polygon-types';
 
 const { Text } = Typography;
 
@@ -24,7 +24,7 @@ const Query = () => {
 		setFetching(true)
     
 		axios
-			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/polygon/query`)
+			.get(`/api/polygon/query`)
 			.then(res => {
 				const data: PolygonQueryResponse = res.data
 				setQueryData(data)
@@ -37,22 +37,24 @@ const Query = () => {
 			})
 			.catch(err => {
 				console.log(`err.response`, err.response)
-				const data: PolygonQueryErrorResponse = err.response.data
+				const data: PolygonQueryErrorResponse = err.response?.data
 				setFetching(false)
-				setError(data.message)
+				setError(data?.message)
 			})
 	}
 
   return (
-		<Col>
-			<Space direction="vertical" size="large">
+	<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
+		<Space direction="vertical" size="large">
 				<Space direction="vertical">
 					<Button type="primary" onClick={getQuery}>Query Polygon</Button>
 					{
 						fetching
 							? <LoadingOutlined style={{ fontSize: 24 }} spin />
 							: queryData
-								? <Code>{JSON.stringify(queryData, null, 2)}</Code>
+								? <div style={{ minHeight: '300px', maxHeight: '300px', maxWidth: '750px', minWidth: '750px', overflow: 'scroll'}}>
+									<ReactJson src={queryData} theme={'hopscotch'}/>
+								</div>
 								: null
 					}
 					{
