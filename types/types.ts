@@ -22,7 +22,6 @@ export enum CELO_NETWORKS {
   ALFAJORES = "alfajores"
 }
 
-
 // Secret
 export enum SECRET_NETWORKS {
   MAINNET = "MAINNET",
@@ -35,13 +34,11 @@ export enum NEAR_NETWORKS {
     TESTNET = "TESTNET"
 }
 
-
 // Tezos
 export enum TEZOS_NETWORKS {
   MAINNET = "MAINNET",
   TESTNET = "TESTNET"
 }
-
 
 // Polkadot
 export enum POLKADOT_NETWORKS {
@@ -85,12 +82,9 @@ export type NETWORKS =
   | SECRET_NETWORKS
   | CELO_NETWORKS
 
-
-  
 export type PROTOCOLS = POLYGON_PROTOCOLS | SOLANA_PROTOCOLS | POLKADOT_PROTOCOLS
 
 // ---------------------------------------------------
-
 export type ChainType = {
   id: CHAINS
   label: string

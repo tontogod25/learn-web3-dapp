@@ -15,13 +15,13 @@ const Account = () => {
     const [isFetching, setIsFetching] = useState<boolean>(false)
     const [isFreeAccountId, setIsFreeAccountId] = useState<boolean>(false)
     const { state, dispatch } = useAppState()
-    const { networkId, accountId } = state
+    const { network, accountId } = state
 
     const createAccountWithId = () => {
         setIsFetching(true)
-        const publicKey = state?.secretKey && getPublicKey(state.secretKey)
+        const publicKey = state?.secret && getPublicKey(state.secret)
 		axios
-			.post(`/api/near/createAccountId`, { freeAccountId, publicKey, networkId })
+			.post(`/api/near/create-account`, { freeAccountId, publicKey, network })
             .then(res => {
                 const accountId = res.data
                 dispatch({
@@ -40,12 +40,12 @@ const Account = () => {
         freeAccountId,
         setFreeAccountId,
         setIsFreeAccountId,
-        networkId,
+        network,
     }
     
     return (
     <>
-        <Col>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
             <Space direction="vertical" size="middle" >        
                 <CheckAccountId {...checkAccountIdProps} />
                 <Button type="primary" onClick={ createAccountWithId } style={{ marginBottom: "20px" }} loading={isFetching} disabled={!isFreeAccountId}>
@@ -61,7 +61,7 @@ const Account = () => {
                                     </Space>
                                 }
                             description={
-                                <a href={getAccountUrl(networkId)(accountId ?? '')} target="_blank" rel="noreferrer">View on Near Explorer</a>
+                                <a href={getAccountUrl(network)(accountId ?? '')} target="_blank" rel="noreferrer">View on Near Explorer</a>
                             }
                             type="success"
                             showIcon
@@ -75,7 +75,7 @@ const Account = () => {
     )
 }
 
-const CheckAccountId: React.FC<CheckAccountIdT> = ({ networkId, freeAccountId, setFreeAccountId, setIsFreeAccountId }) => {
+const CheckAccountId: React.FC<CheckAccountIdT> = ({ network, freeAccountId, setFreeAccountId, setIsFreeAccountId }) => {
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [alertMsg, setAlertMsg] = useState<string>('Enter an account name including the .testnet suffix -> "example.testnet"');
     const [alertStatus, setAlertStatus] = useState<AlertT>('info');
@@ -83,7 +83,7 @@ const CheckAccountId: React.FC<CheckAccountIdT> = ({ networkId, freeAccountId, s
     const checkAvailabilityOfAccountId = () => {
         setIsFetching(true)
         axios
-            .post(`/api/near/checkAccountId`, { freeAccountId, networkId })
+            .post(`/api/near/check-account`, { freeAccountId, network })
             .then(res => {
                 if (res.data) {
                     setIsFreeAccountId(res.data)

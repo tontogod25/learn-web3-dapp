@@ -1,0 +1,49 @@
+import { Alert, Col, Button, Space, Typography } from 'antd';
+import { useAppState } from '@near/hooks';
+import { useState } from 'react';
+import axios from 'axios';
+
+const { Text } = Typography;
+
+const Getter = () => {
+  const [fetching, setFetching] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [greeting, setGreeting] = useState<number | null>(null);
+  const { state } = useAppState();
+
+  const getGreeting = () => {
+    setError(null)
+    setFetching(true)
+    axios
+        .post(`/api/near/getter`, state)
+        .then(res => {
+            setGreeting(res.data)
+            setFetching(false)
+        })
+        .catch(err => {
+            const data = err.response.data
+            setFetching(false)
+            setGreeting(null)
+            setError(data.message)
+        })
+  }
+
+  return (
+    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
+      <Space direction="vertical" size="large">
+        <Space direction="vertical">
+          <Text>Ask to the Contract stored Message :</Text>
+          <Button type="primary" onClick={getGreeting} loading={fetching}>Get Message</Button>
+        </Space>
+        {error && <Alert type="error" closable message={error} onClose={() => setError(null)} />}
+        {greeting && <Alert 
+            message={<Text strong>This is the stored message <Text code>{greeting}</Text></Text>} 
+            type="success" 
+            showIcon 
+        />}
+      </Space>
+    </Col>
+  );
+}
+
+export default Getter

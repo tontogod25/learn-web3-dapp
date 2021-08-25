@@ -85,43 +85,48 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.NEAR]: {
 		id: CHAINS.NEAR,
 		label: "NEAR",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
 				title: "Connect to NEAR",
-				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+				url: "https://learn.figment.io/tutorials/connect-to-near-node"
             },
 			{
 				id: "keypair",
 				title: "Generate a keypair",
-				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+				url: "https://learn.figment.io/tutorials/create-near-keypair"
             },
 			{
 				id: "account",
 				title: "Create an account",
-				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+				url: "https://learn.figment.io/tutorials/create-a-near-account"
             },
 			{
 				id: "balance",
 				title: "Get Account Balance",
-				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+				url: "https://learn.figment.io/tutorials/check-near-account-balance"
 			},
 			{
 				id: "transfer",
 				title: "Transfer some near",
-				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+				url: "https://learn.figment.io/tutorials/transfer-near-tokens"
             },
 			{
 				id: "deploy",
 				title: "Deploy a contract",
-				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+				url: "https://learn.figment.io/tutorials/deploy-near-contract"
             },
 			{
-				id: "call",
-				title: "Call a contract",
-				url: "https://learn.figment.io/network-documentation/near/near-pathway"
+				id: "getter",
+				title: "Get Smart Contract's storage",
+				url: "https://learn.figment.io/tutorials/read-near-contract"
+			},
+			{
+				id: "setter",
+				title: "Set Smart Contract's storage",
+				url: "https://learn.figment.io/tutorials/near-set-contract-store"
 			},
         ],
 	},

@@ -14,15 +14,15 @@ const Balance = () => {
     const [error, setError] = useState<string | null>(null)
     const [balance, setBalance] = useState<number>(0)
     const { state } = useAppState()
-    const { networkId, accountId } = state
+    const { network, accountId } = state
 
     const getBalance = () => {
         setError(null)
         setFetching(true)
-        axios.post(`/api/near/balance`, { networkId, accountId })
+        axios.post(`/api/near/balance`, state)
             .then(res => {
-                const data = res.data
-                const intoNear = (parseFloat(data.total) / DECIMAL_OFFSET).toFixed()
+                const amount = res.data
+                const intoNear = (parseFloat(amount) / DECIMAL_OFFSET).toFixed()
                 setBalance(parseFloat(intoNear))
                 setFetching(false)
             })
@@ -34,10 +34,10 @@ const Balance = () => {
             })
     }
 
-    const explorerUrl = getAccountUrl(networkId)(accountId as string)
+    const explorerUrl = getAccountUrl(network)(accountId as string)
 
     return (
-        <Col>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
             <Space direction="vertical" size="large">
                 <Space direction="vertical">
                     <Text>Below is the <span style={{ fontWeight: "bold" }}>account Id</span> generated previously:</Text>

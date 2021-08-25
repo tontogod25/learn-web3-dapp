@@ -1,14 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { configFromNetworkId } from "@near/lib";
+import { configFromNetwork } from "@near/lib";
 import { connect } from "near-api-js";
 
 export default async function(
   req: NextApiRequest,
   res: NextApiResponse<boolean | string>
 ) {
-    const { freeAccountId, networkId } = req.body
     try {
-        const config = configFromNetworkId(networkId);
+        const { freeAccountId, network } = req.body
+        const config = configFromNetwork(network);
         const near = await connect(config);
         const accountInfo = await near.account(freeAccountId);
         try {
@@ -19,6 +19,6 @@ export default async function(
         }
     } catch (error) {
         console.error(error)
-        return res.status(500).json('Error checking account name availability: ' + error.message)
+        return res.status(500).json('Checking availability failed')
     } 
 }

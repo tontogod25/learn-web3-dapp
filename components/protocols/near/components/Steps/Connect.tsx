@@ -1,54 +1,39 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios'
-import { Alert, Col, Space, Typography } from 'antd'
-import { LoadingOutlined } from '@ant-design/icons'
-import { NearConnectResponse } from '@near/types'
-import { useAppState } from '@near/hooks'
+import { Alert, Col, Typography } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { useAppState } from '@near/hooks';
+import axios from 'axios';
 
 const { Text } = Typography
 
 const Connect = () => {
-	const [version, setVersion] = useState<string>('')
-	const [fetchingVersion, setFetchingVersion] = useState<boolean>(false)
+	const [version, setVersion] = useState<string | null>(null)
+	const [fetching, setFetching] = useState<boolean>(false)
     const { state } = useAppState()
-    const { networkId } = state
 
 	useEffect(() => {
 		getConnection()
 	}, []);
 
-    const getConnection = () => {
-        setFetchingVersion(true)
-		axios
-			.post(`/api/near/connect`, { networkId })
-			.then(res => {
-				const version: NearConnectResponse = res.data
-				setVersion(version)
-				setFetchingVersion(false)
-			})
-			.catch(err => {
-				console.error(err)
-				setFetchingVersion(false)
-			})
+    const getConnection = async () => {
+        setFetching(true)
+		try {
+			const response = await axios.post(`/api/near/connect`, state)
+			const version = response.data
+			setVersion(version)	
+		} catch(error) {
+			console.error(error)
+		} finally {
+			setFetching(false)
+		}
 	}
 
 	return (
-		<Col style={{ width: "100%" }}>
-			{fetchingVersion
-				? <LoadingOutlined style={{ fontSize: 24 }} spin />
-				: version.length != 0
-					? <Alert
-							message={
-								<Space>
-                                Connected to Near!
-									<Text code>{networkId}</Text>
-									<Text code>{version}</Text>
-								</Space>
-							}
-							type="success"
-							showIcon
-						/>
-                    : <Alert message={`Not connected to Near ${networkId}`} type="error" showIcon />}
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>	
+			<LoadingOutlined style={{ fontSize: 24 }} spin hidden={!fetching} />
+				{version
+				? <Alert message={<Text strong>connected to Near! <Text code>{version}</Text></Text>} type="success" showIcon />
+                : <Alert message={`Not connected to Near`} type="error" showIcon />}
 		</Col>
 	)
 }

@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import axios from 'axios'
 import { Alert, Col, Input, Button, Space, Typography } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
-import { useAppState } from '@near/hooks'
 import { getTransactionUrl } from '@near/lib'
+import { useAppState } from '@near/hooks'
+import { useState } from 'react'
+import axios from 'axios'
 
 const { Text } = Typography
 
@@ -12,12 +12,11 @@ const Deploy = () => {
     const [error, setError] = useState<string | null>(null)
     const [txhash, setTxhash] = useState<string>('')
     const { state } = useAppState()
-    const { networkId, accountId, secretKey } = state
 
     const deployContract = () => {
         setError(null)
         setFetching(true)
-        axios.post(`/api/near/deploy`, { networkId, accountId, secretKey })
+        axios.post(`/api/near/deploy`, state)
             .then(res => {
                 setTxhash(res.data)
                 setFetching(false)
@@ -29,14 +28,20 @@ const Deploy = () => {
             })
     }
 
-    const txUrl = getTransactionUrl(networkId)(txhash)
+    const txUrl = getTransactionUrl(state.network)(txhash)
 
     return (
-        <Col>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>	
             <Space direction="vertical" size="large">
                 <Space direction="horizontal">
-                    <Button type="primary" onClick={deployContract}>Deploy the contract</Button>
-                    <Input style={{ minWidth: "200px", fontWeight: "bold", textAlign: "center" }} disabled={true}  defaultValue={accountId} />
+                    <Button type="primary" onClick={deployContract}>
+                        Deploy the contract
+                    </Button>
+                    <Input 
+                        style={{ minWidth: "200px", fontWeight: "bold", textAlign: "center" }} 
+                        disabled={true}  
+                        defaultValue={state.accountId} 
+                    />
                 </Space>
                 {error && <Alert type="error" closable message={error} /> }
                 {fetching

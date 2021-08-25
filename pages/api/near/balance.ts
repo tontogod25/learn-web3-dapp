@@ -1,23 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { configFromNetworkId } from '@near/lib'
+import { configFromNetwork } from '@near/lib'
 import { connect } from "near-api-js";
-import { AccountBalance } from "near-api-js/lib/account";
 
 export default async function(
   req: NextApiRequest,
-  res: NextApiResponse<AccountBalance | string>
-) {
-    const { networkId, accountId } = req.body;
-
+  res: NextApiResponse<string>
+) { 
     try {
-        const config = configFromNetworkId(networkId);       
+        const { network, accountId } = req.body;
+        const config = configFromNetwork(network);       
         const client = await connect(config);
         const account = await client.account(accountId);
         const balance = await account.getAccountBalance();
-        console.log(balance)
-        return res.status(200).json(balance)
+        console.log(balance.available)
+        return res.status(200).json(balance.available)
     } catch (error) {
         console.error(error)
-        return res.status(500).json('Error transferring NEAR: ' + error.message)
+        return res.status(500).json('Balance querying failed')
     } 
 }

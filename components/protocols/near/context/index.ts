@@ -1,16 +1,23 @@
 import { createContext, Dispatch } from 'react'
 import { getSafeEnv } from '@near/lib'
-import type { State } from '@near/types'
+
+export type State = {
+    network: string
+    index: number
+    accountId?: string
+    secret?: string
+    contractId?: string
+}
 
 type Action =
-    | { type: 'SetNetworkId', networkId: string }
-    | { type: 'SetAccountId', accountId: string | undefined }
-    | { type: 'SetSecretKey', secretKey: string | undefined }
-    | { type: 'SetContractId', contractId: string | undefined}
     | { type: 'SetIndex', index: number }
+    | { type: 'SetNetwork', network: string }
+    | { type: 'SetAccountId', accountId: string | undefined }
+    | { type: 'SetSecret', secret: string | undefined }
+    | { type: 'SetContractId', contractId: string | undefined}
 
 const initialState = {
-    networkId: getSafeEnv(),
+    network: getSafeEnv(),
     index: 0,
 }
 
@@ -18,10 +25,10 @@ function appStateReducer(state: State, action: Action): State  {
     switch (action.type) {
         case 'SetAccountId':
             return { ...state, accountId: action.accountId }
-        case 'SetSecretKey':
-            return { ...state, secretKey: action.secretKey }
-        case 'SetNetworkId':
-            return { ...state, networkId: action.networkId }
+        case 'SetSecret':
+            return { ...state, secret: action.secret }
+        case 'SetNetwork':
+            return { ...state, network: action.network }
         case 'SetContractId':
             return { ...state, contractId: action.contractId }
         case 'SetIndex':

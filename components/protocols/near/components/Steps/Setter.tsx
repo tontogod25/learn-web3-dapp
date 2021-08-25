@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
 import { Alert, Col, Input, Button, Space, Typography } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons'
-import axios from 'axios'
-import { useAppState } from '@near/hooks'
-import { getTransactionUrl } from '@near/lib'
+import { LoadingOutlined } from '@ant-design/icons';
+import { getTransactionUrl } from '@near/lib';
+import { useEffect, useState } from 'react';
+import { useAppState } from '@near/hooks';
+import axios from 'axios';
 
 const { Text } = Typography;
 
-const Call = () => {
+const Setter = () => {
     const [fetching, setFetching] = useState<boolean>(false)
     const [resetting, setResetting] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
@@ -17,10 +17,10 @@ const Call = () => {
     const { state } = useAppState()
 
     useEffect(() => {
-        const contractCallView = () => {
+        const contractGetter = () => {
             setError(null)
             setFetching(true)
-            axios.post(`/api/near/callView`, state)
+            axios.post(`/api/near/getter`, state)
                 .then(res => {
                     setMessage(res.data)
                     setFetching(false)
@@ -31,13 +31,13 @@ const Call = () => {
                     setError(data.message)
                 })
         }
-        contractCallView()
+        contractGetter()
     }, [txhash, state])
 
-    const contractCallFunction = () => {
+    const contractSetter = () => {
         setError(null)
         setResetting(true)
-        axios.post(`/api/near/callFunction`, { ...state, newMessage })
+        axios.post(`/api/near/setter`, { ...state, newMessage })
             .then(res => {
                 setTxhash(res.data)
                 setResetting(false)
@@ -49,10 +49,10 @@ const Call = () => {
             })
     }
 
-    const txUrl = getTransactionUrl(state.networkId)(txhash)
+    const txUrl = getTransactionUrl(state.network)(txhash)
 
     return (
-    <>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>	
         <Space direction="vertical" size="large">
         <Text>Below is the message stored on our &quot;greeter&quot; contract:</Text>
         <Col>
@@ -64,7 +64,7 @@ const Call = () => {
         <Col>
             <Space direction="vertical" size="large">
                 <Space direction="horizontal">
-                    <Button type="primary" onClick={contractCallFunction}>Set greeting</Button>
+                    <Button type="primary" onClick={contractSetter}>Set greeting</Button>
                     <Input style={{ minWidth: "200px", fontWeight: "bold", textAlign: "center" }} defaultValue={message} onChange={ e => setNewMessage(e.target.value) }/>
                 </Space>
                 {error && <Alert type="error" closable message={error} /> }
@@ -87,8 +87,8 @@ const Call = () => {
             </Space>
         </Col>
         </Space>
-    </>
+    </Col>
     )
 }
 
-export default Call
+export default Setter

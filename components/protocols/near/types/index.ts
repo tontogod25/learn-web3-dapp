@@ -1,27 +1,9 @@
 import type { Dispatch, SetStateAction } from 'react'
 import { ChainType } from "types/types";
 
-// API call
-export type NearConnectResponse = string
-
-// Context stuff 
-export type Action =
-    | { type: 'SetNetworkId', networkId: string }
-    | { type: 'SetAccountId', accountId: string | undefined }
-    | { type: 'SetSecretKey', secretKey: string | undefined }
-    | { type: 'SetContractId', contractId: string | undefined}
-
-export type State = {
-    networkId: string
-    index: number
-    accountId?: string
-    secretKey?: string
-    contractId?: string
-}
-
 // Components
 export type CheckAccountIdT = {
-    networkId: string
+    network: string
     freeAccountId: string
     setFreeAccountId: Dispatch<SetStateAction<string>>
     setIsFreeAccountId: Dispatch<SetStateAction<boolean>>
@@ -34,7 +16,6 @@ export type EntryT = {
     display: (value: string) => string
     value: string
 }
-
 
 // Components : Layout
 export interface StepButtonsI {
