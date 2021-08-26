@@ -7,8 +7,7 @@ import { transactionUrl } from '@secret/lib'
 
 const { Text } = Typography;
 
-
-const Call = () => {
+const Setter = () => {
     const [fetching, setFetching] = useState<boolean>(false)
     const [resetting, setResetting] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
@@ -20,7 +19,7 @@ const Call = () => {
         const getCounter = () => {
             setError(null)
             setFetching(true)
-            axios.post(`/api/secret/getCounter`, state)
+            axios.post(`/api/secret/getter`, state)
                 .then(res => {
                     setMessage(res.data)
                     setFetching(false)
@@ -37,7 +36,7 @@ const Call = () => {
     const setCounter = () => {
         setError(null)
         setResetting(true)
-        axios.post(`/api/secret/setCounter`, state)
+        axios.post(`/api/secret/setter`, state)
             .then(res => {
                 setTxhash(res.data)
                 setResetting(false)
@@ -88,4 +87,4 @@ const Call = () => {
     )
 }
 
-export default Call
+export default Setter

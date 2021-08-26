@@ -2,21 +2,22 @@ import { createContext, Dispatch } from 'react';
 
 export type State = {
     index: number
-    network?: string
+    network: string
     address?: string
     mnemonic?: string
-    contractAddress?: string
+    contract?: string
 }
 
 type Action =
     | { type: 'SetIndex', index: number }
-    | { type: 'SetNetwork', network?: string }
+    | { type: 'SetNetwork', network: string }
     | { type: 'SetAddress', address?: string }
     | { type: 'SetMnemonic', mnemonic?: string }
-    | { type: 'SetContractAddress', contractAddress?: string }
+    | { type: 'SetContract', contract?: string }
 
 const initialState = {
     index: 0,
+    network: 'holodeck-2',
 }
 
 function appStateReducer(state: State, action: Action): State  {
@@ -29,8 +30,8 @@ function appStateReducer(state: State, action: Action): State  {
             return { ...state, address: action.address }        
         case 'SetMnemonic':
             return { ...state, mnemonic: action.mnemonic }            
-        case 'SetContractAddress':
-            return { ...state, contractAddress: action.contractAddress }                
+        case 'SetContract':
+            return { ...state, contract: action.contract }                
         default:
             return state
     }

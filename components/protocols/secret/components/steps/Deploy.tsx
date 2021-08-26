@@ -24,8 +24,8 @@ const Deploy = () => {
                 setTxhash(hash)
                 setFetching(false)
                 dispatch({
-                    type: 'SetContractAddress',
-                    contractAddress: addr
+                    type: 'SetContract',
+                    contract: addr
                 })
             })
             .catch(err => {
@@ -36,7 +36,7 @@ const Deploy = () => {
     }
 
     return (
-        <Col>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>	
             <Space direction="vertical" size="large">
                 <Space direction="horizontal">
                     <Button type="primary" onClick={deployContract}>Deploy the contract</Button>

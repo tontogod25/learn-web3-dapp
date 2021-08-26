@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { Row } from 'antd';
-import { Connect, Account, Balance, Transfer, Deploy, Call } from '@secret/components/steps';
+import { Connect, Account, Balance, Transfer, Deploy, Getter, Setter } from '@secret/components/steps';
 import { appStateReducer, initialState, SecretContext } from '@secret/context'
 import { useAppState, useLocalStorage } from '@secret/hooks'
 import { Sidebar, Step } from '@secret/components/layout'
@@ -39,14 +39,15 @@ const SecretApp: React.FC<AppI> = ({ chain }) => {
             prev={prevHandler}
             next={nextHandler}
             body={
-            <>
-                { step.id === "connect"  && <Connect /> }
-                { step.id === "account"  && <Account /> }
-                { step.id === "balance"  && <Balance /> }
-                { step.id === "transfer" && <Transfer /> }
-                { step.id === "deploy"   && <Deploy /> }
-                { step.id === "call"     && <Call /> }
-            </>
+                <>
+                    { step.id === "connect"  && <Connect />  }
+                    { step.id === "account"  && <Account />  }
+                    { step.id === "balance"  && <Balance />  }
+                    { step.id === "transfer" && <Transfer /> }
+                    { step.id === "deploy"   && <Deploy />   }
+                    { step.id === "getter"   && <Getter />   }
+                    { step.id === "setter"   && <Setter />   }
+                </>
             }
             nav={<Nav />}
         />

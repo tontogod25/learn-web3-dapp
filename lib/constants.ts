@@ -220,38 +220,43 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.SECRET]: {
 		id: CHAINS.SECRET,
 		label: "Secret",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/secret-scrt-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
 				title: "Connect to Secret",
-				url: ""
+				url: "https://learn.figment.io/tutorials/connect-to-secret-node"
 			},
 			{
 				id: "account",
 				title: "Get an Account",
-				url: ""
+				url: "https://learn.figment.io/tutorials/create-a-secret-account"
 			},
 			{
 				id: "balance",
 				title: "Get the Balance",
-				url: ""
+				url: "https://learn.figment.io/tutorials/check-secret-account-balance"
 			},
 			{
 				id: "transfer",
 				title: "Transfer SCRT",
-				url: ""
+				url: "https://learn.figment.io/tutorials/transfer-secret-tokens"
 			},
 			{
 				id: "deploy",
 				title: "Deploy a contract",
-				url: ""
+				url: "https://learn.figment.io/tutorials/deploy-secret-contract"
 			},
 			{
-				id: "call",
-				title: "Call the smart contract",
-				url: ""
+				id: "getter",
+				title: "Get the storage of a smart contract",
+				url: "https://learn.figment.io/tutorials/read-secret-contract"
+			},
+			{
+				id: "setter",
+				title: "Set Smart Contract's value",
+				url: "https://learn.figment.io/tutorials/secret-set-contract-store"
 			},
 		]
 	},

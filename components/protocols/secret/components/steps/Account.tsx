@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Alert, Button, Col, Space, Typography } from 'antd';
 import { useAppState } from '@secret/hooks';
 import axios from "axios";
+import { mnemonic } from 'avalanche/dist/utils';
 
 const { Text } = Typography;
 
@@ -39,9 +40,9 @@ const Account = () => {
 	}
 
 	return (
-		<Col>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>	
 		  <Button type="primary" onClick={generateKeypair} style={{ marginBottom: "20px" }} loading={fetching}>
-              Generate a Keypair
+              Generate a Mnemonic
           </Button>
 		  {address &&
 			<Col>
@@ -49,16 +50,16 @@ const Account = () => {
 				<Alert
 				  message={
 					<Space>
-					  <Text strong>Keypair generated!</Text>
+					  <Text strong>Mnemonic generated!</Text>
 					</Space>
 				  }
 				  description={
 					<div>
-					  <div>
-						This is the string representation of the public key <br/>
-						<Text code>{address}</Text>.
-					  </div>
-					  <Text>Accessible (and copyable) at the top right of this page.</Text>
+						Your generated Address: <br/>
+						<Text strong mark>{address}</Text>
+						<br/>
+						Your generated Mnemonic: <br/>
+						<Text  code strong>{mnemonic.slice(0,24)} ... {mnemonic.slice(-24)}</Text>
 					</div>
 				  }
 				  type="success"
@@ -66,14 +67,16 @@ const Account = () => {
 				/>
 				<Alert
 				  message={
-					<Space>
-					  <Text strong>Fund your new account</Text>
-					</Space>
-				  }
-				  description={
-					<a href={`https://faucet.secrettestnet.io/`} target="_blank" rel="noreferrer">Go to the faucet</a>
+					<Text strong>Accessible (and copyable) at the top right of this page.</Text>
 				}
-				  type="warning"
+				  type="info"
+				  showIcon
+				/>
+				<Alert
+				  message={
+						<a href={`https://faucet.secrettestnet.io/`} target="_blank" rel="noreferrer">Fund your new account</a>
+				  }
+				  type="error"
 				  showIcon
 				/>
 			  </Space>

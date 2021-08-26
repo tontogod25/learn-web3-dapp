@@ -4,10 +4,10 @@ import { getSafeUrl } from 'components/protocols/secret/lib';
 import { EnigmaUtils, SigningCosmWasmClient, Secp256k1Pen, pubkeyToAddress, encodeSecp256k1Pubkey, } from 'secretjs';
 
 const customFees = {
-  send: {
-    amount: [{ amount: '80000', denom: 'uscrt' }],
-    gas: '80000',
-  },
+  exec: {
+    amount: [{ amount: '500000', denom: 'uscrt' }],
+    gas: '500000',
+  }
 };
 
 export default async function connect(
@@ -16,11 +16,7 @@ export default async function connect(
 ) {
     try {
         const url = await getSafeUrl()
-        const { mnemonic, contractAddress }= req.body
-        console.log(url)
-        console.log(mnemonic)
-        console.log(contractAddress)
-
+        const { mnemonic, contract }= req.body
         const signingPen = await Secp256k1Pen.fromMnemonic(mnemonic)
         const pubkey = encodeSecp256k1Pubkey(signingPen.pubkey);
         const address = pubkeyToAddress(pubkey, 'secret');
@@ -28,20 +24,20 @@ export default async function connect(
         // 1. Initialise client
         const txEncryptionSeed = EnigmaUtils.GenerateNewSeed();
         const client = new SigningCosmWasmClient(
-            url,
-            address,
-            (signBytes) => signingPen.sign(signBytes),
-            txEncryptionSeed, customFees,
-          );
+          url,
+          address,
+          (signBytes) => signingPen.sign(signBytes),
+          txEncryptionSeed, customFees,
+        );
 
-        // 2. Get the stored value
-        console.log('Querying contract for current count');
-        let response = await client.queryContractSmart(contractAddress, { get_count: {} })
-        let count = response.count as number
+        // 2. Increment the counter
+        const handleMsg = { increment: {} };
+        console.log('Updating count');
+        const response = await client.execute(contract, handleMsg)
 
-        res.status(200).json(count.toString())
+        res.status(200).json(response.transactionHash)
     } catch(error) {
         console.log(error)
-        res.status(500).json('get counter value failed')
+        res.status(500).json('set counter value failed')
     }
 }
