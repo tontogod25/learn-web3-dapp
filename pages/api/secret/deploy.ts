@@ -1,9 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { getSafeUrl } from 'components/protocols/secret/lib';
 import { EnigmaUtils, SigningCosmWasmClient, Secp256k1Pen, pubkeyToAddress, encodeSecp256k1Pubkey, } from 'secretjs';
-import fs from 'fs'
+import { getSafeUrl } from 'components/protocols/secret/lib';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import fs from 'fs';
 
-const CONTRACT_PATH = './contracts/secret/contract.wasm' 
+const CONTRACT_PATH = './contracts/secret/contract.wasm';
 
 const customFees = {
   upload: {
@@ -48,15 +48,14 @@ export default async function connect(
     }
     // Get the code ID from the receipt
     const { codeId } = uploadReceipt;
-    // console.log(codeId)
 
     // 3 Create an instance of the Counter contract, providing a starting count
     const initMsg = { count: 101 };
-    const contract = await client.instantiate(codeId, initMsg, `My Counter${Math.ceil(Math.random() * 10000)}`)
+    const receipt = await client.instantiate(codeId, initMsg, `My Counter${Math.ceil(Math.random() * 10000)}`)
 
     res.status(200).json({
-      contractAddress: contract.contractAddress,
-      transactionHash: contract.transactionHash
+      contractAddress: receipt.contractAddress,
+      transactionHash: receipt.transactionHash
     })
   } catch(error) {
     console.log(error)

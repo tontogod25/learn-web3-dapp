@@ -1,14 +1,6 @@
-
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { getSafeUrl } from 'components/protocols/secret/lib';
 import { EnigmaUtils, SigningCosmWasmClient, Secp256k1Pen, pubkeyToAddress, encodeSecp256k1Pubkey, } from 'secretjs';
-
-const customFees = {
-  send: {
-    amount: [{ amount: '80000', denom: 'uscrt' }],
-    gas: '80000',
-  },
-};
+import { getSafeUrl } from 'components/protocols/secret/lib';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function connect(
   req: NextApiRequest,
@@ -21,6 +13,13 @@ export default async function connect(
     const signingPen = await Secp256k1Pen.fromMnemonic(mnemonic)
     const pubkey = encodeSecp256k1Pubkey(signingPen.pubkey);
     const address = pubkeyToAddress(pubkey, 'secret');
+
+    const customFees = {
+      send: {
+        amount: [{ amount: '80000', denom: 'uscrt' }],
+        gas: '80000',
+      },
+    };
 
     // 1. Initialise client
     const txEncryptionSeed = EnigmaUtils.GenerateNewSeed();

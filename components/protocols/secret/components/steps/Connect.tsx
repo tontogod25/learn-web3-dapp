@@ -36,7 +36,7 @@ const Connect = () => {
 					<Text code>{version.slice(0,5)}</Text></Text>} 
 					type="success" 
 					showIcon />
-                : <Alert message={`Not connected to Near`} type="error" showIcon />}
+                : <Alert message={`Not connected to Secret`} type="error" showIcon />}
 		</Col>
 	)
 }
