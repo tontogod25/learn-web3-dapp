@@ -14,19 +14,28 @@ export default async function(
         txReceiver,
         network,
         secret,
-    } = req.body
-
-    try {
+      } = req.body
+    
+      try {
         const config = configFromNetwork(network)
-        const keypair = KeyPair.fromString(secret)
-        config.keyStore?.setKey(network, txSender, keypair)       
-        const near = await connect(config)
-        const account = await near.account(txSender)
+    
+        // recreate the keypair from secret
+        const keypair = undefined
+      
+        // Set the keystore with the expected method and args
+        config.keyStore?.undefined
+    
+        // Here we convert the NEAR into yoctoNEAR using utilities from NEAR lib
         const yoctoAmount = parseNearAmount(txAmount) as string
         const amount = new BN(yoctoAmount) 
-        const transaction = await account.sendMoney(txReceiver, amount)
+    
+        // Fill the Gap: connect, create an Account Object and send some money
+        const near = undefined
+        const account = undefined
+        const transaction = undefined
+    
         return res.status(200).json(transaction.transaction.hash)
-    } catch (error) {
+      }  catch (error) {
         console.error(error)
         return res.status(500).json('')
     } 

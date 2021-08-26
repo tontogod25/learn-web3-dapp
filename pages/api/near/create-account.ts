@@ -10,7 +10,7 @@ export default async function(
         const { freeAccountId, publicKey, network } = req.body
         const config = configFromNetwork(network);
         const near = await connect(config);
-        await near.createAccount(freeAccountId, publicKey);
+        undefined;
         return res.status(200).json(freeAccountId)
     } catch (error) {
         console.error(error)

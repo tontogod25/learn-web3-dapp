@@ -9,9 +9,9 @@ export default async function connection(
   const { network } = req.body;
   try {
     const config = configFromNetwork(network);
-    const near = await connect(config);
-    const provider = near.connection.provider
-    const status = await provider.status();
+    const near = undefined;
+    const provider = undefined
+    const status = undefined;
     return res.status(200).json(status.version.version);
   } catch (error) {
     console.error(error);

@@ -6,10 +6,10 @@ export default function connection(
   res: NextApiResponse<string>
 ) {
   try {
-    const keypair = KeyPair.fromRandom('ed25519');
-    const secret = keypair.toString();
+    const keypair = undefined;
+    const secret = undefined;
     return res.status(200).json(secret);
-  } catch (error) {
+  } } catch (error) {
     console.error(error);
     return res.status(500).json("Keypair generation failed");
   }

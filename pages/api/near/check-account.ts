@@ -10,14 +10,15 @@ export default async function(
         const { freeAccountId, network } = req.body
         const config = configFromNetwork(network);
         const near = await connect(config);
-        const accountInfo = await near.account(freeAccountId);
+        // try to query the account info of the 
+        const accountInfo = undefined
         try {
-            await accountInfo.state();
+            undefined;
             return res.status(200).json(false)
         } catch (error) {
             return res.status(200).json(true)
         }
-    } catch (error) {
+      } catch (error) {
         console.error(error)
         return res.status(500).json('Checking availability failed')
     } 

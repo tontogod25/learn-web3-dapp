@@ -11,13 +11,10 @@ export default async function(
         const config = configFromNetwork(network);
         const near = await connect(config);
         const account = await near.account(accountId);
-        const response = await account.viewFunction(
-            accountId, 
-            "get_greeting",
-            { account_id: accountId }
-        );
+        // Using ViewFunction try to call the contract 
+        const response = undefined;
         return res.status(200).json(response)
-    } catch (error) {
+      } catch (error) {
         console.error(error)
         return res.status(500).json('Reading Message of Contract failed')
     } 

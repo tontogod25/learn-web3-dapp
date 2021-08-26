@@ -14,12 +14,17 @@ export default async function (
         const { network, accountId, secret } = req.body;
         const config = configFromNetwork(network);
         const keypair = KeyPair.fromString(secret);
-        config.keyStore?.setKey(network, accountId, keypair);
+    
+        // Again you will need to set your keystore
+        config.keyStore?.undefined;
+    
         const near = await connect(config);
         const account = await near.account(accountId);
-        const response = await account.deployContract(fs.readFileSync(WASM_PATH));
+    
+        // Time to deploy the Smart Contract
+        const response = undefined;
         return res.status(200).json(response.transaction.hash)
-    } catch (error) {
+      } catch (error) {
         console.error(error)
         return res.status(500).json("Contract deployment failed: " + error.message)
     } 
