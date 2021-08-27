@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import axios from "axios";
 import { Alert, Col, Space, Typography } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
-import { useAppState } from '@ccelo/hooks'
+import { useAppState } from '@ccelo/hooks';
+import { useEffect, useState } from 'react';
+import axios from "axios";
 
 const { Text } = Typography;
 
@@ -18,7 +18,6 @@ const Connect = () => {
 				.then(res => {
 					setVersion(res.data)
 					setFetchingVersion(false)
-
 				})
 				.catch(err => {
 					console.error(err)
@@ -38,7 +37,7 @@ const Connect = () => {
 	}, [version, setVersion])
 
 	return (
-		<Col style={{ width: "50%" }}>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
 			{fetchingVersion
 				? <LoadingOutlined style={{ fontSize: 24 }} spin />
 				: version

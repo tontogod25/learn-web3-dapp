@@ -36,7 +36,7 @@ const Nav = () => {
 
     const clearStorage = () => {
         alert('You are going to clear the storage')
-        localStorage.removeItem('tezos')
+        localStorage.removeItem('near')
         dispatch({
             type: 'SetSecret',
             secret: undefined

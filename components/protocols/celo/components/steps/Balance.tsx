@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import { Alert, Col, Input, Button, Space, Typography } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { useAppState } from '@ccelo/hooks';
+import { useState } from 'react';
 import axios from 'axios';
-import { useAppState } from '@ccelo/hooks'
 
 const { Text } = Typography;
 
@@ -39,7 +38,7 @@ const Balance = () => {
     }
 
     return (
-        <Col>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
             <Space direction="vertical" size="large">
                 <Space direction="vertical">
                     <Text>Below the <span style={{ fontWeight: "bold" }}>address</span> you generated previously:</Text>

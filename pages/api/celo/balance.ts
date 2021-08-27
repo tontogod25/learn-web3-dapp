@@ -3,29 +3,28 @@ import { getSafeUrl } from '@ccelo/lib';
 import { newKit } from '@celo/contractkit';
 
 type ResponseT = {
-    attoCELO: number
-    attoUSD: number
+    attoCELO: string
+    attoUSD: string
 }
-
-export default async function connect(
+export default async function balance(
   req: NextApiRequest,
   res: NextApiResponse<ResponseT | string>
 ) {
     try {
-        const { secret } = req.body
+        const { address } = req.body
         const url = getSafeUrl();
         const kit = newKit(url);
 
-        const account = kit.web3.eth.accounts.privateKeyToAccount(secret)
-        const accountBalances = await kit.getTotalBalance(account.address)
+        let goldtoken = await kit.contracts.getGoldToken();
+        let stabletoken = await kit.contracts.getStableToken();
 
-        console.log('CELO balance: ', accountBalances?.CELO?.toNumber());
-        console.log('cUSD balance: ', accountBalances?.cUSD?.toNumber());
+        let celoBalance = await goldtoken.balanceOf(address);
+        let cUSDBalance = await stabletoken.balanceOf(address);
 
-        const attoCELO = accountBalances?.CELO?.toNumber() as number
-        const attoUSD = accountBalances?.cUSD?.toNumber() as number
-
-        res.status(200).json({ attoCELO, attoUSD })
+        res.status(200).json({ 
+            attoCELO: celoBalance.toString(), 
+            attoUSD: cUSDBalance.toString() 
+        })
     } catch(error) {
         console.error(error)
         res.status(500).json('Querying of balance failed')

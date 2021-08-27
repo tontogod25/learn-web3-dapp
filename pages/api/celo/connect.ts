@@ -13,6 +13,7 @@ export default async function connect(
     res.status(200).json(version.slice(5, 11));
   } catch (error) {
     console.error(error);
-    res.status(500).json("connection to celo failed");
+    res.status(500).json("connection to Celo failed");
   }
 }
+

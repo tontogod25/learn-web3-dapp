@@ -8,7 +8,7 @@ export default async function connect(
   res: NextApiResponse<string>
 ) {
     try {
-        const { contractAddress } = req.body
+        const { contract } = req.body
 
         const url = getSafeUrl();
         const kit = newKit(url);
@@ -17,7 +17,7 @@ export default async function connect(
         const instance = new kit.web3.eth.Contract(
             // @ts-ignore
             HelloWorld.abi, 
-            contractAddress
+            contract
         )
 
         const name = await instance.methods.getName().call()

@@ -13,20 +13,17 @@ export default async function connect(
   res: NextApiResponse<ResponseT | string>
 ) {
     try {
-        const { secret } = req.body
+        const { secret, address } = req.body
         const url = getSafeUrl();
         const kit = newKit(url);
 
-        const account = kit.web3.eth.accounts.privateKeyToAccount(secret)
-        kit.addAccount(account.privateKey);
+        kit.addAccount(secret);
 
         let tx = await kit.sendTransaction({
-            from: account.address,
+            from: address,
             data: HelloWorld.bytecode
         })
-
         const receipt = await tx.waitReceipt()
-        console.log(receipt)
 
         res.status(200).json({
             address: receipt?.contractAddress as string,

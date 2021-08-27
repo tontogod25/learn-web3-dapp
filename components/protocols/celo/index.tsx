@@ -1,11 +1,20 @@
-import { useEffect, useReducer } from "react";
-import { Row } from 'antd';
-import { Connect, Account, Balance, Transfer, Change, Deploy, Call } from '@ccelo/components/steps';
+import { 
+    Connect, 
+    Account, 
+    Balance, 
+    Transfer, 
+    Swap, 
+    Deploy, 
+    Getter, 
+    Setter 
+} from '@ccelo/components/steps';
 import { appStateReducer, initialState, CeloContext } from '@ccelo/context'
 import { useAppState, useLocalStorage } from '@ccelo/hooks'
 import { Sidebar, Step } from '@ccelo/components/layout'
-import { Nav } from '@ccelo/components';
+import { useEffect, useReducer } from "react";
 import type { AppI } from '@ccelo/types';
+import { Nav } from '@ccelo/components';
+import { Row } from 'antd';
 
 const CeloApp: React.FC<AppI> = ({ chain }) => {
     const { state, dispatch } = useAppState();
@@ -40,13 +49,14 @@ const CeloApp: React.FC<AppI> = ({ chain }) => {
             next={nextHandler}
             body={
                 <>
-                    { step.id === "connect" && <Connect /> }
-                    { step.id === "account" && <Account /> }
-                    { step.id === "balance" && <Balance /> }
-                    { step.id === "transfer" && <Transfer />}
-                    { step.id === "change" && <Change />}
-                    { step.id === "deploy" && <Deploy />}
-                    { step.id === "interact" && <Call />}
+                    { step.id === "connect"  && <Connect  /> }
+                    { step.id === "account"  && <Account  /> }
+                    { step.id === "balance"  && <Balance  /> }
+                    { step.id === "transfer" && <Transfer /> }
+                    { step.id === "swap"     && <Swap     /> }
+                    { step.id === "deploy"   && <Deploy   /> }
+                    { step.id === "getter"   && <Getter   /> }
+                    { step.id === "setter"    && <Setter   /> }
                 </>
             }
             nav={<Nav />}

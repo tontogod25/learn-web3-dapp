@@ -2,10 +2,11 @@ import Connect from '@ccelo/components/steps/Connect'
 import Account from '@ccelo/components/steps/Account'
 import Balance from '@ccelo/components/steps/Balance'
 import Transfer from '@ccelo/components/steps/Transfer'
-import Change from '@ccelo/components/steps/Change'
+import Swap from '@ccelo/components/steps/Swap'
 import Deploy from '@ccelo/components/steps/Deploy'
-import Call from '@ccelo/components/steps/Call'
+import Setter from '@ccelo/components/steps/Setter'
+import Getter from '@ccelo/components/steps/Getter'
 
 export {
-    Connect, Account, Balance, Transfer, Change, Deploy, Call
+    Connect, Account, Balance, Transfer, Swap, Deploy, Getter, Setter
 }

@@ -34,7 +34,7 @@ const Nav = () => {
 
     const clearStorage = () => {
         alert('You are going to clear the storage')
-        localStorage.removeItem('tezos')
+        localStorage.removeItem('secret')
         dispatch({
             type: 'SetMnemonic',
             mnemonic: undefined

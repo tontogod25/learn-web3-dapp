@@ -6,7 +6,6 @@ type ResponseT = {
     address: string
     secret: string
 }
-
 export default async function connect(
   _req: NextApiRequest,
   res: NextApiResponse<ResponseT | string>
@@ -17,7 +16,7 @@ export default async function connect(
         const account = kit.web3.eth.accounts.create();
         const address = account.address;
         const secret = account.privateKey;
-
+        
         res.status(200).json({
             address,
             secret

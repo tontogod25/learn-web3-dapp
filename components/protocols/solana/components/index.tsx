@@ -34,7 +34,7 @@ const Nav = () => {
 
     const clearStorage = () => {
         alert('You are going to clear the storage')
-        localStorage.removeItem('tezos')
+        localStorage.removeItem('solana')
         dispatch({
             type: 'SetNetwork',
             network: 'devnet'

@@ -42,43 +42,48 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.CELO]: {
 		id: CHAINS.CELO,
 		label: "Celo",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/celo-celo-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
 				title: "Connect to Celo",
-				url: "https://learn2.figment.io/pathways/celo-pathway"
+				url: "https://learn.figment.io/pathways/celo-pathway/connect-to-celo"
 			},
 			{
 				id: "account",
 				title: "Creacte an account",
-				url: "https://learn2.figment.io/pathways/celo-pathway"
+				url: "https://learn.figment.io/pathways/celo-pathway/create-a-celo-account"
 			},
 			{
 				id: "balance",
 				title: "Get the balance",
-				url: "https://learn2.figment.io/pathways/celo-pathway"
+				url: "https://learn.figment.io/pathways/celo-pathway/get-the-celo-balance"
 			},
 			{
 				id: "transfer",
 				title: "Transfer some Token",
-				url: "https://learn2.figment.io/pathways/celo-pathway"
+				url: "https://learn.figment.io/pathways/celo-pathway/transfer-celo-token"
 			},
 			{
-				id: "change",
-				title: "Change cUSD to CELO",
-				url: "https://learn2.figment.io/pathways/celo-pathway"
+				id: "swap",
+				title: "Swap cUSD to CELO",
+				url: "https://learn.figment.io/pathways/celo-pathway/swap-your-celo"
 			},
 			{
 				id: "deploy",
 				title: "Deploy a smart contract",
-				url: "https://learn2.figment.io/pathways/celo-pathway"
+				url: "https://learn.figment.io/pathways/celo-pathway/deploy-celo-contract"
 			},
 			{
-				id: "interact",
-				title: "Interact with contract",
-				url: "https://learn2.figment.io/pathways/celo-pathway"
+				id: "getter",
+				title: "Get the storage of a smart contract",
+				url: "https://learn.figment.io/pathways/celo-pathway/read-celo-contract"
+			},
+			{
+				id: "setter",
+				title: "Set Smart Contract's value",
+				url: "https://learn.figment.io/pathways/celo-pathway/celo-set-contract-store"
 			},
 		]
 	},

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Form, Input, Button, Alert, Space, Typography } from 'antd'
+import { Form, Input, Button, Alert, Space, Typography, Col } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useAppState } from '@ccelo/hooks'
 import { transactionUrl } from '@ccelo/lib'
@@ -16,6 +16,8 @@ const tailLayout = {
 
 const { Text } = Typography
 
+const recipient = '0xD86518b29BB52a5DAC5991eACf09481CE4B0710d';
+
 const Transfer = () => {
     const [error, setError] = useState<string | null>(null)
     const [fetching, setFetching] = useState(false)
@@ -31,19 +33,20 @@ const Transfer = () => {
         const amount = values.amount
 
         setFetching(true)
-		axios
-			.post(`/api/celo/transfer`, {...state, amount })
-			.then(res => {
-        const hash = res.data
-        setHash(hash)
-				setFetching(false)
-			})
-			.catch(err => {
-				console.error(err)
-				setFetching(false)
-			})
+        axios
+          .post(`/api/celo/transfer`, {...state, amount, recipient })
+          .then(res => {
+            const hash = res.data
+            setHash(hash)
+            setFetching(false)
+          })
+          .catch(err => {
+            console.error(err)
+            setFetching(false)
+          })
 	}
   return (
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
     <Form
       {...layout}
       name="transfer"
@@ -52,7 +55,7 @@ const Transfer = () => {
       initialValues={{
           from: state.address,
           amount: 1,
-          to: '0xD86518b29BB52a5DAC5991eACf09481CE4B0710d',
+          to: recipient,
       }}
     > 
       <Form.Item label="Sender" name="from" required>
@@ -66,7 +69,7 @@ const Transfer = () => {
       </Form.Item>
 
       <Form.Item label="Recipient" name="to" required>
-        <Text code>{'0xD86518b29BB52a5DAC5991eACf09481CE4B0710d'}</Text>
+        <Text code>{recipient}</Text>
       </Form.Item>
 
       <Form.Item {...tailLayout}>
@@ -76,13 +79,12 @@ const Transfer = () => {
       </Form.Item>
 
       {fetching &&
-          <Form.Item {...tailLayout}>
-            <Space size="large">
-              <LoadingOutlined style={{ fontSize: 24, color: "#1890ff" }} spin />
-              <Text type="secondary">Transfer initiated. Waiting for confirmations...</Text>
-            </Space>
-          </Form.Item>
-      }
+        <Form.Item {...tailLayout}>
+          <Space size="large">
+            <LoadingOutlined style={{ fontSize: 24, color: "#1890ff" }} spin />
+            <Text type="secondary">Transfer initiated. Waiting for confirmations...</Text>
+          </Space>
+        </Form.Item>}
 
       {hash &&
         <Form.Item {...tailLayout}>
@@ -114,6 +116,7 @@ const Transfer = () => {
         </Form.Item>
       }
     </Form>
+    </Col>
   );
 };
 

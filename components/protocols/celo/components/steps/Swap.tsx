@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Col, Input, Button, Alert, Space, Typography } from 'antd'
+import { Col, Button, Alert, Space, Typography } from 'antd'
 import { useAppState } from '@ccelo/hooks'
 import { transactionUrl } from '@ccelo/lib'
 import axios from 'axios'
@@ -25,7 +25,7 @@ const Change = () => {
     const exchangeUSD = () => {
         setFetching(true)
 		axios
-			.post(`/api/celo/change`, state)
+			.post(`/api/celo/swap`, state)
 			.then(res => {
                 const hash = res.data.hash
                 const celo = res.data.celo
@@ -42,10 +42,10 @@ const Change = () => {
     const attoCeloToCelo = (celo: string) => `${celo.slice(0,1)}.${celo.slice(1,3)}`
 
     return (
-        <Col span={18}>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
             <Space direction="vertical">
                 <Button type="primary" onClick={exchangeUSD} loading={fetching}>
-                    Exchange 1 cUSD
+                    Swap 1 cUSD
                 </Button>
                 {hash &&
                     <Alert

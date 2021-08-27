@@ -7,7 +7,7 @@ import { transactionUrl } from '@ccelo/lib'
 
 const { Text } = Typography;
 
-const Call = () => {
+const Setter = () => {
     const [fetching, setFetching] = useState<boolean>(false)
     const [resetting, setResetting] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
@@ -20,7 +20,7 @@ const Call = () => {
         const contractGetMessage = () => {
             setError(null)
             setFetching(true)
-            axios.post(`/api/celo/getMessage`, state)
+            axios.post(`/api/celo/getter`, state)
                 .then(res => {
                     setMessage(res.data)
                     setFetching(false)
@@ -37,7 +37,7 @@ const Call = () => {
     const contractSetMessage = () => {
         setError(null)
         setResetting(true)
-        axios.post(`/api/celo/setMessage`, { ...state, newMessage })
+        axios.post(`/api/celo/setter`, { ...state, newMessage })
             .then(res => {
                 setTxhash(res.data)
                 setResetting(false)
@@ -50,7 +50,7 @@ const Call = () => {
     }
 
     return (
-    <>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
         <Space direction="vertical" size="large">
         <Text>Below is the message stored on our &quot;greeter&quot; contract:</Text>
         <Col>
@@ -62,7 +62,7 @@ const Call = () => {
         <Col>
             <Space direction="vertical" size="large">
                 <Space direction="horizontal">
-                    <Button type="primary" onClick={contractSetMessage}>Set greeting</Button>
+                    <Button type="primary" onClick={contractSetMessage}>Set Message</Button>
                     <Input style={{ minWidth: "200px", fontWeight: "bold", textAlign: "center" }} defaultValue={message} onChange={ e => setNewMessage(e.target.value) }/>
                 </Space>
                 {error && <Alert type="error" closable message={error} /> }
@@ -85,8 +85,8 @@ const Call = () => {
             </Space>
         </Col>
         </Space>
-    </>
+    </Col>
     )
 }
 
-export default Call
+export default Setter

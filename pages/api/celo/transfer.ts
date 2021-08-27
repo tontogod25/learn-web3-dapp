@@ -2,27 +2,22 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSafeUrl } from '@ccelo/lib';
 import { newKit } from '@celo/contractkit';
 
-export default async function connect(
+export default async function transfer(
   req: NextApiRequest,
   res: NextApiResponse<string>
 ) {
     try {
-        const { secret, amount } = req.body
+        const { secret, amount, recipient, address } = req.body
         const url = getSafeUrl();
         const kit = newKit(url);
 
-        const account = kit.web3.eth.accounts.privateKeyToAccount(secret)
-
-        kit.addAccount(account.privateKey);
-        const recipientAddress = '0xD86518b29BB52a5DAC5991eACf09481CE4B0710d';
-
+        kit.addAccount(secret);
         const celoToken = await kit.contracts.getGoldToken();
         const celotx = await celoToken
-            .transfer(recipientAddress, amount)
-            .send({from: account.address})
+            .transfer(recipient, amount)
+            .send({from: address})
 
         const celoReceipt = await celotx.waitReceipt();
-        console.log(celoReceipt.transactionHash)
 
         res.status(200).json(celoReceipt.transactionHash)
     } catch(error) {
