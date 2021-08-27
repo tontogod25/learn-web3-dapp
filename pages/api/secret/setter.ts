@@ -19,7 +19,7 @@ export default async function connect(
           gas: '500000',
         }
       };
-      // 1. Initialise client
+      // Initialise client
       const txEncryptionSeed = EnigmaUtils.GenerateNewSeed();
       const client = new SigningCosmWasmClient(
         url,
@@ -28,10 +28,9 @@ export default async function connect(
         txEncryptionSeed, customFees,
       );
 
-      // 2. Increment the counter
+      // Increment the counter
       const handleMsg = { increment: {} };
-      console.log('Updating count');
-      const response = await client.execute(contract, handleMsg)
+      const response = undefined;
 
       res.status(200).json(response.transactionHash)
     } catch(error) {

@@ -17,30 +17,25 @@ export default async function connect(
         const pubkey = encodeSecp256k1Pubkey(signingPen.pubkey);
         const address = pubkeyToAddress(pubkey, 'secret');
 
-        // 1. Initialise client
+        // 0. A very specific Secret features (allowing to made the transaction encrypted)
         const txEncryptionSeed = EnigmaUtils.GenerateNewSeed();
+
+        // 1. The fees you'll need to pay to complete the transaction
         const fees = {
           send: {
             amount: [{ amount: '80000', denom: 'uscrt' }],
             gas: '80000',
           },
         };
-        const client = new SigningCosmWasmClient(
-            url,
-            address,
-            (signBytes) => signingPen.sign(signBytes),
-            txEncryptionSeed, fees,
-          );
 
-        // 2. Send tokens
-        const rcpt = address; // Set recipient to sender for testing, or generate another account as you did previously.
-        const memo = 'sendTokens example'; // optional memo
-        const sent = await client.sendTokens(rcpt, [{ 
-          amount: txAmount, 
-          denom: 'uscrt' 
-        }], memo) // Send 1 SCRT / 1_000_000 uscrt
-          
-        // 3. Query the tx result
+        // 2. Initialize a secure Secret client
+        const client = new SigningCosmWasmClient(undefined);
+
+        // 3. Send tokens
+        const memo = 'sendTokens example'; // Optional memo to identify the transaction
+        const sent = await client.sendTokens(undefined);
+      
+        // 4. Query the tx result
         const query = { id: sent.transactionHash };
         const transaction = await client.searchTx(query);
         console.log('Transaction: ', transaction);

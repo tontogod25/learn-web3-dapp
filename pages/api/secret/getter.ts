@@ -21,7 +21,7 @@ export default async function connect(
       },
     };
 
-    // 1. Initialise client
+    // Initialise client
     const txEncryptionSeed = EnigmaUtils.GenerateNewSeed();
     const client = new SigningCosmWasmClient(
       url,
@@ -30,9 +30,9 @@ export default async function connect(
       txEncryptionSeed, customFees,
     );
 
-    // 2. Get the stored value
+    // Get the stored value
     console.log('Querying contract for current count');
-    let response = await client.queryContractSmart(contract, { get_count: {} })
+    let response = undefined.
     let count = response.count as number
 
     res.status(200).json(count.toString())

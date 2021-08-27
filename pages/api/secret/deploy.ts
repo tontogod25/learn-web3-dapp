@@ -40,18 +40,18 @@ export default async function connect(
       txEncryptionSeed, customFees,
     );
 
-    // 2. Upload the contract wasm
+    // Upload the contract wasm
     const wasm = fs.readFileSync(CONTRACT_PATH);
-    const uploadReceipt = await client.upload(wasm, {})
+    const uploadReceipt = await client.undefined;
     if (!uploadReceipt) {
       throw new Error("uploadReceipt error");
     }
     // Get the code ID from the receipt
     const { codeId } = uploadReceipt;
 
-    // 3 Create an instance of the Counter contract, providing a starting count
+    // Create an instance of the Counter contract, providing a starting count
     const initMsg = { count: 101 };
-    const receipt = await client.instantiate(codeId, initMsg, `My Counter${Math.ceil(Math.random() * 10000)}`)
+    const receipt = undefined;
 
     res.status(200).json({
       contractAddress: receipt.contractAddress,

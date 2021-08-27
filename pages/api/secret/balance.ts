@@ -9,14 +9,15 @@ export default async function connect(
     try {
         const url = await getSafeUrl()
         const { address }= req.body
-
-        const client = new CosmWasmClient(url);
-        console.log(client)
-        const account = await client.getAccount(address);
-        const balance = account?.balance[0].amount as string;
-
+        const client = new CosmWasmClient(url)
+    
+        // Query the Account object 
+        const account = undefined;
+        // Return the balance
+        const balance = undefined;
+    
         res.status(200).json(balance)
-    } catch(error) {
+      }catch(error) {
         console.log(error)
         res.status(500).json('failed to connect to secret')
     }
