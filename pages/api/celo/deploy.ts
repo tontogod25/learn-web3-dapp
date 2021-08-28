@@ -13,23 +13,21 @@ export default async function connect(
   res: NextApiResponse<ResponseT | string>
 ) {
     try {
-        const { secret, address } = req.body
+        const { secret, address } = req.body;
         const url = getSafeUrl();
         const kit = newKit(url);
-
+    
         kit.addAccount(secret);
-
-        let tx = await kit.sendTransaction({
-            from: address,
-            data: HelloWorld.bytecode
-        })
-        const receipt = await tx.waitReceipt()
-
+    
+        // TODO: Create a transaction to deploy the contract
+    
+        const receipt = await tx.waitReceipt();
+    
         res.status(200).json({
             address: receipt?.contractAddress as string,
             hash: receipt.transactionHash
-        })
-    } catch(error) {
+        });
+      }catch(error) {
         console.error(error)
         res.status(500).json('Deployment of contract failed')
     }

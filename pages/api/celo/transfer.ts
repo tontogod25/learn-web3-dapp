@@ -7,20 +7,21 @@ export default async function transfer(
   res: NextApiResponse<string>
 ) {
     try {
-        const { secret, amount, recipient, address } = req.body
+        const { secret, amount, recipient, address } = req.body;
         const url = getSafeUrl();
         const kit = newKit(url);
-
-        kit.addAccount(secret);
-        const celoToken = await kit.contracts.getGoldToken();
-        const celotx = await celoToken
-            .transfer(recipient, amount)
-            .send({from: address})
-
+    
+        // Restore account using your secret
+        undefined
+        // Access CELO contract wrapper
+        const celoToken = undefined;
+        // Build the transaction and send
+        const celotx = undefined;
+        // Wait for confirmation of the transaction
         const celoReceipt = await celotx.waitReceipt();
-
-        res.status(200).json(celoReceipt.transactionHash)
-    } catch(error) {
+    
+        res.status(200).json(celoReceipt.transactionHash);
+      } catch(error) {
         console.error(error)
         res.status(500).json('Transfer of CELO failed')
     }

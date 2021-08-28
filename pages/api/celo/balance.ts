@@ -11,21 +11,22 @@ export default async function balance(
   res: NextApiResponse<ResponseT | string>
 ) {
     try {
-        const { address } = req.body
+        const { address } = req.body;
         const url = getSafeUrl();
         const kit = newKit(url);
-
-        let goldtoken = await kit.contracts.getGoldToken();
-        let stabletoken = await kit.contracts.getStableToken();
-
-        let celoBalance = await goldtoken.balanceOf(address);
-        let cUSDBalance = await stabletoken.balanceOf(address);
-
+    
+        const goldtoken = undefined;
+        const celoBalance = undefined;
+        
+        const stabletoken = undefined;
+        const cUSDBalance = undefined;
+    
+    
         res.status(200).json({ 
             attoCELO: celoBalance.toString(), 
             attoUSD: cUSDBalance.toString() 
-        })
-    } catch(error) {
+        });
+      } catch(error) {
         console.error(error)
         res.status(500).json('Querying of balance failed')
     }

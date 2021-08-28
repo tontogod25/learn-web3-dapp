@@ -12,24 +12,18 @@ export default async function connect(
         const url = getSafeUrl();
         const kit = newKit(url);
         kit.addAccount(secret);
-
+    
         // Create a new contract instance with the HelloWorld contract info
-        const instance = new kit.web3.eth.Contract(
-            // @ts-ignore
-            HelloWorld.abi, 
-            contract
-        )
-
-        // Add your account to ContractKit to sign transactions
-        // This account must have a CELO balance to pay tx fees, get some https://celo.org/build/faucet
-        kit.connection.addAccount(secret);
-        const txObject = await instance.methods.setName(newMessage);
-        let tx = await kit.sendTransactionObject(txObject, { from: address });
-
+        const instance = undefined;
+        // Call the setName function of our contract
+        const txObject = undefined;
+        // Send a transaction Object to modify the state of our contract
+        let tx = undefined;
+    
         let receipt = await tx.waitReceipt();
-
+    
         res.status(200).json(receipt.transactionHash);
-    } catch(error) {
+      } catch(error) {
         console.error(error)
         res.status(500).json('Set message of contract failed')
     }

@@ -19,17 +19,19 @@ export default async function swap(
         kit.addAccount(secret);
 
         // Get contract wrappers
-        const stableToken = await kit.contracts.getStableToken();
-        const exchange = await kit.contracts.getExchange();
+        // - StableTokenWrapper
+        // - ExchangeWrapper
+        const stableToken = undefined;
+        const exchange = undefined;
 
         // Approve a user to transfer StableToken on behalf of another user.
-        const approveTx = await stableToken.approve(exchange.address, OneCUSD).send({from: address})
+        const approveTx = undefined;
 
         // Exchange cUSD for CELO
-        const goldAmount = await exchange.quoteStableSell(OneCUSD)
-        const sellTx = await exchange.sellStable(OneCUSD, goldAmount).send({from: address})
-        const sellReceipt = await sellTx.waitReceipt();
+        const goldAmount = undefined;
+        const sellTx = undefined;
 
+        const sellReceipt = await sellTx.waitReceipt();
         res.status(200).json({
             celo: goldAmount.toString(), 
             hash: sellReceipt.transactionHash

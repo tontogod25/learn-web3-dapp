@@ -8,10 +8,10 @@ export default async function connect(
 ) {
   try {
     const url = getSafeUrl();
-    const kit = newKit(url);
-    const version = await kit.web3.eth.getNodeInfo();
+    const kit = undefined;
+    const version = undefined;
     res.status(200).json(version.slice(5, 11));
-  } catch (error) {
+  }  catch (error) {
     console.error(error);
     res.status(500).json("connection to Celo failed");
   }
