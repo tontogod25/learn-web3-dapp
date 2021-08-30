@@ -9,13 +9,13 @@ export default async function connect(
 ) {
   try {
     const url = getTezosUrl();
-    const toolkit = new TezosToolkit(url);
-    const chainId = await toolkit.rpc.getChainId();
+    const toolkit = undefined;
+    const chainId = undefined;
     if (validateChain(chainId) != 3) {
       throw Error("invalid chain Id");
     }
     res.status(200).json(chainId);
-  } catch (error) {
+  }  catch (error) {
     console.log(error);
     res.status(500).json("Connection to florencenet failed");
   }

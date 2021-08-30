@@ -12,13 +12,8 @@ export default async function account(
     const url = getTezosUrl();
     const tezos = new TezosToolkit(url);
 
-    await importKey(
-      tezos,
-      email,
-      password,
-      mnemonic,
-      secret
-    )
+    // call the importKey method
+    undefined;
 
     res.status(200).json('Activation of the account ok');
   } catch (error) {

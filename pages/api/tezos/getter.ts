@@ -20,8 +20,9 @@ export default async function getter(
       secret
     )
 
-    const counter = await tezos.contract.getStorage(contract)
-    
+    // use the contract module to get the storage
+    const counter = undefined;
+
     // @ts-ignore
     res.status(200).json(counter.toString());
   } catch (error) {

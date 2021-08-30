@@ -12,19 +12,11 @@ export default async function transfer(
     const url = getTezosUrl();
     const tezos = new TezosToolkit(url);
 
-    await importKey(
-      tezos,
-      email,
-      password,
-      mnemonic,
-      secret
-    )
+    await importKey(undefined);
 
-    const operation = await tezos.contract.transfer({ 
-      to: recipient, 
-      amount: amount 
-    })
+    // call the transfer method
 
+    // await for confirmation
     await operation.confirmation(1) 
 
     res.status(200).json(operation.hash);

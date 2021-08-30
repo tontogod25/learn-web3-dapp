@@ -18,17 +18,18 @@ export default async function deploy(
     const tezos = new TezosToolkit(url);
 
     await importKey(
-        tezos,
-        email,
-        password,
-        mnemonic,
-        secret
-      )
-    const operation = await tezos.contract
-      .originate({
-        code: CONTRACT_JSON,
-        storage: 0
-      })
+      tezos,
+      email,
+      password,
+      mnemonic,
+      secret
+    )
+
+    const operation = await tezos.contract.originate({
+      code: CONTRACT_JSON,
+      storage: 0
+    })
+
     const contract = await operation.contract()
  
     res.status(200).json({

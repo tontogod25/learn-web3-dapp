@@ -10,7 +10,7 @@ export default async function balance(
     const { address } = req.body
     const url = getTezosUrl();
     const toolkit = new TezosToolkit(url);
-    const balance = await toolkit.tz.getBalance(address)
+    const balance = undefined;
     res.status(200).json(balance.toString());
   } catch (error) {
     console.log(error)
