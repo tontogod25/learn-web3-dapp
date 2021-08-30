@@ -1,20 +1,20 @@
 import { useState } from 'react'
-import { Form, Input, Button, Alert, Space, Typography } from 'antd'
+import { Form, Input, Button, Alert, Space, Typography, Col } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useAppState } from '@avalanche/hooks'
 import { transactionUrl } from '@avalanche/lib'
 import axios from 'axios'
 
 const layout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 20 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
 }
 
 const tailLayout = {
-    wrapperCol: { offset: 4, span: 20 },
+  wrapperCol: { offset: 4, span: 20 },
 }
 
-const receiver = "X-fuji1j2zasjlkkvptegp6dpm222q6sn02k0rp9fj92d"
+const recipient = "X-fuji1j2zasjlkkvptegp6dpm222q6sn02k0rp9fj92d"
 
 const { Text } = Typography
 
@@ -25,28 +25,30 @@ const Transfer = () => {
     const { state } = useAppState()
 
     const transfer = (values: any) => {
-        const isValidAmount = parseFloat(values.amount)
-        if (isNaN(isValidAmount)) {
-            setError("Amount needs to be a valid number")
-            throw Error('Invalid Amount')
-        }
-        const amount = values.amount
+      const isValidAmount = parseFloat(values.amount)
+      if (isNaN(isValidAmount)) {
+        setError("Amount needs to be a valid number")
+        throw Error('Invalid Amount')
+      }
 
-        setFetching(true)
-		axios
-			.post(`/api/avalanche/transfer`, {...state, amount })
-			.then(res => {
-        		const hash = res.data
-       			setHash(hash)
-				setFetching(false)
-			})
-			.catch(err => {
-				console.error(err)
-				setFetching(false)
-			})
-	}
+      const amount = values.amount
+
+      setFetching(true)
+      axios
+        .post(`/api/avalanche/transfer`, {...state, amount, recipient })
+        .then(res => {
+          const hash = res.data
+          setHash(hash)
+          setFetching(false)
+        })
+        .catch(err => {
+          console.error(err)
+          setFetching(false)
+        })
+	  }
 
   return (
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
     <Form
       {...layout}
       name="transfer"
@@ -55,7 +57,7 @@ const Transfer = () => {
       initialValues={{
           from: state.address,
           amount: 1,
-          to: receiver,
+          to: recipient,
       }}
     > 
       <Form.Item label="Sender" name="from" required>
@@ -69,7 +71,7 @@ const Transfer = () => {
       </Form.Item>
 
       <Form.Item label="Recipient" name="to" required>
-        <Text code>{receiver}</Text>
+        <Text code>{recipient}</Text>
       </Form.Item>
 
       <Form.Item {...tailLayout}>
@@ -118,6 +120,7 @@ const Transfer = () => {
         </Form.Item>
       }
     </Form>
+    </Col>
   );
 };
 

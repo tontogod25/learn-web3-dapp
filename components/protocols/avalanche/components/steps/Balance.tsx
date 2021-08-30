@@ -33,7 +33,7 @@ const Balance = () => {
     }
 
     return (
-        <Col>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
             <Space direction="vertical" size="large">
                 <Space direction="vertical">
                     <Text>Below the <span style={{ fontWeight: "bold" }}>address</span> you generated previously:</Text>

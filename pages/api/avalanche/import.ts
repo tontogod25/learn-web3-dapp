@@ -3,7 +3,7 @@ import { getAvalancheClient } from '@avalanche/lib'
 import { BinTools } from "avalanche";
 import { Address } from 'ethereumjs-util'
 
-export default async function account(
+export default async function (
 	req: NextApiRequest,
 	res: NextApiResponse<string>
 ) {

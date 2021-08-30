@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { PolkadotAccountResponse } from '@polka/types';
 import { Keyring } from "@polkadot/api"
 
-export default async function connect(
+export default async function restore(
   req: NextApiRequest,
   res: NextApiResponse<PolkadotAccountResponse | string>
 ) {

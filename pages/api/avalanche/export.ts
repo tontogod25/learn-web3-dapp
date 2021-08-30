@@ -6,7 +6,7 @@ import { Address } from 'ethereumjs-util'
 // Prepare transaction details
 const amount = "50000000" // Total amount we're transferring = 0.05 AVAX
 
-export default async function account(
+export default async function (
 	req: NextApiRequest,
 	res: NextApiResponse<string>
 ) {

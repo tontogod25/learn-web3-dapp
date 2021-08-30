@@ -9,7 +9,7 @@ const { Text } = Typography;
 const Connect = () => {
 	const [version, setVersion] = useState<string | null>(null);
 	const [fetching, setFetching] = useState<boolean>(false);
-    const { state, dispatch } = useAppState();
+    const { state } = useAppState();
 	useEffect(() => {
 		const getConnection = () => {
 			setFetching(true)
@@ -18,7 +18,6 @@ const Connect = () => {
 				.then(res => {
 					setVersion(res.data)
 					setFetching(false)
-
 				})
 				.catch(err => {
 					console.error(err)
@@ -28,17 +27,8 @@ const Connect = () => {
 		getConnection()
     }, [state]);
 
-	useEffect(() => {
-		if (version) {
-			dispatch({
-				type: 'SetNetwork',
-				network: version
-			})
-		}
-	}, [version, setVersion])
-
 	return (
-		<Col style={{ width: "100%" }}>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
 			{fetching
 				? <LoadingOutlined style={{ fontSize: 24 }} spin />
 				: version

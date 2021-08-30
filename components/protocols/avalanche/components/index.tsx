@@ -5,7 +5,7 @@ import type { EntryT, AlertT } from '@avalanche/types';
 const { Text, Paragraph } = Typography;
 
 const Nav = () => {
-    const { state } = useAppState();
+    const { state, dispatch } = useAppState();
     const { network, address, secret } = state;
 
     const displayNetwork = (networkId: string) => networkId
@@ -30,12 +30,38 @@ const Nav = () => {
         )
     }
 
+    const clearStorage = () => {
+        alert('You are going to clear the storage')
+        localStorage.removeItem('celo')
+        dispatch({
+            type: 'SetAddress',
+            address: undefined
+        })
+        dispatch({
+            type: 'SetSecret',
+            secret: undefined
+        })
+        dispatch({
+            type: 'SetIndex',
+            index: 0
+        })
+        dispatch({
+            type: 'SetNetwork',
+            network: 'fuji'
+        })
+    }
+
     return (
-        <div style={{ position: "fixed", top: 20, right: 20 }}>
-            <Popover content={AppState} placement="rightBottom">
-                <Button type="primary">Storage</Button>
-            </Popover>
-        </div>
+        <>
+            <div style={{ position: "fixed", top: 25, right: 60 }}>
+                <Popover content={AppState} placement="rightBottom">
+                    <Button type="primary">Storage</Button>
+                </Popover>
+            </div>
+            <div style={{ position: "fixed", top: 25, right: 165 }}>
+                <Button danger onClick={clearStorage}>Clear Storage</Button>
+            </div>
+        </>
     )
 }
 

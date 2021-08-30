@@ -37,7 +37,7 @@ const Import = () => {
 	}
 
     return (
-        <Col span={18}>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
             <Space direction="vertical">
                 <Button type="primary" onClick={exchangeUSD} loading={fetching}>
                     Import to C-Chain

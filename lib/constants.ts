@@ -4,38 +4,38 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.AVALANCHE]: {
 		id: CHAINS.AVALANCHE,
 		label: "Avalanche",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
 				title: "Connect to Avalanche",
-				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/1.-connect-to-avalanche-node-with-datahub"
+				url: "https://learn.figment.io/tutorials/connect-to-avalanche"
 			},
 			{
 				id: "account",
 				title: "Create a Keypair",
-				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/2.-create-your-first-avalanche-account"
+				url: "https://learn.figment.io/tutorials/create-an-avalanche-keypair"
 			},
 			{
 				id: "balance",
 				title: "Get the balance",
-				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/3.-query-the-avalanche-network"
+				url: "https://learn.figment.io/tutorials/get-the-avalanche-balance"
 			},
 			{
 				id: "transfer",
 				title: "Transfer some AVAX",
-				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/3.-query-the-avalanche-network"
+				url: "https://learn.figment.io/tutorials/transfer-some-avax"
 			},
 			{
 				id: "export",
 				title: "Export Token from X-Chain to C-Chain",
-				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/4.-create-your-first-transaction"
+				url: "https://learn.figment.io/tutorials/export-token-from-x-chain-to-c-chain"
 			},
 			{
 				id: "import",
 				title: "Import Token from X-Chain to C-Chain",
-				url: "https://learn.figment.io/network-documentation/avalanche/tutorials/pathway/4.-create-your-first-transaction"
+				url: "https://learn.figment.io/tutorials/import-token-from-x-chain-to-c-chain"
 			},
 		]
 	},
@@ -138,38 +138,38 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.POLKADOT]: {
 		id: CHAINS.POLKADOT,
 		label: "Polkadot",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
 		steps: [
 			{
 				id: "connect",
 				title: "Connect to Polkadot",
-				url: ""
+				url: "https://learn.figment.io/tutorials/connect-to-polkadot"
 			},
 			{
 				id: "account",
 				title: "Create an account",
-				url: ""
+				url: "https://learn.figment.io/tutorials/create-an-account-on-polkadot"
 			},
 			{
 				id: "restore",
 				title: "Restore an account",
-				url: ""
+				url: "https://learn.figment.io/tutorials/restore-polkadot-account"
 			},
 			{
 				id: "balance",
 				title: "Get the Balance",
-				url: ""
+				url: "https://learn.figment.io/tutorials/get-the-polkadot-balance"
 			},
 			{
 				id: "transfer",
 				title: "Transfer some Token",
-				url: ""
+				url: "https://learn.figment.io/tutorials/transfer-some-polkadot-token"
 			},
 			{
 				id: "estimate",
 				title: "Estimate transaction fees",
-				url: ""
+				url: "https://learn.figment.io/tutorials/estimate-polkadot-transaction-fees"
 			}
 		]
 	},
@@ -327,37 +327,37 @@ export const CHAINS_CONFIG: ChainsType = {
 			{
 				id: "connect",
 				title: "Connect to Tezos",
-				url: ""
+				url: "https://learn.figment.io/tutorials/connect-to-tezos-node"
 			},
 			{
 				id: "account",
 				title: "Create an account",
-				url: ""
+				url: "https://learn.figment.io/tutorials/create-a-tezos-account"
 			},
 			{
 				id: "balance",
 				title: "Get balance",
-				url: ""
+				url: "https://learn.figment.io/tutorials/check-tezos-account-balance"
 			},
 			{
 				id: "transfer",
 				title: "Transfer some Token",
-				url: ""
+				url: "https://learn.figment.io/tutorials/transfer-tez-tokens"
 			},
 			{
 				id: "deploy",
 				title: "Deploy a Smart contract",
-				url: ""
+				url: "https://learn.figment.io/tutorials/deploy-tezos-contract"
 			},
 			{
 				id: "getter",
 				title: "Get Smart Contract's value",
-				url: ""
+				url: "https://learn.figment.io/tutorials/read-tezos-contract"
 			},
 			{
 				id: "setter",
 				title: "Set Smart Contract's value",
-				url: ""
+				url: "https://learn.figment.io/tutorials/tezos-set-contract-store"
 			},
 		]
 	},

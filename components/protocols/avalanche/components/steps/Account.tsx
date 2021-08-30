@@ -37,7 +37,7 @@ const Account = () => {
 	}
 
 	return (
-		<Col>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
 		  <Button type="primary" onClick={generateKeypair} style={{ marginBottom: "20px" }} loading={fetching}>
 			  Generate a Keypair
 		  </Button>

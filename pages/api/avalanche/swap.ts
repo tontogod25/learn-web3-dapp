@@ -53,7 +53,7 @@ async function createImport(client:  Avalanche, cChain: EVMAPI, cKeychain: cKeyc
     console.log(` - https://explorer.avax-test.network/tx/${importTX}`)
 }
 
-export default async function account(
+export default async function swap(
 	req: NextApiRequest,
 	res: NextApiResponse<string>
 ) {

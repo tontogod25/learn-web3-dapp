@@ -12,7 +12,7 @@ type BalanceT = {
     utxoIDs: TransactionT[]
 }
   
-export default async function account(
+export default async function balance(
 	req: NextApiRequest,
 	res: NextApiResponse<string>
 ) {

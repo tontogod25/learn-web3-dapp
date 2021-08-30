@@ -4,7 +4,7 @@ import { ApiPromise, Keyring } from "@polkadot/api"
 import { WsProvider } from '@polkadot/rpc-provider';
 import { getSafeUrl } from "@polka/lib"
 
-export default async function connect(
+export default async function transfer(
   req: NextApiRequest,
   res: NextApiResponse<number | string>
 ) {

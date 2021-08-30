@@ -8,7 +8,7 @@ import { getSafeUrl } from "@polka/lib"
 
 const DECIMAL_OFFSET = 10**12;
 
-export default async function connect(
+export default async function staking(
   req: NextApiRequest,
   res: NextApiResponse<number | string>
 ) {
