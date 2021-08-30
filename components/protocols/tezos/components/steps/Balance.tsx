@@ -20,7 +20,6 @@ const Balance = () => {
         axios.post(`/api/tezos/balance`, state)
             .then(res => {
                 const amount = res.data
-				console.log(amount)
                 const intoTZ = (amount / DECIMAL_OFFSET).toFixed();
                 setBalance(parseFloat(intoTZ))
                 setFetching(false)

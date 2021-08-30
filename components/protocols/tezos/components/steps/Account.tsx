@@ -24,7 +24,6 @@ const Account = () => {
 	const feedStorage = () => {
 		try {
 			const walletInfo: WalletT = JSON.parse(wallet)
-			console.log(walletInfo.secret)
 			dispatch({
 				type: 'SetMnemonic',
 				mnemonic: walletInfo.mnemonic.join(' ')

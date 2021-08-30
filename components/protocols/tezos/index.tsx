@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { Row } from 'antd';
-import { Connect, Balance, Call, Account, Deploy, Transfer } from '@tezos/components/steps';
+import { Connect, Balance, Getter, Setter, Account, Deploy, Transfer } from '@tezos/components/steps';
 import { appStateReducer, initialState, TezosContext } from '@tezos/context'
 import { useAppState, useLocalStorage } from '@tezos/hooks'
 import { Sidebar, Step } from '@tezos/components/layout'
@@ -45,7 +45,8 @@ const TezosApp: React.FC<AppI> = ({ chain }) => {
                     { step.id === "balance"  && <Balance /> }
                     { step.id === "transfer"  && <Transfer /> }
                     { step.id === "deploy"  && <Deploy /> }
-                    { step.id === "call"  && <Call /> }
+                    { step.id === "getter"  && <Getter /> }
+                    { step.id === "setter"  && <Setter /> }
                 </>
             }
             nav={<Nav />}

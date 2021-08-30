@@ -8,14 +8,12 @@ type ResponseT = {
   contractAddress: string
   hash: string
 }
-
-export default async function connect(
+export default async function deploy(
   req: NextApiRequest, 
   res: NextApiResponse<ResponseT | string>
 ) {
   try {
     const { mnemonic, email, password, secret, amount } = req.body
-    console.log(CONTRACT_JSON)
     const url = getTezosUrl();
     const tezos = new TezosToolkit(url);
 
@@ -31,10 +29,8 @@ export default async function connect(
         code: CONTRACT_JSON,
         storage: 0
       })
-    
-    const contract = await operation.contract() 
-    console.log(`Waiting for ${operation.hash} to be confirmed...`);
-
+    const contract = await operation.contract()
+ 
     res.status(200).json({
       contractAddress: contract.address,
       hash: operation.hash

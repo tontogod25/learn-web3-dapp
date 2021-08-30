@@ -7,7 +7,7 @@ import { transactionUrl } from '@tezos/lib'
 
 const { Text } = Typography;
 
-const Call = () => {
+const Setter = () => {
     const [fetching, setFetching] = useState<boolean>(false)
     const [resetting, setResetting] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
@@ -19,7 +19,7 @@ const Call = () => {
         const getCounter = () => {
             setError(null)
             setFetching(true)
-            axios.post(`/api/tezos/getCounter`, state)
+            axios.post(`/api/tezos/getter`, state)
                 .then(res => {
                     setMessage(res.data)
                     setFetching(false)
@@ -36,7 +36,7 @@ const Call = () => {
     const setCounter = () => {
         setError(null)
         setResetting(true)
-        axios.post(`/api/tezos/setCounter`, state)
+        axios.post(`/api/tezos/setter`, state)
             .then(res => {
                 setTxhash(res.data)
                 setResetting(false)
@@ -50,7 +50,7 @@ const Call = () => {
     }
 
     return (
-    <>
+    <Col style={{ minHeight: '350px'}}>
         <Space direction="vertical" size="large">
         <Text>Current value of the counter stored into the contract:</Text>
         <Col>
@@ -84,8 +84,8 @@ const Call = () => {
             </Space>
         </Col>
         </Space>
-    </>
+    </Col>
     )
 }
 
-export default Call
+export default Setter

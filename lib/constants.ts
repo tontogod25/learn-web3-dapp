@@ -321,7 +321,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.TEZOS]: {
 		id: CHAINS.TEZOS,
 		label: "Tezos",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/tezos-xtz-logo.svg?v=010",
 		steps: [
 			{
@@ -350,8 +350,13 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: ""
 			},
 			{
-				id: "call",
-				title: "interact with a contract",
+				id: "getter",
+				title: "Get Smart Contract's value",
+				url: ""
+			},
+			{
+				id: "setter",
+				title: "Set Smart Contract's value",
 				url: ""
 			},
 		]

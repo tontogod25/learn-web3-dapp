@@ -16,50 +16,49 @@ const tailLayout = {
 
 const { Text } = Typography
 
-const RECIPIENT_ADDR = 'tz1h3rQ8wBxFd8L9B3d7Jhaawu6Z568XU3xY'
+const recipient = 'tz1h3rQ8wBxFd8L9B3d7Jhaawu6Z568XU3xY'
 
 const Transfer = () => {
-    const [error, setError] = useState<string | null>(null)
-    const [fetching, setFetching] = useState(false)
-    const [hash, setHash] = useState(null)
-    const { state } = useAppState()
+  const [error, setError] = useState<string | null>(null)
+  const [fetching, setFetching] = useState(false)
+  const [hash, setHash] = useState(null)
+  const { state } = useAppState()
 
-    const transfer = (values: any) => {
-        const isValidAmount = parseFloat(values.amount)
-        if (isNaN(isValidAmount)) {
-            setError("Amount needs to be a valid number")
-            throw Error('Invalid Amount')
-        }
-        const amount = parseFloat(values.amount)
+  const transfer = (values: any) => {
+    const isValidAmount = parseFloat(values.amount)
+    if (isNaN(isValidAmount)) {
+        setError("Amount needs to be a valid number")
+        throw Error('Invalid Amount')
+    }
+    const amount = parseFloat(values.amount)
 
-        setFetching(true)
-		axios
-			.post(`/api/tezos/transfer`, {...state, amount })
-			.then(res => {
+    setFetching(true)
+    axios
+      .post(`/api/tezos/transfer`, {...state, amount, recipient })
+      .then(res => {
         const hash = res.data
         setHash(hash)
-				setFetching(false)
-			})
-			.catch(err => {
-				console.error(err)
-				setFetching(false)
-			})
-	}
+        setFetching(false)
+    })
+      .catch(err => {
+        console.error(err)
+        setFetching(false)
+    })
+  }
 
   return (
     <Col style={{ minHeight: '350px'}}>
-
-    <Form
-      {...layout}
-      name="transfer"
-      layout="horizontal"
-      onFinish={transfer}
-      initialValues={{
-          from: state.address,
-          amount: 1,
-          to: RECIPIENT_ADDR,
-      }}
-    > 
+      <Form
+        {...layout}
+        name="transfer"
+        layout="horizontal"
+        onFinish={transfer}
+        initialValues={{
+            from: state.address,
+            amount: 1,
+            to: recipient,
+        }}
+      > 
       <Form.Item label="Sender" name="from" required>
         <Text code>{state.address}</Text>
       </Form.Item>
@@ -71,7 +70,7 @@ const Transfer = () => {
       </Form.Item>
 
       <Form.Item label="Recipient" name="to" required>
-        <Text code>{RECIPIENT_ADDR}</Text>
+        <Text code>{recipient}</Text>
       </Form.Item>
 
       <Form.Item {...tailLayout}>

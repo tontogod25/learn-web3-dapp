@@ -24,8 +24,8 @@ const Deploy = () => {
                 setTxhash(hash)
                 setFetching(false)
                 dispatch({
-                    type: 'SetContractAddress',
-                    contractAddress: addr
+                    type: 'SetContract',
+                    contract: addr
                 })
 				
             })

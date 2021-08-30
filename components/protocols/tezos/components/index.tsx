@@ -6,7 +6,7 @@ const { Text, Paragraph } = Typography;
 
 const Nav = () => {
     const { state, dispatch } = useAppState();
-    const { network, secret, address, mnemonic } = state;
+    const { network, secret, address, mnemonic, contract } = state;
 
     const displayNetwork = (network: string) => network
     const displayAddress = (address: string) => `${address.slice(0,5)}...${address.slice(-5)}`
@@ -24,9 +24,10 @@ const Nav = () => {
         return (
         <>
             {network && <Entry msg={"Network: "} value={network} display={displayNetwork} />}
-            {address && <Entry msg={"Address: "} value={address} display={displayAddress} />}
             {secret && <Entry msg={"Secret: "} value={secret} display={displayAddress} />}
+            {address && <Entry msg={"Address: "} value={address} display={displayAddress} />}
             {mnemonic && <Entry msg={"Mnemonic: "} value={mnemonic} display={displayAddress} />}
+            {contract && <Entry msg={"Contract: "} value={contract} display={displayAddress} />}
         </>
         )
     }
@@ -51,23 +52,30 @@ const Nav = () => {
             password: undefined
         })
         dispatch({
+            type: 'SetContract',
+            contract: undefined
+        })
+        dispatch({
             type: 'SetEmail',
             email: undefined
+        })
+        dispatch({
+            type: 'SetIndex',
+            index: 0
         })
     }
 
     return (
-    <>
-        <div style={{ position: "fixed", top: 20, right: 20 }}>
-            <Popover content={AppState} placement="rightBottom">
-                <Button type="primary">Storage</Button>
-            </Popover>
-        </div>
-        <div style={{ position: "fixed", top: 20, right: 100 }}>
-            <Button danger onClick={clearStorage}>Clear Storage</Button>
-        </div>
-
-    </>
+        <>
+            <div style={{ position: "fixed", top: 25, right: 60 }}>
+                <Popover content={AppState} placement="rightBottom">
+                    <Button type="primary">Storage</Button>
+                </Popover>
+            </div>
+            <div style={{ position: "fixed", top: 25, right: 165 }}>
+                <Button danger onClick={clearStorage}>Clear Storage</Button>
+            </div>
+        </>
     )
 }
 
