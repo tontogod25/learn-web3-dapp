@@ -11,8 +11,8 @@ export default async function connect(
   try {
     const url = getSafeUrl();
     const provider = new WsProvider(url);
-    const api = await ApiPromise.create({ provider: provider });
-    const rawVersion = await api.rpc.system.version();
+    const api = undefined;
+    const rawVersion = undefined;
     const version = rawVersion.toHuman();
     res.status(200).json(version);
   } catch (error) {

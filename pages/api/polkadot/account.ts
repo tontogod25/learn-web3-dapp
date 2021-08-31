@@ -8,26 +8,25 @@ export default async function account(
 	_req: NextApiRequest,
 	res: NextApiResponse<PolkadotAccountResponse | string>
   ) {
-    try {
-      const keyring = new Keyring({ type: "sr25519" });
+    const keyring = new Keyring({ type: "sr25519" });
 
-      // Create mnemonic string
-      const mnemonic = mnemonicGenerate();
-      const isValidMnemonic = mnemonicValidate(mnemonic);
-      if (!isValidMnemonic) {
-        throw Error('Invalid Mnemonic')
-      }
+    // Create mnemonic string
+    const mnemonic = undefined;
 
-      // Add an account derived from the mnemonic
-      const account = keyring.addFromUri(mnemonic);
-      const address = account.address;
-      const jsonWallet = JSON.stringify(keyring.toJson(account.address), null, 2)
+    const isValidMnemonic = mnemonicValidate(mnemonic);
+    if (!isValidMnemonic) {
+      throw Error('Invalid Mnemonic')
+    }
 
-      res.status(200).json({
-        address,
-        mnemonic,
-        jsonWallet,
-      });
+    // Add an account derived from the mnemonic
+    const account = undefined;
+    const address = undefined;
+    const jsonWallet = undefined;
+    res.status(200).json({
+      address,
+      mnemonic,
+      jsonWallet,
+    });
   } catch (error) {
     res.status(500).json("Account creation failed")
   }

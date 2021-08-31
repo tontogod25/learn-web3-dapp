@@ -9,12 +9,12 @@ export default function account(
 	_req: NextApiRequest,
 	res: NextApiResponse<ReponseT>
 ) {
-	const client = getAvalancheClient()
+	const client = getAvalancheClient();
 	const chain = client.XChain(); 
 	const keyChain = chain.keyChain(); 
-	const keypair = keyChain.makeKey()
-	const secret = keypair.getPrivateKeyString()
-	const address = keypair.getAddressString()
+	const keypair = keyChain.undefined; // There is a useful method to use here
+	const secret = undefined;
+	const address = undefined;
 	res.status(200).json({
 		secret, address
 	})

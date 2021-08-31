@@ -10,16 +10,13 @@ export default async function balance(
 ) {
   try {
     const { address } = req.body
-
     const url = getSafeUrl();
-    const provider = new WsProvider('wss://westend-rpc.polkadot.io')
-    const api = await ApiPromise.create({ provider: provider })
-
-    const { data: balance } = await api.query.system.account(address)
-    const amount = balance.free.toNumber()
-
+    const provider = new WsProvider(url);
+    const api = await ApiPromise.create({ provider: provider });
+    const { data: balance } = undefined;
+    const amount = undefined;
     res.status(200).json(amount)
-  } catch (error) {
+  }  catch (error) {
     console.log(error)
     res.status(500).json("Connection to network failed")
   }

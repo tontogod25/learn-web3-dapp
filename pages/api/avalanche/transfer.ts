@@ -11,33 +11,26 @@ export default async function transfer(
         const client = getAvalancheClient()
         const chain = client.XChain(); 
 		const keychain = chain.keyChain()
-		keychain.importKey(secret)
+		// Using keychain, load the private key to sign transactions
+		undefined;
 
-		// Fetch UTXO (i.e unspent transaction outputs)
-		const { utxos } = await chain.getUTXOs(address)
+		// Fetch UTXOs (unspent transaction outputs)
+		const { utxos } = undefined;
 
 		// Determine the real asset ID from its symbol/alias
-		// We can also get the primary asset ID with chain.getAVAXAssetID() call
-		const binTools = BinTools.getInstance()
-		const assetInfo = await chain.getAssetDescription("AVAX")
-		const assetID = binTools.cb58Encode(assetInfo.assetID)
+		const binTools = BinTools.getInstance();
+		const assetInfo = await chain.getAssetDescription("AVAX");
+		const assetID = binTools.cb58Encode(assetInfo.assetID);
 
-		// Generate a new transaction
-		const transaction = await chain.buildBaseTx(
-			utxos, // unspent outputs	
-			new BN(amount), // transaction amount formatted as a BigNumber
-			assetID, // AVAX asset
-			[recipient], // addresses to send the funds
-			[address], // addresses being used to send the funds from the UTXOs provided
-			[address], // addresses that can spend the change remaining from the spent UTXOs
-		)
+		// Create a new transaction
+		const transaction = await chain.buildBaseTx(undefined);
 
-		// Generate a signed transaction
-		const signedTx = transaction.sign(keychain)
-		const hash = await chain.issueTx(signedTx)
+		// Sign the transaction and send it to the network
+		undefined;
+		undefined;
 
-        res.status(200).json(hash)
-    } catch(error) {
+		res.status(200).json(hash);
+	} catch(error) {
         console.error(error)
         res.status(500).json('failed to get balance')
     } 

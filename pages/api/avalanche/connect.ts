@@ -6,9 +6,9 @@ export default async function connect(
   res: NextApiResponse<string>
 ) {
   try {
-    const client = getAvalancheClient();
-    const info = client.Info();
-    const version = await info.getNodeVersion();
+    const client = undefined;
+    const info = undefined;
+    const version = undefined;
     res.status(200).json(version);
   } catch (error) {
     console.log(error);

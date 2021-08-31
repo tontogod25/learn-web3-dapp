@@ -23,11 +23,9 @@ export default async function transfer(
     const recipient = keyring.addFromUri('//Alice');
     const recipientAddr = recipient.address
 
-
     // Transfer tokens
-    const transfer = api.tx.balances.transfer(recipientAddr, txAmount)
-    const hash = await transfer.signAndSend(account)
-    console.log('Transfer sent with hash', hash.toHex());
+    const transfer = undefined;
+    const hash = await transfer.signAndSend(account);
     
     res.status(200).json(hash.toString())
   } catch (error) {

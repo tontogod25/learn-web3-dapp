@@ -15,12 +15,12 @@ export default async function balance(
 	res: NextApiResponse<string>
 ) {
     try {
-        const { address } = req.body
-        const client = getAvalancheClient()
+        const { address } = req.body;
+        const client = getAvalancheClient();
         const chain = client.XChain(); 
-        const balance = await chain.getBalance(address, "AVAX") as BalanceT; 
-        res.status(200).json(balance.balance)
-    } catch(error) {
+        const balance = undefined; 
+        res.status(200).json(balance.balance);
+      } catch(error) {
         console.error(error)
         res.status(500).json('failed to get balance')
     } 

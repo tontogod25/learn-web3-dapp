@@ -7,37 +7,32 @@ export default async function (
 	res: NextApiResponse<string>
     ) {
     try {
-        const { secret } = req.body
-        const client = getAvalancheClient()
-        const amount = "50000000" // Total amount we're transferring = 0.05 AVAX
-
-        // Initialize chain components
-        const [ xChain   , cChain    ] = [ client.XChain()            , client.CChain()             ];
-        const [ xKeychain, cKeychain ] = [ xChain.keyChain()          , cChain.keyChain()           ];
-        const [ xKeypair , cKeypair  ] = [ xKeychain.importKey(secret), cKeychain.importKey(secret) ];
-        const [ xAddress , cAddress  ] = [ xKeypair.getAddressString(), cKeypair.getAddressString() ];
-
-        // Fetch UTXOs (i.e unspent transaction outputs)
+        const { secret } = req.body;
+        const client = getAvalancheClient();
+    
+        // Total amount we're transferring = 0.05 AVAX
+        const amount = "50000000";
+    
+        // Taking inspiration for xChain do the same for cChain
+        const [ xChain   , cChain    ] = [ client.XChain()            , undefined ];
+        const [ xKeychain, cKeychain ] = [ xChain.keyChain()          , undefined ];
+        const [ xKeypair , cKeypair  ] = [ xKeychain.importKey(secret), undefined ];
+        const [ xAddress , cAddress  ] = [ xKeypair.getAddressString(), undefined ];
+    
+        // Fetch UTXOs (unspent transaction outputs)
         const { utxos } = await xChain.getUTXOs(xAddress)
-
-        // Get the real ID for the destination chain
-        const cChainId = await client.Info().getBlockchainID("C")
-
+    
+        // Get the real ID for the cChain
+        const chainId = undefined;
+    
         // Prepare the export transaction from X -> C chain
-        const exportTx = await xChain.buildExportTx(
-            utxos, // Unspent transaction outpouts
-            new BN(amount), // Transfer amount
-            cChainId, // Target chain ID (for C-Chain)
-            [cAddress], // Addresses being used to send the funds from the UTXOs provided
-            [xAddress], // Addresses being used to send the funds from the UTXOs provided
-            [xAddress], // Addresses that can spend the change remaining from the spent UTXOs
-        )
-
+        const exportTx = await xChain.buildExportTx(undefined)
+    
         // Sign and send the transaction
         const hash = await xChain.issueTx(exportTx.sign(xKeychain))
-
+    
         res.status(200).json(hash)
-    } catch(error) {
+        } catch(error) {
         console.error(error)
         res.status(500).json('Export to C chain failed')
     } 
