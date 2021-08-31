@@ -13,8 +13,6 @@ export default async function account(
 
       // Create mnemonic string
       const mnemonic = mnemonicGenerate();
-      console.log(`Generated mnemonic: ${mnemonic}`);
-
       const isValidMnemonic = mnemonicValidate(mnemonic);
       if (!isValidMnemonic) {
         throw Error('Invalid Mnemonic')
@@ -24,6 +22,7 @@ export default async function account(
       const account = keyring.addFromUri(mnemonic);
       const address = account.address;
       const jsonWallet = JSON.stringify(keyring.toJson(account.address), null, 2)
+
       res.status(200).json({
         address,
         mnemonic,

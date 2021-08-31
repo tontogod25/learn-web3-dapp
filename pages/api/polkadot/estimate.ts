@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-
-import { ApiPromise, Keyring } from "@polkadot/api"
+import { ApiPromise } from "@polkadot/api"
 import { WsProvider } from '@polkadot/rpc-provider';
 import { getSafeUrl } from "@polka/lib"
 
@@ -9,23 +8,19 @@ export default async function estimate(
   res: NextApiResponse<number | string>
 ) {
   try {
-    const { mnemonic, txAmount } = req.body
+    const { address } = req.body
 
     const url = getSafeUrl();
     const provider = new WsProvider(url);
     const api = await ApiPromise.create({ provider: provider })
-
-    // Initialize account from the mnemonic
-    const keyring = new Keyring({type: 'sr25519'});
-    const account = keyring.addFromUri(mnemonic);
-
-    // Initialize account from the mnemonic
-    const recipient = keyring.addFromUri('//Alice');
-    const recipientAddr = recipient.address
+    
+    // A generic address (//Alice)
+    const recipient = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY'
 
     // Transfer tokens
-    const transfer =  api.tx.balances.transfer(recipientAddr, txAmount)
-    const info = await transfer.paymentInfo(account)
+    const gigaPlanck = '1000000000';
+    const transfer =  api.tx.balances.transfer(recipient, gigaPlanck)
+    const info = await transfer.paymentInfo(address)
     const fees = info.partialFee.toNumber()
 
     res.status(200).json(fees)

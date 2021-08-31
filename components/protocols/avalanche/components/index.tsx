@@ -32,7 +32,7 @@ const Nav = () => {
 
     const clearStorage = () => {
         alert('You are going to clear the storage')
-        localStorage.removeItem('celo')
+        localStorage.removeItem('avalanche')
         dispatch({
             type: 'SetAddress',
             address: undefined

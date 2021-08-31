@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import { Form, Input, Button, Alert, Space, Typography } from 'antd'
+import { Form, Input, Button, Alert, Space, Typography, Col } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useAppState } from '@polka/hooks'
 import axios from 'axios'
 
 const layout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 20 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
 }
 
 const tailLayout = {
-    wrapperCol: { offset: 4, span: 20 },
+  wrapperCol: { offset: 4, span: 20 },
 }
 
 const { Text } = Typography
@@ -21,34 +21,35 @@ const transactionUrl = (hash: string) =>
   `https://westend.subscan.io/extrinsic/${hash}`
 
 const Transfer = () => {
-    const [error, setError] = useState<string | null>(null)
-    const [fetching, setFetching] = useState(false)
-    const [hash, setHash] = useState(null)
-    const { state } = useAppState()
+  const [error, setError] = useState<string | null>(null)
+  const [fetching, setFetching] = useState(false)
+  const [hash, setHash] = useState(null)
+  const { state } = useAppState()
 
-    const transfer = (values: any) => {
-        const isValidAmount = parseFloat(values.amount)
-        if (isNaN(isValidAmount)) {
-            setError("Amount needs to be a valid number")
-            throw Error('Invalid Amount')
-        }
-        const txAmount = values.amount
+  const transfer = (values: any) => {
+    const isValidAmount = parseFloat(values.amount)
+    if (isNaN(isValidAmount)) {
+      setError("Amount needs to be a valid number")
+      throw Error('Invalid Amount')
+    }
+    const txAmount = values.amount
 
-        setFetching(true)
-		axios
-			.post(`/api/polkadot/transfer`, {...state, txAmount })
-			.then(res => {
-        const hash = res.data
-        setHash(hash)
-				setFetching(false)
-			})
-			.catch(err => {
-				console.error(err)
-				setFetching(false)
-			})
+    setFetching(true)
+  axios
+    .post(`/api/polkadot/transfer`, {...state, txAmount })
+    .then(res => {
+      const hash = res.data
+      setHash(hash)
+      setFetching(false)
+    })
+    .catch(err => {
+      console.error(err)
+      setFetching(false)
+    })
 	}
 
   return (
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
     <Form
       {...layout}
       name="transfer"
@@ -120,6 +121,7 @@ const Transfer = () => {
         </Form.Item>
       }
     </Form>
+  </Col>
   );
 };
 

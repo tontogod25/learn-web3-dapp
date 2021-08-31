@@ -1,11 +1,11 @@
-import { useEffect, useReducer } from "react";
-import { Row } from 'antd';
-import { Connect, Account, Balance, Transfer, Estimate, Restore } from '@polka/components/steps';
+import { Connect, Account, Balance, Transfer, Estimate, Restore, Deposit } from '@polka/components/steps';
 import { appStateReducer, initialState, PolkadotContext } from '@polka/context'
 import { useAppState, useLocalStorage } from '@polka/hooks'
 import { Sidebar, Step } from '@polka/components/layout'
-import { Nav } from '@polka/components';
+import { useEffect, useReducer } from "react";
 import type { AppI } from '@polka/types';
+import { Nav } from '@polka/components';
+import { Row } from 'antd';
 
 const PolkadotApp: React.FC<AppI> = ({ chain }) => {
     const { state, dispatch } = useAppState();
@@ -44,8 +44,9 @@ const PolkadotApp: React.FC<AppI> = ({ chain }) => {
                 { step.id === "account"  && <Account /> }
                 { step.id === "restore"  && <Restore /> }
                 { step.id === "balance"  && <Balance /> }
-                { step.id === "transfer" && <Transfer /> }
                 { step.id === "estimate" && <Estimate /> }
+                { step.id === "deposit" && <Deposit /> }
+                { step.id === "transfer" && <Transfer /> }
             </>
             }
             nav={<Nav />}

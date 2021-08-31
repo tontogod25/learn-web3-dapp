@@ -10,7 +10,6 @@ export default async function balance(
 ) {
   try {
     const { address } = req.body
-    console.log(address)
 
     const url = getSafeUrl();
     const provider = new WsProvider('wss://westend-rpc.polkadot.io')
@@ -18,7 +17,6 @@ export default async function balance(
 
     const { data: balance } = await api.query.system.account(address)
     const amount = balance.free.toNumber()
-    console.log(amount)
 
     res.status(200).json(amount)
   } catch (error) {

@@ -25,7 +25,7 @@ export default async function transfer(
 
 
     // Transfer tokens
-    const transfer = await api.tx.balances.transfer(recipientAddr, txAmount)
+    const transfer = api.tx.balances.transfer(recipientAddr, txAmount)
     const hash = await transfer.signAndSend(account)
     console.log('Transfer sent with hash', hash.toHex());
     

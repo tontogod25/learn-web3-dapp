@@ -5,7 +5,7 @@ import type { EntryT } from '@polka/types';
 const { Text, Paragraph } = Typography;
 
 const Nav = () => {
-    const { state } = useAppState();
+    const { state, dispatch } = useAppState();
     const { network, address, mnemonic } = state;
 
     const displayNetwork = (network: string) => network.slice(0,5)
@@ -31,13 +31,40 @@ const Nav = () => {
         )
     }
 
+    const clearStorage = () => {
+        alert('You are going to clear the storage')
+        localStorage.removeItem('polkadot')
+        dispatch({
+            type: 'SetAddress',
+            address: undefined
+        })
+        dispatch({
+            type: 'SetMnemonic',
+            mnemonic: undefined
+        })
+        dispatch({
+            type: 'SetIndex',
+            index: 0
+        })
+        dispatch({
+            type: 'SetNetwork',
+            network: 'westend'
+        })
+    }
+
     return (
-        <div style={{ position: "fixed", top: 20, right: 20 }}>
-            <Popover content={AppState} placement="rightBottom">
-                <Button type="primary">Storage</Button>
-            </Popover>
-        </div>
+        <>
+            <div style={{ position: "fixed", top: 25, right: 60 }}>
+                <Popover content={AppState} placement="rightBottom">
+                    <Button type="primary">Storage</Button>
+                </Popover>
+            </div>
+            <div style={{ position: "fixed", top: 25, right: 165 }}>
+                <Button danger onClick={clearStorage}>Clear Storage</Button>
+            </div>
+        </>
     )
+
 }
 
 export { Nav }

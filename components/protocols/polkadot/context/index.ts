@@ -18,7 +18,8 @@ type Action =
     | { type: 'SetProxyMnemonic', proxyMnemonic?: string }
 
 const initialState = {
-    index: 0
+    index: 0,
+    network: 'westend'
 }
 
 function appStateReducer(state: State, action: Action): State  {

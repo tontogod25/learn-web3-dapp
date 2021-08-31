@@ -6,7 +6,6 @@ export type State = {
     secret?: string 
     address?: string 
 }
-
 type Action =
     | { type: 'SetIndex', index: number }
     | { type: 'SetNetwork', network: string }

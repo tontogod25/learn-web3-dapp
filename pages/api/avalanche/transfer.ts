@@ -7,12 +7,11 @@ export default async function transfer(
 	res: NextApiResponse<string>
 ) {
     try {
-        const { secret, amount, recipient } = req.body
+        const { secret, amount, recipient, address } = req.body
         const client = getAvalancheClient()
         const chain = client.XChain(); 
 		const keychain = chain.keyChain()
-		const key = keychain.importKey(secret)
-		const address = key.getAddressString()
+		keychain.importKey(secret)
 
 		// Fetch UTXO (i.e unspent transaction outputs)
 		const { utxos } = await chain.getUTXOs(address)

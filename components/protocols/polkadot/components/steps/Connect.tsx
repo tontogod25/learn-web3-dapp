@@ -19,7 +19,6 @@ const Connect = () => {
 				.then(res => {
 					setVersion(res.data)
 					setFetchingVersion(false)
-
 				})
 				.catch(err => {
 					console.error(err)
@@ -39,7 +38,7 @@ const Connect = () => {
 	}, [version, setVersion])
 
 	return (
-		<Col style={{ width: "100%" }}>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
 			{fetchingVersion
 				? <LoadingOutlined style={{ fontSize: 24 }} spin />
 				: version

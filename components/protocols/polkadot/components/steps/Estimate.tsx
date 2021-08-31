@@ -27,7 +27,7 @@ const Estimate = () => {
     }
 
 	return (
-		<Col>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
 		    <Space direction="vertical">
                 <Text strong>Calculate the estimated fees for a simple transfer</Text>
                 <Button type="primary" onClick={estimateFees} style={{ marginBottom: "20px" }} loading={fetching}>

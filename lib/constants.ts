@@ -157,20 +157,25 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: "https://learn.figment.io/tutorials/restore-polkadot-account"
 			},
 			{
+				id: "estimate",
+				title: "Estimate transaction fees",
+				url: "https://learn.figment.io/tutorials/estimate-polkadot-transaction-fees"
+			},
+			{
 				id: "balance",
 				title: "Get the Balance",
 				url: "https://learn.figment.io/tutorials/get-the-polkadot-balance"
+			},
+			{
+				id: "deposit",
+				title: "Existential deposit",
+				url: "https://learn.figment.io/tutorials/existential-deposit"
 			},
 			{
 				id: "transfer",
 				title: "Transfer some Token",
 				url: "https://learn.figment.io/tutorials/transfer-some-polkadot-token"
 			},
-			{
-				id: "estimate",
-				title: "Estimate transaction fees",
-				url: "https://learn.figment.io/tutorials/estimate-polkadot-transaction-fees"
-			}
 		]
 	},
 	[CHAINS.POLYGON]: {

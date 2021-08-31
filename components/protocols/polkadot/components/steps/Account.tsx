@@ -6,7 +6,7 @@ import axios from "axios";
 const { Text } = Typography;
 
 const FAUCET_ADDR = `https://app.element.io/#/room/#westend_faucet:matrix.org`
-/*
+
 type downloadBoxT = {
     jsonWallet: string,
     address: string
@@ -26,7 +26,7 @@ const DownloadBox = ({ jsonWallet, address }: downloadBoxT) => {
         </Button>
     )
 }
-*/
+
 const Account = () => {
 	const [fetching, setFetching] = useState<boolean>(false);
 	const [address, setAdress] = useState<string | null>(null)
@@ -34,7 +34,6 @@ const Account = () => {
 	const { state, dispatch } = useAppState();
 
 	useEffect( () => {
-		/*
 		const fromMnemonic = () => {
 			setFetching(true)
 			axios
@@ -56,7 +55,6 @@ const Account = () => {
 		if (state?.mnemonic) {
 			fromMnemonic();
 		}
-		*/
 		if (state?.address) {
 			setAdress(state.address)
 		}
@@ -87,7 +85,7 @@ const Account = () => {
 	}
 
 	return (
-		<Col>
+		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
 		  <Button type="primary" onClick={generateKeypair} style={{ marginBottom: "20px" }} loading={fetching}>
               Generate a Keypair
           </Button>
@@ -115,7 +113,7 @@ const Account = () => {
 				<Alert
 				  message={
 					<Space>
-					  <Text strong>Fund your new account</Text>
+						<Text strong>Fund your new account</Text>
 					</Space>
 				  }
 				  description={
@@ -130,7 +128,7 @@ const Account = () => {
 				  type="warning"
 				  showIcon
 				/>
-			  {/* {state?.address && <DownloadBox jsonWallet={jsonWallet} address={state.address} /> }	 */}
+			  {state?.address && <DownloadBox jsonWallet={jsonWallet} address={state.address} /> }	
 			  </Space>
 			</Col>
 		  }
