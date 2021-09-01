@@ -7,7 +7,7 @@ import { Sidebar, Step } from '@avalanche/components/layout'
 import { Nav } from '@avalanche/components';
 import type { AppI } from '@avalanche/types';
 
-const AvalanceApp: React.FC<AppI> = ({ chain }) => {
+const AvalancheApp: React.FC<AppI> = ({ chain }) => {
     const { state, dispatch } = useAppState();
     const { steps } = chain
     const step = steps[state.index];
@@ -54,7 +54,7 @@ const AvalanceApp: React.FC<AppI> = ({ chain }) => {
   );
 }
 
-const Avalance: React.FC<AppI> = ({ chain }) => {
+const Avalanche: React.FC<AppI> = ({ chain }) => {
   const [storageState, setStorageState] = useLocalStorage("avalanche", initialState)
   const [state, dispatch] = useReducer(appStateReducer, storageState);
   useEffect(() => {
@@ -62,9 +62,9 @@ const Avalance: React.FC<AppI> = ({ chain }) => {
   }, [state])
   return (
       <AvalancheContext.Provider value={{ state, dispatch }}>
-          <AvalanceApp chain={chain} />
+          <AvalancheApp chain={chain} />
       </AvalancheContext.Provider>
   )
 }
 
-export default Avalance
+export default Avalanche
