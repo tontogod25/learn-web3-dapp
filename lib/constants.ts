@@ -138,7 +138,7 @@ export const CHAINS_CONFIG: ChainsType = {
 	[CHAINS.POLKADOT]: {
 		id: CHAINS.POLKADOT,
 		label: "Polkadot",
-		active: false,
+		active: true,
 		logoUrl: "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010",
 		steps: [
 			{
