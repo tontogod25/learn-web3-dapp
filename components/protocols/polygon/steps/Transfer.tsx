@@ -74,7 +74,7 @@ const Transfer = () => {
                 ? <Alert
                     message={
                     <Space direction="horizontal">
-                        <Text strong>{`Transfer sucessfully completed`}</Text>
+                        <Text strong>{`Transfer successfully completed`}</Text>
                         <a href={getPolygonTxExplorerURL(hash)} target="_blank" rel="noreferrer">(View on PolygonScan)</a>
                     </Space>
                     }

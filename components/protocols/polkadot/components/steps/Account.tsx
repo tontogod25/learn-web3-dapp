@@ -29,7 +29,7 @@ const DownloadBox = ({ jsonWallet, address }: downloadBoxT) => {
 
 const Account = () => {
 	const [fetching, setFetching] = useState<boolean>(false);
-	const [address, setAdress] = useState<string | null>(null)
+	const [address, setAddress] = useState<string | null>(null)
 	const [jsonWallet, setJsonWallet] = useState<string>('')
 	const { state, dispatch } = useAppState();
 
@@ -39,7 +39,7 @@ const Account = () => {
 			axios
 				.post(`/api/polkadot/fromMnemonic`, state)
 				.then(res => {
-					setAdress(res.data.address)
+					setAddress(res.data.address)
 					setJsonWallet(res.data.jsonWallet)
 					dispatch({
 						type: 'SetAddress',
@@ -56,7 +56,7 @@ const Account = () => {
 			fromMnemonic();
 		}
 		if (state?.address) {
-			setAdress(state.address)
+			setAddress(state.address)
 		}
 	}, [])
 
@@ -67,7 +67,7 @@ const Account = () => {
 			const mnemonic = response.data.mnemonic;
 			const address = response.data.address;
 			const jsonWallet = response.data.jsonWallet;
-			setAdress(address)
+			setAddress(address)
 			setJsonWallet(jsonWallet)
 			dispatch({
 				type: 'SetMnemonic',

@@ -21,7 +21,7 @@ const recipient = 'tz1h3rQ8wBxFd8L9B3d7Jhaawu6Z568XU3xY'
 const Transfer = () => {
   const [error, setError] = useState<string | null>(null)
   const [fetching, setFetching] = useState(false)
-  const [hash, setHash] = useState(null)
+  const [txHash, setTxHash] = useState(null)
   const { state } = useAppState()
 
   const transfer = (values: any) => {
@@ -37,7 +37,7 @@ const Transfer = () => {
       .post(`/api/tezos/transfer`, {...state, amount, recipient })
       .then(res => {
         const hash = res.data
-        setHash(hash)
+        setTxHash(txHash)
         setFetching(false)
     })
       .catch(err => {
@@ -79,17 +79,16 @@ const Transfer = () => {
         </Button>
       </Form.Item>
 
-      {
-        fetching &&
-          <Form.Item {...tailLayout}>
-            <Space size="large">
-              <LoadingOutlined style={{ fontSize: 24, color: "#1890ff" }} spin />
-              <Text type="secondary">Transfer initiated. Waiting for confirmations...</Text>
-            </Space>
-          </Form.Item>
+      {fetching &&
+        <Form.Item {...tailLayout}>
+          <Space size="large">
+            <LoadingOutlined style={{ fontSize: 24, color: "#1890ff" }} spin />
+            <Text type="secondary">Transfer initiated. Waiting for confirmations...</Text>
+          </Space>
+        </Form.Item>
       }
 
-      {hash &&
+      {txHash &&
         <Form.Item {...tailLayout}>
           <Alert
           style={{ maxWidth: '350px'}}

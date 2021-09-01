@@ -32,7 +32,7 @@ const Connect = () => {
 		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>	
 			<LoadingOutlined style={{ fontSize: 24 }} spin hidden={!fetching} />
 				{version
-				? <Alert message={<Text strong>connected to Secret! protocol version 
+				? <Alert message={<Text strong>connected to Secret version 
 					<Text code>{version.slice(0,5)}</Text></Text>} 
 					type="success" 
 					showIcon />

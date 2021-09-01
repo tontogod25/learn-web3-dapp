@@ -21,7 +21,7 @@ const recipient = '0xD86518b29BB52a5DAC5991eACf09481CE4B0710d';
 const Transfer = () => {
     const [error, setError] = useState<string | null>(null)
     const [fetching, setFetching] = useState(false)
-    const [hash, setHash] = useState(null)
+    const [txHash, setTxHash] = useState(null)
     const { state } = useAppState()
 
     const transfer = (values: any) => {
@@ -37,7 +37,7 @@ const Transfer = () => {
           .post(`/api/celo/transfer`, {...state, amount, recipient })
           .then(res => {
             const hash = res.data
-            setHash(hash)
+            setTxHash(hash)
             setFetching(false)
           })
           .catch(err => {
@@ -86,7 +86,7 @@ const Transfer = () => {
           </Space>
         </Form.Item>}
 
-      {hash &&
+      {txHash &&
         <Form.Item {...tailLayout}>
           <Alert
           style={{ maxWidth: '350px'}}
@@ -96,7 +96,7 @@ const Transfer = () => {
               <Text strong>Transfer confirmed!</Text>
             }
             description={
-              <a href={transactionUrl(hash ?? '')} target="_blank" rel="noreferrer">
+              <a href={transactionUrl(txHash ?? '')} target="_blank" rel="noreferrer">
                 View on Celo Explorer
               </a>
             }

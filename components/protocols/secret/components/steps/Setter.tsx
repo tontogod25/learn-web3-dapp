@@ -11,7 +11,7 @@ const Setter = () => {
     const [fetching, setFetching] = useState<boolean>(false)
     const [resetting, setResetting] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
-    const [txhash, setTxhash] = useState<string>('')
+    const [txHash, setTxHash] = useState<string>('')
     const [message, setMessage] = useState<string>('')
     const { state } = useAppState()
 
@@ -31,14 +31,14 @@ const Setter = () => {
                 })
         }
         getCounter()
-    }, [txhash, state])
+    }, [txHash, state])
 
     const setCounter = () => {
         setError(null)
         setResetting(true)
         axios.post(`/api/secret/setter`, state)
             .then(res => {
-                setTxhash(res.data)
+                setTxHash(res.data)
                 setResetting(false)
             })
             .catch(err => {
@@ -51,7 +51,7 @@ const Setter = () => {
     return (
     <>
         <Space direction="vertical" size="large">
-        <Text>Current value of the counter stored into the contract:</Text>
+        <Text>Current value of the counter stored in the contract:</Text>
         <Col>
             {fetching
                 ? <LoadingOutlined style={{ fontSize: 24 }} spin />
@@ -66,13 +66,13 @@ const Setter = () => {
                 {error && <Alert type="error" closable message={error} /> }
                 {resetting
                     ? <LoadingOutlined style={{ fontSize: 24 }} spin />
-                    : txhash.length !== 0
+                    : txHash.length !== 0
                         ? <Alert
                             message={
-                                <Text strong>{`The value have been incremented`}</Text>
+                                <Text strong>{`The value has been incremented`}</Text>
                             }
                             description={
-                                <a href={transactionUrl(txhash)} target="_blank" rel="noreferrer">View the transaction on Secret Explorer</a>
+                                <a href={transactionUrl(txHash)} target="_blank" rel="noreferrer">View the transaction on Secret Explorer</a>
                             }
                             type="success"
                             closable

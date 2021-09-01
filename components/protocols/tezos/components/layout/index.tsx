@@ -21,7 +21,7 @@ export const Step: React.FC<StepI> = (props) => {
 							<Space>
 								<Text strong>Start here!</Text>
 								<Space align="center" size="small">
-									<ALink><a href={props.step.url} target="_blank" rel="noreferrer">View step Instructions</a></ALink>
+									<ALink><a href={props.step.url} target="_blank" rel="noreferrer">View the instructions for this step on Figment Learn</a></ALink>
 								</Space>
 							</Space>
 						}

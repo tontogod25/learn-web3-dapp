@@ -105,7 +105,7 @@ const Transfer = () => {
               <Text strong>Transfer confirmed!</Text>
             }
             description={
-              <a href={getTransactionUrl(network)(txSignature ?? '')} target="_blank" rel="noreferrer">View on Near Explorer</a>
+              <a href={getTransactionUrl(network)(txSignature ?? '')} target="_blank" rel="noreferrer">View on NEAR Explorer</a>
             }
           />
         </Form.Item>

@@ -10,7 +10,7 @@ const { Text } = Typography
 const Deploy = () => {
     const [fetching, setFetching] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
-    const [txhash, setTxhash] = useState<string>('')
+    const [txHash, setTxHash] = useState<string>('')
     const { state, dispatch } = useAppState()
 
     const deployContract = () => {
@@ -21,7 +21,7 @@ const Deploy = () => {
                 const hash = res.data.hash 
                 const addr = res.data.contractAddress 
                 console.log(hash, addr)
-                setTxhash(hash)
+                setTxHash(txHash)
                 setFetching(false)
                 dispatch({
                     type: 'SetContract',
@@ -50,13 +50,13 @@ const Deploy = () => {
                 {error && <Alert type="error" closable message={error} /> }
                 {fetching
                     ? <LoadingOutlined style={{ fontSize: 24 }} spin />
-                    : txhash.length !== 0
+                    : txHash.length !== 0
                         ? <Alert
                             message={
                                 <Text strong>{`The contract has been deployed!`}</Text>
                             }
                             description={
-                                <a href={transactionUrl(txhash)} target="_blank" rel="noreferrer">
+                                <a href={transactionUrl(txHash)} target="_blank" rel="noreferrer">
                                     View the transaction on Tezos Explorer
                                 </a>
                             }

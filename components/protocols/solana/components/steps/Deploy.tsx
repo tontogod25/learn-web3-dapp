@@ -38,7 +38,7 @@ const Deploy = () => {
     <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
-          <Text>Paste the <Text strong>programId</Text> generated after the deployement:</Text>
+          <Text>Paste the <Text strong>programId</Text> generated after the deployment:</Text>
           <Input placeholder="Enter an address" onChange={(e) => setValue(e.target.value) } style={{ width: "500px" }} />
           <Button type="primary" onClick={checkProgramId} loading={fetching}>Check ProgramId</Button>
         </Space>

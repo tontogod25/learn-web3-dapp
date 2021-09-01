@@ -10,7 +10,7 @@ const Fund = () => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [isFunded, setIsFunded] = useState<boolean>(false)
-  const [hash, setHash] = useState<string>('')
+  const [txHash, setTxHash] = useState<string>('')
 
   const fund = () => {
     if (!value) return null
@@ -24,7 +24,7 @@ const Fund = () => {
 				},
       )
 			.then(res => {
-        setHash(res.data)
+        setTxHash(res.data)
 				setIsFunded(true)
 				setFetching(false)
 			})
@@ -45,12 +45,12 @@ const Fund = () => {
         </Space>
           {error && <Alert type="error" showIcon closable message={error} onClose={() => setError(null)} />}
           {isFunded && <Alert message={<Text strong>Address Funded!</Text>} type="success" closable showIcon />}
-          {hash &&
+          {txHash &&
           <Alert
             type="success"
             showIcon
             message={
-              <a href={transactionExplorer(hash)} target="_blank" rel="noreferrer">View on Solana Explorer</a>
+              <a href={transactionExplorer(txHash)} target="_blank" rel="noreferrer">View on Solana Explorer</a>
             }
           />
       }

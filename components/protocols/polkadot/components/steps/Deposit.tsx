@@ -37,7 +37,7 @@ const Deposit = () => {
 		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
             <Space direction="vertical" size="large">
                 <Space direction="vertical">
-                    <Button type="primary" onClick={getDeposit}>Get Existential deposit!</Button>
+                    <Button type="primary" onClick={getDeposit}>Get Existential Deposit</Button>
                 </Space>
                 {error && <Alert type="error" closable message={error} /> }
                 {fetching

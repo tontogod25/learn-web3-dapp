@@ -32,13 +32,13 @@ const GetGreeting = () => {
     <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
-          <Text>Ask to the program the greeting's counter:</Text>
+          <Text>Get the counter&apos;s value from the program:</Text>
           <Button type="primary" onClick={getGreeting} loading={fetching}>Get Greeting</Button>
         </Space>
         {error && <Alert type="error" closable message={error} onClose={() => setError(null)} /> }
         {greeting && <Alert 
           message={
-            <Text strong>{`The account have been greeted ${greeting} times`}</Text>
+            <Text strong>{`The account has been greeted ${greeting} times`}</Text>
           }
           type="success"
           closable
