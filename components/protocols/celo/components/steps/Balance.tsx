@@ -11,7 +11,7 @@ const Balance = () => {
     const [fetching, setFetching] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [balanceCELO, setBalanceCELO] = useState<number>(-1);
-    const [balanceUSD, setBalanceUSD] = useState<number>(-1);
+    const [balancecUSD, setBalancecUSD] = useState<number>(-1);
     const { state } = useAppState();
 
     const getBalance = () => {
@@ -24,7 +24,7 @@ const Balance = () => {
                 const celo = (attoCelo / DECIMAL_OFFSET).toFixed();
                 const usd = (attoUsd / DECIMAL_OFFSET).toFixed();
                 setBalanceCELO(parseFloat(celo))
-                setBalanceUSD(parseFloat(usd))
+                setBalancecUSD(parseFloat(usd))
                 setFetching(false)
             })
             .catch(err => {
@@ -32,7 +32,7 @@ const Balance = () => {
                 console.log(err)
                 setFetching(false)
                 setBalanceCELO(-1)
-                setBalanceUSD(-1)   
+                setBalancecUSD(-1)   
                 setError(data)
             })
     }
@@ -55,8 +55,8 @@ const Balance = () => {
                     />
                 }
                 { 
-                    balanceUSD != -1 && <Alert 
-                        message={<Text strong>{`This address has a balance of ${balanceUSD} USD`}</Text>}
+                    balancecUSD != -1 && <Alert 
+                        message={<Text strong>{`This address has a balance of ${balancecUSD} cUSD`}</Text>}
                         type="success"
                         closable
                         showIcon

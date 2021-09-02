@@ -38,7 +38,7 @@ const Step = ({
 							<Space>
 								<Text strong>Start here!</Text>
 								<Space align="center" size="small">
-									<Link><a href={step.url} target="_blank" rel="noreferrer">View step Instructions</a></Link>
+									<Link><a href={step.url} target="_blank" rel="noreferrer">View the instructions for this step on Figment Learn</a></Link>
 									<ArrowUpRight color="#1890ff" size={18} style={{ marginTop: "6px" }} />
 								</Space>
 							</Space>

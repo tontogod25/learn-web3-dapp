@@ -32,8 +32,8 @@ const Connect = () => {
 		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>	
 			<LoadingOutlined style={{ fontSize: 24 }} spin hidden={!fetching} />
 				{version
-				? <Alert message={<Text strong>connected to Near! <Text code>{version}</Text></Text>} type="success" showIcon />
-                : <Alert message={`Not connected to Near`} type="error" showIcon />}
+				? <Alert message={<Text strong>Connected to NEAR! version <Text code>{version}</Text></Text>} type="success" showIcon />
+                : <Alert message={`Not connected to NEAR`} type="error" showIcon />}
 		</Col>
 	)
 }

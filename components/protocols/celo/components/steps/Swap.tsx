@@ -18,7 +18,7 @@ const { Text } = Typography
 const Change = () => {
     const [error, setError] = useState<string | null>(null)
     const [fetching, setFetching] = useState(false)
-    const [hash, setHash] = useState(null)
+    const [txHash, setTxHash] = useState(null)
     const [celo, setCelo] = useState('')
     const { state } = useAppState()
 
@@ -29,7 +29,7 @@ const Change = () => {
 			.then(res => {
                 const hash = res.data.hash
                 const celo = res.data.celo
-                setHash(hash)
+                setTxHash(txHash)
                 setCelo(celo)
 				setFetching(false)
 			})
@@ -47,7 +47,7 @@ const Change = () => {
                 <Button type="primary" onClick={exchangeUSD} loading={fetching}>
                     Swap 1 cUSD
                 </Button>
-                {hash &&
+                {txHash &&
                     <Alert
                     style={{ maxWidth: '550px'}}
                     type="success"
@@ -56,7 +56,7 @@ const Change = () => {
                     <Text strong>You changed <Text code>1 cUsd</Text> to <Text code>{attoCeloToCelo(celo)} cCelo</Text></Text>
                     }
                     description={
-                    <a href={transactionUrl(hash ?? '')} target="_blank" rel="noreferrer">
+                    <a href={transactionUrl(txHash ?? '')} target="_blank" rel="noreferrer">
                         View transaction on Celo Explorer
                     </a>
                     }

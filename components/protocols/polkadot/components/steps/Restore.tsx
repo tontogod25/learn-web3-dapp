@@ -51,7 +51,7 @@ const Restore = () => {
                     : address.length != 0
                         ? <Alert
                             message={
-                                <Text strong>{`This is the restored address ${address}`}</Text>
+                                <Text strong>{`This is the restored account address: ${address}`}</Text>
                             }
                             type="success"
                             closable

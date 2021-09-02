@@ -32,12 +32,12 @@ const Getter = () => {
     <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
-          <Text>Ask to the Contract stored value :</Text>
+          <Text>Get the stored value:</Text>
           <Button type="primary" onClick={getGreeting} loading={fetching}>Get Message</Button>
         </Space>
         {error && <Alert type="error" closable message={error} onClose={() => setError(null)} />}
         {greeting && <Alert 
-            message={<Text strong>This is the stored value <Text code>{greeting}</Text></Text>} 
+            message={<Text strong>This is the stored value: <Text code>{greeting}</Text></Text>} 
             type="success" 
             showIcon 
         />}

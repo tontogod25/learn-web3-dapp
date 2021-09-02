@@ -7,12 +7,12 @@ const { Text } = Typography;
 
 const Account = () => {
 	const [fetching, setFetching] = useState<boolean>(false);
-	const [address, setAdress] = useState<string | null>(null)
+	const [address, setAddress] = useState<string | null>(null)
 	const { state, dispatch } = useAppState();
 
 	useEffect( () => {
 		if (state?.address) {
-			setAdress(state.address)
+			setAddress(state.address)
 		}
 	}, [])
 
@@ -20,7 +20,7 @@ const Account = () => {
 		try {
 			setFetching(true)
 			const response = await axios.get(`/api/avalanche/account`)
-			setAdress(response.data.address)
+			setAddress(response.data.address)
 			setFetching(false)
 			dispatch({
 				type: 'SetSecret',

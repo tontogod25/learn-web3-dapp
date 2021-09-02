@@ -8,12 +8,12 @@ const { Text } = Typography;
 
 const Account = () => {
 	const [fetching, setFetching] = useState<boolean>(false);
-	const [address, setAdress] = useState<string | null>(null)
+	const [address, setAddress] = useState<string | null>(null)
 	const { state, dispatch } = useAppState();
 
 	useEffect( () => {
 		if (state?.address) {
-			setAdress(state.address)
+			setAddress(state.address)
 		}
 	}, [])
 
@@ -23,7 +23,7 @@ const Account = () => {
 			const response = await axios.get(`/api/secret/account`)
 			const mnemonic = response.data.mnemonic;
 			const address = response.data.address;
-			setAdress(address)
+			setAddress(address)
 			dispatch({
 				type: 'SetMnemonic',
 				mnemonic: mnemonic
@@ -42,7 +42,7 @@ const Account = () => {
 	return (
 		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>	
 		  <Button type="primary" onClick={generateKeypair} style={{ marginBottom: "20px" }} loading={fetching}>
-              Generate a Mnemonic
+              Generate a mnemonic
           </Button>
 		  {address &&
 			<Col>
@@ -55,10 +55,10 @@ const Account = () => {
 				  }
 				  description={
 					<div>
-						Your generated Address: <br/>
+						Your generated address: <br/>
 						<Text strong mark>{address}</Text>
 						<br/>
-						Your generated Mnemonic: <br/>
+						Your generated mnemonic: <br/>
 						<Text  code strong>{mnemonic.slice(0,24)} ... {mnemonic.slice(-24)}</Text>
 					</div>
 				  }

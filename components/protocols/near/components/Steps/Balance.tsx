@@ -40,7 +40,7 @@ const Balance = () => {
 		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>
             <Space direction="vertical" size="large">
                 <Space direction="vertical">
-                    <Text>Below is the <span style={{ fontWeight: "bold" }}>account Id</span> generated previously:</Text>
+                    <Text>Below is the <span style={{ fontWeight: "bold" }}>account ID</span> generated previously:</Text>
                     <Input style={{ width: "500px", fontWeight: "bold" }} disabled={true}  defaultValue={accountId} />
                     <Button type="primary" onClick={getBalance}>Check Balance</Button>
                 </Space>

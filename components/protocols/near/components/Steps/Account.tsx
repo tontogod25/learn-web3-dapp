@@ -61,7 +61,7 @@ const Account = () => {
                                     </Space>
                                 }
                             description={
-                                <a href={getAccountUrl(network)(accountId ?? '')} target="_blank" rel="noreferrer">View on Near Explorer</a>
+                                <a href={getAccountUrl(network)(accountId ?? '')} target="_blank" rel="noreferrer">View on NEAR Explorer</a>
                             }
                             type="success"
                             showIcon

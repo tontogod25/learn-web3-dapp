@@ -8,7 +8,7 @@ const { Text } = Typography;
 
 const Keys = () => {
 	const [fetching, setFetching] = useState<boolean>(false);
-	const [address, setAdress] = useState<string | null>(null)
+	const [address, setAddress] = useState<string | null>(null)
 	const { state, dispatch } = useAppState();
 
 	useEffect( () => {
@@ -18,7 +18,7 @@ const Keys = () => {
                 .getPublicKey()
                 .toString()
                 .slice(8)
-			setAdress(publicKeyStr as string)
+			setAddress(publicKeyStr as string)
 		}
 	}, [state, dispatch])
 

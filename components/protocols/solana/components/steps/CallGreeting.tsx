@@ -61,7 +61,7 @@ const CallGreeting = () => {
           <Col>
               <Space direction="vertical" size="large">
                   <Space direction="horizontal">
-                      <Button type="primary" onClick={callGreetings}>Send A Greeting</Button>
+                      <Button type="primary" onClick={callGreetings}>Send Greeting</Button>
                   </Space>
                   {error && <Alert type="error" closable message={error} /> }
                   {resetting
@@ -69,7 +69,7 @@ const CallGreeting = () => {
                       : txhash.length !== 0
                           ? <Alert
                               message={
-                                  <Text strong>{`The greeting have been sent`}</Text>
+                                  <Text strong>{`The greeting has been sent`}</Text>
                               }
                               description={
                                   <a href={transactionExplorer(txhash)} target="_blank" rel="noreferrer">

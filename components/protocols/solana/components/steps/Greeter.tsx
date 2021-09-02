@@ -38,11 +38,11 @@ const Greeter = () => {
     return (
         <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
             <Space direction="vertical">
-                <Text>Greeter Account created</Text>
+                <Text>Greeter account created</Text>
                 <Alert 
                     message={
                         <a href={accountExplorer(state?.greeter ?? '')} target="_blank" rel="noreferrer">
-                            View the Account on Solana Explorer
+                            View the account on Solana Explorer
                         </a>
                     }
                     type="success"
@@ -70,7 +70,7 @@ const Greeter = () => {
     <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
-          <Text>We're going to derive the greeter Account from programId</Text>
+          <Text>We&apos;re going to derive the greeter account from the programId</Text>
           <Input placeholder={state?.programId} disabled={true} style={{ width: "500px" }} />
           <Button type="primary" onClick={setGreeterAccount} loading={fetching}>Create Greeter</Button>
         </Space>

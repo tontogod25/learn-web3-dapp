@@ -11,7 +11,7 @@ const Setter = () => {
     const [fetching, setFetching] = useState<boolean>(false)
     const [resetting, setResetting] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
-    const [txhash, setTxhash] = useState<string>('')
+    const [txHash, setTxHash] = useState<string>('')
     const [message, setMessage] = useState<string>('')
     const [newMessage, setNewMessage] = useState<string>('')
     const { state } = useAppState()
@@ -32,14 +32,14 @@ const Setter = () => {
                 })
         }
         contractGetter()
-    }, [txhash, state])
+    }, [txHash, state])
 
     const contractSetter = () => {
         setError(null)
         setResetting(true)
         axios.post(`/api/near/setter`, { ...state, newMessage })
             .then(res => {
-                setTxhash(res.data)
+                setTxHash(res.data)
                 setResetting(false)
             })
             .catch(err => {
@@ -49,12 +49,12 @@ const Setter = () => {
             })
     }
 
-    const txUrl = getTransactionUrl(state.network)(txhash)
+    const txUrl = getTransactionUrl(state.network)(txHash)
 
     return (
 		<Col style={{ minHeight: '350px', maxWidth: '600px'}}>	
         <Space direction="vertical" size="large">
-        <Text>Below is the message stored on our &quot;greeter&quot; contract:</Text>
+        <Text>Below is the message stored on the &quot;greeter&quot; contract:</Text>
         <Col>
             {fetching
                 ? <LoadingOutlined style={{ fontSize: 24 }} spin />
@@ -70,7 +70,7 @@ const Setter = () => {
                 {error && <Alert type="error" closable message={error} /> }
                 {resetting
                     ? <LoadingOutlined style={{ fontSize: 24 }} spin />
-                    : txhash.length !== 0
+                    : txHash.length !== 0
                         ? <Alert
                             message={
                                 <Text strong>{`The message has been reset`}</Text>
