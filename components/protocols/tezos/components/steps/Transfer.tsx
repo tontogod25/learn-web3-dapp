@@ -36,8 +36,7 @@ const Transfer = () => {
     axios
       .post(`/api/tezos/transfer`, {...state, amount, recipient })
       .then(res => {
-        const hash = res.data
-        setTxHash(txHash)
+        setTxHash(res.data)
         setFetching(false)
     })
       .catch(err => {
