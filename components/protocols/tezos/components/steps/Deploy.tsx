@@ -21,7 +21,7 @@ const Deploy = () => {
                 const hash = res.data.hash 
                 const addr = res.data.contractAddress 
                 console.log(hash, addr)
-                setTxHash(txHash)
+                setTxHash(hash)
                 setFetching(false)
                 dispatch({
                     type: 'SetContract',
