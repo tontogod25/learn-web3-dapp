@@ -29,7 +29,7 @@ const Change = () => {
 			.then(res => {
                 const hash = res.data.hash
                 const celo = res.data.celo
-                setTxHash(txHash)
+                setTxHash(hash)
                 setCelo(celo)
 				setFetching(false)
 			})
