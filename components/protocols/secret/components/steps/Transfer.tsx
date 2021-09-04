@@ -34,8 +34,7 @@ const Transfer = () => {
       axios
         .post(`/api/secret/transfer`, {...state, txAmount })
         .then(res => {
-          const hash = res.data
-          setTxHash(txHash)
+          setTxHash(res.data)
           setFetching(false)
         })
         .catch(err => {
