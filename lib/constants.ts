@@ -312,14 +312,14 @@ export const CHAINS_CONFIG: ChainsType = {
 				url: "https://learn.figment.io/tutorials/how-to-store-state"
 			},
 			{
-				id: "setter",
-				title: "Send data to the program",
-				url: "https://learn.figment.io/tutorials/send-greetings"
-			},
-			{
 				id: "getter",
 				title: "Get data from the program",
 				url: "https://learn.figment.io/tutorials/get-greetings"
+			},
+			{
+				id: "setter",
+				title: "Send data to the program",
+				url: "https://learn.figment.io/tutorials/send-greetings"
 			},
 		]
 	},
