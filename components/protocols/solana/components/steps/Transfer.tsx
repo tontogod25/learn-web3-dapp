@@ -41,9 +41,7 @@ const Transfer = () => {
       axios
         .post(`/api/solana/transfer`, {...state, lamports, recipient })
         .then(res => {
-          const hash = res.data
-          console.log(hash)
-          setTxHash(txHash)
+          setTxHash(res.data)
           setFetching(false)
       })
       .catch(err => {
