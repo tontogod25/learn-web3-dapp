@@ -8,6 +8,7 @@ export default async function balance(
 ) {
   try {
     const address = req.body.address as PublicKey;
+    console.log(req.body.network)
     const url = getSafeUrl(req.body.network);
     const connection = new Connection(url);
     const publicKey = new PublicKey(address);

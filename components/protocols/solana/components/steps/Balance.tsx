@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { Alert, Col, Input, Button, Space, Typography } from 'antd';
+import { useAppState } from '@solana/hooks';
+import { useState } from 'react';
 import axios from 'axios';
 
 const { Text } = Typography;
@@ -11,12 +12,13 @@ const Balance = () => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [balance, setBalance] = useState<number | null>(null);(null);
+	const { state } = useAppState();
 
   const getBalance = () => {
     setError(null)
     setFetching(true)
 		axios
-			.post(`/api/solana/balance`, { address: value })
+			.post(`/api/solana/balance`, state)
 			.then(res => {
 				const data = res.data
 				setBalance(data / DECIMAL_OFFSET)
@@ -39,14 +41,15 @@ const Balance = () => {
           <Button type="primary" onClick={getBalance} loading={fetching}>Check Balance</Button>
         </Space>
         {error && <Alert type="error" closable message={error} onClose={() => setError(null)} /> }
-        {balance && <Alert 
-                message={
-                  <Text strong>{`This address has a balance of ${balance} SOL`}</Text>
-                }
-                type="success"
-                closable
-                showIcon
-              />
+        {balance && 
+          <Alert 
+            message={
+              <Text strong>{`This address has a balance of ${balance} SOL`}</Text>
+            }
+            type="success"
+            closable
+            showIcon
+          />
         }
       </Space>
     </Col>

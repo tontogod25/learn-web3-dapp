@@ -8,9 +8,7 @@ export default async function fund(
 ) {
   try {
     const network = req.body.network;
-    console.log(network)
     const url = getSafeUrl(network);
-    console.log(url)
     const connection = new Connection(url, 'confirmed')
     const address = req.body.address as PublicKey;
     const publicKey = new PublicKey(address)  

@@ -41,7 +41,7 @@ const Greeter = () => {
                 <Text>Greeter account created</Text>
                 <Alert 
                     message={
-                        <a href={accountExplorer(state?.greeter ?? '')} target="_blank" rel="noreferrer">
+                        <a href={accountExplorer(state?.greeter ?? '', state.network)} target="_blank" rel="noreferrer">
                             View the account on Solana Explorer
                         </a>
                     }
@@ -52,7 +52,7 @@ const Greeter = () => {
                     <Alert 
                         message={
                             <Text>
-                                <a href={transactionExplorer(hash ?? '')} target="_blank" rel="noreferrer">
+                                <a href={transactionExplorer(hash ?? '', state.network)} target="_blank" rel="noreferrer">
                                     View the transaction on Solana Explorer
                                 </a>
                             </Text>

@@ -13,11 +13,11 @@ export default async function checkProgram(
 ) {
   try {
     const programId = req.body.programId as PublicKey;
-    const url = getSafeUrl();
+    const url = getSafeUrl(req.body.network);
     const connection = new Connection(url, "confirmed");
-    const publicKey = undefined;
-    const programInfo = undefined;
-
+    const publicKey = new PublicKey(programId);
+    const programInfo = await connection.getAccountInfo(publicKey);
+  
     if (programInfo === null) {
         if (fs.existsSync(PROGRAM_SO_PATH)) {
             throw new Error(
@@ -29,7 +29,7 @@ export default async function checkProgram(
     } else if (!programInfo.executable) {
       throw new Error(`Program is not executable`);
     }
-
+  
     res.status(200).json(true);
   } catch(error) {
     console.log(error);

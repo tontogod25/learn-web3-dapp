@@ -72,7 +72,7 @@ const CallGreeting = () => {
                                   <Text strong>{`The greeting has been sent`}</Text>
                               }
                               description={
-                                  <a href={transactionExplorer(txhash)} target="_blank" rel="noreferrer">
+                                  <a href={transactionExplorer(txhash, state.network)} target="_blank" rel="noreferrer">
                                     View the transaction on Solana Explorer
                                   </a>
                               }

@@ -1,9 +1,9 @@
-import { useState } from "react"
-import { Keypair } from "@solana/web3.js";
 import { Form, Input, Button, Alert, Space, Typography, Col } from 'antd';
 import { LoadingOutlined, RedoOutlined } from '@ant-design/icons';
 import { transactionExplorer } from  "@solana/lib";
 import { useAppState } from "@solana/hooks";
+import { Keypair } from "@solana/web3.js";
+import { useState } from "react"
 import axios from 'axios'
 
 const layout = {
@@ -50,7 +50,7 @@ const Transfer = () => {
       })
 	}
 
-  const explorerUrl = transactionExplorer(txHash as string);
+  const explorerUrl = transactionExplorer(txHash as string, state.network);
 
   return (
     <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
