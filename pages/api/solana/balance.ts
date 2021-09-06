@@ -8,10 +8,10 @@ export default async function balance(
 ) {
   try {
     const address = req.body.address as PublicKey;
-    const url = getSafeUrl();
-    const connection = new Connection(url, "confirmed");
-    const publicKey =undefined;
-    const balance = undefined;
+    const url = getSafeUrl(req.body.network);
+    const connection = new Connection(url);
+    const publicKey = new PublicKey(address);
+    const balance = await connection.getBalance(publicKey);
     res.status(200).json(balance);
   } catch(error) {
     console.error(error);

@@ -1,25 +1,26 @@
-import { LoadingOutlined } from '@ant-design/icons';
 import { Col, Alert, Space, Typography } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react'
+import { useAppState } from '@solana/hooks';
 import axios from 'axios';
 
 const { Text } = Typography;
 
 const Connect = () => {
-  	const [version, setVersion] = useState<string | null>(null);
+	const [version, setVersion] = useState<string | null>(null);
 	const [fetching, setFetching] = useState<boolean>(false);
+	const { state } = useAppState();
 
 	useEffect(() => {
 		getConnection();
-	}, []);
+	}, [state.network]);
 
 	const getConnection = () => {
 		setFetching(true)
 		axios
-			.get(`/api/solana/connect`)
+			.post(`/api/solana/connect`, state)
 			.then(res => {
-				const version = res.data
-				setVersion(version)
+				setVersion(res.data)
 				setFetching(false)
 			})
 			.catch(err => {

@@ -1,11 +1,11 @@
-import { useEffect, useReducer } from "react";
-import { Row } from 'antd';
 import { Connect, Account, Fund, Balance, Transfer, Deploy, Greeter, GetGreeting, CallGreeting } from '@solana/components/steps';
 import { appStateReducer, initialState, SolanaContext } from '@solana/context'
 import { useAppState, useLocalStorage } from '@solana/hooks'
 import { Sidebar, Step } from '@solana/components/layout'
-import { Nav } from '@solana/components';
+import { useEffect, useReducer } from "react";
 import type { AppI } from '@solana/types';
+import { Nav } from '@solana/components';
+import { Row } from 'antd';
 
 const SolanaApp: React.FC<AppI> = ({ chain }) => {
     const { state, dispatch } = useAppState();
@@ -25,6 +25,15 @@ const SolanaApp: React.FC<AppI> = ({ chain }) => {
     }
     const isFirstStep = state.index == 0;
     const isLastStep = state.index === steps.length - 1;
+
+    useEffect(() => {
+        if (state.index === 0) {
+            dispatch({
+                type: 'SetNetwork',
+                network: 'devnet'
+            })
+        }
+    }, [])
 
     return (
         <Row>

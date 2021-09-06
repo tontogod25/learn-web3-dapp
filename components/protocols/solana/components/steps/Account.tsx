@@ -19,7 +19,7 @@ const Account = () => {
 	const generateKeypair = async () => {
 		try {
 			setFetching(true)
-			const response = await axios.get(`/api/solana/keypair`)
+			const response = await axios.post(`/api/solana/keypair`, state)
 			setAddress(response.data.address)
 			dispatch({
 				type: "SetSecret",
