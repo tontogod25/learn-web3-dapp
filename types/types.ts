@@ -73,11 +73,11 @@ export enum SOLANA_PROTOCOLS {
   WS = "WS"
 }
 
-export type NETWORKS = 
-  POLYGON_NETWORKS 
-  | AVALANCHE_NETWORKS 
-  | SOLANA_NETWORKS 
-  | POLKADOT_NETWORKS 
+export type NETWORKS =
+  POLYGON_NETWORKS
+  | AVALANCHE_NETWORKS
+  | SOLANA_NETWORKS
+  | POLKADOT_NETWORKS
   | NEAR_NETWORKS
   | SECRET_NETWORKS
   | CELO_NETWORKS
@@ -101,4 +101,9 @@ export type StepType = {
   id: string
   title: string
   url: string
+}
+
+export enum UserActivity {
+  PROTOCOL_CLICKED = 'PROTOCOL_CLICKED',
+  TUTORIAL_STEP_VIEWED = 'TUTORIAL_STEP_VIEWED',
 }
