@@ -1,6 +1,7 @@
 import { Alert, Space, Typography, Popover, Button } from 'antd';
 import { useAppState } from '@avalanche/hooks'
 import type { EntryT, AlertT } from '@avalanche/types';
+import {trackStorageCleared} from "../../../../utils/tracking-utils";
 
 const { Text, Paragraph } = Typography;
 
@@ -49,6 +50,7 @@ const Nav = () => {
             type: 'SetNetwork',
             network: 'fuji'
         })
+        trackStorageCleared('avalanche');
     }
 
     return (
@@ -65,7 +67,7 @@ const Nav = () => {
     )
 }
 
-const Notify = ({ msg, status }: {msg: string, status: AlertT }) => 
+const Notify = ({ msg, status }: {msg: string, status: AlertT }) =>
     <Alert
         message={
             <Space>

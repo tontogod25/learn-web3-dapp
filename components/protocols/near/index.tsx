@@ -1,15 +1,15 @@
 import { useEffect, useReducer } from 'react'
 import { Row } from 'antd'
 
-import { 
-    Connect, 
-    Keys, 
-    Account, 
-    Balance, 
-    Transfer, 
-    Deploy, 
-    Getter, 
-    Setter 
+import {
+    Connect,
+    Keys,
+    Account,
+    Balance,
+    Transfer,
+    Deploy,
+    Getter,
+    Setter
 } from '@near/components/Steps'
 import { appStateReducer, initialState, NearContext } from '@near/context'
 import { useAppState, useLocalStorage } from '@near/hooks'
@@ -17,22 +17,27 @@ import { Sidebar, Step } from '@near/components/Layout'
 import { Nav } from '@near/components'
 
 import type { AppI } from '@near/types'
+import {trackTutorialStepViewed} from "../../../utils/tracking-utils";
 
 const NearApp: React.FC<AppI> = ({ chain }) => {
     const { state, dispatch } = useAppState()
     const { steps } = chain
     const step = steps[state.index];
     const nextHandler = () => {
+        const index = state.index + 1;
         dispatch({
             type: 'SetIndex',
-            index: state.index + 1
+            index
         })
+        trackTutorialStepViewed(chain.id, steps[index].title, 'next');
     }
     const prevHandler = () => {
+        const index = state.index - 1;
         dispatch({
             type: 'SetIndex',
-            index: state.index - 1
+            index
         })
+        trackTutorialStepViewed(chain.id, steps[index].title, 'prev');
     }
     const isFirstStep = state.index == 0
     const isLastStep = state.index === steps.length - 1

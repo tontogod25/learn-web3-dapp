@@ -1,6 +1,7 @@
 import { Alert, Space, Typography, Popover, Button } from 'antd';
 import { useAppState } from '@solana/hooks'
 import type { EntryT, AlertT } from '@solana/types';
+import {trackStorageCleared} from "../../../../utils/tracking-utils";
 
 const { Text, Paragraph } = Typography;
 
@@ -59,6 +60,7 @@ const Nav = () => {
             type: 'SetIndex',
             index: 0
         })
+        trackStorageCleared('solana');
     }
 
     return (
@@ -75,7 +77,7 @@ const Nav = () => {
     )
 }
 
-const Notify = ({ msg, status }: {msg: string, status: AlertT }) => 
+const Notify = ({ msg, status }: {msg: string, status: AlertT }) =>
     <Alert
         message={
             <Space>

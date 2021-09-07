@@ -2,6 +2,7 @@ import { Alert, Space, Typography, Popover, Button } from 'antd'
 import { useAppState } from '@near/hooks'
 import { getPrettyPublicKey } from '@near/lib'
 import type { EntryT, AlertT } from '@near/types'
+import {trackStorageCleared} from "../../../../utils/tracking-utils";
 
 const { Text, Paragraph } = Typography
 
@@ -53,6 +54,7 @@ const Nav = () => {
             type: 'SetIndex',
             index: 0
         })
+        trackStorageCleared('near');
     }
 
     return (
@@ -69,7 +71,7 @@ const Nav = () => {
         )
 }
 
-const Notify = ({ msg, status }: {msg: string, status: AlertT }) => 
+const Notify = ({ msg, status }: {msg: string, status: AlertT }) =>
     <Alert
         message={
             <Space>

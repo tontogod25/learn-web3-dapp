@@ -6,22 +6,27 @@ import { useAppState, useLocalStorage } from '@avalanche/hooks'
 import { Sidebar, Step } from '@avalanche/components/layout'
 import { Nav } from '@avalanche/components';
 import type { AppI } from '@avalanche/types';
+import {trackTutorialStepViewed} from "../../../utils/tracking-utils";
 
 const AvalancheApp: React.FC<AppI> = ({ chain }) => {
     const { state, dispatch } = useAppState();
     const { steps } = chain
     const step = steps[state.index];
     const nextHandler = () => {
+        const index = state.index + 1;
         dispatch({
             type: 'SetIndex',
             index: state.index + 1
         })
+        trackTutorialStepViewed(chain.id, steps[index].title, 'next');
     }
     const prevHandler = () => {
+        const index = state.index - 1;
         dispatch({
             type: 'SetIndex',
             index: state.index - 1
         })
+        trackTutorialStepViewed(chain.id, steps[index].title, 'prev');
     }
     const isFirstStep = state.index == 0;
     const isLastStep = state.index === steps.length - 1;
