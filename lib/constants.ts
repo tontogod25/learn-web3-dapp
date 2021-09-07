@@ -48,42 +48,42 @@ export const CHAINS_CONFIG: ChainsType = {
 			{
 				id: "connect",
 				title: "Connect to Celo",
-				url: "https://learn.figment.io/pathways/celo-pathway/connect-to-celo"
+				url: "https://learn.figment.io/tutorials/connect-to-celo"
 			},
 			{
 				id: "account",
 				title: "Create an account",
-				url: "https://learn.figment.io/pathways/celo-pathway/create-a-celo-account"
+				url: "https://learn.figment.io/tutorials/create-a-celo-account"
 			},
 			{
 				id: "balance",
 				title: "Get the balance",
-				url: "https://learn.figment.io/pathways/celo-pathway/get-the-celo-balance"
+				url: "https://learn.figment.io/tutorials/get-the-celo-balance"
 			},
 			{
 				id: "transfer",
 				title: "Transfer some tokens",
-				url: "https://learn.figment.io/pathways/celo-pathway/transfer-celo-token"
+				url: "https://learn.figment.io/tutorials/transfer-celo-token"
 			},
 			{
 				id: "swap",
 				title: "Swap cUSD to CELO",
-				url: "https://learn.figment.io/pathways/celo-pathway/swap-your-celo"
+				url: "https://learn.figment.io/tutorials/swap-your-celo"
 			},
 			{
 				id: "deploy",
 				title: "Deploy a smart contract",
-				url: "https://learn.figment.io/pathways/celo-pathway/deploy-celo-contract"
+				url: "https://learn.figment.io/tutorials/deploy-celo-contract"
 			},
 			{
 				id: "getter",
 				title: "Get the storage of a smart contract",
-				url: "https://learn.figment.io/pathways/celo-pathway/read-celo-contract"
+				url: "https://learn.figment.io/tutorials/read-a-celo-contract"
 			},
 			{
 				id: "setter",
 				title: "Set the storage of a smart contract",
-				url: "https://learn.figment.io/pathways/celo-pathway/celo-set-contract-store"
+				url: "https://learn.figment.io/tutorials/celo-set-contract-store"
 			},
 		]
 	},
