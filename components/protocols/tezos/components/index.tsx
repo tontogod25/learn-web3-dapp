@@ -1,6 +1,7 @@
 import { Typography, Popover, Button } from 'antd';
 import { useAppState } from '@tezos/hooks'
 import type { EntryT } from '@tezos/types';
+import {trackStorageCleared} from "../../../../utils/tracking-utils";
 
 const { Text, Paragraph } = Typography;
 
@@ -63,6 +64,7 @@ const Nav = () => {
             type: 'SetIndex',
             index: 0
         })
+        trackStorageCleared('tezos');
     }
 
     return (

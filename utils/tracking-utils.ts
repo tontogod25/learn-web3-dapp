@@ -31,6 +31,12 @@ export const trackTutorialStepViewed = (chainId: string, stepTitle: string, acti
   });
 };
 
+export const trackStorageCleared = (chainId: string) => {
+  trackEvent(UserActivity.STORAGE_CLEARED, {
+    protocol: chainId,
+  });
+};
+
 export const trackPageView = (url: string): void => {
   if (typeof window !== 'undefined' && window.analytics) {
     window.analytics.page(url);

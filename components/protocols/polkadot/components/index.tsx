@@ -1,6 +1,7 @@
 import { Typography, Popover, Button } from 'antd';
 import { useAppState } from '@polka/hooks'
 import type { EntryT } from '@polka/types';
+import {trackStorageCleared} from "../../../../utils/tracking-utils";
 
 const { Text, Paragraph } = Typography;
 
@@ -50,6 +51,7 @@ const Nav = () => {
             type: 'SetNetwork',
             network: 'westend'
         })
+        trackStorageCleared('polkadot');
     }
 
     return (

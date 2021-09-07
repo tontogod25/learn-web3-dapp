@@ -1,6 +1,7 @@
 import { Typography, Popover, Button } from 'antd';
 import { useAppState } from 'components/protocols/secret/hooks'
 import type { EntryT } from 'components/protocols/secret/types';
+import {trackStorageCleared} from "../../../../utils/tracking-utils";
 
 const { Text, Paragraph } = Typography;
 
@@ -55,6 +56,7 @@ const Nav = () => {
             type: 'SetNetwork',
             network: 'holodeck-2'
         })
+        trackStorageCleared('secret');
     }
 
     return (

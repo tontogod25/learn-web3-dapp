@@ -1,6 +1,7 @@
 import { Typography, Popover, Button } from 'antd';
 import { useAppState } from '@ccelo/hooks'
 import type { EntryT } from '@ccelo/types';
+import {trackStorageCleared} from "../../../../utils/tracking-utils";
 
 const { Text, Paragraph } = Typography;
 
@@ -55,6 +56,7 @@ const Nav = () => {
             type: 'SetNetwork',
             network: 'alfajores'
         })
+        trackStorageCleared('celo');
     }
 
     return (
