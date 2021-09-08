@@ -17,7 +17,7 @@ const Deploy = () => {
     setError(null)
     setFetching(true)
 		axios
-			.post(`/api/solana/checkProgram`, { programId: value })
+			.post(`/api/solana/checkProgram`, { ...state, programId: value })
 			.then(res => {
         const result: boolean = res.data
         dispatch({
@@ -48,7 +48,7 @@ const Deploy = () => {
                   <Text strong>{`The program is correctly deployed`}</Text>
                 }
                 description={
-                  <a href={accountExplorer(state?.programId ?? '')} target="_blank" rel="noreferrer">
+                  <a href={accountExplorer(state?.programId ?? '', state.network)} target="_blank" rel="noreferrer">
                     View the program on Solana Explorer
                   </a>
                 }

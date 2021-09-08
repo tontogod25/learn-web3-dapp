@@ -22,8 +22,8 @@ export default async function setGreetings(
   res: NextApiResponse<string>
 ) {
   try {
-    const { greeter, secret, programId } = req.body;
-    const url = getSafeUrl();
+    const { greeter, secret, programId, network } = req.body;
+    const url = getSafeUrl(network);
     const connection = new Connection(url, "confirmed");
 
     const greeterPublicKey = new PublicKey(greeter);
@@ -32,17 +32,19 @@ export default async function setGreetings(
     const payerSecretKey = new Uint8Array(JSON.parse(secret));
     const payerKeypair = Keypair.fromSecretKey(payerSecretKey);
 
-    const instruction = new TransactionInstruction({ 
-      keys: [{pubkey: greeterPublicKey as PublicKey, isSigner: false, isWritable: true}], 
-      programId: programKey, 
-      data: Buffer.alloc(0), // All instructions are hellos 
-    }); 
+    const instruction = new TransactionInstruction({
+      keys: [{pubkey: greeterPublicKey, isSigner: false, isWritable: true}],
+      programId: programKey,
+      data: Buffer.alloc(0), // All instructions are hellos
+    });
   
-    // this your turn to figure out 
-    // how to create this transaction 
-    const hash = await sendAndConfirmTransaction(undefined);
+    const hash = await sendAndConfirmTransaction(
+      connection,
+      new Transaction().add(instruction),
+      [payerKeypair]
+    );
   
-    res.status(200).json(undefined);
+    res.status(200).json(hash);
   } catch(error) {
     console.error(error);
     res.status(500).json('Get balance failed');

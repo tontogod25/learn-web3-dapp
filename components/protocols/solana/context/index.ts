@@ -2,7 +2,7 @@ import { createContext, Dispatch } from 'react';
 
 export type State = {
     index: number
-    network?: string
+    network: string
     address?: string
     secret?: string 
     programId?: string 
@@ -11,7 +11,7 @@ export type State = {
 
 type Action =
     | { type: 'SetIndex', index: number }
-    | { type: 'SetNetwork', network?: string }
+    | { type: 'SetNetwork', network: string }
     | { type: 'SetAddress', address?: string }
     | { type: 'SetSecret', secret?: string }
     | { type: 'SetProgramId', programId?: string }
