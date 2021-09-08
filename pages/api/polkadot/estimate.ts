@@ -16,7 +16,7 @@ export default async function estimate(
     
     // A generic address for recipient (//Alice) and amount to send
     const recipient = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY'
-    const gigaPlanck = '1000000000';
+    const transferAmount = '1000000000';
 
     // Transfer tokens
     const transfer =  undefined;
