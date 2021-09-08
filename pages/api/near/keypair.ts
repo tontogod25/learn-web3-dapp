@@ -9,7 +9,7 @@ export default function connection(
     const keypair = undefined;
     const secret = undefined;
     return res.status(200).json(secret);
-  } } catch (error) {
+  } catch (error) {
     console.error(error);
     return res.status(500).json("Keypair generation failed");
   }
