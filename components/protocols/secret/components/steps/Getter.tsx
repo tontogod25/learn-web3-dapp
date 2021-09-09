@@ -1,49 +1,64 @@
-import { Alert, Col, Button, Space, Typography } from 'antd';
-import { useAppState } from '@secret/hooks';
-import { useState } from 'react';
+import {Alert, Col, Button, Space, Typography} from 'antd';
+import {useAppState} from '@secret/hooks';
+import {useState} from 'react';
 import axios from 'axios';
 
-const { Text } = Typography;
+const {Text} = Typography;
 
 const Getter = () => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [greeting, setGreeting] = useState<number | null>(null);
-  const { state } = useAppState();
+  const {state} = useAppState();
 
   const getGreeting = () => {
-    setError(null)
-    setFetching(true)
+    setError(null);
+    setFetching(true);
     axios
-        .post(`/api/secret/getter`, state)
-        .then(res => {
-            setGreeting(res.data)
-            setFetching(false)
-        })
-        .catch(err => {
-            const data = err.response.data
-            setFetching(false)
-            setGreeting(null)
-            setError(data.message)
-        })
-  }
+      .post(`/api/secret/getter`, state)
+      .then((res) => {
+        setGreeting(res.data);
+        setFetching(false);
+      })
+      .catch((err) => {
+        const data = err.response.data;
+        setFetching(false);
+        setGreeting(null);
+        setError(data.message);
+      });
+  };
 
   return (
-    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
+    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
           <Text>Get the stored value:</Text>
-          <Button type="primary" onClick={getGreeting} loading={fetching}>Get Value</Button>
+          <Button type="primary" onClick={getGreeting} loading={fetching}>
+            Get Value
+          </Button>
         </Space>
-        {error && <Alert type="error" closable message={error} onClose={() => setError(null)} />}
-        {greeting && <Alert 
-            message={<Text strong>This is the stored value: <Text code>{greeting}</Text></Text>} 
-            type="success" 
-            showIcon 
-        />}
+        {error && (
+          <Alert
+            type="error"
+            closable
+            message={error}
+            onClose={() => setError(null)}
+          />
+        )}
+        {greeting && (
+          <Alert
+            message={
+              <Text strong>
+                This is the stored value: <Text code>{greeting}</Text>
+              </Text>
+            }
+            type="success"
+            showIcon
+          />
+        )}
       </Space>
     </Col>
   );
-}
+};
 
-export default Getter
+export default Getter;

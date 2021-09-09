@@ -1,52 +1,86 @@
-import { Col, Alert, Space, Typography } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react'
-import { useAppState } from '@solana/hooks';
+import {Col, Alert, Space, Typography, Button, Modal} from 'antd';
+import {PoweroffOutlined} from '@ant-design/icons';
+import {useEffect, useState} from 'react';
+import {useAppState} from '@solana/hooks';
+import {ErrorBox} from '@solana/components';
+import type {ErrorT} from '@solana/types';
+import {prettyError} from '@solana/lib';
 import axios from 'axios';
 
-const { Text } = Typography;
+const {Text} = Typography;
 
 const Connect = () => {
-	const [version, setVersion] = useState<string | null>(null);
-	const [fetching, setFetching] = useState<boolean>(false);
-	const { state } = useAppState();
+  const [version, setVersion] = useState<string | null>(null);
+  const [fetching, setFetching] = useState<boolean>(false);
+  const [error, setError] = useState<ErrorT | null>(null);
+  const {state, dispatch} = useAppState();
 
-	useEffect(() => {
-		getConnection();
-	}, [state.network]);
+  useEffect(() => {
+    if (error) {
+      errorMsg(error);
+    }
+  }, [error, setError]);
 
-	const getConnection = () => {
-		setFetching(true)
-		axios
-			.post(`/api/solana/connect`, state)
-			.then(res => {
-				setVersion(res.data)
-				setFetching(false)
-			})
-			.catch(err => {
-				console.log(err)
-				setFetching(false)
-			})
-	}
+  function errorMsg(error: ErrorT) {
+    Modal.error({
+      title: 'Unable to connect',
+      content: <ErrorBox error={error} />,
+      afterClose: () => setError(null),
+      width: '800px',
+    });
+  }
+
+  const getConnection = async () => {
+    setFetching(true);
+    setError(null);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/connect`,
+        state,
+      );
+      dispatch({
+        type: 'SetValidate',
+        validate: 1,
+      });
+      setVersion(response.data);
+    } catch (error) {
+      setError(prettyError(error));
+      setVersion(null);
+    } finally {
+      setFetching(false);
+    }
+  };
 
   return (
-    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
-		{fetching
-			? <LoadingOutlined style={{ fontSize: 24 }} spin />
-			: version
-				? <Alert
-				message={
-					<Space>
-						Connected to Solana: 
-						<Text code>version {version}</Text>
-					</Space>
-				}
-				type="success"
-				showIcon
-			/> : <Alert message="Not connected to Solana" type="error" showIcon />
-		}
+    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+      <Space direction="vertical" size="large">
+        <Space direction="horizontal" size="large">
+          <Button
+            type="ghost"
+            icon={<PoweroffOutlined />}
+            onClick={getConnection}
+            loading={fetching}
+            size="large"
+          />
+          {version ? (
+            <Alert
+              message={
+                <Space>
+                  Connected to Solana:
+                  <Text code>version {version}</Text>
+                </Space>
+              }
+              type="success"
+              showIcon
+              onClick={getConnection}
+            />
+          ) : (
+            <Alert message="Not connected to Solana" type="error" showIcon />
+          )}
+        </Space>
+      </Space>
     </Col>
   );
-}
+};
 
-export default Connect
+export default Connect;

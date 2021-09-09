@@ -1,21 +1,28 @@
-import { Connection, PublicKey  } from '@solana/web3.js';
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSafeUrl } from '@solana/lib';
+import {CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS} from 'types';
+import type {NextApiRequest, NextApiResponse} from 'next';
+import {Connection, PublicKey} from '@solana/web3.js';
+import {getNodeURL} from 'utils/datahub-utils';
 
 export default async function balance(
   req: NextApiRequest,
-  res: NextApiResponse<string | number>
+  res: NextApiResponse<string | number>,
 ) {
   try {
-    const address = req.body.address as PublicKey;
-    console.log(req.body.network)
-    const url = getSafeUrl(req.body.network);
+    const {network, address} = req.body;
+    const url = getNodeURL(
+      CHAINS.SOLANA,
+      SOLANA_NETWORKS.DEVNET,
+      SOLANA_PROTOCOLS.RPC,
+      network,
+    );
     const connection = new Connection(url);
     const publicKey = new PublicKey(address);
     const balance = await connection.getBalance(publicKey);
+    if (balance === 0) {
+      throw new Error('Unfunded account, please go backward');
+    }
     res.status(200).json(balance);
-  } catch(error) {
-    console.error(error);
-    res.status(500).json('Get balance failed');
+  } catch (error) {
+    res.status(500).json(error.message);
   }
 }

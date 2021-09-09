@@ -1,49 +1,54 @@
-
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { getSafeUrl } from 'components/protocols/secret/lib';
-import { EnigmaUtils, SigningCosmWasmClient, Secp256k1Pen, pubkeyToAddress, encodeSecp256k1Pubkey, } from 'secretjs';
+import type {NextApiRequest, NextApiResponse} from 'next';
+import {getSafeUrl} from 'components/protocols/secret/lib';
+import {
+  EnigmaUtils,
+  SigningCosmWasmClient,
+  Secp256k1Pen,
+  pubkeyToAddress,
+  encodeSecp256k1Pubkey,
+} from 'secretjs';
 
 export default async function connect(
   req: NextApiRequest,
-  res: NextApiResponse<string>
+  res: NextApiResponse<string>,
 ) {
-    try {
-        const url = await getSafeUrl()
-        const { mnemonic, txAmount }= req.body
-        console.log(url)
-        console.log(mnemonic)
+  try {
+    const url = await getSafeUrl();
+    const {mnemonic, txAmount} = req.body;
+    console.log(url);
+    console.log(mnemonic);
 
-        const signingPen = await Secp256k1Pen.fromMnemonic(mnemonic)
-        const pubkey = encodeSecp256k1Pubkey(signingPen.pubkey);
-        const address = pubkeyToAddress(pubkey, 'secret');
+    const signingPen = await Secp256k1Pen.fromMnemonic(mnemonic);
+    const pubkey = encodeSecp256k1Pubkey(signingPen.pubkey);
+    const address = pubkeyToAddress(pubkey, 'secret');
 
-        // 0. A very specific Secret features (allowing to made the transaction encrypted)
-        const txEncryptionSeed = EnigmaUtils.GenerateNewSeed();
+    // 0. A very specific Secret features (allowing to made the transaction encrypted)
+    const txEncryptionSeed = EnigmaUtils.GenerateNewSeed();
 
-        // 1. The fees you'll need to pay to complete the transaction
-        const fees = {
-          send: {
-            amount: [{ amount: '80000', denom: 'uscrt' }],
-            gas: '80000',
-          },
-        };
+    // 1. The fees you'll need to pay to complete the transaction
+    const fees = {
+      send: {
+        amount: [{amount: '80000', denom: 'uscrt'}],
+        gas: '80000',
+      },
+    };
 
-        // 2. Initialize a secure Secret client
-        const client = new SigningCosmWasmClient(undefined);
+    // 2. Initialize a secure Secret client
+    const client = new SigningCosmWasmClient(undefined);
 
-        // 3. Send tokens
-        const memo = 'sendTokens example'; // Optional memo to identify the transaction
-        const sent = await client.sendTokens(undefined);
-      
-        // 4. Query the tx result
-        const query = { id: sent.transactionHash };
-        const transaction = await client.searchTx(query);
-        console.log('Transaction: ', transaction);
-        const hash = transaction[0].hash;
+    // 3. Send tokens
+    const memo = 'sendTokens example'; // Optional memo to identify the transaction
+    const sent = await client.sendTokens(undefined);
 
-        res.status(200).json(hash)
-    } catch(error) {
-        console.log(error)
-        res.status(500).json('transfert failed')
-    }
+    // 4. Query the tx result
+    const query = {id: sent.transactionHash};
+    const transaction = await client.searchTx(query);
+    console.log('Transaction: ', transaction);
+    const hash = transaction[0].hash;
+
+    res.status(200).json(hash);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json('transfert failed');
+  }
 }

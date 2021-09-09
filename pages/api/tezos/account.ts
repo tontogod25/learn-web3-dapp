@@ -1,14 +1,14 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { TezosToolkit } from "@taquito/taquito";
-import { importKey } from '@taquito/signer';
-import { getTezosUrl } from "@tezos/lib";
+import type {NextApiRequest, NextApiResponse} from 'next';
+import {TezosToolkit} from '@taquito/taquito';
+import {importKey} from '@taquito/signer';
+import {getTezosUrl} from '@tezos/lib';
 
 export default async function account(
-  req: NextApiRequest, 
-  res: NextApiResponse<string>
+  req: NextApiRequest,
+  res: NextApiResponse<string>,
 ) {
   try {
-    const { mnemonic, email, password, secret } = req.body
+    const {mnemonic, email, password, secret} = req.body;
     const url = getTezosUrl();
     const tezos = new TezosToolkit(url);
 
@@ -17,7 +17,7 @@ export default async function account(
 
     res.status(200).json('Activation of the account ok');
   } catch (error) {
-    console.log('error', error)
+    console.log('error', error);
     res.status(500).json('Activation of the account failed');
   }
 }

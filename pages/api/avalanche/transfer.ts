@@ -1,37 +1,37 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { getAvalancheClient } from '@avalanche/lib'
-import { BinTools, BN } from "avalanche";
+import type {NextApiRequest, NextApiResponse} from 'next';
+import {getAvalancheClient} from '@avalanche/lib';
+import {BinTools, BN} from 'avalanche';
 
 export default async function transfer(
-	req: NextApiRequest,
-	res: NextApiResponse<string>
+  req: NextApiRequest,
+  res: NextApiResponse<string>,
 ) {
-    try {
-        const { secret, amount, recipient, address } = req.body
-        const client = getAvalancheClient()
-        const chain = client.XChain(); 
-		const keychain = chain.keyChain()
-		// Using keychain, load the private key to sign transactions
-		undefined;
+  try {
+    const {secret, amount, recipient, address} = req.body;
+    const client = getAvalancheClient();
+    const chain = client.XChain();
+    const keychain = chain.keyChain();
+    // Using keychain, load the private key to sign transactions
+    undefined;
 
-		// Fetch UTXOs (unspent transaction outputs)
-		const { utxos } = undefined;
+    // Fetch UTXOs (unspent transaction outputs)
+    const {utxos} = undefined;
 
-		// Determine the real asset ID from its symbol/alias
-		const binTools = BinTools.getInstance();
-		const assetInfo = await chain.getAssetDescription("AVAX");
-		const assetID = binTools.cb58Encode(assetInfo.assetID);
+    // Determine the real asset ID from its symbol/alias
+    const binTools = BinTools.getInstance();
+    const assetInfo = await chain.getAssetDescription('AVAX');
+    const assetID = binTools.cb58Encode(assetInfo.assetID);
 
-		// Create a new transaction
-		const transaction = await chain.buildBaseTx(undefined);
+    // Create a new transaction
+    const transaction = await chain.buildBaseTx(undefined);
 
-		// Sign the transaction and send it to the network
-		undefined;
-		undefined;
+    // Sign the transaction and send it to the network
+    undefined;
+    undefined;
 
-		res.status(200).json(hash);
-	} catch(error) {
-        console.error(error)
-        res.status(500).json('failed to get balance')
-    } 
+    res.status(200).json(hash);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json('failed to get balance');
+  }
 }

@@ -2,7 +2,7 @@
 
 We made this decentralized application (dApp) to help developers learn about Web 3 protocols. It uses TypeScript, React, and various smart contract languages.
 
-Following along with the [Figment Learn Pathways](https://learn.figment.io/pathways/), you will build up a simple web client using various JavaScript APIs to interact with different blockchain networks. Each protocol is slightly different, but we have attempted to standardize the workflow so that you can quickly get up to speed on networks like Solana, NEAR, Secret and Polygon! 
+Following along with the [Figment Learn Pathways](https://learn.figment.io/pathways/), you will build up a simple web client using various JavaScript APIs to interact with different blockchain networks. Each protocol is slightly different, but we have attempted to standardize the workflow so that you can quickly get up to speed on networks like Solana, NEAR, Secret and Polygon!
 
 Learn more about [Figment](https://figment.io/).
 
@@ -21,7 +21,7 @@ If you encounter any errors during this process, please join our [Discord]() for
 # 🧩 DataHub API keys
 
 To make use of the Pathway content, you will require a DataHub account and a valid API key for the protocol you wish to access via DataHub's infrastructure.
-[Sign up for a DataHub account](https://auth.figment.io/sign_up) and verify your email address, then visit the [DataHub Services Dashboard](https://datahub.figment.io/) and select the protocol you want to access. You will then be able to copy your personal API key. 
+[Sign up for a DataHub account](https://auth.figment.io/sign_up) and verify your email address, then visit the [DataHub Services Dashboard](https://datahub.figment.io/) and select the protocol you want to access. You will then be able to copy your personal API key.
 
 You will need to create a new file in the project root directory `~/learn-web3-dapp/.env.local`, copying the contents of the existing `.env.example` file.
 Your API key needs to be pasted into `.env.local` so that you can authenticate your connections with DataHub.
@@ -55,4 +55,4 @@ You can now view the running application at [http://localhost:3000](http://local
 
 We sincerely hope you enjoy the Pathway content and thank you for using `learn-web3-dapp` to learn about blockchain protocols 🚀
 
- -- The Figment Learn Team
+-- The Figment Learn Team

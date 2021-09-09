@@ -1,6 +1,6 @@
-import { useState, useContext } from 'react'
-import type { State } from '@near/types'
-import { NearContext } from '@near/context'
+import {useState, useContext} from 'react';
+import type {State} from '@near/types';
+import {NearContext} from '@near/context';
 
 const useLocalStorage = (key: string, initialValue: State) => {
   const [storedValue, setStoredValue] = useState<State>(() => {
@@ -11,7 +11,7 @@ const useLocalStorage = (key: string, initialValue: State) => {
       console.log(error);
       return initialValue;
     }
-  })
+  });
   const setValue = (value: State | ((val: State) => State)) => {
     try {
       const valueToStore =
@@ -21,10 +21,10 @@ const useLocalStorage = (key: string, initialValue: State) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   return [storedValue, setValue] as const;
-}
+};
 
-const useAppState = () => useContext(NearContext)
+const useAppState = () => useContext(NearContext);
 
-export { useLocalStorage, useAppState }
+export {useLocalStorage, useAppState};

@@ -290,9 +290,7 @@
   "ast": {
     "absolutePath": "project:/contracts/SimpleStorage.sol",
     "exportedSymbols": {
-      "SimpleStorage": [
-        67
-      ]
+      "SimpleStorage": [67]
     },
     "id": 68,
     "license": "MIT",
@@ -300,12 +298,7 @@
     "nodes": [
       {
         "id": 38,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "32:23:1"
       },
@@ -316,9 +309,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 67,
-        "linearizedBaseContracts": [
-          67
-        ],
+        "linearizedBaseContracts": [67],
         "name": "SimpleStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -618,9 +609,7 @@
   "legacyAST": {
     "absolutePath": "project:/contracts/SimpleStorage.sol",
     "exportedSymbols": {
-      "SimpleStorage": [
-        67
-      ]
+      "SimpleStorage": [67]
     },
     "id": 68,
     "license": "MIT",
@@ -628,12 +617,7 @@
     "nodes": [
       {
         "id": 38,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "32:23:1"
       },
@@ -644,9 +628,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 67,
-        "linearizedBaseContracts": [
-          67
-        ],
+        "linearizedBaseContracts": [67],
         "name": "SimpleStorage",
         "nodeType": "ContractDefinition",
         "nodes": [

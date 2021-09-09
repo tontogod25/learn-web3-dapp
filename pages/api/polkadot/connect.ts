@@ -1,12 +1,12 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type {NextApiRequest, NextApiResponse} from 'next';
 
-import { ApiPromise } from "@polkadot/api";
-import { WsProvider } from "@polkadot/rpc-provider";
-import { getSafeUrl } from "@polka/lib";
+import {ApiPromise} from '@polkadot/api';
+import {WsProvider} from '@polkadot/rpc-provider';
+import {getSafeUrl} from '@polka/lib';
 
 export default async function connect(
   _req: NextApiRequest,
-  res: NextApiResponse<string>
+  res: NextApiResponse<string>,
 ) {
   try {
     const url = getSafeUrl();
@@ -17,6 +17,6 @@ export default async function connect(
     res.status(200).json(version);
   } catch (error) {
     console.log(error);
-    res.status(500).json("Connection to network failed");
+    res.status(500).json('Connection to network failed');
   }
 }

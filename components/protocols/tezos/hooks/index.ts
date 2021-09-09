@@ -1,6 +1,6 @@
-import { useState, useContext } from "react"
-import type { State } from "@tezos/context"
-import { TezosContext } from "@tezos/context"
+import {useState, useContext} from 'react';
+import type {State} from '@tezos/context';
+import {TezosContext} from '@tezos/context';
 
 const useLocalStorage = (key: string, initialValue: State) => {
   const [storedValue, setStoredValue] = useState<State>(() => {
@@ -23,8 +23,8 @@ const useLocalStorage = (key: string, initialValue: State) => {
     }
   };
   return [storedValue, setValue] as const;
-}
+};
 
-const useAppState = () => useContext(TezosContext)
+const useAppState = () => useContext(TezosContext);
 
-export { useLocalStorage, useAppState }
+export {useLocalStorage, useAppState};

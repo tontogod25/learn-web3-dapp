@@ -1,6 +1,6 @@
-import { useState, useContext } from "react"
-import type { State } from "@ccelo/context"
-import { CeloContext } from "@ccelo/context"
+import {useState, useContext} from 'react';
+import type {State} from '@ccelo/context';
+import {CeloContext} from '@ccelo/context';
 
 const useLocalStorage = (key: string, initialValue: State) => {
   const [storedValue, setStoredValue] = useState<State>(() => {
@@ -23,8 +23,8 @@ const useLocalStorage = (key: string, initialValue: State) => {
     }
   };
   return [storedValue, setValue] as const;
-}
+};
 
-const useAppState = () => useContext(CeloContext)
+const useAppState = () => useContext(CeloContext);
 
-export { useLocalStorage, useAppState }
+export {useLocalStorage, useAppState};

@@ -1,6 +1,7 @@
-import { Connection, PublicKey  } from '@solana/web3.js';
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSafeUrl } from '@solana/lib';
+import {CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS} from 'types';
+import type {NextApiRequest, NextApiResponse} from 'next';
+import {Connection, PublicKey} from '@solana/web3.js';
+import {getNodeURL} from 'utils/datahub-utils';
 import * as borsh from 'borsh';
 
 // The state of a greeting account managed by the hello world program
@@ -18,18 +19,23 @@ const GreetingSchema = new Map([
   [GreetingAccount, {kind: 'struct', fields: [['counter', 'u32']]}],
 ]);
 
-export default async function getGreetings(
+export default async function getter(
   req: NextApiRequest,
-  res: NextApiResponse<string | number>
+  res: NextApiResponse<string | number>,
 ) {
   try {
-    const { greeter } = req.body;
-    const url = getSafeUrl(req.body.network);
-    const connection = new Connection(url, "confirmed");
+    const {network, greeter} = req.body;
+    const url = getNodeURL(
+      CHAINS.SOLANA,
+      SOLANA_NETWORKS.DEVNET,
+      SOLANA_PROTOCOLS.RPC,
+      network,
+    );
+    const connection = new Connection(url, 'confirmed');
     const greeterPublicKey = new PublicKey(greeter);
 
     const accountInfo = await connection.getAccountInfo(greeterPublicKey);
-    
+
     if (accountInfo === null) {
       throw new Error('Error: cannot find the greeted account');
     }
@@ -41,8 +47,8 @@ export default async function getGreetings(
     );
 
     res.status(200).json(greeting.counter);
-  } catch(error) {
-    console.error(error);
-    res.status(500).json('Get Greeting failed');
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json(error.message);
   }
 }

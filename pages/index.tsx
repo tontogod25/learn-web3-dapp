@@ -1,6 +1,6 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
-import Home from "components/shared/Home";
+import Home from 'components/shared/Home';
 
 export default function Index() {
   return (
@@ -13,5 +13,5 @@ export default function Index() {
 
       <Home />
     </>
-  )
+  );
 }

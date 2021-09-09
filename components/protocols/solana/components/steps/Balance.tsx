@@ -1,59 +1,82 @@
-import { Alert, Col, Input, Button, Space, Typography } from 'antd';
-import { useAppState } from '@solana/hooks';
-import { useState } from 'react';
+import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
+import {LAMPORTS_PER_SOL} from '@solana/web3.js';
+import {ErrorBox} from '@solana/components';
+import {useAppState} from '@solana/hooks';
+import type {ErrorT} from '@solana/types';
+import {prettyError} from '@solana/lib';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
 
-const { Text } = Typography;
-
-const DECIMAL_OFFSET = 10**9;
+const {Text} = Typography;
 
 const Balance = () => {
-  const [value, setValue] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [balance, setBalance] = useState<number | null>(null);(null);
-	const { state } = useAppState();
+  const [error, setError] = useState<ErrorT | null>(null);
+  const [balance, setBalance] = useState<number | null>(null);
+  const {state, dispatch} = useAppState();
 
-  const getBalance = () => {
-    setError(null)
-    setFetching(true)
-		axios
-			.post(`/api/solana/balance`, state)
-			.then(res => {
-				const data = res.data
-				setBalance(data / DECIMAL_OFFSET)
-				setFetching(false)
-			})
-			.catch(err => {
-				const data = err.response.data
-				setFetching(false)
-        setBalance(null)
-				setError(data.message)
-			})
+  useEffect(() => {
+    if (error) {
+      errorMsg(error);
+    }
+  }, [error, setError]);
+
+  function errorMsg(error: ErrorT) {
+    Modal.error({
+      title: 'Unable to check the balance',
+      content: <ErrorBox error={error} />,
+      afterClose: () => setError(null),
+      width: '800px',
+    });
   }
 
+  const getBalance = async () => {
+    setFetching(true);
+    setError(null);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/balance`,
+        state,
+      );
+      setBalance(response.data / LAMPORTS_PER_SOL);
+      dispatch({
+        type: 'SetValidate',
+        validate: 4,
+      });
+    } catch (error) {
+      setError(prettyError(error));
+      setBalance(null);
+    } finally {
+      setFetching(false);
+    }
+  };
+
   return (
-    <Col style={{ minHeight: '350px', maxWidth: '600px'}}>
-      <Space direction="vertical" size="large">
-        <Space direction="vertical">
-          <Text>Paste the address you generated previously:</Text>
-          <Input placeholder="Enter an address" onChange={(e) => setValue(e.target.value) } style={{ width: "500px" }} />
-          <Button type="primary" onClick={getBalance} loading={fetching}>Check Balance</Button>
-        </Space>
-        {error && <Alert type="error" closable message={error} onClose={() => setError(null)} /> }
-        {balance && 
-          <Alert 
+    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+      <Space direction="vertical">
+        <Input
+          style={{width: '420px', fontWeight: 'bold'}}
+          defaultValue={state.address}
+          disabled={true}
+        />
+        <Button type="primary" onClick={getBalance} loading={fetching}>
+          Check Balance
+        </Button>
+        {balance && (
+          <Alert
             message={
-              <Text strong>{`This address has a balance of ${balance} SOL`}</Text>
+              <Text
+                strong
+              >{`This address has a balance of ${balance} SOL`}</Text>
             }
             type="success"
             closable
             showIcon
           />
-        }
+        )}
       </Space>
     </Col>
   );
-}
+};
 
-export default Balance
+export default Balance;

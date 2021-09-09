@@ -1,6 +1,6 @@
-import { useState, useContext } from "react"
-import type { State } from "components/protocols/secret/context"
-import { SecretContext } from "components/protocols/secret/context"
+import {useState, useContext} from 'react';
+import type {State} from 'components/protocols/secret/context';
+import {SecretContext} from 'components/protocols/secret/context';
 
 const useLocalStorage = (key: string, initialValue: State) => {
   const [storedValue, setStoredValue] = useState<State>(() => {
@@ -23,8 +23,8 @@ const useLocalStorage = (key: string, initialValue: State) => {
     }
   };
   return [storedValue, setValue] as const;
-}
+};
 
-const useAppState = () => useContext(SecretContext)
+const useAppState = () => useContext(SecretContext);
 
-export { useLocalStorage, useAppState }
+export {useLocalStorage, useAppState};

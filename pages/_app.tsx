@@ -1,5 +1,5 @@
-import type { AppProps } from 'next/app'
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import type {AppProps} from 'next/app';
+import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import 'antd/dist/antd.css';
 
 const GlobalStyle = createGlobalStyle`
@@ -10,15 +10,15 @@ const GlobalStyle = createGlobalStyle`
 
     font-family: 'Inter';
   }
-`
+`;
 
 const theme = {
   colors: {
     primary: '#0070f3',
   },
-}
+};
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({Component, pageProps}: AppProps) {
   return (
     <>
       <GlobalStyle />
@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </ThemeProvider>
     </>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;
