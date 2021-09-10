@@ -4,15 +4,6 @@ import { useAppState } from '@ccelo/hooks'
 import { transactionUrl } from '@ccelo/lib'
 import axios from 'axios'
 
-const layout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 20 },
-}
-
-const tailLayout = {
-    wrapperCol: { offset: 4, span: 20 },
-}
-
 const { Text } = Typography
 
 const Change = () => {
@@ -22,23 +13,28 @@ const Change = () => {
     const [celo, setCelo] = useState('')
     const { state } = useAppState()
 
-    const exchangeUSD = () => {
-        setFetching(true)
-		axios
-			.post(`/api/celo/swap`, state)
-			.then(res => {
-                const hash = res.data.hash
-                const celo = res.data.celo
-                setTxHash(hash)
-                setCelo(celo)
-				setFetching(false)
-			})
-			.catch(err => {
-				console.error(err)
-				setFetching(false)
-                setCelo('')
-			})
-	}
+    const exchangeUSD = async () => {
+        setFetching(true);
+        try {
+            const response = await axios.post(`/api/celo/swap`, state);
+            const hash = response.data.hash;
+            const celo = response.data.celo;           
+            setTxHash(hash);
+            setCelo(celo);
+        } catch(error) {
+            try {
+                const response = await axios.post(`/api/celo/swap`, state);
+                const hash = response.data.hash;
+                const celo = response.data.celo;           
+                setTxHash(hash);
+                setCelo(celo);
+            } catch(error) {
+                console.log(error.message)
+            }
+        } finally {
+            setFetching(false)
+        }
+    }
     const attoCeloToCelo = (celo: string) => `${celo.slice(0,1)}.${celo.slice(1,3)}`
 
     return (
