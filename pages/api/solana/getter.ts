@@ -34,13 +34,14 @@ export default async function getter(
       throw new Error('Error: cannot find the greeted account');
     }
 
-    const greeting = borsh.deserialize(
-      GreetingSchema,
-      GreetingAccount,
-      accountInfo.data,
-    );
+    // Find the expected parameters.
+    const greeting = borsh.deserialize(undefined);
 
-    res.status(200).json(greeting.counter);
+    // A little helper
+    console.log(greeting);
+
+    // Pass the counter to the client-side as JSON
+    res.status(200).json(undefined);
   } catch (error) {
     console.log(error.message);
     res.status(500).json(error.message);

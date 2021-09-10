@@ -24,19 +24,15 @@ export default async function setter(
     const payerSecretKey = new Uint8Array(JSON.parse(secret));
     const payerKeypair = Keypair.fromSecretKey(payerSecretKey);
 
-    const instruction = new TransactionInstruction({
-      keys: [{pubkey: greeterPublicKey, isSigner: false, isWritable: true}],
-      programId: programKey,
-      data: Buffer.alloc(0), // All instructions are hellos
-    });
+    // this your turn to figure out
+    // how to create this instruction
+    const instruction = new TransactionInstruction(undefined);
 
-    const hash = await sendAndConfirmTransaction(
-      connection,
-      new Transaction().add(instruction),
-      [payerKeypair],
-    );
+    // this your turn to figure out
+    // how to create this transaction
+    const hash = await sendAndConfirmTransaction(undefined);
 
-    res.status(200).json(hash);
+    res.status(200).json(undefined);
   } catch (error) {
     console.error(error);
     res.status(500).json('Get balance failed');

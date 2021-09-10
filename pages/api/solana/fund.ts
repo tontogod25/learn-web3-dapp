@@ -9,11 +9,11 @@ export default async function fund(
   try {
     const {network, address} = req.body;
     const url = getNodeURL(network);
-    console.log(network);
     const connection = new Connection(url, 'confirmed');
     const publicKey = new PublicKey(address);
-    const hash = await connection.requestAirdrop(publicKey, LAMPORTS_PER_SOL);
-    await connection.confirmTransaction(hash);
+    const publicKey = undefined;
+    const hash = undefined;
+    await undefined;
     res.status(200).json(hash);
   } catch (error) {
     res.status(500).json(error.message);

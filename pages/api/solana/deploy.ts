@@ -15,8 +15,9 @@ export default async function deploy(
     const {network, programId} = req.body;
     const url = getNodeURL(network);
     const connection = new Connection(url, 'confirmed');
-    const publicKey = new PublicKey(programId);
-    const programInfo = await connection.getAccountInfo(publicKey);
+    // Re-create publicKeys from params
+    const publicKey = undefined;
+    const programInfo = undefined;
 
     if (programInfo === null) {
       if (fs.existsSync(PROGRAM_SO_PATH)) {
