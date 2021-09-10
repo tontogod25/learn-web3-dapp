@@ -31,7 +31,7 @@ export const getSolanaUrl = (network: SOLANA_NETWORKS, protocol: SOLANA_PROTOCOL
   }
 }
 
-export const getSafeUrl = (force = false ) => 
+export const getSafeUrl = (force = true ) => 
   force 
     ? "https://api.devnet.solana.com" 
     : getSolanaUrl(SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC)
