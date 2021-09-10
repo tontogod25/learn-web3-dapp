@@ -1,4 +1,4 @@
-import {UserActivity} from "../types/types";
+import {UserActivity} from '../types';
 
 type Analytics = {
   track: (eventName: string, data: Record<string, any>) => void;
@@ -23,7 +23,11 @@ export const trackEvent = (
   }
 };
 
-export const trackTutorialStepViewed = (chainId: string, stepTitle: string, action: 'next' | 'prev') => {
+export const trackTutorialStepViewed = (
+  chainId: string,
+  stepTitle: string,
+  action: 'next' | 'prev',
+) => {
   trackEvent(UserActivity.TUTORIAL_STEP_VIEWED, {
     protocol: chainId,
     stepTitle,

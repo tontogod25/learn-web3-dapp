@@ -1,6 +1,39 @@
 {
-  "extends": ["next", "next/core-web-vitals"],
-        "rules": {
-            "import/no-anonymous-default-export": "off"
-        }
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "commonjs": true,
+    "node": true
+  },
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "prettier",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-undef": "off",
+    "no-unused-vars": "off",
+    "react/prop-types": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "react/display-name": "off",
+    "import/no-anonymous-default-export": "off"
+  }
 }

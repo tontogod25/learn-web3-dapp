@@ -1,6 +1,6 @@
-import { useState, useContext } from "react"
-import type { State } from "@solana/context"
-import { SolanaContext } from "@solana/context"
+import {useState, useContext} from 'react';
+import type {State} from '@solana/context';
+import {SolanaContext} from '@solana/context';
 
 const useLocalStorage = (key: string, initialValue: State) => {
   const [storedValue, setStoredValue] = useState<State>(() => {
@@ -23,8 +23,8 @@ const useLocalStorage = (key: string, initialValue: State) => {
     }
   };
   return [storedValue, setValue] as const;
-}
+};
 
-const useAppState = () => useContext(SolanaContext)
+const useAppState = () => useContext(SolanaContext);
 
-export { useLocalStorage, useAppState }
+export {useLocalStorage, useAppState};

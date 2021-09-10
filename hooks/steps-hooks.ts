@@ -1,28 +1,33 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from 'react';
 
-import {StepType, UserActivity} from "types/types";
-import {trackEvent, trackTutorialStepViewed} from "../utils/tracking-utils";
-import {useRouter} from "next/router";
+import {StepType, UserActivity} from 'types';
+import {trackEvent, trackTutorialStepViewed} from '../utils/tracking-utils';
+import {useRouter} from 'next/router';
 
-export const useSteps = (steps: StepType[]): {
-  next(): void
-  prev(): void
-  stepIndex: number
-  step: StepType
-  isFirstStep: boolean
-  isLastStep: boolean
+export const useSteps = (
+  steps: StepType[],
+): {
+  next(): void;
+  prev(): void;
+  stepIndex: number;
+  step: StepType;
+  isFirstStep: boolean;
+  isLastStep: boolean;
 } => {
   const router = useRouter();
   const {query: {chain} = {}} = router;
   const [stepIndex, setStepIndex] = useState(0);
 
-  const sendStepViewed = useCallback((stepTitle: string, action: 'next' | 'prev') => {
-    trackEvent(UserActivity.TUTORIAL_STEP_VIEWED, {
-      protocol: chain,
-      stepTitle,
-      action,
-    });
-  }, [chain]);
+  const sendStepViewed = useCallback(
+    (stepTitle: string, action: 'next' | 'prev') => {
+      trackEvent(UserActivity.TUTORIAL_STEP_VIEWED, {
+        protocol: chain,
+        stepTitle,
+        action,
+      });
+    },
+    [chain],
+  );
 
   const next = useCallback(() => {
     const index = stepIndex + 1;
@@ -46,6 +51,6 @@ export const useSteps = (steps: StepType[]): {
     stepIndex,
     step,
     isFirstStep,
-    isLastStep
-  }
-}
+    isLastStep,
+  };
+};

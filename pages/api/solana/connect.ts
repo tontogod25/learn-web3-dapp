@@ -1,18 +1,18 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { getSafeUrl } from "@solana/lib";
-import { Connection } from "@solana/web3.js";
+import type {NextApiRequest, NextApiResponse} from 'next';
+import {getNodeURL} from '@solana/lib';
+import {Connection} from '@solana/web3.js';
 
 export default async function connect(
-  _req: NextApiRequest,
-  res: NextApiResponse<string>
+  req: NextApiRequest,
+  res: NextApiResponse<string>,
 ) {
   try {
-    const url = getSafeUrl();
+    const {network} = req.body;
+    const url = getNodeURL(network);
     const connection = undefined;
     const version = undefined;
-    res.status(200).json(version?.["solana-core"]);
+    res.status(200).json(version?.['solana-core']);
   } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 }

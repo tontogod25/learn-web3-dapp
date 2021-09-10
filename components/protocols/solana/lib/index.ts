@@ -1,37 +1,40 @@
-// Solana
-export enum SOLANA_NETWORKS {
-  MAINNET = "MAINNET",
-  DEVNET = "DEVNET"
-}
-
-export enum SOLANA_PROTOCOLS {
-  RPC = "RPC",
-  WS = "WS"
-}
+import {CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS} from 'types';
+import {getNodeURL as getNodeUrl} from 'utils/datahub-utils';
 
 // Helper for generating an account URL on Solana Explorer
-export const accountExplorer = (address: string) => {
-  return `https://explorer.solana.com/address/${address}?cluster=devnet`;
-}
-
-// Helper for generating a transaction URL on Solana Explorer
-export const transactionExplorer = (signature: string) => {
-  return `https://explorer.solana.com/tx/${signature}?cluster=devnet`;
-}
-
-export const getSolanaUrl = (network: SOLANA_NETWORKS, protocol: SOLANA_PROTOCOLS): string => {
-  if (network === SOLANA_NETWORKS.MAINNET) {
-      return protocol === SOLANA_PROTOCOLS.RPC
-          ?  `https://${process.env.DATAHUB_SOLANA_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`
-          :  `wss://${process.env.DATAHUB_SOLANA_MAINNET_WS_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`
+const accountExplorer = (address: string, network: string) => {
+  if (network === 'localhost') {
+    return `https://explorer.solana.com/address/${address}?cluster=custom&customUrl=http://127.0.0.1:8899`;
   } else {
-      return protocol === SOLANA_PROTOCOLS.RPC
-          ? `https://${process.env.DATAHUB_SOLANA_DEVNET_RPC_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`
-          : `wss://${process.env.DATAHUB_SOLANA_DEVNET_WS_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`
+    return `https://explorer.solana.com/address/${address}?cluster=devnet`;
   }
-}
+};
 
-export const getSafeUrl = (force = true ) => 
-  force 
-    ? "https://api.devnet.solana.com" 
-    : getSolanaUrl(SOLANA_NETWORKS.DEVNET, SOLANA_PROTOCOLS.RPC)
+// Helper for generating an transaction URL on Solana Explorer
+const transactionExplorer = (hash: string, network: string) => {
+  if (network === 'localhost') {
+    return `https://explorer.solana.com/tx/${hash}?cluster=custom&customUrl=http://127.0.0.1:8899`;
+  } else {
+    return `https://explorer.solana.com/tx/${hash}?cluster=devnet`;
+  }
+};
+
+const prettyError = (error: any) => {
+  return {
+    message: error?.response?.data ?? 'Unkown message',
+    file: error?.config?.url ?? 'Unkown file',
+    agrs: error?.config?.data
+      ? JSON.parse(error.config.data)
+      : {error: 'inconnue'},
+  };
+};
+
+const getNodeURL = (network?: string) =>
+  getNodeUrl(
+    CHAINS.SOLANA,
+    SOLANA_NETWORKS.DEVNET,
+    SOLANA_PROTOCOLS.RPC,
+    network,
+  );
+
+export {prettyError, accountExplorer, transactionExplorer, getNodeURL};

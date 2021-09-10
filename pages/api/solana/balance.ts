@@ -1,20 +1,19 @@
-import { Connection, PublicKey  } from '@solana/web3.js';
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSafeUrl } from '@solana/lib';
+import type {NextApiRequest, NextApiResponse} from 'next';
+import {Connection, PublicKey} from '@solana/web3.js';
+import {getNodeURL} from '@solana/lib';
 
 export default async function balance(
   req: NextApiRequest,
-  res: NextApiResponse<string | number>
+  res: NextApiResponse<string | number>,
 ) {
   try {
-    const address = req.body.address as PublicKey;
-    const url = getSafeUrl();
-    const connection = new Connection(url, "confirmed");
-    const publicKey =undefined;
+    const {network, address} = req.body;
+    const url = getNodeURL(network);
+    const connection = new Connection(url, 'confirmed');
+    const publicKey = undefined;
     const balance = undefined;
     res.status(200).json(balance);
-  } catch(error) {
-    console.error(error);
-    res.status(500).json('Get balance failed');
+  } catch (error) {
+    res.status(500).json(error.message);
   }
 }

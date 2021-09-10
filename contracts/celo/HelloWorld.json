@@ -42,24 +42,14 @@
   "ast": {
     "absolutePath": "project:/contracts/HelloWorld.sol",
     "exportedSymbols": {
-      "HelloWorld": [
-        23
-      ]
+      "HelloWorld": [23]
     },
     "id": 24,
     "nodeType": "SourceUnit",
     "nodes": [
       {
         "id": 1,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.4",
-          ".22",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.4", ".22", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "32:32:0"
       },
@@ -70,9 +60,7 @@
         "documentation": null,
         "fullyImplemented": true,
         "id": 23,
-        "linearizedBaseContracts": [
-          23
-        ],
+        "linearizedBaseContracts": [23],
         "name": "HelloWorld",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -315,23 +303,13 @@
     "attributes": {
       "absolutePath": "project:/contracts/HelloWorld.sol",
       "exportedSymbols": {
-        "HelloWorld": [
-          23
-        ]
+        "HelloWorld": [23]
       }
     },
     "children": [
       {
         "attributes": {
-          "literals": [
-            "solidity",
-            ">=",
-            "0.4",
-            ".22",
-            "<",
-            "0.9",
-            ".0"
-          ]
+          "literals": ["solidity", ">=", "0.4", ".22", "<", "0.9", ".0"]
         },
         "id": 1,
         "name": "PragmaDirective",
@@ -339,18 +317,12 @@
       },
       {
         "attributes": {
-          "baseContracts": [
-            null
-          ],
-          "contractDependencies": [
-            null
-          ],
+          "baseContracts": [null],
+          "contractDependencies": [null],
           "contractKind": "contract",
           "documentation": null,
           "fullyImplemented": true,
-          "linearizedBaseContracts": [
-            23
-          ],
+          "linearizedBaseContracts": [23],
           "name": "HelloWorld",
           "scope": 24
         },
@@ -403,9 +375,7 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [
-                null
-              ],
+              "modifiers": [null],
               "name": "getName",
               "scope": 23,
               "stateMutability": "view",
@@ -415,9 +385,7 @@
             "children": [
               {
                 "attributes": {
-                  "parameters": [
-                    null
-                  ]
+                  "parameters": [null]
                 },
                 "children": [],
                 "id": 5,
@@ -467,9 +435,7 @@
                       {
                         "attributes": {
                           "argumentTypes": null,
-                          "overloadedDeclarations": [
-                            null
-                          ],
+                          "overloadedDeclarations": [null],
                           "referencedDeclaration": 4,
                           "type": "string storage ref",
                           "value": "name"
@@ -499,9 +465,7 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [
-                null
-              ],
+              "modifiers": [null],
               "name": "setName",
               "scope": 23,
               "stateMutability": "nonpayable",
@@ -544,9 +508,7 @@
               },
               {
                 "attributes": {
-                  "parameters": [
-                    null
-                  ]
+                  "parameters": [null]
                 },
                 "children": [],
                 "id": 16,
@@ -571,9 +533,7 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 4,
                               "type": "string storage ref",
                               "value": "name"
@@ -585,9 +545,7 @@
                           {
                             "attributes": {
                               "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
+                              "overloadedDeclarations": [null],
                               "referencedDeclaration": 14,
                               "type": "string calldata",
                               "value": "newName"
