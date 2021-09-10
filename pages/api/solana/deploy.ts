@@ -1,7 +1,6 @@
-import {CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS} from 'types';
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {Connection, PublicKey} from '@solana/web3.js';
-import {getNodeURL} from 'utils/datahub-utils';
+import {getNodeURL} from '@solana/lib';
 import path from 'path';
 import fs from 'mz/fs';
 
@@ -14,12 +13,7 @@ export default async function deploy(
 ) {
   try {
     const {network, programId} = req.body;
-    const url = getNodeURL(
-      CHAINS.SOLANA,
-      SOLANA_NETWORKS.DEVNET,
-      SOLANA_PROTOCOLS.RPC,
-      network,
-    );
+    const url = getNodeURL(network);
     const connection = new Connection(url, 'confirmed');
     const publicKey = new PublicKey(programId);
     const programInfo = await connection.getAccountInfo(publicKey);

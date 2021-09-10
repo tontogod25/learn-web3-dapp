@@ -11,9 +11,8 @@ const {Text, Paragraph} = Typography;
 
 const Nav = () => {
   const {state, dispatch} = useAppState();
-  const {network, address, programId, secret, greeter} = state;
+  const {address, programId, secret, greeter} = state;
 
-  const displayNetwork = (network: string) => network;
   const displayAddress = (address: string) =>
     `${address.slice(0, 5)}...${address.slice(-5)}`;
 
@@ -29,9 +28,6 @@ const Nav = () => {
   const AppState = () => {
     return (
       <>
-        {network && (
-          <Entry msg={'Network: '} value={network} display={displayNetwork} />
-        )}
         {address && (
           <Entry msg={'Address: '} value={address} display={displayAddress} />
         )}
@@ -44,11 +40,14 @@ const Nav = () => {
         {greeter && (
           <Entry msg={'Greeter: '} value={greeter} display={displayAddress} />
         )}
+        <Button danger onClick={clearKeychain} size={'small'}>
+          Clear Keychain
+        </Button>
       </>
     );
   };
 
-  const clearStorage = () => {
+  const clearKeychain = () => {
     alert('You are going to clear the storage');
     localStorage.removeItem('solana');
     dispatch({
@@ -98,18 +97,24 @@ const Nav = () => {
   };
 
   return (
-    <>
-      <div style={{position: 'fixed', top: 25, right: 60}}>
+    <div
+      style={{
+        position: 'fixed',
+        top: 25,
+        right: 60,
+        display: 'flex',
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-evenly',
+        minWidth: '300px',
+        minHeight: '100px',
+      }}
+    >
+      <div>
         <Popover content={AppState} placement="rightBottom">
-          <Button type="primary">Storage</Button>
+          <Button type="primary">Keychain</Button>
         </Popover>
       </div>
-      <div style={{position: 'fixed', top: 25, right: 165}}>
-        <Button danger onClick={clearStorage}>
-          Clear Storage
-        </Button>
-      </div>
-      <div style={{position: 'fixed', top: 25, right: 310}}>
+      <div>
         <Select
           defaultValue={state.network}
           style={{width: 120}}
@@ -121,7 +126,7 @@ const Nav = () => {
           <Option value="localhost">Localhost</Option>
         </Select>
       </div>
-    </>
+    </div>
   );
 };
 

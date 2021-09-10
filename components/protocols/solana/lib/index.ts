@@ -1,3 +1,6 @@
+import {CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS} from 'types';
+import {getNodeURL as getNodeUrl} from 'utils/datahub-utils';
+
 // Helper for generating an account URL on Solana Explorer
 const accountExplorer = (address: string, network: string) => {
   if (network === 'localhost') {
@@ -26,4 +29,12 @@ const prettyError = (error: any) => {
   };
 };
 
-export {prettyError, accountExplorer, transactionExplorer};
+const getNodeURL = (network?: string) =>
+  getNodeUrl(
+    CHAINS.SOLANA,
+    SOLANA_NETWORKS.DEVNET,
+    SOLANA_PROTOCOLS.RPC,
+    network,
+  );
+
+export {prettyError, accountExplorer, transactionExplorer, getNodeURL};

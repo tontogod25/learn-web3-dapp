@@ -1,7 +1,6 @@
-import {CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS} from 'types';
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {Connection, PublicKey} from '@solana/web3.js';
-import {getNodeURL} from 'utils/datahub-utils';
+import {getNodeURL} from '@solana/lib';
 import * as borsh from 'borsh';
 
 // The state of a greeting account managed by the hello world program
@@ -25,12 +24,7 @@ export default async function getter(
 ) {
   try {
     const {network, greeter} = req.body;
-    const url = getNodeURL(
-      CHAINS.SOLANA,
-      SOLANA_NETWORKS.DEVNET,
-      SOLANA_PROTOCOLS.RPC,
-      network,
-    );
+    const url = getNodeURL(network);
     const connection = new Connection(url, 'confirmed');
     const greeterPublicKey = new PublicKey(greeter);
 

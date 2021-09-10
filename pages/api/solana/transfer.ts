@@ -1,6 +1,5 @@
-import {CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS} from 'types';
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getNodeURL} from 'utils/datahub-utils';
+import {getNodeURL} from '@solana/lib';
 import {
   Connection,
   PublicKey,
@@ -15,19 +14,14 @@ export default async function transfer(
 ) {
   try {
     const {address, secret, recipient, lamports, network} = req.body;
-    const url = getNodeURL(
-      CHAINS.SOLANA,
-      SOLANA_NETWORKS.DEVNET,
-      SOLANA_PROTOCOLS.RPC,
-      network,
-    );
+    const url = getNodeURL(network);
     const connection = new Connection(url, 'confirmed');
 
-    const fromPubkey = new PublicKey(address as string);
-    const toPubkey = new PublicKey(recipient as string);
+    const fromPubkey = new PublicKey(address);
+    const toPubkey = new PublicKey(recipient);
     //... let's skip the beginning as it's should be familiar for you now.
     // The secret key is stored in our state as a stingified array
-    const secretKey = Uint8Array.from(JSON.parse(secret as string));
+    const secretKey = Uint8Array.from(JSON.parse(secret));
 
     // Find the parameter to pass
     const instructions = SystemProgram.transfer({

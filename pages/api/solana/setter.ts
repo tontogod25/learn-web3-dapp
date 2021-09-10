@@ -6,9 +6,8 @@ import {
   Transaction,
   sendAndConfirmTransaction,
 } from '@solana/web3.js';
-import {CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS} from 'types';
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getNodeURL} from 'utils/datahub-utils';
+import {getNodeURL} from '@solana/lib';
 
 export default async function setter(
   req: NextApiRequest,
@@ -16,12 +15,7 @@ export default async function setter(
 ) {
   try {
     const {greeter, secret, programId, network} = req.body;
-    const url = getNodeURL(
-      CHAINS.SOLANA,
-      SOLANA_NETWORKS.DEVNET,
-      SOLANA_PROTOCOLS.RPC,
-      network,
-    );
+    const url = getNodeURL(network);
     const connection = new Connection(url, 'confirmed');
 
     const greeterPublicKey = new PublicKey(greeter);

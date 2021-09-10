@@ -6,9 +6,8 @@ import {
   Transaction,
   sendAndConfirmTransaction,
 } from '@solana/web3.js';
-import {CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS} from 'types';
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getNodeURL} from 'utils/datahub-utils';
+import {getNodeURL} from '@solana/lib';
 import * as borsh from 'borsh';
 
 // The state of a greeting account managed by the hello world program
@@ -42,15 +41,10 @@ export default async function greeter(
 ) {
   try {
     const {network, secret, programId: programAddress} = req.body;
-    const url = getNodeURL(
-      CHAINS.SOLANA,
-      SOLANA_NETWORKS.DEVNET,
-      SOLANA_PROTOCOLS.RPC,
-      network,
-    );
+    const url = getNodeURL(network);
     const connection = new Connection(url, 'confirmed');
 
-    const programId = new PublicKey(programAddress as string);
+    const programId = new PublicKey(programAddress);
     const payer = Keypair.fromSecretKey(new Uint8Array(JSON.parse(secret)));
     const GREETING_SEED = 'hello';
 

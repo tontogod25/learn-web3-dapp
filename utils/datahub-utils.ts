@@ -20,12 +20,14 @@ export const getNodeURL = (
   protocol?: PROTOCOLS,
   node?: string,
 ): string => {
-  if (node === 'localhost') {
-    return getLocalNodeURL(chain);
+  if (node === 'datahub') {
+    return getDatahubNodeURL(chain, network, protocol);
   } else if (node === 'testnet') {
     return getTestnetNodeURL(chain);
+  } else if (node === 'localhost') {
+    return getLocalNodeURL(chain);
   } else {
-    return getDatahubNodeURL(chain, network, protocol);
+    return getTestnetNodeURL(chain);
   }
 };
 

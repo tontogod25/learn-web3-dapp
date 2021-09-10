@@ -33,10 +33,15 @@ const Fund = () => {
   const airdrop = async () => {
     setFetching(true);
     setError(null);
+    let state0;
+    if (state.network === 'datahub') {
+      state0 = {...state, network: 'devnet'};
+    }
+    console.log(state);
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/fund`,
-        state,
+        state0 ?? state,
       );
       setHash(response.data);
       setIsFunded(true);

@@ -70,7 +70,7 @@ const Deploy = () => {
             style={{width: '500px'}}
           />
           <Button type="primary" onClick={checkDeployment} loading={fetching}>
-            Check Deployement
+            Check Deployment
           </Button>
         </Space>
         {checked && (
