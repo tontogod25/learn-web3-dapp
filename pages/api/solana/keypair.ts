@@ -9,11 +9,15 @@ export default function keypair(
   _req: NextApiRequest,
   res: NextApiResponse<string | ResponseT>,
 ) {
-  const keypair = undefined;
-  const address = undefined;
-  const secret = JSON.stringify(Array.from(keypair?.secretKey));
-  res.status(200).json({
-    secret,
-    address,
-  });
+  try {
+    const keypair = undefined;
+    const address = undefined;
+    const secret = JSON.stringify(Array.from(keypair.secretKey));
+    res.status(200).json({
+      secret,
+      address,
+    });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
 }
