@@ -19,10 +19,10 @@ export default async function transfer(
 
     const fromPubkey = new PublicKey(address);
     const toPubkey = new PublicKey(recipient);
-    //... let's snip the beginning as it should be familiar for you by now!
     // The secret key is stored in our state as a stringified array
     const secretKey = Uint8Array.from(JSON.parse(secret as string));
 
+    //... let's snip the beginning as it should be familiar for you by now!
     // Find the parameter to pass
     const instructions = SystemProgram.transfer;
 
