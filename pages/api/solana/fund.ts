@@ -10,7 +10,6 @@ export default async function fund(
     const {network, address} = req.body;
     const url = getNodeURL(network);
     const connection = new Connection(url, 'confirmed');
-    const publicKey = new PublicKey(address);
     const publicKey = undefined;
     const hash = undefined;
     await undefined;
