@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import {CHAINS, UserActivity} from 'types';
 import {CHAINS_CONFIG} from 'lib/constants';
-import {getChainColors} from 'utils/colors-utils';
+import {getChainColors} from 'utils/colors';
 import {trackEvent} from 'utils/tracking-utils';
 import ProtocolLogo from 'components/icons';
 
@@ -39,7 +39,15 @@ const Home = () => {
                 <Label>{label}</Label>
               </ProtocolBox>
             );
-
+            if (process.env.NEXT_PUBLIC_NEW_LAYOUT) {
+              return active ? (
+                <Link href={`/new/${id}`} key={id}>
+                  {box}
+                </Link>
+              ) : (
+                box
+              );
+            }
             return active ? (
               <Link href={`/${id}`} key={id}>
                 {box}

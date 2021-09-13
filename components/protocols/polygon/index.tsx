@@ -1,91 +1,97 @@
-import {useState} from 'react';
-import {Row, Space, Tag, Typography} from 'antd';
-import {FundViewOutlined} from '@ant-design/icons';
-import Sidebar from 'components/shared/Sidebar';
-import {ChainType} from 'types';
-import Step from 'components/shared/Step';
-import Connect from './steps/Connect';
-import Query from './steps/Query';
-import Balance from './steps/Balance';
-import Deploy from './steps/Deploy';
-import GetStorage from './steps/GetStorage';
-import SetStorage from './steps/SetStorage';
-import Transfer from './steps/Transfer';
-import Restore from './steps/Restore';
-import {PolygonAccountT} from 'types/polygon-types';
-import {getPolygonAddressExplorerURL} from 'utils/polygon-utils';
-
-import {useSteps} from 'hooks/steps-hooks';
+import {Footer, Header, Sidebar} from 'components/shared/Layout';
+import {trackTutorialStepViewed} from '@funnel/tracking-utils';
+import {Nav} from 'components/protocols/polygon/components';
+import {useReducer, useEffect} from 'react';
+import {useLocalStorage} from 'hooks';
+import {AppI} from '@polygon/types';
+import {Row, Col} from 'antd';
+import {
+  Connect,
+  Balance,
+  Query,
+  Restore,
+  Deploy,
+  Setter,
+  Getter,
+  Transfer,
+} from '@polygon/components/steps';
+import {
+  appStateReducer,
+  initialState,
+  PolygonContext,
+  useAppState,
+  State,
+} from '@polygon/context';
 
 // Prevents "Property 'ethereum' does not exist on type
 // 'Window & typeof globalThis' ts(2339)" linter warning
 declare let window: any;
 
-const {Paragraph} = Typography;
-
-const Chain = ({chain}: {chain: ChainType}) => {
-  const [account, setAccount] = useState<PolygonAccountT>(null);
-
+const PolygonApp: React.FC<AppI> = ({chain}) => {
+  const {state, dispatch} = useAppState();
   const {steps} = chain;
+  const step = steps[state.index];
 
-  const {next, prev, stepIndex, step, isFirstStep, isLastStep} =
-    useSteps(steps);
+  const nextHandler = () => {
+    const index = state.index + 1;
+    dispatch({
+      type: 'SetIndex',
+      index,
+    });
+    trackTutorialStepViewed(chain.id, steps[index].title, 'next');
+  };
+  const prevHandler = () => {
+    const index = state.index - 1;
+    dispatch({
+      type: 'SetIndex',
+      index,
+    });
+    trackTutorialStepViewed(chain.id, steps[index].title, 'prev');
+  };
 
   return (
     <Row>
-      <Sidebar chain={chain} steps={steps} stepIndex={stepIndex} />
-      <Step
-        chain={chain}
-        step={step}
-        isFirstStep={isFirstStep}
-        isLastStep={isLastStep}
-        prev={prev}
-        next={next}
-        body={
-          <>
-            {step.id === 'connect' && (
-              <Connect account={account} setAccount={setAccount} />
-            )}
-            {step.id === 'query' && <Query />}
-            {step.id === 'restore' && <Restore />}
-            {step.id === 'balance' && <Balance account={account} />}
-            {step.id === 'transfer' && <Transfer />}
-            {step.id === 'deploy' && <Deploy />}
-            {step.id === 'setter' && <SetStorage />}
-            {step.id === 'getter' && <GetStorage />}
-          </>
-        }
-        nav={<Nav account={account} />}
-      />
+      <Sidebar chain={chain} steps={chain.steps} stepIndex={state.index} />
+      <Col span={16} style={{padding: '60px', height: '100vh'}}>
+        <Header step={step} />
+        <div style={{minHeight: '250px', marginBottom: '10vh'}}>
+          {step.id === 'connect' && <Connect />}
+          {step.id === 'query' && <Query />}
+          {step.id === 'restore' && <Restore />}
+          {step.id === 'balance' && <Balance />}
+          {step.id === 'transfer' && <Transfer />}
+          {step.id === 'deploy' && <Deploy />}
+          {step.id === 'setter' && <Setter />}
+          {step.id === 'getter' && <Getter />}
+          <Nav />
+        </div>
+        <Footer
+          chainId={chain.id}
+          steps={chain.steps}
+          stepIndex={state.index}
+          validIndex={state.validate}
+          next={nextHandler}
+          prev={prevHandler}
+        />
+      </Col>
     </Row>
   );
 };
 
-const Nav = ({account}: {account: PolygonAccountT}) => {
-  if (!account) return null;
-
-  const addressToDisplay = `${account.slice(0, 6)}...${account.slice(-4)}`;
-
+const Polygon: React.FC<AppI> = ({chain}) => {
+  const [storageState, setStorageState] = useLocalStorage<State>(
+    'polygon',
+    initialState,
+  );
+  const [state, dispatch] = useReducer(appStateReducer, storageState);
+  useEffect(() => {
+    setStorageState(state);
+  }, [state]);
   return (
-    <div style={{position: 'fixed', top: 20, right: 60}}>
-      <Paragraph copyable={{text: account, tooltips: `Click to copy!`}}>
-        <a
-          href={getPolygonAddressExplorerURL(account)}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Tag color="gold">
-            <Space>
-              <FundViewOutlined />
-              <div>
-                View <strong>{addressToDisplay}</strong> on PolygonScan
-              </div>
-            </Space>
-          </Tag>
-        </a>
-      </Paragraph>
-    </div>
+    <PolygonContext.Provider value={{state, dispatch}}>
+      <PolygonApp chain={chain} />
+    </PolygonContext.Provider>
   );
 };
 
-export default Chain;
+export default Polygon;

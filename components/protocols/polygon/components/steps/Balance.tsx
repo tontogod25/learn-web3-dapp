@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useState} from 'react';
 import {Alert, Button, Col, Space, Typography} from 'antd';
-import {ethers} from 'ethers';
+import {getPolygonAddressExplorerURL} from '@polygon/lib';
 import {LoadingOutlined} from '@ant-design/icons';
-
-import {getPolygonAddressExplorerURL} from 'utils/polygon-utils';
-import {PolygonAccountT} from 'types/polygon-types';
+import {useAppState} from '@polygon/context';
+import {useState, useEffect} from 'react';
+import {ethers} from 'ethers';
 
 const {Text} = Typography;
 
@@ -13,9 +12,19 @@ const {Text} = Typography;
 // 'Window & typeof globalThis' ts(2339)" linter warning
 declare let window: any;
 
-const Balance = ({account}: {account: PolygonAccountT}) => {
-  const [balance, setBalance] = useState<string>('');
+const Balance = () => {
+  const [balance, setBalance] = useState<string | undefined>(undefined);
   const [fetching, setFetching] = useState<boolean>(false);
+  const {state, dispatch} = useAppState();
+
+  useEffect(() => {
+    if (balance != undefined) {
+      dispatch({
+        type: 'SetValidate',
+        validate: 4,
+      });
+    }
+  }, [balance, setBalance]);
 
   const checkBalance = async () => {
     setFetching(true);
@@ -31,7 +40,7 @@ const Balance = ({account}: {account: PolygonAccountT}) => {
     setFetching(false);
   };
 
-  const explorerUrl = getPolygonAddressExplorerURL(account as string);
+  const explorerUrl = getPolygonAddressExplorerURL(state.address as string);
 
   return (
     <Col style={{minHeight: '350px', maxWidth: '600px'}}>

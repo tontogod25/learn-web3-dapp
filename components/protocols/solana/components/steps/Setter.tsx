@@ -3,7 +3,7 @@ import {LoadingOutlined} from '@ant-design/icons';
 import {transactionExplorer} from '@solana/lib';
 import {ErrorBox} from '@solana/components';
 import {useEffect, useState} from 'react';
-import {useAppState} from '@solana/hooks';
+import {useAppState} from '@solana/context';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import axios from 'axios';

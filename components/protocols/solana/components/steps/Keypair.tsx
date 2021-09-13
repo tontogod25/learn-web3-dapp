@@ -1,6 +1,6 @@
 import {Alert, Button, Col, Space, Typography, Modal} from 'antd';
 import {useEffect, useState} from 'react';
-import {useAppState} from '@solana/hooks';
+import {useAppState} from '@solana/context';
 import axios from 'axios';
 import {ErrorBox} from '@solana/components';
 import type {ErrorT} from '@solana/types';
@@ -101,4 +101,3 @@ const Keypair = () => {
 };
 
 export default Keypair;
-

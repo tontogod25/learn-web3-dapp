@@ -1,7 +1,7 @@
 import {Col, Alert, Space, Typography, Button, Modal} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import {useEffect, useState} from 'react';
-import {useAppState} from '@solana/hooks';
+import {useAppState} from '@solana/context';
 import {ErrorBox} from '@solana/components';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
@@ -34,10 +34,7 @@ const Connect = () => {
     setFetching(true);
     setError(null);
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/connect`,
-        state,
-      );
+      const response = await axios.post(`/api/solana/connect`, state);
       dispatch({
         type: 'SetValidate',
         validate: 1,

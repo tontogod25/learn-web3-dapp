@@ -5,18 +5,13 @@ export type State = {
   validate: number;
   network: string;
   address?: string;
-  secret?: string;
-  programId?: string;
-  greeter?: string;
 };
+
 type Action =
   | {type: 'SetIndex'; index: number}
   | {type: 'SetValidate'; validate: number}
   | {type: 'SetNetwork'; network: string}
-  | {type: 'SetAddress'; address?: string}
-  | {type: 'SetSecret'; secret?: string}
-  | {type: 'SetProgramId'; programId?: string}
-  | {type: 'SetGreeter'; greeter?: string};
+  | {type: 'SetAddress'; address?: string};
 
 const initialState = {
   index: 0,
@@ -32,20 +27,14 @@ function appStateReducer(state: State, action: Action): State {
       return {...state, validate: action.validate};
     case 'SetNetwork':
       return {...state, network: action.network};
-    case 'SetSecret':
-      return {...state, secret: action.secret};
     case 'SetAddress':
       return {...state, address: action.address};
-    case 'SetProgramId':
-      return {...state, programId: action.programId};
-    case 'SetGreeter':
-      return {...state, greeter: action.greeter};
     default:
       return state;
   }
 }
 
-const SolanaContext = createContext<{
+const PolygonContext = createContext<{
   state: State;
   dispatch: Dispatch<Action>;
 }>({
@@ -53,6 +42,6 @@ const SolanaContext = createContext<{
   dispatch: () => null,
 });
 
-const useAppState = () => useContext(SolanaContext);
+const useAppState = () => useContext(PolygonContext);
 
-export {SolanaContext, initialState, appStateReducer, useAppState};
+export {PolygonContext, initialState, appStateReducer, useAppState};

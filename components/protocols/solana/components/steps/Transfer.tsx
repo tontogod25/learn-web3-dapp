@@ -2,7 +2,7 @@ import {Form, Input, Button, Alert, Space, Typography, Col, Modal} from 'antd';
 import {LoadingOutlined, RedoOutlined} from '@ant-design/icons';
 import {prettyError, transactionExplorer} from '@solana/lib';
 import {ErrorBox} from '@solana/components';
-import {useAppState} from '@solana/hooks';
+import {useAppState} from '@solana/context';
 import type {ErrorT} from '@solana/types';
 import {Keypair} from '@solana/web3.js';
 import {useState} from 'react';

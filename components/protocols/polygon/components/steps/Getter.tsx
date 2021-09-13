@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useState} from 'react';
-import {Alert, Button, Col, Space, Statistic, Typography} from 'antd';
-import {ethers} from 'ethers';
-import {LoadingOutlined} from '@ant-design/icons';
 import SimpleStorageJson from 'contracts/polygon/SimpleStorage/build/contracts/SimpleStorage.json';
+import {Alert, Button, Col, Space, Statistic, Typography} from 'antd';
+import {LoadingOutlined} from '@ant-design/icons';
+import {useAppState} from '@polygon/context';
+import {useState, useEffect} from 'react';
+import {ethers} from 'ethers';
 
 // Prevents "Property 'ethereum' does not exist on type
 // 'Window & typeof globalThis' ts(2339)" linter warning
@@ -11,23 +12,33 @@ declare let window: any;
 
 const {Text} = Typography;
 
-const GetStorage = () => {
-  const [fetchingGet, setFetchingGet] = useState<boolean>(false);
+const Getter = () => {
+  const [fetching, setFetching] = useState<boolean>(false);
   const [contractNumber, setContractNumber] = useState<string | null>(null);
+  const {dispatch} = useAppState();
+
+  useEffect(() => {
+    if (contractNumber) {
+      dispatch({
+        type: 'SetValidate',
+        validate: 7,
+      });
+    }
+  }, [contractNumber, setContractNumber]);
 
   const getValue = async () => {
     try {
-      setFetchingGet(true);
+      setFetching(true);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       // try to figure out the expected parameters
       const contract = new ethers.Contract(undefined);
       // try to figure out the expected method
       const storage = undefined;
       setContractNumber(storage.toString());
-      setFetchingGet(false);
+      setFetching(false);
     } catch (error) {
       console.log(error);
-      setFetchingGet(false);
+      setFetching(false);
     }
   };
 
@@ -37,8 +48,8 @@ const GetStorage = () => {
         <Button type="primary" onClick={getValue}>
           Get Value
         </Button>
-        {fetchingGet && <LoadingOutlined style={{fontSize: 24}} spin />}
-        {!fetchingGet && (
+        {fetching && <LoadingOutlined style={{fontSize: 24}} spin />}
+        {!fetching && (
           <Alert
             showIcon
             type="success"
@@ -50,4 +61,4 @@ const GetStorage = () => {
   );
 };
 
-export default GetStorage;
+export default Getter;

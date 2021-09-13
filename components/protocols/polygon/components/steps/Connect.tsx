@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useState} from 'react';
-import {Alert, Button, Col, Space, Typography, Tag} from 'antd';
-import {ethers} from 'ethers';
+import {Alert, Button, Col, Space, Typography} from 'antd';
 import detectEthereumProvider from '@metamask/detect-provider';
 import {Network} from '@ethersproject/networks';
-
-import {PolygonAccountT} from 'types/polygon-types';
+import {useAppState} from '@polygon/context';
+import {useState} from 'react';
+import {ethers} from 'ethers';
 
 const {Text} = Typography;
 
@@ -13,28 +12,34 @@ const {Text} = Typography;
 // 'Window & typeof globalThis' ts(2339)" linter warning
 declare let window: any;
 
-const Connect = ({
-  account,
-  setAccount,
-}: {
-  account: PolygonAccountT;
-  setAccount(account: PolygonAccountT): void;
-}) => {
-  const [network, setNetwork] = useState<Network | null>(null);
+const Connect = () => {
+  const [network, setNetwork] = useState<Network | undefined>(undefined);
+  const {state, dispatch} = useAppState();
 
   const checkConnection = async () => {
     const provider = await detectEthereumProvider();
 
     if (provider) {
-      // TODO
       // Connect to Polygon using Web3Provider and Metamask
-      // Define address and network
+      // @ts-ignore
+      await provider.send('eth_requestAccounts', []);
       const web3provider = undefined;
+      // Define address and network
+      const signer = undefined;
       const address = undefined;
       const network = undefined;
 
-      setAccount(address);
       setNetwork(network);
+      if (address) {
+        dispatch({
+          type: 'SetAddress',
+          address: address,
+        });
+        dispatch({
+          type: 'SetValidate',
+          validate: 1,
+        });
+      }
     } else {
       alert('Please install Metamask at https://metamask.io');
     }
@@ -48,7 +53,7 @@ const Connect = ({
             Check Metamask Connection
           </Button>
         }
-        {account && network ? (
+        {state.address && network ? (
           <Alert
             message={<Text strong>{`Connected to ${network.name}`}</Text>}
             type="success"
