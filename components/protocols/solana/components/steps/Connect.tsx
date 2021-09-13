@@ -34,10 +34,7 @@ const Connect = () => {
     setFetching(true);
     setError(null);
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/connect`,
-        state,
-      );
+      const response = await axios.post(`/api/solana/connect`, state);
       dispatch({
         type: 'SetValidate',
         validate: 1,

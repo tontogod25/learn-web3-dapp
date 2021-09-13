@@ -36,10 +36,10 @@ const Deploy = () => {
     setChecked(false);
     setFetching(true);
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/deploy`,
-        {...state, programId: value},
-      );
+      const response = await axios.post(`/api/solana/deploy`, {
+        ...state,
+        programId: value,
+      });
       setChecked(response.data);
       dispatch({
         type: 'SetProgramId',

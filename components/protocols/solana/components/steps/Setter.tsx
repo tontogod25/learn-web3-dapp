@@ -38,10 +38,7 @@ const Setter = () => {
       setError(null);
       setFetching(true);
       try {
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/getter`,
-          state,
-        );
+        const response = await axios.post(`/api/solana/getter`, state);
         setMessage(response.data);
       } catch (error) {
         setError(prettyError(error));

@@ -37,12 +37,12 @@ const Fund = () => {
     if (state.network === 'datahub') {
       state0 = {...state, network: 'devnet'};
     }
-    console.log(state);
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/fund`,
-        state0 ?? state,
-      );
+      const response = await axios.post(`/api/solana/fund`, state0 ?? state);
+      console.log(response.data);
+      if (response.data.length === 0) {
+        throw new Error('Complete the code');
+      }
       setHash(response.data);
       setIsFunded(true);
       dispatch({
@@ -50,7 +50,11 @@ const Fund = () => {
         validate: 3,
       });
     } catch (error) {
-      setError(prettyError(error));
+      if (error.message === 'Complete the code') {
+        setError({message: 'Complete the code'});
+      } else {
+        setError(prettyError(error));
+      }
       setIsFunded(false);
     } finally {
       setFetching(false);

@@ -37,9 +37,7 @@ const Keypair = () => {
   const generateKeypair = async () => {
     setFetching(true);
     try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/keypair`,
-      );
+      const response = await axios.get(`/api/solana/keypair`);
       setAddress(response.data.address);
       dispatch({
         type: 'SetSecret',
@@ -101,4 +99,3 @@ const Keypair = () => {
 };
 
 export default Keypair;
-
