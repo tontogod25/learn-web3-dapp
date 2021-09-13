@@ -24,14 +24,12 @@ const SolanaApp: React.FC<AppI> = ({chain}) => {
   const step = steps[state.index];
 
   const nextHandler = () => {
-    if (state.validate > state.index) {
       const index = state.index + 1;
       dispatch({
         type: 'SetIndex',
         index,
       });
       trackTutorialStepViewed(chain.id, steps[index].title, 'next');
-    }
   };
   const prevHandler = () => {
     const index = state.index - 1;
