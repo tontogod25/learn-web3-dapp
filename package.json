@@ -13,7 +13,8 @@
     "near:build:contract:debug": "node contracts/near/compile.js --debug",
     "near:test": "cd contracts/near && cargo test -- --nocapture && cd -",
     "near:test:verbose": "yarn near:build:contract:debug && cd contracts/near && cargo test -v -- --nocapture && cd -",
-    "truffle-polygon": "yarn global add truffle && cd ./contracts/polygon/SimpleStorage && yarn && truffle obtain --solc 0.8.0"
+    "truffle-polygon": "yarn global add truffle && cd ./contracts/polygon/SimpleStorage && yarn && truffle obtain --solc 0.8.0",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
@@ -65,6 +66,7 @@
     "eslint-plugin-react": "^7.25.1",
     "prettier": "2.3.2",
     "shelljs": "^0.8.4",
-    "typescript": "4.3.4"
+    "typescript": "4.3.4",
+    "husky": "^7.0.0"
   }
 }
