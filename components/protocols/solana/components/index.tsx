@@ -119,7 +119,7 @@ const Nav = () => {
           defaultValue={state.network}
           style={{width: 120}}
           onChange={toggleLocal}
-          disabled={true} //{state.index != 0}
+          disabled={state.index != 0}
         >
           <Option value="datahub">Datahub</Option>
           <Option value="testnet">Testnet</Option>
