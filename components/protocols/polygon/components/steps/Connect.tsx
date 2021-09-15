@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {Alert, Button, Col, Space, Typography} from 'antd';
 import detectEthereumProvider from '@metamask/detect-provider';
+import {Alert, Button, Col, Space, Typography} from 'antd';
 import {Network} from '@ethersproject/networks';
 import {useAppState} from '@polygon/context';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {ethers} from 'ethers';
 
 const {Text} = Typography;
@@ -14,7 +14,20 @@ declare let window: any;
 
 const Connect = () => {
   const [network, setNetwork] = useState<Network | undefined>(undefined);
+  const [address, setAddress] = useState<string | undefined>(undefined);
   const {state, dispatch} = useAppState();
+
+  useEffect(() => {
+    if (address) {
+      if (address) {
+        dispatch({
+          type: 'SetAddress',
+          address: address,
+        });
+        state.validator(1);
+      }
+    }
+  }, [address, setAddress]);
 
   const checkConnection = async () => {
     const provider = await detectEthereumProvider();
@@ -23,23 +36,18 @@ const Connect = () => {
       // Connect to Polygon using Web3Provider and Metamask
       // @ts-ignore
       await provider.send('eth_requestAccounts', []);
-      const web3provider = undefined;
+      const web3provider = new ethers.providers.Web3Provider(
+        window.ethereum,
+        'any',
+      );
+      const signer = web3provider.getSigner();
+
       // Define address and network
-      const signer = undefined;
-      const address = undefined;
-      const network = undefined;
+      const address = await signer.getAddress();
+      const network = ethers.providers.getNetwork(await signer.getChainId());
 
       setNetwork(network);
-      if (address) {
-        dispatch({
-          type: 'SetAddress',
-          address: address,
-        });
-        dispatch({
-          type: 'SetValidate',
-          validate: 1,
-        });
-      }
+      setAddress(address);
     } else {
       alert('Please install Metamask at https://metamask.io');
     }

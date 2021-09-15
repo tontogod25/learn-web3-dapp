@@ -3,13 +3,13 @@ import {accountExplorer, transactionExplorer} from '@solana/lib';
 import {ErrorBox} from '@solana/components';
 import {useAppState} from '@solana/context';
 import {useState, useEffect} from 'react';
-import type {ErrorT} from '@solana/types';
+import type {ErrorT, StepT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import axios from 'axios';
 
 const {Text} = Typography;
 
-const Greeter = () => {
+const Greeter = ({validate}: StepT) => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [hash, setHash] = useState<string | null>(null);

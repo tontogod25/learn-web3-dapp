@@ -5,7 +5,7 @@ import {CHAINS, ChainType} from 'types';
 import {ComponentType} from 'react';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
-import {getChainColors} from 'utils/colors-utils';
+import {getChainColors} from 'utils/colors';
 
 type StaticPropsT = {
   params: {chain: CHAINS};

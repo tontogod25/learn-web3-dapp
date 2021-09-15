@@ -14,25 +14,23 @@ const Restore = () => {
   const [address, setAddress] = useState<string | null>(null);
   const [secret, setSecret] = useState<string | null>(null);
   const [value, setValue] = useState<string>('');
-  const {dispatch} = useAppState();
+  const {state} = useAppState();
 
   useEffect(() => {
     if (address) {
-      dispatch({
-        type: 'SetValidate',
-        validate: 3,
-      });
+      state.validator(3);
     }
   }, [address, setAddress]);
 
   const restore = () => {
     try {
-      const wallet = undefined;
+      const wallet = ethers.Wallet.fromMnemonic(value.trim());
       const selectedAddress = window.ethereum.selectedAddress;
-      if (undefined === selectedAddress) {
-        setAddress(undefined);
-        setSecret(undefined);
+      if (wallet && wallet.address.toLocaleLowerCase() === selectedAddress) {
+        setAddress(wallet.address.toLocaleLowerCase());
+        setSecret(wallet.privateKey.toLocaleLowerCase());
       } else {
+        console.log('here');
         setError('Unable to restore account');
       }
     } catch (error) {
@@ -58,7 +56,14 @@ const Restore = () => {
             Restore Account
           </Button>
         </Space>
-        {error && <Alert type="error" closable message={error} />}
+        {error && (
+          <Alert
+            type="error"
+            closable
+            message={error}
+            onClose={() => setError(null)}
+          />
+        )}
         {address ? (
           <Alert
             message={
@@ -67,6 +72,7 @@ const Restore = () => {
             type="success"
             closable
             showIcon
+            onClose={() => setAddress(null)}
           />
         ) : null}
         {secret ? (
@@ -75,6 +81,7 @@ const Restore = () => {
             type="warning"
             closable
             showIcon
+            onClose={() => setSecret(null)}
           />
         ) : null}
       </Space>

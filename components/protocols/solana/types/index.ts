@@ -46,3 +46,7 @@ export type ErrorT = {
   file?: string;
   agrs?: string;
 };
+
+export type StepT = {
+  validate: (n: number) => void;
+};

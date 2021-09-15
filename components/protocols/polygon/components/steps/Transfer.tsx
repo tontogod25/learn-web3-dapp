@@ -1,5 +1,5 @@
-import {getPolygonTxExplorerURL} from '@polygon/lib';
 import {Button, Alert, Space, Typography, Col} from 'antd';
+import {getPolygonTxExplorerURL} from '@polygon/lib';
 import {useAppState} from '@polygon/context';
 import {useState, useEffect} from 'react';
 import {ethers} from 'ethers';
@@ -16,25 +16,36 @@ declare let window: any;
 const Transfer = () => {
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
-  const [hash, setHash] = useState('');
   const [balance, setBalance] = useState('');
-  const [fetchingBalance, setFetchingBalance] = useState(false);
+  const [hash, setHash] = useState('');
   const {dispatch} = useAppState();
 
   useEffect(() => {
-    const checkBalance = async () => {
-      setFetchingBalance(true);
+    checkBalance();
+    if (hash) {
+      dispatch({
+        type: 'SetValidate',
+        validate: 5,
+      });
+    }
+  }, [hash, setHash]);
+
+  const checkBalance = async () => {
+    setFetching(true);
+    try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const selectedAddress = window.ethereum.selectedAddress;
+      const selectedAddress = window.ethereum.selectedAddresss;
       const selectedAddressBalance = await provider.getBalance(selectedAddress);
       const balanceToDisplay = ethers.utils.formatEther(
         selectedAddressBalance.toString(),
       );
       setBalance(balanceToDisplay);
-      setFetchingBalance(false);
-    };
-    checkBalance();
-  }, [hash, setHash]);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setFetching(false);
+    }
+  };
 
   const transfer = async () => {
     setFetching(true);
@@ -47,21 +58,20 @@ const Transfer = () => {
         parseInt(currentGasPrice.toString()),
       );
 
-      // try to figure out the expected parameters
-      // to build a transaction
-      const transaction = undefined;
-
-      // try to figure out the expected method
-      const hash = undefined;
+      const transaction = {
+        from: send_account,
+        to: recipient,
+        value: ethers.utils.parseEther('0.1'),
+        nonce: provider.getTransactionCount(send_account, 'latest'),
+        gasLimit: ethers.utils.hexlify(100000),
+        gasPrice: gas_price,
+      };
+      const hash = await provider.getSigner().sendTransaction(transaction);
       const receipt = await hash.wait();
       setHash(receipt.transactionHash);
-      dispatch({
-        type: 'SetValidate',
-        validate: 5,
-      });
       setFetching(false);
     } catch (error) {
-      setError(error);
+      setError(error.message);
       setFetching(false);
     }
   };
@@ -106,6 +116,8 @@ const Transfer = () => {
             message={<Text strong>{`Transfer failed`}</Text>}
             type="error"
             showIcon
+            closable={true}
+            onClose={() => setError(null)}
           />
         ) : null}
       </Space>

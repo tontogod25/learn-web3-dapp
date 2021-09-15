@@ -1,50 +1,36 @@
+import {PolygonQueryResponse, PolygonQueryErrorResponse} from '@polygon/types';
+import {LoadingOutlined} from '@ant-design/icons';
 import {Alert, Button, Col, Space} from 'antd';
 import {useAppState} from '@polygon/context';
+import {useState, useEffect} from 'react';
 import ReactJson from 'react-json-view';
-import {useState} from 'react';
 import axios from 'axios';
-
-import {
-  PolygonQueryResponse,
-  PolygonQueryErrorResponse,
-} from 'types/polygon-types';
-
-// Prevents "Property 'ethereum' does not exist on type
-// 'Window & typeof globalThis' ts(2339)" linter warning
-declare let window: any;
-
-import {LoadingOutlined} from '@ant-design/icons';
 
 const Query = () => {
   const [queryData, setQueryData] = useState<PolygonQueryResponse | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const {dispatch} = useAppState();
+  const {state} = useAppState();
 
-  const getQuery = () => {
+  useEffect(() => {
+    if (queryData) {
+      state.validator(2);
+    }
+  }, [queryData, setQueryData]);
+
+  const getQuery = async () => {
     setFetching(true);
-
-    axios
-      .get(`/api/polygon/query`)
-      .then((res) => {
-        const data: PolygonQueryResponse = res.data;
-        setQueryData(data);
-        if (!queryData) {
-          console.log('queryData not set on first click?');
-        } else {
-          dispatch({
-            type: 'SetValidate',
-            validate: 2,
-          });
-        }
-        setFetching(false);
-      })
-      .catch((err) => {
-        console.log(`err.response`, err.response);
-        const data: PolygonQueryErrorResponse = err.response?.data;
-        setFetching(false);
-        setError(data?.message);
-      });
+    try {
+      const response = await axios.get(`/api/polygon/query`);
+      setQueryData(response.data);
+      setFetching(false);
+    } catch (error) {
+      const data = error.response?.data;
+      setFetching(false);
+      setError(data?.message);
+    } finally {
+      setFetching(false);
+    }
   };
 
   return (

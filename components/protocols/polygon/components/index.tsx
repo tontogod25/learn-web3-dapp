@@ -6,9 +6,10 @@ import {useAppState} from '@polygon/context';
 import type {EntryT} from '@polygon/types';
 
 const {Paragraph} = Typography;
+
 const {Option} = Select;
 
-const Nav = () => {
+const Nav = ({clear}: {clear(): void}) => {
   const {state, dispatch} = useAppState();
   const {address} = state;
 
@@ -51,7 +52,9 @@ const Nav = () => {
       type: 'SetValidate',
       validate: 0,
     });
-    trackStorageCleared('solana');
+    state.validator(0);
+    clear();
+    trackStorageCleared('polygon');
   };
 
   const AppState = () => {

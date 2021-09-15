@@ -1,14 +1,14 @@
 import {Alert, Button, Col, Space, Typography, Modal} from 'antd';
-import {useEffect, useState} from 'react';
+import type {ErrorT, StepT} from '@solana/types';
 import {useAppState} from '@solana/context';
-import axios from 'axios';
 import {ErrorBox} from '@solana/components';
-import type {ErrorT} from '@solana/types';
+import {useEffect, useState} from 'react';
 import {prettyError} from '@solana/lib';
+import axios from 'axios';
 
 const {Text} = Typography;
 
-const Keypair = () => {
+const Keypair = ({validate}: StepT) => {
   const [address, setAddress] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
@@ -49,10 +49,7 @@ const Keypair = () => {
         type: 'SetAddress',
         address: response.data.address,
       });
-      dispatch({
-        type: 'SetValidate',
-        validate: 2,
-      });
+      validate(2);
     } catch (error) {
       setError(prettyError(error));
     } finally {

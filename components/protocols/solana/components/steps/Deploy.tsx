@@ -2,14 +2,14 @@ import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
 import {accountExplorer} from '@solana/lib';
 import {useAppState} from '@solana/context';
 import {ErrorBox} from '@solana/components';
-import type {ErrorT} from '@solana/types';
+import type {ErrorT, StepT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
 const {Text} = Typography;
 
-const Deploy = () => {
+const Deploy = ({validate}: StepT) => {
   const [value, setValue] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);

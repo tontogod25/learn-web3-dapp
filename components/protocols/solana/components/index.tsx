@@ -1,4 +1,3 @@
-import {trackStorageCleared} from '@funnel/tracking-utils';
 import type {EntryT, ErrorT} from '@solana/types';
 import {Typography, Popover, Button, Select} from 'antd';
 import {useAppState} from '@solana/context';
@@ -8,7 +7,15 @@ const {Option} = Select;
 
 const {Text, Paragraph} = Typography;
 
-const Nav = () => {
+const Nav = ({
+  validate,
+  index,
+  clear,
+}: {
+  validate: (n: number) => void;
+  index: number;
+  clear(): void;
+}) => {
   const {state, dispatch} = useAppState();
   const {address, programId, secret, greeter} = state;
 
@@ -69,11 +76,8 @@ const Nav = () => {
       type: 'SetIndex',
       index: 0,
     });
-    dispatch({
-      type: 'SetValidate',
-      validate: 0,
-    });
-    trackStorageCleared('solana');
+    validate(0);
+    clear();
   };
 
   const toggleLocal = (node: string) => {
@@ -118,7 +122,7 @@ const Nav = () => {
           defaultValue={state.network}
           style={{width: 120}}
           onChange={toggleLocal}
-          disabled={state.index != 0}
+          disabled={index != 0}
         >
           <Option value="datahub">Datahub</Option>
           <Option value="testnet">Testnet</Option>

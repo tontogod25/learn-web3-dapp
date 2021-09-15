@@ -1,8 +1,7 @@
 import {Footer, Header, Sidebar} from 'components/shared/Layout';
-import {trackTutorialStepViewed} from '@funnel/tracking-utils';
 import {Nav} from 'components/protocols/polygon/components';
 import {useReducer, useEffect} from 'react';
-import {useLocalStorage} from 'hooks';
+import {useLocalStorage, useSteps} from 'hooks';
 import {AppI} from '@polygon/types';
 import {Row, Col} from 'antd';
 import {
@@ -23,35 +22,21 @@ import {
   State,
 } from '@polygon/context';
 
-// Prevents "Property 'ethereum' does not exist on type
-// 'Window & typeof globalThis' ts(2339)" linter warning
-declare let window: any;
-
 const PolygonApp: React.FC<AppI> = ({chain}) => {
-  const {state, dispatch} = useAppState();
-  const {steps} = chain;
-  const step = steps[state.index];
-
-  const nextHandler = () => {
-    const index = state.index + 1;
+  const {dispatch} = useAppState();
+  const {step, validate, stepIndex, validIndex, next, prev, clear} = useSteps(
+    chain.steps,
+  );
+  useEffect(() => {
     dispatch({
-      type: 'SetIndex',
-      index,
+      type: 'SetValidator',
+      validator: validate,
     });
-    trackTutorialStepViewed(chain.id, steps[index].title, 'next');
-  };
-  const prevHandler = () => {
-    const index = state.index - 1;
-    dispatch({
-      type: 'SetIndex',
-      index,
-    });
-    trackTutorialStepViewed(chain.id, steps[index].title, 'prev');
-  };
+  }, []);
 
   return (
     <Row>
-      <Sidebar chain={chain} steps={chain.steps} stepIndex={state.index} />
+      <Sidebar chain={chain} steps={chain.steps} stepIndex={stepIndex} />
       <Col span={16} style={{padding: '60px', height: '100vh'}}>
         <Header step={step} />
         <div style={{minHeight: '250px', marginBottom: '10vh'}}>
@@ -63,15 +48,15 @@ const PolygonApp: React.FC<AppI> = ({chain}) => {
           {step.id === 'deploy' && <Deploy />}
           {step.id === 'setter' && <Setter />}
           {step.id === 'getter' && <Getter />}
-          <Nav />
+          <Nav clear={clear} />
         </div>
         <Footer
           chainId={chain.id}
           steps={chain.steps}
-          stepIndex={state.index}
-          validIndex={state.validate}
-          next={nextHandler}
-          prev={prevHandler}
+          stepIndex={stepIndex}
+          validIndex={validIndex}
+          next={next}
+          prev={prev}
         />
       </Col>
     </Row>

@@ -3,7 +3,7 @@ import {LoadingOutlined, RedoOutlined} from '@ant-design/icons';
 import {prettyError, transactionExplorer} from '@solana/lib';
 import {ErrorBox} from '@solana/components';
 import {useAppState} from '@solana/context';
-import type {ErrorT} from '@solana/types';
+import type {ErrorT, StepT} from '@solana/types';
 import {Keypair} from '@solana/web3.js';
 import {useState} from 'react';
 import axios from 'axios';
@@ -20,7 +20,7 @@ const tailLayout = {
 
 const {Text} = Typography;
 
-const Transfer = () => {
+const Transfer = ({validate}: StepT) => {
   const [recipient, setRecipient] = useState<string | null>(null);
   const [error, setError] = useState<ErrorT | null>(null);
   const [hash, setHash] = useState<string | null>(null);

@@ -2,13 +2,13 @@ import {Alert, Button, Space, Col, Input, Typography, Modal} from 'antd';
 import {transactionExplorer, prettyError} from '@solana/lib';
 import {ErrorBox} from '@solana/components';
 import {useAppState} from '@solana/context';
-import type {ErrorT} from '@solana/types';
+import type {ErrorT, StepT} from '@solana/types';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
 const {Text} = Typography;
 
-const Fund = () => {
+const Fund = ({validate}: StepT) => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [isFunded, setIsFunded] = useState<boolean>(false);
@@ -45,10 +45,7 @@ const Fund = () => {
       );
       setHash(response.data);
       setIsFunded(true);
-      dispatch({
-        type: 'SetValidate',
-        validate: 3,
-      });
+      validate(3);
     } catch (error) {
       setError(prettyError(error));
       setIsFunded(false);
