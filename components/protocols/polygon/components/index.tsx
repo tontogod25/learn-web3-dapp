@@ -1,5 +1,4 @@
 import {Typography, Popover, Button, Tag, Space, Select} from 'antd';
-import {trackStorageCleared} from '@funnel/tracking-utils';
 import {getPolygonAddressExplorerURL} from '@polygon/lib';
 import {FundViewOutlined} from '@ant-design/icons';
 import {useAppState} from '@polygon/context';
@@ -9,7 +8,7 @@ const {Paragraph} = Typography;
 
 const {Option} = Select;
 
-const Nav = ({clear}: {clear(): void}) => {
+const Nav = ({clear}: {clear(chain: string): void}) => {
   const {state, dispatch} = useAppState();
   const {address} = state;
 
@@ -39,22 +38,19 @@ const Nav = ({clear}: {clear(): void}) => {
 
   const clearKeychain = () => {
     alert('You are going to clear the storage');
-    localStorage.removeItem('polygon');
     dispatch({
       type: 'SetAddress',
       address: undefined,
     });
     dispatch({
-      type: 'SetIndex',
-      index: 0,
+      type: 'SetValidator',
+      validator: () => {},
     });
     dispatch({
-      type: 'SetValidate',
-      validate: 0,
+      type: 'SetNetwork',
+      network: 'datahub',
     });
-    state.validator(0);
-    clear();
-    trackStorageCleared('polygon');
+    clear('polygon');
   };
 
   const AppState = () => {
@@ -90,8 +86,9 @@ const Nav = ({clear}: {clear(): void}) => {
       <div>
         <Select
           defaultValue={state.network}
-          style={{width: 120}}
+          style={{width: 100, textAlign: 'center'}}
           disabled={true} //{state.index != 0}
+          showArrow={false}
         >
           <Option value="datahub">Datahub</Option>
           <Option value="testnet">Testnet</Option>

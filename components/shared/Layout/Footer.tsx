@@ -22,7 +22,6 @@ const Footer = ({
   prev: () => void;
 }) => {
   const {primaryColor, secondaryColor} = getChainColors(chainId);
-  console.log('here');
   return (
     <StepFooter size="large">
       <PrevButton

@@ -18,15 +18,16 @@ const Transfer = () => {
   const [fetching, setFetching] = useState(false);
   const [balance, setBalance] = useState('');
   const [hash, setHash] = useState('');
-  const {dispatch} = useAppState();
+  const {state} = useAppState();
+
+  useEffect(() => {
+    checkBalance();
+  }, []);
 
   useEffect(() => {
     checkBalance();
     if (hash) {
-      dispatch({
-        type: 'SetValidate',
-        validate: 5,
-      });
+      state.validator(5);
     }
   }, [hash, setHash]);
 
@@ -34,7 +35,7 @@ const Transfer = () => {
     setFetching(true);
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const selectedAddress = window.ethereum.selectedAddresss;
+      const selectedAddress = window.ethereum.selectedAddress;
       const selectedAddressBalance = await provider.getBalance(selectedAddress);
       const balanceToDisplay = ethers.utils.formatEther(
         selectedAddressBalance.toString(),
@@ -113,7 +114,7 @@ const Transfer = () => {
         ) : null}
         {error ? (
           <Alert
-            message={<Text strong>{`Transfer failed`}</Text>}
+            message={<Text strong>{`Transfer failed: ${error}`}</Text>}
             type="error"
             showIcon
             closable={true}

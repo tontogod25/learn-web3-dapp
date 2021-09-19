@@ -4,7 +4,7 @@ import {
 } from '@funnel/tracking-utils';
 import {useCallback, useState} from 'react';
 import {useRouter} from 'next/router';
-import {StepType} from 'types';
+import {StepType, HooksState} from 'types';
 
 const useLocalStorage = <StateT>(key: string, initialValue: StateT) => {
   const [storedValue, setStoredValue] = useState<StateT>(() => {
@@ -12,7 +12,6 @@ const useLocalStorage = <StateT>(key: string, initialValue: StateT) => {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.log(error);
       return initialValue;
     }
   });
@@ -29,8 +28,14 @@ const useLocalStorage = <StateT>(key: string, initialValue: StateT) => {
   return [storedValue, setValue] as const;
 };
 
+const initialHookState = {
+  stepIndex: 0,
+  validIndex: 0,
+};
+
 const useSteps = (
   steps: StepType[],
+  hooksState: HooksState,
 ): {
   next(): void;
   prev(): void;
@@ -38,12 +43,12 @@ const useSteps = (
   validIndex: number;
   step: StepType;
   validate: (n: number) => void;
-  clear(): void;
+  clear(chain: string): void;
 } => {
   const router = useRouter();
   const {query: {chain} = {}} = router;
-  const [stepIndex, setStepIndex] = useState(0);
-  const [validIndex, setValidIndex] = useState(0);
+  const [stepIndex, setStepIndex] = useState(hooksState?.stepIndex ?? 0);
+  const [validIndex, setValidIndex] = useState(hooksState?.validIndex ?? 0);
 
   const next = useCallback(() => {
     const index = stepIndex + 1;
@@ -57,19 +62,25 @@ const useSteps = (
     setStepIndex(index);
   }, [chain, steps, stepIndex]);
 
-  const clear = useCallback(() => {
-    trackStorageCleared('solana');
-    setValidIndex(0);
-    setStepIndex(0);
-  }, [chain, steps, stepIndex]);
+  const clear = useCallback(
+    (chain: string) => {
+      trackStorageCleared(chain);
+      setValidIndex(0);
+      setStepIndex(0);
+    },
+    [validIndex, stepIndex],
+  );
 
-  const validate = (n: number) => {
-    if (n == 0) {
-      setValidIndex(n);
-    } else if (n >= validIndex) {
-      setValidIndex(n);
-    }
-  };
+  const validate = useCallback(
+    (n: number) => {
+      if (n == 0) {
+        setValidIndex(n);
+      } else if (n >= validIndex) {
+        setValidIndex(n);
+      }
+    },
+    [validIndex, setValidIndex],
+  );
 
   const step = steps[stepIndex];
 
@@ -84,4 +95,4 @@ const useSteps = (
   };
 };
 
-export {useLocalStorage, useSteps};
+export {useLocalStorage, useSteps, initialHookState};

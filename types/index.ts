@@ -80,7 +80,8 @@ export type NETWORKS =
   | POLKADOT_NETWORKS
   | NEAR_NETWORKS
   | SECRET_NETWORKS
-  | CELO_NETWORKS;
+  | CELO_NETWORKS
+  | TEZOS_NETWORKS;
 
 export type PROTOCOLS =
   | POLYGON_PROTOCOLS
@@ -110,4 +111,17 @@ export enum UserActivity {
   PROTOCOL_CLICKED = 'PROTOCOL_CLICKED',
   TUTORIAL_STEP_VIEWED = 'TUTORIAL_STEP_VIEWED',
   STORAGE_CLEARED = 'STORAGE_CLEARED',
+}
+
+export interface HooksState {
+  stepIndex: number;
+  validIndex: number;
+}
+
+export interface ProtocolI {
+  chainId: string;
+  clear(chain: string): void;
+  validate(n: number): void;
+  step: StepType;
+  index?: number;
 }

@@ -19,23 +19,21 @@ const Connect = () => {
 
   useEffect(() => {
     if (address) {
-      if (address) {
-        dispatch({
-          type: 'SetAddress',
-          address: address,
-        });
-        state.validator(1);
-      }
+      dispatch({
+        type: 'SetAddress',
+        address: address,
+      });
+      state.validator(1);
     }
   }, [address, setAddress]);
 
-  const checkConnection = async () => {
+  const connect = async () => {
     const provider = await detectEthereumProvider();
 
     if (provider) {
       // Connect to Polygon using Web3Provider and Metamask
       // @ts-ignore
-      await provider.send('eth_requestAccounts', []);
+      await provider.request({method: 'eth_requestAccounts'});
       const web3provider = new ethers.providers.Web3Provider(
         window.ethereum,
         'any',
@@ -43,11 +41,11 @@ const Connect = () => {
       const signer = web3provider.getSigner();
 
       // Define address and network
-      const address = await signer.getAddress();
-      const network = ethers.providers.getNetwork(await signer.getChainId());
+      const address0 = await signer.getAddress();
+      const network0 = ethers.providers.getNetwork(await signer.getChainId());
 
-      setNetwork(network);
-      setAddress(address);
+      setNetwork(network0);
+      setAddress(address0);
     } else {
       alert('Please install Metamask at https://metamask.io');
     }
@@ -57,7 +55,7 @@ const Connect = () => {
     <Col style={{minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" style={{width: '100%'}}>
         {
-          <Button type="primary" onClick={checkConnection}>
+          <Button type="primary" onClick={connect}>
             Check Metamask Connection
           </Button>
         }

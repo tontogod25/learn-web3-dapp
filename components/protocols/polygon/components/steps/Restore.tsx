@@ -30,7 +30,6 @@ const Restore = () => {
         setAddress(wallet.address.toLocaleLowerCase());
         setSecret(wallet.privateKey.toLocaleLowerCase());
       } else {
-        console.log('here');
         setError('Unable to restore account');
       }
     } catch (error) {

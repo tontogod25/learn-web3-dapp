@@ -1,9 +1,9 @@
-import {Footer, Header, Sidebar} from 'components/shared/Layout';
+import WrappedProtocol from 'components/shared/WrappedProtocol';
 import {Nav} from 'components/protocols/polygon/components';
 import {useReducer, useEffect} from 'react';
-import {useLocalStorage, useSteps} from 'hooks';
+import {useLocalStorage} from 'hooks';
 import {AppI} from '@polygon/types';
-import {Row, Col} from 'antd';
+import {ProtocolI} from 'types';
 import {
   Connect,
   Balance,
@@ -18,65 +18,45 @@ import {
   appStateReducer,
   initialState,
   PolygonContext,
-  useAppState,
   State,
 } from '@polygon/context';
 
-const PolygonApp: React.FC<AppI> = ({chain}) => {
-  const {dispatch} = useAppState();
-  const {step, validate, stepIndex, validIndex, next, prev, clear} = useSteps(
-    chain.steps,
-  );
-  useEffect(() => {
-    dispatch({
-      type: 'SetValidator',
-      validator: validate,
-    });
-  }, []);
-
-  return (
-    <Row>
-      <Sidebar chain={chain} steps={chain.steps} stepIndex={stepIndex} />
-      <Col span={16} style={{padding: '60px', height: '100vh'}}>
-        <Header step={step} />
-        <div style={{minHeight: '250px', marginBottom: '10vh'}}>
-          {step.id === 'connect' && <Connect />}
-          {step.id === 'query' && <Query />}
-          {step.id === 'restore' && <Restore />}
-          {step.id === 'balance' && <Balance />}
-          {step.id === 'transfer' && <Transfer />}
-          {step.id === 'deploy' && <Deploy />}
-          {step.id === 'setter' && <Setter />}
-          {step.id === 'getter' && <Getter />}
-          <Nav clear={clear} />
-        </div>
-        <Footer
-          chainId={chain.id}
-          steps={chain.steps}
-          stepIndex={stepIndex}
-          validIndex={validIndex}
-          next={next}
-          prev={prev}
-        />
-      </Col>
-    </Row>
-  );
-};
-
-const Polygon: React.FC<AppI> = ({chain}) => {
+const Polygon: React.FC<ProtocolI> = ({chainId, clear, validate, step}) => {
   const [storageState, setStorageState] = useLocalStorage<State>(
-    'polygon',
+    chainId,
     initialState,
   );
   const [state, dispatch] = useReducer(appStateReducer, storageState);
   useEffect(() => {
     setStorageState(state);
-  }, [state]);
+  }, [state, step]);
+
+  useEffect(() => {
+    dispatch({
+      type: 'SetValidator',
+      validator: validate,
+    });
+  }, [validate]);
+
   return (
     <PolygonContext.Provider value={{state, dispatch}}>
-      <PolygonApp chain={chain} />
+      <div style={{minHeight: '250px', marginBottom: '10vh'}}>
+        {step.id === 'connect' && <Connect />}
+        {step.id === 'query' && <Query />}
+        {step.id === 'balance' && <Balance />}
+        {step.id === 'transfer' && <Transfer />}
+        {step.id === 'deploy' && <Deploy />}
+        {step.id === 'setter' && <Setter />}
+        {step.id === 'getter' && <Getter />}
+        {step.id === 'restore' && <Restore />}
+        <Nav clear={clear} />
+      </div>
     </PolygonContext.Provider>
   );
 };
 
-export default Polygon;
+const WrappedPolygon: React.FC<AppI> = ({chain}) => {
+  return WrappedProtocol(Polygon, chain);
+};
+
+export default WrappedPolygon;

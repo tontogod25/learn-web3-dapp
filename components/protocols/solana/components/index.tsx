@@ -8,13 +8,11 @@ const {Option} = Select;
 const {Text, Paragraph} = Typography;
 
 const Nav = ({
-  validate,
-  index,
   clear,
+  index,
 }: {
-  validate: (n: number) => void;
+  clear: (chain: string) => void;
   index: number;
-  clear(): void;
 }) => {
   const {state, dispatch} = useAppState();
   const {address, programId, secret, greeter} = state;
@@ -55,7 +53,6 @@ const Nav = ({
 
   const clearKeychain = () => {
     alert('You are going to clear the storage');
-    localStorage.removeItem('solana');
     dispatch({
       type: 'SetAddress',
       address: undefined,
@@ -72,12 +69,7 @@ const Nav = ({
       type: 'SetGreeter',
       greeter: undefined,
     });
-    dispatch({
-      type: 'SetIndex',
-      index: 0,
-    });
-    validate(0);
-    clear();
+    clear('solana');
   };
 
   const toggleLocal = (node: string) => {
@@ -141,7 +133,7 @@ const ErrorBox = ({error}: {error: ErrorT}) => {
       name={'error'}
       displayDataTypes={false}
       displayObjectSize={false}
-      collapseStringsAfterLength={65}
+      collapseStringsAfterLength={35}
     />
   );
 };

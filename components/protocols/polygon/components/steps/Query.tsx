@@ -1,4 +1,4 @@
-import {PolygonQueryResponse, PolygonQueryErrorResponse} from '@polygon/types';
+import {PolygonQueryResponse} from '@polygon/types';
 import {LoadingOutlined} from '@ant-design/icons';
 import {Alert, Button, Col, Space} from 'antd';
 import {useAppState} from '@polygon/context';
@@ -36,7 +36,7 @@ const Query = () => {
   return (
     <Col style={{minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
-        <Space direction="vertical">
+        <Space direction="vertical" style={{overflow: 'hidden'}}>
           <Button type="primary" onClick={getQuery}>
             Query Polygon
           </Button>
@@ -45,14 +45,22 @@ const Query = () => {
           ) : queryData ? (
             <div
               style={{
-                minHeight: '300px',
-                maxHeight: '300px',
-                maxWidth: '750px',
-                minWidth: '750px',
-                overflow: 'scroll',
+                width: '100%',
+                height: '300px',
+                overflow: 'hidden',
+                overflowY: 'scroll',
+                paddingRight: '17px',
+                boxSizing: 'content-box',
               }}
             >
-              <ReactJson src={queryData} theme={'hopscotch'} />
+              <ReactJson
+                src={queryData}
+                collapsed={false}
+                name={'query data'}
+                displayDataTypes={false}
+                displayObjectSize={false}
+                collapseStringsAfterLength={65}
+              />
             </div>
           ) : null}
           {error && (

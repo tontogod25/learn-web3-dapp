@@ -15,11 +15,11 @@ const Balance = () => {
   const [balance, setBalance] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
   const [fetching, setFetching] = useState<boolean>(false);
-  const {state, dispatch} = useAppState();
+  const {state} = useAppState();
 
   useEffect(() => {
     if (balance != undefined) {
-      state.validator(4);
+      state.validator(3);
     }
   }, [balance, setBalance]);
 
@@ -27,7 +27,7 @@ const Balance = () => {
     setFetching(true);
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const selectedAddress = window.ethereum.selectedAddresss;
+      const selectedAddress = window.ethereum.selectedAddress;
       const selectedAddressBalance = await provider.getBalance(selectedAddress);
       const balanceToDisplay = ethers.utils.formatEther(
         selectedAddressBalance.toString(),
@@ -49,20 +49,31 @@ const Balance = () => {
         {balance && (
           <Alert
             message={
-              <Space direction="horizontal">
-                <Text
-                  strong
-                >{`This address has a balance of ${balance} MATIC`}</Text>
-                <a
-                  href={getPolygonAddressExplorerURL(state.address ?? '')}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  (View on PolygonScan)
-                </a>
+              <Space direction="vertical" size="small">
+                <Text strong>{`This address has a balance of ${balance.slice(
+                  0,
+                  5,
+                )} MATIC`}</Text>
               </Space>
             }
+            type="success"
+            showIcon
+            closable={true}
+            onClose={() => setBalance(undefined)}
             description={
+              <a
+                href={getPolygonAddressExplorerURL(state.address ?? '')}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View on PolygonScan
+              </a>
+            }
+          />
+        )}
+        {!!balance || (
+          <Alert
+            message={
               <Text>
                 Fund your address using the{' '}
                 <a
@@ -74,16 +85,7 @@ const Balance = () => {
                 </a>
               </Text>
             }
-            type="success"
-            showIcon
-            closable={true}
-            onClose={() => setBalance(undefined)}
-          />
-        )}
-        {!!balance || (
-          <Alert
-            message="No balance to display"
-            type="error"
+            type="warning"
             showIcon
             closable={false}
           />
@@ -97,7 +99,6 @@ const Balance = () => {
             onClose={() => setError(undefined)}
           />
         )}
-        {}{' '}
       </Space>
     </Col>
   );

@@ -9,11 +9,17 @@ import axios from 'axios';
 
 const {Text} = Typography;
 
-const Connect = ({validate}: StepT) => {
+const Connect = () => {
   const [version, setVersion] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const {state} = useAppState();
+
+  useEffect(() => {
+    if (version) {
+      state.validator(1);
+    }
+  }, [version, setVersion]);
 
   useEffect(() => {
     if (error) {
@@ -35,7 +41,6 @@ const Connect = ({validate}: StepT) => {
     setError(null);
     try {
       const response = await axios.post(`/api/solana/connect`, state);
-      validate(1);
       setVersion(response.data);
     } catch (error) {
       setError(prettyError(error));

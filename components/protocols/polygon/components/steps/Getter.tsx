@@ -13,14 +13,11 @@ declare let window: any;
 const Getter = () => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [contractNumber, setContractNumber] = useState<string | null>(null);
-  const {dispatch} = useAppState();
+  const {state} = useAppState();
 
   useEffect(() => {
     if (contractNumber) {
-      dispatch({
-        type: 'SetValidate',
-        validate: 7,
-      });
+      state.validator(7);
     }
   }, [contractNumber, setContractNumber]);
 

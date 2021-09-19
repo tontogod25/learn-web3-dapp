@@ -18,14 +18,11 @@ const Setter = () => {
   const [fetchingSet, setFetchingSet] = useState<boolean>(false);
   const [txHash, setTxHash] = useState<string | null>(null);
   const [confirming, setConfirming] = useState<boolean>(false);
-  const {dispatch} = useAppState();
+  const {state} = useAppState();
 
   useEffect(() => {
     if (txHash) {
-      dispatch({
-        type: 'SetValidate',
-        validate: 8,
-      });
+      state.validator(6);
     }
   }, [txHash, setTxHash]);
 
