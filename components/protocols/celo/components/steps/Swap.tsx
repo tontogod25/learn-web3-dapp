@@ -4,7 +4,7 @@ import {useAppState} from '@ccelo/hooks';
 import {transactionUrl} from '@ccelo/lib';
 import axios from 'axios';
 
-const { Text } = Typography
+const {Text} = Typography;
 
 const Change = () => {
   const [error, setError] = useState<string | null>(null);
@@ -13,26 +13,26 @@ const Change = () => {
   const [celo, setCelo] = useState('');
   const {state} = useAppState();
 
-
   const exchangeUSD = async () => {
     setFetching(true);
     try {
       const response = await axios.post(`/api/celo/swap`, state);
       setTxHash(response.data.hash);
       setCelo(response.data.celo);
-    } catch(error) {
+    } catch (error) {
       try {
-        const response = await axios.post(`/api/celo/swap`, state);        
+        const response = await axios.post(`/api/celo/swap`, state);
         setTxHash(response.data.hash);
         setCelo(response.data.celo);
-      } catch(error) {
-        console.log(error.message)
+      } catch (error) {
+        console.log(error.message);
       }
     } finally {
-        setFetching(false)
+      setFetching(false);
     }
-  }
-  const attoCeloToCelo = (celo: string) => `${celo.slice(0,1)}.${celo.slice(1,3)}`
+  };
+  const attoCeloToCelo = (celo: string) =>
+    `${celo.slice(0, 1)}.${celo.slice(1, 3)}`;
 
   return (
     <Col style={{minHeight: '350px', maxWidth: '600px'}}>

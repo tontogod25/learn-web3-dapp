@@ -48,10 +48,7 @@ const Greeter = () => {
     setHash(null);
     setFetching(true);
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/greeter`,
-        state,
-      );
+      const response = await axios.post(`/api/solana/greeter`, state);
       setHash(response.data.hash);
       dispatch({
         type: 'SetGreeter',

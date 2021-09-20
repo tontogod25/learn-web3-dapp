@@ -68,14 +68,11 @@ const Transfer = () => {
         throw new Error('invalid amount');
       }
 
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/transfer`,
-        {
-          ...state,
-          lamports,
-          recipient,
-        },
-      );
+      const response = await axios.post(`/api/solana/transfer`, {
+        ...state,
+        lamports,
+        recipient,
+      });
       setHash(response.data);
     } catch (error) {
       if (error.message === 'invalid amount') {

@@ -16,7 +16,7 @@ cd learn-web3-dapp
 yarn
 ```
 
-If you encounter any errors during this process, please join our [Discord]() for help.
+If you encounter any errors during this process, please join our [Discord](https://discord.gg/fszyM7K) for help.
 
 # 🧩 DataHub API keys
 

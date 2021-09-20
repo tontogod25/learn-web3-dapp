@@ -47,10 +47,7 @@ const Balance = () => {
     setFetching(true);
     setError(null);
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/balance`,
-        state,
-      );
+      const response = await axios.post(`/api/solana/balance`, state);
       setBalance(response.data / LAMPORTS_PER_SOL);
     } catch (error) {
       setError(prettyError(error));
