@@ -1,9 +1,8 @@
 import {createContext, Dispatch, useContext} from 'react';
 
 export type State = {
-  network: string;
+  network?: string;
   address?: string;
-  validator(n: number): void;
 };
 
 type Action =
@@ -11,10 +10,7 @@ type Action =
   | {type: 'SetAddress'; address?: string}
   | {type: 'SetValidator'; validator(n: number): void};
 
-const initialState = {
-  network: 'datahub',
-  validator: () => {},
-};
+const initialState = {};
 
 function appStateReducer(state: State, action: Action): State {
   switch (action.type) {
@@ -22,8 +18,6 @@ function appStateReducer(state: State, action: Action): State {
       return {...state, network: action.network};
     case 'SetAddress':
       return {...state, address: action.address};
-    case 'SetValidator':
-      return {...state, validator: action.validator};
     default:
       return state;
   }

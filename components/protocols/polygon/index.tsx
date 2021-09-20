@@ -1,9 +1,9 @@
-import WrappedProtocol from 'components/shared/WrappedProtocol';
-import {Nav} from 'components/protocols/polygon/components';
+import {Nav} from '@polygon/components';
+import Layout from 'components/shared/Layout';
+import {AppI} from '@polygon/types';
 import {useReducer, useEffect} from 'react';
 import {useLocalStorage} from 'hooks';
-import {AppI} from '@polygon/types';
-import {ProtocolI} from 'types';
+import {StepType} from 'types';
 import {
   Connect,
   Balance,
@@ -21,22 +21,15 @@ import {
   State,
 } from '@polygon/context';
 
-const Polygon: React.FC<ProtocolI> = ({chainId, clear, validate, step}) => {
+const Polygon: React.FC<{step: StepType}> = ({step}) => {
   const [storageState, setStorageState] = useLocalStorage<State>(
-    chainId,
+    'polygon',
     initialState,
   );
   const [state, dispatch] = useReducer(appStateReducer, storageState);
   useEffect(() => {
     setStorageState(state);
   }, [state, step]);
-
-  useEffect(() => {
-    dispatch({
-      type: 'SetValidator',
-      validator: validate,
-    });
-  }, [validate]);
 
   return (
     <PolygonContext.Provider value={{state, dispatch}}>
@@ -49,14 +42,14 @@ const Polygon: React.FC<ProtocolI> = ({chainId, clear, validate, step}) => {
         {step.id === 'setter' && <Setter />}
         {step.id === 'getter' && <Getter />}
         {step.id === 'restore' && <Restore />}
-        <Nav clear={clear} />
+        <Nav />
       </div>
     </PolygonContext.Provider>
   );
 };
 
 const WrappedPolygon: React.FC<AppI> = ({chain}) => {
-  return WrappedProtocol(Polygon, chain);
+  return Layout(Polygon, chain);
 };
 
 export default WrappedPolygon;

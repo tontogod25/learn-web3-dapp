@@ -1,22 +1,21 @@
 import {Alert, Col, Typography, Space} from 'antd';
 import {ArrowUpRight} from 'react-feather';
 import styled from 'styled-components';
-import {StepType} from 'types';
 import React from 'react';
 
 const {Text} = Typography;
 
-const Header = ({step}: {step: StepType}) => {
+const Header = ({title, url}: {title: string; url: string}) => {
   return (
     <StyleHeader>
-      <Title>{step.title}</Title>
+      <Title>{title}</Title>
       <Alert
         message={
           <Space>
             <Text strong>Start here!</Text>
             <Space align="center" size="small">
               <Link>
-                <a href={step.url} target="_blank" rel="noreferrer">
+                <a href={url} target="_blank" rel="noreferrer">
                   View the instructions for this step on Figment Learn
                 </a>
               </Link>

@@ -1,14 +1,16 @@
-import {Typography, Popover, Button, Tag, Space, Select} from 'antd';
 import {getPolygonAddressExplorerURL} from '@polygon/lib';
-import {FundViewOutlined} from '@ant-design/icons';
+import {Typography, Popover, Button, Tag, Space, Select} from 'antd';
 import {useAppState} from '@polygon/context';
 import type {EntryT} from '@polygon/types';
-
+import {trackStorageCleared} from '@funnel/tracking-utils';
+import {FundViewOutlined} from '@ant-design/icons';
+import {useGlobalState} from 'context';
 const {Paragraph} = Typography;
 
 const {Option} = Select;
 
-const Nav = ({clear}: {clear(chain: string): void}) => {
+const Nav = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const {state, dispatch} = useAppState();
   const {address} = state;
 
@@ -36,6 +38,18 @@ const Nav = ({clear}: {clear(chain: string): void}) => {
     );
   };
 
+  const clear = () => {
+    globalDispatch({
+      type: 'SetIndex',
+      index: 0,
+    });
+    globalDispatch({
+      type: 'SetValid',
+      valid: 0,
+    });
+    trackStorageCleared(globalState.chain as string);
+  };
+
   const clearKeychain = () => {
     alert('You are going to clear the storage');
     dispatch({
@@ -43,14 +57,10 @@ const Nav = ({clear}: {clear(chain: string): void}) => {
       address: undefined,
     });
     dispatch({
-      type: 'SetValidator',
-      validator: () => {},
-    });
-    dispatch({
       type: 'SetNetwork',
       network: 'datahub',
     });
-    clear('polygon');
+    clear();
   };
 
   const AppState = () => {
@@ -85,7 +95,7 @@ const Nav = ({clear}: {clear(chain: string): void}) => {
       </div>
       <div>
         <Select
-          defaultValue={state.network}
+          defaultValue={'datahub'}
           style={{width: 100, textAlign: 'center'}}
           disabled={true} //{state.index != 0}
           showArrow={false}

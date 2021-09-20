@@ -55,3 +55,4 @@ neardev
 contracts/near/target/
 /solana-wallet
 /test-ledger
+/archives

@@ -1,19 +1,16 @@
-import type {EntryT, ErrorT} from '@solana/types';
+import {trackStorageCleared} from '@funnel/tracking-utils';
 import {Typography, Popover, Button, Select} from 'antd';
+import type {EntryT, ErrorT} from '@solana/types';
 import {useAppState} from '@solana/context';
 import ReactJson from 'react-json-view';
+import {useGlobalState} from 'context';
 
 const {Option} = Select;
 
 const {Text, Paragraph} = Typography;
 
-const Nav = ({
-  clear,
-  index,
-}: {
-  clear: (chain: string) => void;
-  index: number;
-}) => {
+const Nav = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const {state, dispatch} = useAppState();
   const {address, programId, secret, greeter} = state;
 
@@ -51,37 +48,51 @@ const Nav = ({
     );
   };
 
+  const clear = () => {
+    globalDispatch({
+      type: 'SetIndex',
+      index: 0,
+    });
+    globalDispatch({
+      type: 'SetValid',
+      valid: 0,
+    });
+    trackStorageCleared(globalState.chain as string);
+  };
+
   const clearKeychain = () => {
-    alert('You are going to clear the storage');
-    dispatch({
-      type: 'SetAddress',
-      address: undefined,
-    });
-    dispatch({
-      type: 'SetSecret',
-      secret: undefined,
-    });
-    dispatch({
-      type: 'SetProgramId',
-      programId: undefined,
-    });
-    dispatch({
-      type: 'SetGreeter',
-      greeter: undefined,
-    });
-    clear('solana');
+    const proceed = confirm('Are you sure you want to clear the storage?');
+    if (proceed) {
+      dispatch({
+        type: 'SetAddress',
+        address: undefined,
+      });
+      dispatch({
+        type: 'SetSecret',
+        secret: undefined,
+      });
+      dispatch({
+        type: 'SetProgramId',
+        programId: undefined,
+      });
+      dispatch({
+        type: 'SetGreeter',
+        greeter: undefined,
+      });
+      clear();
+    }
   };
 
   const toggleLocal = (node: string) => {
-    if (node === 'localhost') {
+    if (node === 'localnet') {
       dispatch({
         type: 'SetNetwork',
-        network: 'localhost',
+        network: 'localnet',
       });
-    } else if (node === 'testnet') {
+    } else if (node === 'devnet') {
       dispatch({
         type: 'SetNetwork',
-        network: 'testnet',
+        network: 'devnet',
       });
     } else {
       dispatch({
@@ -98,14 +109,13 @@ const Nav = ({
         top: 25,
         right: 60,
         display: 'flex',
-        flexDirection: 'row-reverse',
         justifyContent: 'space-evenly',
         minWidth: '300px',
         minHeight: '100px',
       }}
     >
       <div>
-        <Popover content={AppState} placement="rightBottom">
+        <Popover content={AppState} placement="leftBottom">
           <Button type="primary">Keychain</Button>
         </Popover>
       </div>
@@ -114,11 +124,11 @@ const Nav = ({
           defaultValue={state.network}
           style={{width: 120}}
           onChange={toggleLocal}
-          disabled={index != 0}
+          disabled={globalState.index != 0}
         >
           <Option value="datahub">Datahub</Option>
-          <Option value="testnet">Testnet</Option>
-          <Option value="localhost">Localhost</Option>
+          <Option value="devnet">Devnet</Option>
+          <Option value="localnet">Localnet</Option>
         </Select>
       </div>
     </div>

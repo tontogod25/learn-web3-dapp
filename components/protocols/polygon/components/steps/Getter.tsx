@@ -2,8 +2,8 @@
 import SimpleStorageJson from 'contracts/polygon/SimpleStorage/build/contracts/SimpleStorage.json';
 import {Alert, Button, Col, Space, Statistic} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@polygon/context';
 import {useState, useEffect} from 'react';
+import {useGlobalState} from 'context';
 import {ethers} from 'ethers';
 
 // Prevents "Property 'ethereum' does not exist on type
@@ -13,11 +13,16 @@ declare let window: any;
 const Getter = () => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [contractNumber, setContractNumber] = useState<string | null>(null);
-  const {state} = useAppState();
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
 
   useEffect(() => {
     if (contractNumber) {
-      state.validator(7);
+      if (globalState.valid < 7) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 7,
+        });
+      }
     }
   }, [contractNumber, setContractNumber]);
 

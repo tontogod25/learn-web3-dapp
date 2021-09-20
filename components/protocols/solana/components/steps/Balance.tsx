@@ -5,19 +5,26 @@ import {useAppState} from '@solana/context';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import {useEffect, useState} from 'react';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Balance = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [balance, setBalance] = useState<number | null>(null);
-  const {state, dispatch} = useAppState();
+  const {state} = useAppState();
 
   useEffect(() => {
     if (balance) {
-      state.validator(4);
+      if (globalState.valid < 4) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 4,
+        });
+      }
     }
   }, [balance, setBalance]);
 
@@ -45,10 +52,6 @@ const Balance = () => {
         state,
       );
       setBalance(response.data / LAMPORTS_PER_SOL);
-      dispatch({
-        type: 'SetValidate',
-        validate: 4,
-      });
     } catch (error) {
       setError(prettyError(error));
       setBalance(null);

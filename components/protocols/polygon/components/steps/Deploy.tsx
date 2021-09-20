@@ -1,12 +1,17 @@
-import {useAppState} from '@polygon/context';
+import {useGlobalState} from 'context';
 import {useEffect} from 'react';
 import {Col} from 'antd';
 
 const Deploy = () => {
-  const {state} = useAppState();
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
 
   useEffect(() => {
-    state.validator(5);
+    if (globalState.valid < 5) {
+      globalDispatch({
+        type: 'SetValid',
+        valid: 5,
+      });
+    }
   }, []);
 
   return (

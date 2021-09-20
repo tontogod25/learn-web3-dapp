@@ -1,25 +1,19 @@
 import logoSVG from 'public/figment-learn-compact.svg';
 import {getChainColors} from 'utils/colors';
-import {ChainType, StepType} from 'types';
+import {CHAINS, StepType} from 'types';
 import styled from 'styled-components';
 import {Col, Steps, Space} from 'antd';
 import {ArrowLeft} from 'react-feather';
+import {useGlobalState} from 'context';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 const {Step} = Steps;
 
-const Sidebar = ({
-  chain,
-  steps,
-  stepIndex,
-}: {
-  chain: ChainType;
-  steps: StepType[];
-  stepIndex: number;
-}) => {
-  const {primaryColor, secondaryColor} = getChainColors(chain.id);
+const Sidebar = ({label, steps}: {label: string; steps: StepType[]}) => {
+  const {state} = useGlobalState();
+  const {primaryColor, secondaryColor} = getChainColors(state.chain as CHAINS);
 
   return (
     <Left span={8} primary_color={primaryColor}>
@@ -32,10 +26,10 @@ const Sidebar = ({
         <Image src={logoSVG} alt="Figment Learn" height={41} width={100} />
         <ChainTitle
           secondary_color={secondaryColor}
-        >{`${chain.label} Pathway`}</ChainTitle>
+        >{`${label} Pathway`}</ChainTitle>
       </Space>
 
-      <Steps direction="vertical" size="small" current={stepIndex}>
+      <Steps direction="vertical" size="small" current={state.index}>
         {steps.map((s: StepType) => (
           <Step key={s.id} title={s.title} />
         ))}

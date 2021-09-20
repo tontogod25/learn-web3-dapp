@@ -2,25 +2,21 @@ import {createContext, Dispatch, useContext} from 'react';
 
 export type State = {
   network: string;
-  validator(n: number): void;
   address?: string;
   secret?: string;
   programId?: string;
   greeter?: string;
 };
+
 type Action =
-  | {type: 'SetIndex'; index: number}
-  | {type: 'SetValidate'; validate: number}
   | {type: 'SetNetwork'; network: string}
   | {type: 'SetAddress'; address?: string}
   | {type: 'SetSecret'; secret?: string}
   | {type: 'SetProgramId'; programId?: string}
-  | {type: 'SetGreeter'; greeter?: string}
-  | {type: 'SetValidator'; validator(n: number): void};
+  | {type: 'SetGreeter'; greeter?: string};
 
 const initialState = {
   network: 'datahub',
-  validator: () => {},
 };
 
 function appStateReducer(state: State, action: Action): State {
@@ -35,8 +31,6 @@ function appStateReducer(state: State, action: Action): State {
       return {...state, programId: action.programId};
     case 'SetGreeter':
       return {...state, greeter: action.greeter};
-    case 'SetValidator':
-      return {...state, validator: action.validator};
     default:
       return state;
   }

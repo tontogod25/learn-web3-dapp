@@ -4,11 +4,13 @@ import {ErrorBox} from '@solana/components';
 import {useAppState} from '@solana/context';
 import type {ErrorT} from '@solana/types';
 import {useEffect, useState} from 'react';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Fund = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [isFunded, setIsFunded] = useState<boolean>(false);
@@ -17,7 +19,12 @@ const Fund = () => {
 
   useEffect(() => {
     if (isFunded) {
-      state.validator(3);
+      if (globalState.valid < 3) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 3,
+        });
+      }
     }
   }, [isFunded, setIsFunded]);
 
@@ -43,7 +50,6 @@ const Fund = () => {
     if (state.network === 'datahub') {
       state0 = {...state, network: 'devnet'};
     }
-    console.log(state);
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/fund`,

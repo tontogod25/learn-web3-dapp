@@ -6,10 +6,12 @@ import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
+import {useGlobalState} from 'context';
 
 const {Text} = Typography;
 
 const Deploy = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [value, setValue] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
@@ -18,7 +20,12 @@ const Deploy = () => {
 
   useEffect(() => {
     if (checked) {
-      state.validator(6);
+      if (globalState.valid < 6) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 6,
+        });
+      }
     }
   }, [checked, setChecked]);
 
@@ -50,10 +57,6 @@ const Deploy = () => {
       dispatch({
         type: 'SetProgramId',
         programId: value as string,
-      });
-      dispatch({
-        type: 'SetValidate',
-        validate: 6,
       });
     } catch (error) {
       setError(prettyError(error));

@@ -3,8 +3,8 @@ import SimpleStorageJson from 'contracts/polygon/SimpleStorage/build/contracts/S
 import {Alert, Button, Col, InputNumber, Space, Typography} from 'antd';
 import {getPolygonTxExplorerURL} from '@polygon/lib';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@polygon/context';
 import {useState, useEffect} from 'react';
+import {useGlobalState} from 'context';
 import {ethers} from 'ethers';
 
 const {Text} = Typography;
@@ -14,15 +14,20 @@ const {Text} = Typography;
 declare let window: any;
 
 const Setter = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [inputNumber, setInputNumber] = useState<number>(0);
   const [fetchingSet, setFetchingSet] = useState<boolean>(false);
   const [txHash, setTxHash] = useState<string | null>(null);
   const [confirming, setConfirming] = useState<boolean>(false);
-  const {state} = useAppState();
 
   useEffect(() => {
     if (txHash) {
-      state.validator(6);
+      if (globalState.valid < 6) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 6,
+        });
+      }
     }
   }, [txHash, setTxHash]);
 
@@ -46,7 +51,6 @@ const Setter = () => {
       setTxHash(receipt.transactionHash);
       setConfirming(false);
     } catch (error) {
-      console.log(error);
       setFetchingSet(false);
     }
   };

@@ -4,11 +4,13 @@ import {useAppState} from '@solana/context';
 import {ErrorBox} from '@solana/components';
 import {useEffect, useState} from 'react';
 import {prettyError} from '@solana/lib';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Keypair = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [address, setAddress] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
@@ -16,7 +18,12 @@ const Keypair = () => {
 
   useEffect(() => {
     if (address) {
-      state.validator(2);
+      if (globalState.valid < 2) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 2,
+        });
+      }
     }
   }, [address, setAddress]);
 

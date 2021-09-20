@@ -22,9 +22,9 @@ export const getNodeURL = (
 ): string => {
   if (node === 'datahub') {
     return getDatahubNodeURL(chain, network, protocol);
-  } else if (node === 'testnet') {
+  } else if (node === 'devnet') {
     return getTestnetNodeURL(chain);
-  } else if (node === 'localhost') {
+  } else if (node === 'localnet') {
     return getLocalNodeURL(chain);
   } else {
     return getTestnetNodeURL(chain);

@@ -1,27 +1,41 @@
 import {ArrowLeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
+import {trackTutorialStepViewed} from '@funnel/tracking-utils';
+import {getChainColors} from 'utils/colors';
 import {Button, Row, Space} from 'antd';
 import styled from 'styled-components';
+import {useGlobalState} from 'context';
+import {CHAINS, StepType} from 'types';
 import React from 'react';
 
-import {CHAINS, StepType} from 'types';
-import {getChainColors} from 'utils/colors';
+const Footer = ({steps}: {steps: StepType[]}) => {
+  const {state, dispatch} = useGlobalState();
+  const next = () => {
+    const index = state.index + 1;
+    dispatch({
+      type: 'SetIndex',
+      index,
+    });
+    trackTutorialStepViewed(
+      state.chain as CHAINS,
+      steps[state.index].title,
+      'next',
+    );
+  };
 
-const Footer = ({
-  chainId,
-  steps,
-  stepIndex,
-  validIndex,
-  next,
-  prev,
-}: {
-  chainId: CHAINS;
-  steps: StepType[];
-  stepIndex: number;
-  validIndex: number;
-  next: () => void;
-  prev: () => void;
-}) => {
-  const {primaryColor, secondaryColor} = getChainColors(chainId);
+  const prev = () => {
+    const index = state.index - 1;
+    dispatch({
+      type: 'SetIndex',
+      index,
+    });
+    trackTutorialStepViewed(
+      state.chain as CHAINS,
+      steps[state.index].title,
+      'prev',
+    );
+  };
+
+  const {primaryColor, secondaryColor} = getChainColors(state.chain as CHAINS);
   return (
     <StepFooter size="large">
       <PrevButton
@@ -29,7 +43,7 @@ const Footer = ({
         style={{marginRight: '8px'}}
         onClick={() => prev()}
         icon={<ArrowLeftOutlined />}
-        disabled={stepIndex == 0}
+        disabled={state.index == 0}
       >
         Previous Step
       </PrevButton>
@@ -39,7 +53,7 @@ const Footer = ({
         onClick={() => next()}
         secondary_color={secondaryColor}
         primary_color={primaryColor}
-        disabled={validIndex == stepIndex || steps.length == stepIndex + 1}
+        disabled={state.valid == state.index || steps.length == state.index + 1}
       >
         <Row align="middle">
           Next Step

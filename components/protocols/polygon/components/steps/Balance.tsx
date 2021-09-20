@@ -4,6 +4,7 @@ import {getPolygonAddressExplorerURL} from '@polygon/lib';
 import {useAppState} from '@polygon/context';
 import {useState, useEffect} from 'react';
 import {ethers} from 'ethers';
+import {useGlobalState} from 'context';
 
 const {Text} = Typography;
 
@@ -12,6 +13,7 @@ const {Text} = Typography;
 declare let window: any;
 
 const Balance = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [balance, setBalance] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
   const [fetching, setFetching] = useState<boolean>(false);
@@ -19,7 +21,12 @@ const Balance = () => {
 
   useEffect(() => {
     if (balance != undefined) {
-      state.validator(3);
+      if (globalState.valid < 3) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 3,
+        });
+      }
     }
   }, [balance, setBalance]);
 
