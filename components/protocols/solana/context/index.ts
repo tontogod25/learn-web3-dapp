@@ -1,17 +1,14 @@
-import {createContext, Dispatch} from 'react';
+import {createContext, Dispatch, useContext} from 'react';
 
 export type State = {
-  index: number;
-  validate: number;
   network: string;
   address?: string;
   secret?: string;
   programId?: string;
   greeter?: string;
 };
+
 type Action =
-  | {type: 'SetIndex'; index: number}
-  | {type: 'SetValidate'; validate: number}
   | {type: 'SetNetwork'; network: string}
   | {type: 'SetAddress'; address?: string}
   | {type: 'SetSecret'; secret?: string}
@@ -19,17 +16,11 @@ type Action =
   | {type: 'SetGreeter'; greeter?: string};
 
 const initialState = {
-  index: 0,
-  validate: 0,
   network: 'datahub',
 };
 
 function appStateReducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'SetIndex':
-      return {...state, index: action.index};
-    case 'SetValidate':
-      return {...state, validate: action.validate};
     case 'SetNetwork':
       return {...state, network: action.network};
     case 'SetSecret':
@@ -53,4 +44,6 @@ const SolanaContext = createContext<{
   dispatch: () => null,
 });
 
-export {SolanaContext, initialState, appStateReducer};
+const useAppState = () => useContext(SolanaContext);
+
+export {SolanaContext, initialState, appStateReducer, useAppState};

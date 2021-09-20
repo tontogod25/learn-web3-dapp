@@ -195,11 +195,6 @@ export const CHAINS_CONFIG: ChainsType = {
         url: 'https://learn.figment.io/tutorials/query-polygon',
       },
       {
-        id: 'restore',
-        title: 'Restore your account',
-        url: 'https://learn.figment.io/tutorials/restore-from-mnemonic',
-      },
-      {
         id: 'balance',
         title: 'Fund a Polygon account',
         url: 'https://learn.figment.io/tutorials/fund-a-polygon-account',
@@ -223,6 +218,11 @@ export const CHAINS_CONFIG: ChainsType = {
         id: 'getter',
         title: 'Get the storage of the contract',
         url: 'https://learn.figment.io/tutorials/get-contract-storage',
+      },
+      {
+        id: 'restore',
+        title: 'Restore your account',
+        url: 'https://learn.figment.io/tutorials/restore-from-mnemonic',
       },
     ],
   },

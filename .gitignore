@@ -54,3 +54,5 @@ package-lock.json
 neardev
 contracts/near/target/
 /solana-wallet
+/test-ledger
+/archives

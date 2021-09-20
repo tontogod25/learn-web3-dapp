@@ -1,18 +1,31 @@
 import {Alert, Col, Button, Space, Typography, Modal} from 'antd';
-import {useAppState} from '@solana/hooks';
+import {useAppState} from '@solana/context';
 import {ErrorBox} from '@solana/components';
 import type {ErrorT} from '@solana/types';
-import {prettyError} from '@solana/lib';
 import {useState, useEffect} from 'react';
+import {prettyError} from '@solana/lib';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Getter = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [greeting, setGreeting] = useState<number>(-1);
-  const {state, dispatch} = useAppState();
+  const {state} = useAppState();
+
+  useEffect(() => {
+    if (greeting) {
+      if (globalState.valid < 8) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 8,
+        });
+      }
+    }
+  }, [greeting, setGreeting]);
 
   useEffect(() => {
     if (error) {
@@ -35,10 +48,6 @@ const Getter = () => {
     try {
       const response = await axios.post(`/api/solana/getter`, state);
       setGreeting(response.data);
-      dispatch({
-        type: 'SetValidate',
-        validate: 8,
-      });
     } catch (error) {
       setError(prettyError(error));
     } finally {

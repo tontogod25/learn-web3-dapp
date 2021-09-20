@@ -1,4 +1,22 @@
-import {ChainType} from 'types';
+import {BlockWithTransactions} from '@ethersproject/abstract-provider';
+
+export type PolygonChainIdT = {
+  chainId: number;
+};
+
+export type PolygonQueryResponse = {
+  networkName: string;
+  chainId: number;
+  blockHeight: number;
+  gasPriceAsGwei: string;
+  blockInfo: BlockWithTransactions;
+};
+
+export type PolygonQueryErrorResponse = {
+  message: string;
+};
+
+export type PolygonAccountT = string | null;
 
 export type AlertT = 'success' | 'info' | 'warning' | 'error' | undefined;
 
@@ -41,12 +59,10 @@ export type StepType = {
   url: string;
 };
 
-export type ErrorT = {
-  message: string;
-  file?: string;
-  agrs?: string;
-};
-
-export type StepT = {
-  validate: (n: number) => void;
+export type ChainType = {
+  id: any;
+  label: string;
+  active: boolean;
+  logoUrl: string;
+  steps: StepType[];
 };

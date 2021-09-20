@@ -2,8 +2,9 @@ import {Alert, Col, Button, Space, Typography, Modal} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import {transactionExplorer} from '@solana/lib';
 import {ErrorBox} from '@solana/components';
+import {useAppState} from '@solana/context';
 import {useEffect, useState} from 'react';
-import {useAppState} from '@solana/hooks';
+import {useGlobalState} from 'context';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import axios from 'axios';
@@ -11,12 +12,24 @@ import axios from 'axios';
 const {Text} = Typography;
 
 const Setter = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [fetching, setFetching] = useState<boolean>(false);
   const [resetting, setResetting] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [hash, setHash] = useState<string>('');
   const [message, setMessage] = useState<number>(-1);
-  const {state, dispatch} = useAppState();
+  const {state} = useAppState();
+
+  useEffect(() => {
+    if (hash) {
+      if (globalState.valid < 9) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 9,
+        });
+      }
+    }
+  }, [hash, setHash]);
 
   useEffect(() => {
     if (error) {
@@ -58,10 +71,6 @@ const Setter = () => {
         state,
       );
       setHash(response.data);
-      dispatch({
-        type: 'SetValidate',
-        validate: 9,
-      });
     } catch (error) {
       setError(prettyError(error));
     } finally {

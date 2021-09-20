@@ -1,19 +1,32 @@
 import {Alert, Button, Space, Col, Input, Typography, Modal} from 'antd';
 import {transactionExplorer, prettyError} from '@solana/lib';
 import {ErrorBox} from '@solana/components';
-import {useAppState} from '@solana/hooks';
+import {useAppState} from '@solana/context';
 import type {ErrorT} from '@solana/types';
 import {useEffect, useState} from 'react';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Fund = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [isFunded, setIsFunded] = useState<boolean>(false);
   const [hash, setHash] = useState<string>('');
-  const {state, dispatch} = useAppState();
+  const {state} = useAppState();
+
+  useEffect(() => {
+    if (isFunded) {
+      if (globalState.valid < 3) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 3,
+        });
+      }
+    }
+  }, [isFunded, setIsFunded]);
 
   useEffect(() => {
     if (error) {
@@ -45,10 +58,6 @@ const Fund = () => {
       }
       setHash(response.data);
       setIsFunded(true);
-      dispatch({
-        type: 'SetValidate',
-        validate: 3,
-      });
     } catch (error) {
       if (error.message === 'Complete the code') {
         setError({message: 'Complete the code'});

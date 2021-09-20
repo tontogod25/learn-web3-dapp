@@ -1,15 +1,16 @@
-import {Typography, Popover, Button} from 'antd';
 import {trackStorageCleared} from '@funnel/tracking-utils';
+import {Typography, Popover, Button, Select} from 'antd';
 import type {EntryT, ErrorT} from '@solana/types';
-import {useAppState} from '@solana/hooks';
+import {useAppState} from '@solana/context';
 import ReactJson from 'react-json-view';
-import {Select} from 'antd';
+import {useGlobalState} from 'context';
 
 const {Option} = Select;
 
 const {Text, Paragraph} = Typography;
 
 const Nav = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const {state, dispatch} = useAppState();
   const {address, programId, secret, greeter} = state;
 
@@ -47,46 +48,51 @@ const Nav = () => {
     );
   };
 
-  const clearKeychain = () => {
-    alert('You are going to clear the storage');
-    localStorage.removeItem('solana');
-    dispatch({
-      type: 'SetAddress',
-      address: undefined,
-    });
-    dispatch({
-      type: 'SetSecret',
-      secret: undefined,
-    });
-    dispatch({
-      type: 'SetProgramId',
-      programId: undefined,
-    });
-    dispatch({
-      type: 'SetGreeter',
-      greeter: undefined,
-    });
-    dispatch({
+  const clear = () => {
+    globalDispatch({
       type: 'SetIndex',
       index: 0,
     });
-    dispatch({
-      type: 'SetValidate',
-      validate: 0,
+    globalDispatch({
+      type: 'SetValid',
+      valid: 0,
     });
-    trackStorageCleared('solana');
+    trackStorageCleared(globalState.chain as string);
+  };
+
+  const clearKeychain = () => {
+    const proceed = confirm('Are you sure you want to clear the storage?');
+    if (proceed) {
+      dispatch({
+        type: 'SetAddress',
+        address: undefined,
+      });
+      dispatch({
+        type: 'SetSecret',
+        secret: undefined,
+      });
+      dispatch({
+        type: 'SetProgramId',
+        programId: undefined,
+      });
+      dispatch({
+        type: 'SetGreeter',
+        greeter: undefined,
+      });
+      clear();
+    }
   };
 
   const toggleLocal = (node: string) => {
-    if (node === 'localhost') {
+    if (node === 'localnet') {
       dispatch({
         type: 'SetNetwork',
-        network: 'localhost',
+        network: 'localnet',
       });
-    } else if (node === 'testnet') {
+    } else if (node === 'devnet') {
       dispatch({
         type: 'SetNetwork',
-        network: 'testnet',
+        network: 'devnet',
       });
     } else {
       dispatch({
@@ -103,14 +109,13 @@ const Nav = () => {
         top: 25,
         right: 60,
         display: 'flex',
-        flexDirection: 'row-reverse',
         justifyContent: 'space-evenly',
         minWidth: '300px',
         minHeight: '100px',
       }}
     >
       <div>
-        <Popover content={AppState} placement="rightBottom">
+        <Popover content={AppState} placement="leftBottom">
           <Button type="primary">Keychain</Button>
         </Popover>
       </div>
@@ -119,11 +124,11 @@ const Nav = () => {
           defaultValue={state.network}
           style={{width: 120}}
           onChange={toggleLocal}
-          disabled={state.index != 0}
+          disabled={globalState.index != 0}
         >
           <Option value="datahub">Datahub</Option>
-          <Option value="testnet">Testnet</Option>
-          <Option value="localhost">Localhost</Option>
+          <Option value="devnet">Devnet</Option>
+          <Option value="localnet">Localnet</Option>
         </Select>
       </div>
     </div>
@@ -138,7 +143,7 @@ const ErrorBox = ({error}: {error: ErrorT}) => {
       name={'error'}
       displayDataTypes={false}
       displayObjectSize={false}
-      collapseStringsAfterLength={65}
+      collapseStringsAfterLength={35}
     />
   );
 };

@@ -1,91 +1,55 @@
-import {useState} from 'react';
-import {Row, Space, Tag, Typography} from 'antd';
-import {FundViewOutlined} from '@ant-design/icons';
-import Sidebar from 'components/shared/Sidebar';
-import {ChainType} from 'types';
-import Step from 'components/shared/Step';
-import Connect from './steps/Connect';
-import Query from './steps/Query';
-import Balance from './steps/Balance';
-import Deploy from './steps/Deploy';
-import GetStorage from './steps/GetStorage';
-import SetStorage from './steps/SetStorage';
-import Transfer from './steps/Transfer';
-import Restore from './steps/Restore';
-import {PolygonAccountT} from 'types/polygon-types';
-import {getPolygonAddressExplorerURL} from 'utils/polygon-utils';
+import {Nav} from '@polygon/components';
+import Layout from 'components/shared/Layout';
+import {AppI} from '@polygon/types';
+import {useReducer, useEffect} from 'react';
+import {useLocalStorage} from 'hooks';
+import {StepType} from 'types';
+import {
+  Connect,
+  Balance,
+  Query,
+  Restore,
+  Deploy,
+  Setter,
+  Getter,
+  Transfer,
+} from '@polygon/components/steps';
+import {
+  appStateReducer,
+  initialState,
+  PolygonContext,
+  State,
+} from '@polygon/context';
 
-import {useSteps} from 'hooks/steps-hooks';
-
-// Prevents "Property 'ethereum' does not exist on type
-// 'Window & typeof globalThis' ts(2339)" linter warning
-declare let window: any;
-
-const {Paragraph} = Typography;
-
-const Chain = ({chain}: {chain: ChainType}) => {
-  const [account, setAccount] = useState<PolygonAccountT>(null);
-
-  const {steps} = chain;
-
-  const {next, prev, stepIndex, step, isFirstStep, isLastStep} =
-    useSteps(steps);
+const Polygon: React.FC<{step: StepType}> = ({step}) => {
+  const [storageState, setStorageState] = useLocalStorage<State>(
+    'polygon',
+    initialState,
+  );
+  const [state, dispatch] = useReducer(appStateReducer, storageState);
+  useEffect(() => {
+    setStorageState(state);
+  }, [state, step]);
 
   return (
-    <Row>
-      <Sidebar chain={chain} steps={steps} stepIndex={stepIndex} />
-      <Step
-        chain={chain}
-        step={step}
-        isFirstStep={isFirstStep}
-        isLastStep={isLastStep}
-        prev={prev}
-        next={next}
-        body={
-          <>
-            {step.id === 'connect' && (
-              <Connect account={account} setAccount={setAccount} />
-            )}
-            {step.id === 'query' && <Query />}
-            {step.id === 'restore' && <Restore />}
-            {step.id === 'balance' && <Balance account={account} />}
-            {step.id === 'transfer' && <Transfer />}
-            {step.id === 'deploy' && <Deploy />}
-            {step.id === 'setter' && <SetStorage />}
-            {step.id === 'getter' && <GetStorage />}
-          </>
-        }
-        nav={<Nav account={account} />}
-      />
-    </Row>
+    <PolygonContext.Provider value={{state, dispatch}}>
+      <div style={{minHeight: '250px', marginBottom: '10vh'}}>
+        {step.id === 'connect' && <Connect />}
+        {step.id === 'query' && <Query />}
+        {step.id === 'balance' && <Balance />}
+        {step.id === 'transfer' && <Transfer />}
+        {step.id === 'deploy' && <Deploy />}
+        {step.id === 'setter' && <Setter />}
+        {step.id === 'getter' && <Getter />}
+        {step.id === 'restore' && <Restore />}
+        <Nav />
+      </div>
+    </PolygonContext.Provider>
   );
 };
 
-const Nav = ({account}: {account: PolygonAccountT}) => {
-  if (!account) return null;
-
-  const addressToDisplay = `${account.slice(0, 6)}...${account.slice(-4)}`;
-
-  return (
-    <div style={{position: 'fixed', top: 20, right: 60}}>
-      <Paragraph copyable={{text: account, tooltips: `Click to copy!`}}>
-        <a
-          href={getPolygonAddressExplorerURL(account)}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Tag color="gold">
-            <Space>
-              <FundViewOutlined />
-              <div>
-                View <strong>{addressToDisplay}</strong> on PolygonScan
-              </div>
-            </Space>
-          </Tag>
-        </a>
-      </Paragraph>
-    </div>
-  );
+const WrappedPolygon: React.FC<AppI> = ({chain}) => {
+  return Layout(Polygon, chain);
 };
 
-export default Chain;
+export default WrappedPolygon;

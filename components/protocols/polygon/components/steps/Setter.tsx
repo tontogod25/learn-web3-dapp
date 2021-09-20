@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useState} from 'react';
-import {Alert, Card, Button, Col, InputNumber, Space, Typography} from 'antd';
-import {ethers} from 'ethers';
-import {LoadingOutlined} from '@ant-design/icons';
-
 import SimpleStorageJson from 'contracts/polygon/SimpleStorage/build/contracts/SimpleStorage.json';
-import {getPolygonTxExplorerURL} from 'utils/polygon-utils';
+import {Alert, Button, Col, InputNumber, Space, Typography} from 'antd';
+import {getPolygonTxExplorerURL} from '@polygon/lib';
+import {LoadingOutlined} from '@ant-design/icons';
+import {useState, useEffect} from 'react';
+import {useGlobalState} from 'context';
+import {ethers} from 'ethers';
 
 const {Text} = Typography;
 
@@ -13,11 +13,23 @@ const {Text} = Typography;
 // 'Window & typeof globalThis' ts(2339)" linter warning
 declare let window: any;
 
-const SetStorage = () => {
+const Setter = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [inputNumber, setInputNumber] = useState<number>(0);
   const [fetchingSet, setFetchingSet] = useState<boolean>(false);
   const [txHash, setTxHash] = useState<string | null>(null);
   const [confirming, setConfirming] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (txHash) {
+      if (globalState.valid < 6) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 6,
+        });
+      }
+    }
+  }, [txHash, setTxHash]);
 
   const setValue = async () => {
     setFetchingSet(true);
@@ -25,12 +37,13 @@ const SetStorage = () => {
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    // try to figure out the expected parameters
-    const contract = new ethers.Contract(undefined);
+    const contract = new ethers.Contract(
+      SimpleStorageJson.networks['80001'].address,
+      SimpleStorageJson.abi,
+      signer,
+    );
     try {
-      // try to figure out the expected method
-      const transactionResult = undefined;
-
+      const transactionResult = await contract.set(inputNumber);
       setFetchingSet(false);
       setInputNumber(0);
       setConfirming(true);
@@ -38,7 +51,6 @@ const SetStorage = () => {
       setTxHash(receipt.transactionHash);
       setConfirming(false);
     } catch (error) {
-      console.log(error);
       setFetchingSet(false);
     }
   };
@@ -85,4 +97,4 @@ const SetStorage = () => {
   );
 };
 
-export default SetStorage;
+export default Setter;

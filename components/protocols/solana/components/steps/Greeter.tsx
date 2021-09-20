@@ -1,19 +1,32 @@
 import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
 import {accountExplorer, transactionExplorer} from '@solana/lib';
 import {ErrorBox} from '@solana/components';
-import {useAppState} from '@solana/hooks';
+import {useAppState} from '@solana/context';
 import {useState, useEffect} from 'react';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import axios from 'axios';
+import {useGlobalState} from 'context';
 
 const {Text} = Typography;
 
 const Greeter = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [hash, setHash] = useState<string | null>(null);
   const {state, dispatch} = useAppState();
+
+  useEffect(() => {
+    if (hash) {
+      if (globalState.valid < 7) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 7,
+        });
+      }
+    }
+  }, [hash, setHash]);
 
   useEffect(() => {
     if (error) {
@@ -41,12 +54,7 @@ const Greeter = () => {
         type: 'SetGreeter',
         greeter: response.data.greeter,
       });
-      dispatch({
-        type: 'SetValidate',
-        validate: 7,
-      });
     } catch (error) {
-      console.log(prettyError(error));
       setError(prettyError(error));
     } finally {
       setFetching(false);

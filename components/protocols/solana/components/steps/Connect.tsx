@@ -1,19 +1,32 @@
 import {Col, Alert, Space, Typography, Button, Modal} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import {useEffect, useState} from 'react';
-import {useAppState} from '@solana/hooks';
+import {useAppState} from '@solana/context';
 import {ErrorBox} from '@solana/components';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Connect = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [version, setVersion] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
-  const {state, dispatch} = useAppState();
+  const {state} = useAppState();
+
+  useEffect(() => {
+    if (version) {
+      if (globalState.valid < 1) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 1,
+        });
+      }
+    }
+  }, [version, setVersion]);
 
   useEffect(() => {
     if (error) {
@@ -35,10 +48,6 @@ const Connect = () => {
     setError(null);
     try {
       const response = await axios.post(`/api/solana/connect`, state);
-      dispatch({
-        type: 'SetValidate',
-        validate: 1,
-      });
       setVersion(response.data);
     } catch (error) {
       setError(prettyError(error));

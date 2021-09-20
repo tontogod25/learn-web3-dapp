@@ -5,7 +5,7 @@ import {CHAINS, ChainType} from 'types';
 import {ComponentType} from 'react';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
-import {getChainColors} from 'utils/colors-utils';
+import {getChainColors} from 'utils/colors';
 
 type StaticPropsT = {
   params: {chain: CHAINS};
@@ -83,11 +83,6 @@ export default function Chain({chainConfig}: ChainT) {
       );
     if (chainId === CHAINS.TEZOS)
       return dynamic(() => import('../components/protocols/tezos'), dynOptions);
-    if (chainId === CHAINS.THE_GRAPH)
-      return dynamic(
-        () => import('../components/protocols/the_graph'),
-        dynOptions,
-      );
   })() as DynChainT;
 
   return (

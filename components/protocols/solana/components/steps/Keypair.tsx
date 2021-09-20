@@ -1,18 +1,31 @@
 import {Alert, Button, Col, Space, Typography, Modal} from 'antd';
-import {useEffect, useState} from 'react';
-import {useAppState} from '@solana/hooks';
-import axios from 'axios';
-import {ErrorBox} from '@solana/components';
 import type {ErrorT} from '@solana/types';
+import {useAppState} from '@solana/context';
+import {ErrorBox} from '@solana/components';
+import {useEffect, useState} from 'react';
 import {prettyError} from '@solana/lib';
+import {useGlobalState} from 'context';
+import axios from 'axios';
 
 const {Text} = Typography;
 
 const Keypair = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [address, setAddress] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const {state, dispatch} = useAppState();
+
+  useEffect(() => {
+    if (address) {
+      if (globalState.valid < 2) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 2,
+        });
+      }
+    }
+  }, [address, setAddress]);
 
   useEffect(() => {
     if (error) {
@@ -46,10 +59,6 @@ const Keypair = () => {
       dispatch({
         type: 'SetAddress',
         address: response.data.address,
-      });
-      dispatch({
-        type: 'SetValidate',
-        validate: 2,
       });
     } catch (error) {
       setError(prettyError(error));
