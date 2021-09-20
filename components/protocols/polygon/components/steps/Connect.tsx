@@ -40,23 +40,14 @@ const Connect = () => {
 
   const connect = async () => {
     const provider = await detectEthereumProvider();
-    console.log('here');
 
     if (provider) {
+      // TODO
       // Connect to Polygon using Web3Provider and Metamask
-      console.log('here2');
-
-      // @ts-ignore
-      await provider.request({method: 'eth_requestAccounts'});
-      const web3provider = new ethers.providers.Web3Provider(
-        window.ethereum,
-        'any',
-      );
-      const signer = web3provider.getSigner();
-
       // Define address and network
-      const address = await signer.getAddress();
-      const network = ethers.providers.getNetwork(await signer.getChainId());
+      const web3provider = undefined;
+      const address = undefined;
+      const network = undefined;
 
       setNetwork(network);
       setAddress(address);

@@ -64,20 +64,14 @@ const Transfer = () => {
         parseInt(currentGasPrice.toString()),
       );
 
-      const transaction = {
-        from: send_account,
-        to: recipient,
-        value: ethers.utils.parseEther('0.1'),
-        nonce: provider.getTransactionCount(send_account, 'latest'),
-        gasLimit: ethers.utils.hexlify(100000),
-        gasPrice: gas_price,
-      };
-      const hash = await provider.getSigner().sendTransaction(transaction);
+      const transaction = undefined;
+
+      const hash = undefined;
       const receipt = await hash.wait();
       setHash(receipt.transactionHash);
-      setFetching(false);
     } catch (error) {
       setError(error.message);
+    } finally {
       setFetching(false);
     }
   };

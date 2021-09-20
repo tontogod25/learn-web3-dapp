@@ -15,14 +15,11 @@ export default async function query(
       return res.name;
     });
 
-    // TODO
-    // Define those variables below
-    const chainId = provider.network.chainId;
-    const blockHeight = await provider.getBlockNumber();
-    const gasPriceAsGwei = await provider.getGasPrice().then((res) => {
-      return ethers.utils.formatUnits(res, 'gwei');
-    });
-    const blockInfo = await provider.getBlockWithTransactions(blockHeight);
+    // TODO: Define the variables below
+    const chainId = undefined;
+    const blockHeight = undefined;
+    const gasPriceAsGwei = undefined;
+    const blockInfo = undefined;
 
     res.status(200).json({
       networkName,
