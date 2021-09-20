@@ -39,15 +39,6 @@ const Home = () => {
                 <Label>{label}</Label>
               </ProtocolBox>
             );
-            if (process.env.NEXT_PUBLIC_NEW_LAYOUT) {
-              return active ? (
-                <Link href={`/new/${id}`} key={id}>
-                  {box}
-                </Link>
-              ) : (
-                box
-              );
-            }
             return active ? (
               <Link href={`/${id}`} key={id}>
                 {box}
