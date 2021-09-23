@@ -56,3 +56,13 @@ contracts/near/target/
 /solana-wallet
 /test-ledger
 /archives
+
+subgraph/CryptoPunks/generated
+subgraph/CryptoPunks/build
+subgraph/CryptoPunks/data
+subgraph/CryptoPunks/node_modules
+
+subgraph/CryptoPunk/generated
+subgraph/CryptoPunk/build
+subgraph/CryptoPunk/data
+subgraph/CryptoPunk/node_modules
