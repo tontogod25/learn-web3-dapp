@@ -37,7 +37,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.10",
     "antd": "^4.16.1",
-    "avalanche": "^3.7.0",
+    "avalanche": "3.7.0",
     "axios": "^0.21.1",
     "bn.js": "^5.2.0",
     "ethereumjs-util": "^7.1.0",
