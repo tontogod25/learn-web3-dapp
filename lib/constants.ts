@@ -365,4 +365,22 @@ export const CHAINS_CONFIG: ChainsType = {
       },
     ],
   },
+  [CHAINS.THE_GRAPH]: {
+    id: CHAINS.THE_GRAPH,
+    label: 'The Graph',
+    active: true,
+    logoUrl: 'https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=013',
+    steps: [
+      {
+        id: 'connect',
+        title: 'Connect to The graph',
+        url: 'https://learn.figment.io/tutorials/connect-to-the-graph',
+      },
+      {
+        id: 'connect-2',
+        title: 'Connect to The graph',
+        url: 'https://learn.figment.io/tutorials/connect-to-the-graph',
+      },
+    ],
+  },
 };
