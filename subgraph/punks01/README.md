@@ -1,6 +1,6 @@
 # Setup the subgraph for CryptoPunks
 
-Here we're going to explore how to write a dummy subgraph from an eisting deployed contract on ethereum mainnet.
+Here we're going to explore how to write a dummy subgraph from an existing deployed contract on ethereum mainnet.
 
 ## Install the required software
 
@@ -30,15 +30,16 @@ Quick overview:
 * `--network mainnet` tell to lookat mainnet ethereum to find the contract abi
 * `--node http://localhost:8020/` will prepare our script to deploy to local node
 
-Now we can go into the newly created folder and start hacking our subgraph.
+Now we can go into the newly created folder, install dependencies and start hacking our subgraph.
 
 ```bash
 cd punks
+yarn
 ````
 
 # Hacking the subgraphs.
 
-## Haking the manifest.
+## Hacking the manifest.
 
 The manifest of a subgraph is the `subgraph.yaml` file, here we're going to simply it.
 
@@ -170,7 +171,7 @@ The creation of Punk entity follow the same logic.
 
 ## Setup the localnode
 
-A docker-compose file is already setup for you, we won't detail it, just keep in mind to acquire an API key from alchemy service and run the following command directly from root folder:
+A docker-compose file is already setup for you, we won't detail it, just keep in mind to acquire an API key from alchemy service and run the following command:
 
 ```bash
 sudo ETHEREUM_RPC=mainnet:https://eth-mainnet.alchemyapi.io/v2/<API-KEY> docker-compose up
