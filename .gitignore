@@ -72,3 +72,11 @@ subgraph/punks01/generated
 subgraph/punks01/build
 subgraph/punks01/data
 subgraph/punks01/node_modules
+
+
+subgraph/punksXX/generated
+subgraph/punksXX/build
+subgraph/punksXX/data
+subgraph/punksXX/node_modules
+
+docker/data
