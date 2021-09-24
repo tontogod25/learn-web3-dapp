@@ -1,6 +1,6 @@
 # Setup the subgraph for CryptoPunks
 
-Here we're going to explore how to write a dummy subgraph from an excisting deployed contract on ethereum mainnet.
+Here we're going to explore how to write a dummy subgraph from an eisting deployed contract on ethereum mainnet.
 
 ## Install the required software
 
@@ -14,9 +14,12 @@ npm install -g @graphprotocol/graph-cli
 
 We're going to run the following command to take care of the boilerplatte code.
 
-````bash
-graph init --allow-simple-name --from-contract 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB --index-events --contract-name punks --network mainnet --node http://localhost:8020/ punks
-``
+```bash
+graph init --allow-simple-name \
+  --from-contract 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB \
+  --index-events --contract-name punks --network mainnet \ 
+  --node http://localhost:8020/ punks
+```
 
 Quick overview:
 * `graph init` will initialize an empty subgraph
@@ -131,13 +134,13 @@ Now, time to create the Account entity
 
 First, we test if the entity have already been created.
 
-```typecripts
+```typescript
   let account = Account.load(event.params.to.toHexString());
 ```
 
 if not we create a new one filling all the field
 
-```typecripts
+```typescript
   if (account == null) {
     account = new Account(event.params.to.toHexString());
     account.id = event.params.to.toHexString();
@@ -147,7 +150,7 @@ if not we create a new one filling all the field
 
 otherwise, we only need to increment the number of owned punk
 
-```typecripts
+```typescript
   else {
     account.numberOfPunksOwned ==
       account.numberOfPunksOwned.plus(BigInt.fromI32(1));
@@ -156,7 +159,7 @@ otherwise, we only need to increment the number of owned punk
 
 At last and for both case we update the timestamp
 
-```typecripts
+```typescript
   account.LastMvtAt = event.block.timestamp;
   account.save();
 ```
