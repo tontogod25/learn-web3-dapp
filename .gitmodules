@@ -1,3 +1,0 @@
-[submodule "subgraph/CryptoPunks"]
-	path = subgraph/CryptoPunks
-	url = git@github.com:itsjerryokolo/CryptoPunks.git
