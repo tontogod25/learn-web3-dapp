@@ -372,13 +372,13 @@ export const CHAINS_CONFIG: ChainsType = {
     logoUrl: 'https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=013',
     steps: [
       {
-        id: 'connect',
-        title: 'Connect to The graph',
+        id: 'first-punks',
+        title: 'A first Punks',
         url: 'https://learn.figment.io/tutorials/connect-to-the-graph',
       },
       {
-        id: 'connect-2',
-        title: 'Connect to The graph',
+        id: 'final-punks',
+        title: 'The final Punks',
         url: 'https://learn.figment.io/tutorials/connect-to-the-graph',
       },
     ],

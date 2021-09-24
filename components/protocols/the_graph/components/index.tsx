@@ -1,3 +1,6 @@
+export const VERSION = '0.0.1';
+
+/*
 import {Popover, Button, Select} from 'antd';
 import {trackStorageCleared} from '@funnel/tracking-utils';
 import {useGlobalState} from 'context';
@@ -32,7 +35,6 @@ const Nav = () => {
       network: 'datahub',
     });
     clear();
-    */
   };
 
   const AppState = () => {
@@ -79,3 +81,4 @@ const Nav = () => {
 };
 
 export {Nav};
+*/

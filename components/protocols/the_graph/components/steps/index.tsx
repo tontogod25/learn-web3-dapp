@@ -1,3 +1,4 @@
-import Connect from '@the-graph/components/steps/Connect';
+import FirstPunks from '@the-graph/components/steps/FirstPunks';
+import FinalPunks from '@the-graph/components/steps/FinalPunks';
 
-export {Connect};
+export {FirstPunks, FinalPunks};

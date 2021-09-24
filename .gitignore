@@ -62,7 +62,7 @@ subgraph/CryptoPunks/build
 subgraph/CryptoPunks/data
 subgraph/CryptoPunks/node_modules
 
-subgraph/CryptoPunk/generated
-subgraph/CryptoPunk/build
-subgraph/CryptoPunk/data
-subgraph/CryptoPunk/node_modules
+subgraph/punks/generated
+subgraph/punks/build
+subgraph/punks/data
+subgraph/punks/node_modules
