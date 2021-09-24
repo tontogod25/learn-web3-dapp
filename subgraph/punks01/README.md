@@ -186,7 +186,7 @@ yarn create-local
 yarn deploy-local
 ```
 
-After deploying the subgraph two urls are displayed copy the first one and paste it in `.env.local` at **NEXT_PUBLIC_URL_GRAPH**
+After deploying the subgraph two urls are displayed copy the first one and paste it in `.env.local` at **NEXT_PUBLIC_THE_GRAPH_PUNKS**
 
 It should be
 
