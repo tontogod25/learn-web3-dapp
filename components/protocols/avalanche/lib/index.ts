@@ -1,12 +1,12 @@
+import {CHAINS, AVALANCHE_NETWORKS} from 'types';
+import {getNodeURL as getNodeUrl} from 'utils/datahub';
 import {Avalanche} from 'avalanche';
 
-export enum AVALANCHE_NETWORKS {
-  MAINNET = 'MAINNET',
-  FUJI = 'FUJI',
-}
+const getNodeURL = (network?: string) =>
+  getNodeUrl(CHAINS.POLYGON, AVALANCHE_NETWORKS.FUJI, undefined, network);
 
-export const getAvalancheClient = () => {
-  const url = new URL(getDataHubAvalancheNodeUrl(AVALANCHE_NETWORKS.FUJI));
+const getAvalancheClient = () => {
+  const url = new URL(getNodeURL());
 
   const client = new Avalanche(
     url.hostname,
@@ -23,13 +23,8 @@ export const getAvalancheClient = () => {
   return client;
 };
 
-export const transactionUrl = (txId: string) => {
+const transactionUrl = (txId: string) => {
   return `https://explorer.avax-test.network/tx/${txId}`;
 };
 
-export const getDataHubAvalancheNodeUrl = (
-  network: AVALANCHE_NETWORKS,
-): string =>
-  network === AVALANCHE_NETWORKS.MAINNET
-    ? `https://${process.env.DATAHUB_AVALANCHE_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_AVALANCHE_API_KEY}`
-    : `https://${process.env.DATAHUB_AVALANCHE_FUJI_RPC_URL}/apikey/${process.env.DATAHUB_AVALANCHE_API_KEY}`;
+export {transactionUrl, getAvalancheClient};

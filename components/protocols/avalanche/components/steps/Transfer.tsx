@@ -1,8 +1,9 @@
-import {useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@avalanche/hooks';
+import {useAppState} from '@avalanche/context';
 import {transactionUrl} from '@avalanche/lib';
+import {useState, useEffect} from 'react';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 
 const layout = {
@@ -19,32 +20,42 @@ const recipient = 'X-fuji1j2zasjlkkvptegp6dpm222q6sn02k0rp9fj92d';
 const {Text} = Typography;
 
 const Transfer = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   const [hash, setHash] = useState(null);
   const {state} = useAppState();
 
-  const transfer = (values: any) => {
-    const isValidAmount = parseFloat(values.amount);
-    if (isNaN(isValidAmount)) {
-      setError('Amount needs to be a valid number');
-      throw Error('Invalid Amount');
+  useEffect(() => {
+    if (hash) {
+      if (globalState.valid < 4) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 4,
+        });
+      }
     }
+  }, [hash, setHash]);
 
-    const amount = values.amount;
-
+  const transfer = async (values: any) => {
     setFetching(true);
-    axios
-      .post(`/api/avalanche/transfer`, {...state, amount, recipient})
-      .then((res) => {
-        const hash = res.data;
-        setHash(hash);
-        setFetching(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setFetching(false);
+    const lamports = parseFloat(values.amount);
+    try {
+      if (isNaN(lamports)) {
+        throw new Error('invalid amount');
+      }
+
+      const response = await axios.post(`/api/avalanche/transfer`, {
+        ...state,
+        lamports,
+        recipient,
       });
+      setHash(response.data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setFetching(false);
+    }
   };
 
   return (

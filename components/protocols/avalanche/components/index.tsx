@@ -1,15 +1,18 @@
-import {Alert, Space, Typography, Popover, Button} from 'antd';
-import {useAppState} from '@avalanche/hooks';
-import type {EntryT, AlertT} from '@avalanche/types';
-import {trackStorageCleared} from '../../../../utils/tracking-utils';
+import {trackStorageCleared} from 'utils/tracking-utils';
+import {Typography, Popover, Button, Select} from 'antd';
+import {useAppState} from '@avalanche/context';
+import type {EntryT} from '@avalanche/types';
+import {useGlobalState} from 'context';
+
+const {Option} = Select;
 
 const {Text, Paragraph} = Typography;
 
 const Nav = () => {
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const {state, dispatch} = useAppState();
-  const {network, address, secret} = state;
+  const {address, secret} = state;
 
-  const displayNetwork = (networkId: string) => networkId;
   const displayAddress = (address: string) =>
     `${address.slice(0, 5)}...${address.slice(-5)}`;
 
@@ -25,67 +28,81 @@ const Nav = () => {
   const AppState = () => {
     return (
       <>
-        {network && (
-          <Entry msg={'Network: '} value={network} display={displayNetwork} />
-        )}
         {address && (
           <Entry msg={'Address: '} value={address} display={displayAddress} />
         )}
         {secret && (
           <Entry msg={'Secret: '} value={secret} display={displayAddress} />
         )}
+        <Button danger onClick={clearKeychain} size={'small'}>
+          Clear Keychain
+        </Button>
       </>
     );
   };
 
-  const clearStorage = () => {
-    alert('You are going to clear the storage');
-    localStorage.removeItem('avalanche');
-    dispatch({
-      type: 'SetAddress',
-      address: undefined,
-    });
-    dispatch({
-      type: 'SetSecret',
-      secret: undefined,
-    });
-    dispatch({
+  const clear = () => {
+    globalDispatch({
       type: 'SetIndex',
       index: 0,
     });
-    dispatch({
-      type: 'SetNetwork',
-      network: 'fuji',
+    globalDispatch({
+      type: 'SetValid',
+      valid: 0,
     });
-    trackStorageCleared('avalanche');
+    trackStorageCleared(globalState.chain as string);
+  };
+
+  const clearKeychain = () => {
+    const proceed = confirm('Are you sure you want to clear the keychain?');
+    if (proceed) {
+      dispatch({
+        type: 'SetAddress',
+        address: undefined,
+      });
+      dispatch({
+        type: 'SetSecret',
+        secret: undefined,
+      });
+      dispatch({
+        type: 'SetNetwork',
+        network: 'datahub',
+      });
+      clear();
+    }
   };
 
   return (
-    <>
-      <div style={{position: 'fixed', top: 25, right: 60}}>
-        <Popover content={AppState} placement="rightBottom">
-          <Button type="primary">Storage</Button>
+    <div
+      style={{
+        position: 'fixed',
+        top: 25,
+        right: 60,
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        minWidth: '300px',
+        minHeight: '100px',
+      }}
+    >
+      <div>
+        <Popover content={AppState} placement="leftBottom">
+          <Button type="primary">Keychain</Button>
         </Popover>
       </div>
-      <div style={{position: 'fixed', top: 25, right: 165}}>
-        <Button danger onClick={clearStorage}>
-          Clear Storage
-        </Button>
+      <div>
+        <Select
+          defaultValue={'datahub'}
+          style={{width: 100, textAlign: 'center'}}
+          disabled={true}
+          showArrow={false}
+        >
+          <Option value="datahub">Datahub</Option>
+          <Option value="devnet">Devnet</Option>
+          <Option value="localnet">Localnet</Option>
+        </Select>
       </div>
-    </>
+    </div>
   );
 };
 
-const Notify = ({msg, status}: {msg: string; status: AlertT}) => (
-  <Alert
-    message={
-      <Space>
-        <Text strong>{msg}</Text>
-      </Space>
-    }
-    type={status}
-    showIcon
-  />
-);
-
-export {Nav, Notify};
+export {Nav};

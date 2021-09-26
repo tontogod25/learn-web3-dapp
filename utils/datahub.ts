@@ -22,13 +22,14 @@ export const getNodeURL = (
 ): string => {
   if (node === 'datahub') {
     return getDatahubNodeURL(chain, network, protocol);
-  } else if (node === 'devnet') {
-    return getTestnetNodeURL(chain);
-  } else if (node === 'localnet') {
-    return getLocalNodeURL(chain);
-  } else {
+  }
+  if (node === 'devnet') {
     return getTestnetNodeURL(chain);
   }
+  if (node === 'localnet') {
+    return getLocalNodeURL(chain);
+  }
+  return getDatahubNodeURL(chain, network, protocol);
 };
 
 const getTestnetNodeURL = (chain: CHAINS): string => {
@@ -44,6 +45,8 @@ const getLocalNodeURL = (chain: CHAINS): string => {
   switch (chain) {
     case CHAINS.SOLANA:
       return 'http://127.0.0.1:8899';
+    case CHAINS.AVALANCHE:
+      return 'http://127.0.0.1:9650';
     default:
       return '';
   }
@@ -83,15 +86,10 @@ export const getDatahubNodeURL = (
   }
 };
 
-const getDataHubAvalancheNodeUrl = (network: AVALANCHE_NETWORKS): string => {
-  if (network === AVALANCHE_NETWORKS.MAINNET) {
-    return `https://${process.env.DATAHUB_AVALANCHE_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_AVALANCHE_API_KEY}`;
-  } else if (network === AVALANCHE_NETWORKS.FUJI) {
-    return `https://${process.env.DATAHUB_AVALANCHE_FUJI_RPC_URL}/apikey/${process.env.DATAHUB_AVALANCHE_API_KEY}`;
-  }
-
-  return '';
-};
+const getDataHubAvalancheNodeUrl = (network: AVALANCHE_NETWORKS): string =>
+  network === AVALANCHE_NETWORKS.MAINNET
+    ? `https://${process.env.DATAHUB_AVALANCHE_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_AVALANCHE_API_KEY}`
+    : `https://${process.env.DATAHUB_AVALANCHE_FUJI_RPC_URL}/apikey/${process.env.DATAHUB_AVALANCHE_API_KEY}`;
 
 const getDataHubNearNodeUrl = (network: NEAR_NETWORKS): string =>
   network === NEAR_NETWORKS.MAINNET

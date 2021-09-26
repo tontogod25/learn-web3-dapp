@@ -1,4 +1,4 @@
-import {trackStorageCleared} from '@funnel/tracking-utils';
+import {trackStorageCleared} from 'utils/tracking-utils';
 import {Typography, Popover, Button, Select} from 'antd';
 import type {EntryT, ErrorT} from '@solana/types';
 import {useAppState} from '@solana/context';

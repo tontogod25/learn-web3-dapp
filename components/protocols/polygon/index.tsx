@@ -48,8 +48,8 @@ const Polygon: React.FC<{step: StepType}> = ({step}) => {
   );
 };
 
-const WrappedPolygon: React.FC<AppI> = ({chain}) => {
+const WithLayoutPolygon: React.FC<AppI> = ({chain}) => {
   return Layout(Polygon, chain);
 };
 
-export default WrappedPolygon;
+export default WithLayoutPolygon;

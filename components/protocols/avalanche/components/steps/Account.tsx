@@ -1,14 +1,27 @@
-import {useEffect, useState} from 'react';
 import {Alert, Button, Col, Space, Typography} from 'antd';
-import {useAppState} from '@avalanche/hooks';
+import {useAppState} from '@avalanche/context';
+import {useEffect, useState} from 'react';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Account = () => {
-  const [fetching, setFetching] = useState<boolean>(false);
+  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [address, setAddress] = useState<string | null>(null);
+  const [fetching, setFetching] = useState<boolean>(false);
   const {state, dispatch} = useAppState();
+
+  useEffect(() => {
+    if (address) {
+      if (globalState.valid < 2) {
+        globalDispatch({
+          type: 'SetValid',
+          valid: 2,
+        });
+      }
+    }
+  }, [address, setAddress]);
 
   useEffect(() => {
     if (state?.address) {

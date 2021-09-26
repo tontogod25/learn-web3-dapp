@@ -51,16 +51,18 @@ const Nav = () => {
   };
 
   const clearKeychain = () => {
-    alert('You are going to clear the storage');
-    dispatch({
-      type: 'SetAddress',
-      address: undefined,
-    });
-    dispatch({
-      type: 'SetNetwork',
-      network: 'datahub',
-    });
-    clear();
+    const proceed = confirm('Are you sure you want to clear the keychain?');
+    if (proceed) {
+      dispatch({
+        type: 'SetAddress',
+        address: undefined,
+      });
+      dispatch({
+        type: 'SetNetwork',
+        network: 'datahub',
+      });
+      clear();
+    }
   };
 
   const AppState = () => {
@@ -97,7 +99,7 @@ const Nav = () => {
         <Select
           defaultValue={'datahub'}
           style={{width: 100, textAlign: 'center'}}
-          disabled={true} //{state.index != 0}
+          disabled={true}
           showArrow={false}
         >
           <Option value="datahub">Datahub</Option>

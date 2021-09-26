@@ -1,26 +1,22 @@
-import {createContext, Dispatch} from 'react';
+import {createContext, Dispatch, useContext} from 'react';
 
 export type State = {
-  index: number;
   network: string;
   secret?: string;
   address?: string;
 };
+
 type Action =
-  | {type: 'SetIndex'; index: number}
   | {type: 'SetNetwork'; network: string}
   | {type: 'SetAddress'; address?: string}
   | {type: 'SetSecret'; secret?: string};
 
 const initialState = {
-  index: 0,
-  network: 'fuji',
+  network: 'datahub',
 };
 
 function appStateReducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'SetIndex':
-      return {...state, index: action.index};
     case 'SetNetwork':
       return {...state, network: action.network};
     case 'SetSecret':
@@ -40,4 +36,6 @@ const AvalancheContext = createContext<{
   dispatch: () => null,
 });
 
-export {AvalancheContext, initialState, appStateReducer};
+const useAppState = () => useContext(AvalancheContext);
+
+export {AvalancheContext, initialState, appStateReducer, useAppState};

@@ -7,8 +7,9 @@ import {
 import Layout from 'components/shared/Layout';
 import React, {useEffect, useReducer} from 'react';
 import {StepType, ChainType} from 'types';
-import {Nav} from '@solana/components';
 import {useLocalStorage} from 'hooks';
+import {useGlobalState} from 'context';
+import {Nav} from '@solana/components';
 import {
   Connect,
   Keypair,
@@ -22,8 +23,9 @@ import {
 } from '@solana/components/steps';
 
 const Solana: React.FC<{step: StepType}> = ({step}) => {
+  const {state: globalState} = useGlobalState();
   const [storageState, setStorageState] = useLocalStorage<State>(
-    'solana',
+    globalState.chain as string,
     initialState,
   );
   const [state, dispatch] = useReducer(appStateReducer, storageState);
@@ -49,8 +51,8 @@ const Solana: React.FC<{step: StepType}> = ({step}) => {
   );
 };
 
-const WrappedSolana: React.FC<{chain: ChainType}> = ({chain}) => {
+const WithLayoutSolana: React.FC<{chain: ChainType}> = ({chain}) => {
   return Layout(Solana, chain);
 };
 
-export default WrappedSolana;
+export default WithLayoutSolana;
