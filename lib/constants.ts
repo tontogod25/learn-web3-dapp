@@ -1,5 +1,7 @@
 import {ChainsType, CHAINS} from 'types';
 
+export const GRID_LAYOUT = [11, 13];
+
 export const CHAINS_CONFIG: ChainsType = {
   [CHAINS.AVALANCHE]: {
     id: CHAINS.AVALANCHE,

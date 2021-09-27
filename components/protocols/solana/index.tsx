@@ -29,30 +29,32 @@ const Solana: React.FC<{step: StepType}> = ({step}) => {
     initialState,
   );
   const [state, dispatch] = useReducer(appStateReducer, storageState);
+
   useEffect(() => {
     setStorageState(state);
   }, [state, step]);
 
   return (
     <SolanaContext.Provider value={{state, dispatch}}>
-      <div style={{minHeight: '250px', marginBottom: '10vh'}}>
-        {step.id === 'connect' && <Connect />}
-        {step.id === 'account' && <Keypair />}
-        {step.id === 'fund' && <Fund />}
-        {step.id === 'balance' && <Balance />}
-        {step.id === 'transfer' && <Transfer />}
-        {step.id === 'deploy' && <Deploy />}
-        {step.id === 'greeter' && <Greeter />}
-        {step.id === 'getter' && <Getter />}
-        {step.id === 'setter' && <Setter />}
-        <Nav />
-      </div>
+      {step.id === 'connect' && <Connect />}
+      {step.id === 'account' && <Keypair />}
+      {step.id === 'fund' && <Fund />}
+      {step.id === 'balance' && <Balance />}
+      {step.id === 'transfer' && <Transfer />}
+      {step.id === 'deploy' && <Deploy />}
+      {step.id === 'greeter' && <Greeter />}
+      {step.id === 'getter' && <Getter />}
+      {step.id === 'setter' && <Setter />}
+      <Nav />
     </SolanaContext.Provider>
   );
 };
 
-const WithLayoutSolana: React.FC<{chain: ChainType}> = ({chain}) => {
-  return Layout(Solana, chain);
+const WithLayoutSolana: React.FC<{chain: ChainType; markdown: any}> = ({
+  chain,
+  markdown,
+}) => {
+  return Layout(Solana, chain, markdown);
 };
 
 export default WithLayoutSolana;

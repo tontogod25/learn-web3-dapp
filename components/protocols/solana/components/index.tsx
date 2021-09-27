@@ -93,9 +93,9 @@ const Nav = () => {
   return (
     <div
       style={{
-        position: 'fixed',
+        position: 'absolute',
         top: 25,
-        right: 60,
+        right: 0,
         display: 'flex',
         justifyContent: 'space-evenly',
         minWidth: '300px',
