@@ -104,6 +104,7 @@ const Nav = () => {
           disabled={globalState.index != 0}
         >
           <Option value="datahub">Datahub</Option>
+          <Option value="devnet">Testnet</Option>
           <Option value="localnet">Localnet</Option>
         </Select>
       </div>

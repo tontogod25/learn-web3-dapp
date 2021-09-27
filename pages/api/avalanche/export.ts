@@ -7,8 +7,8 @@ export default async function (
   res: NextApiResponse<string>,
 ) {
   try {
-    const {secret} = req.body;
-    const client = getAvalancheClient();
+    const {secret, network} = req.body;
+    const client = getAvalancheClient(network);
 
     // Total amount we're transferring = 0.05 AVAX
     const amount = '50000000';
@@ -33,7 +33,6 @@ export default async function (
 
     res.status(200).json(hash);
   } catch (error) {
-    console.error(error);
-    res.status(500).json('Export to C chain failed');
+    res.status(500).json(error.message);
   }
 }
