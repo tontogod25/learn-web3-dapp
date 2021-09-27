@@ -10,37 +10,62 @@ export enum CHAINS {
   TEZOS = 'tezos',
 }
 
-// Avalanche
+// ----------------------------- Avalanche
 export enum AVALANCHE_NETWORKS {
   MAINNET = 'MAINNET',
   FUJI = 'FUJI',
 }
 
-// Celo
+export enum AVALANCHE_PROTOCOLS {
+  RPC = 'RPC',
+}
+
+// ----------------------------- Celo
 export enum CELO_NETWORKS {
   MAINNET = 'MAINNET',
   ALFAJORES = 'alfajores',
 }
 
-// Secret
+export enum CELO_PROTOCOLS {
+  RPC = 'RPC',
+}
+// -----------------------------
+
+// ----------------------------- Secret
 export enum SECRET_NETWORKS {
   MAINNET = 'MAINNET',
   TESTNET = 'HOLODECK-2',
 }
 
-// Near
+export enum SECRET_PROTOCOLS {
+  RPC = 'RPC',
+  LCD = 'LCD',
+}
+// -----------------------------
+
+// ----------------------------- Near
 export enum NEAR_NETWORKS {
   MAINNET = 'MAINNET',
   TESTNET = 'TESTNET',
 }
 
-// Tezos
+export enum NEAR_PROTOCOLS {
+  RPC = 'RPC',
+}
+// -----------------------------
+
+// ----------------------------- Tezos
 export enum TEZOS_NETWORKS {
   MAINNET = 'MAINNET',
   TESTNET = 'TESTNET',
 }
 
-// Polkadot
+export enum TEZOS_PROTOCOLS {
+  RPC = 'RPC',
+}
+// -----------------------------
+
+// -----------------------------  Polkadot
 export enum POLKADOT_NETWORKS {
   WESTEND = 'WESTEND',
   MAINNET = 'MAINNET',
@@ -50,19 +75,22 @@ export enum POLKADOT_PROTOCOLS {
   RPC = 'RPC',
   WS = 'WS',
 }
+// -----------------------------
 
-// Polygon
+// -----------------------------  Polygon
 export enum POLYGON_NETWORKS {
   MAINNET = 'MAINNET',
   TESTNET = 'TESTNET',
 }
+
 export enum POLYGON_PROTOCOLS {
   RPC = 'RPC',
   JSON_RPC = 'JSON_RPC',
   WS = 'WS',
 }
+// -----------------------------
 
-// Solana
+// -----------------------------  Solana
 export enum SOLANA_NETWORKS {
   MAINNET = 'MAINNET',
   DEVNET = 'DEVNET',
@@ -72,6 +100,7 @@ export enum SOLANA_PROTOCOLS {
   RPC = 'RPC',
   WS = 'WS',
 }
+// -----------------------------
 
 export type NETWORKS =
   | POLYGON_NETWORKS
@@ -86,7 +115,12 @@ export type NETWORKS =
 export type PROTOCOLS =
   | POLYGON_PROTOCOLS
   | SOLANA_PROTOCOLS
-  | POLKADOT_PROTOCOLS;
+  | POLKADOT_PROTOCOLS
+  | AVALANCHE_PROTOCOLS
+  | SECRET_PROTOCOLS
+  | NEAR_PROTOCOLS
+  | CELO_PROTOCOLS
+  | TEZOS_PROTOCOLS;
 
 // ---------------------------------------------------
 export type ChainType = {
@@ -111,11 +145,6 @@ export enum UserActivity {
   PROTOCOL_CLICKED = 'PROTOCOL_CLICKED',
   TUTORIAL_STEP_VIEWED = 'TUTORIAL_STEP_VIEWED',
   STORAGE_CLEARED = 'STORAGE_CLEARED',
-}
-
-export interface HooksState {
-  stepIndex: number;
-  validIndex: number;
 }
 
 export interface ProtocolI {

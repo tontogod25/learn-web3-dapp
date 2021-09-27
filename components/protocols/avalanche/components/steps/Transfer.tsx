@@ -39,15 +39,15 @@ const Transfer = () => {
 
   const transfer = async (values: any) => {
     setFetching(true);
-    const lamports = parseFloat(values.amount);
+    const navax = parseFloat(values.amount);
     try {
-      if (isNaN(lamports)) {
+      if (isNaN(navax)) {
         throw new Error('invalid amount');
       }
 
       const response = await axios.post(`/api/avalanche/transfer`, {
         ...state,
-        lamports,
+        navax,
         recipient,
       });
       setHash(response.data);

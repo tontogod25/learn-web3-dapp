@@ -36,6 +36,8 @@ const getTestnetNodeURL = (chain: CHAINS): string => {
   switch (chain) {
     case CHAINS.SOLANA:
       return 'https://api.devnet.solana.com';
+    case CHAINS.AVALANCHE:
+      return 'https://api.avax-test.network';
     default:
       return '';
   }
@@ -100,6 +102,7 @@ const getDataHubCeloNodeUrl = (network: CELO_NETWORKS): string =>
   network === CELO_NETWORKS.MAINNET
     ? `https://${process.env.DATAHUB_CELO_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_CELO_API_KEY}/`
     : `https://${process.env.DATAHUB_CELO_TESTNET_RPC_URL}/apikey/${process.env.DATAHUB_CELO_API_KEY}/`;
+
 const getDataHubSecretNodeUrl = (network: SECRET_NETWORKS): string =>
   network === SECRET_NETWORKS.MAINNET
     ? `https://${process.env.DATAHUB_SECRET_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_SECRET_API_KEY}/`

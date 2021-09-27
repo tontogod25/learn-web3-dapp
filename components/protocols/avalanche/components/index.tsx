@@ -72,6 +72,13 @@ const Nav = () => {
     }
   };
 
+  const toggleLocal = (network: string) => {
+    dispatch({
+      type: 'SetNetwork',
+      network: network,
+    });
+  };
+
   return (
     <div
       style={{
@@ -91,13 +98,12 @@ const Nav = () => {
       </div>
       <div>
         <Select
-          defaultValue={'datahub'}
+          defaultValue={state.network}
           style={{width: 100, textAlign: 'center'}}
-          disabled={true}
-          showArrow={false}
+          onChange={toggleLocal}
+          disabled={globalState.index != 0}
         >
           <Option value="datahub">Datahub</Option>
-          <Option value="devnet">Devnet</Option>
           <Option value="localnet">Localnet</Option>
         </Select>
       </div>

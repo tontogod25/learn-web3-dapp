@@ -1,5 +1,4 @@
 import {BN} from 'avalanche';
-import type {ChainType} from 'types';
 
 export type AvalancheConnectResponse = string;
 
@@ -30,8 +29,6 @@ export type AvalancheKeypairType = {
   addressString: string;
 };
 
-export type AlertT = 'success' | 'info' | 'warning' | 'error' | undefined;
-
 export type EntryT = {
   msg: string;
   display: (value: string) => string;
@@ -39,6 +36,8 @@ export type EntryT = {
 };
 
 // components : Layout
+/*
+export type AlertT = 'success' | 'info' | 'warning' | 'error' | undefined;
 export interface StepButtonsI {
   next(): void;
   prev(): void;
@@ -69,4 +68,15 @@ export type StepType = {
   id: string;
   title: string;
   url: string;
+};
+*/
+
+export type TransactionT = {
+  txID: string;
+  outputIndex: number;
+};
+
+export type BalanceT = {
+  balance: string;
+  utxoIDs: TransactionT[];
 };

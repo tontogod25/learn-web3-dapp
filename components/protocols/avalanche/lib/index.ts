@@ -2,20 +2,23 @@ import {CHAINS, AVALANCHE_NETWORKS} from 'types';
 import {getNodeURL as getNodeUrl} from 'utils/datahub';
 import {Avalanche} from 'avalanche';
 
-const getNodeURL = (network?: string) =>
-  getNodeUrl(CHAINS.POLYGON, AVALANCHE_NETWORKS.FUJI, undefined, network);
+const AVALANCHE_NETWORK_ID = 5;
+const AVALANCHE_NETWORK_NAME = 'fuji';
 
-const getAvalancheClient = () => {
-  const url = new URL(getNodeURL());
+const getNodeURL = (network: string) =>
+  getNodeUrl(CHAINS.AVALANCHE, AVALANCHE_NETWORKS.FUJI, undefined, network);
+
+const getAvalancheClient = (network: string) => {
+  const url = new URL(getNodeURL(network));
 
   const client = new Avalanche(
     url.hostname,
     parseInt(url.port),
     url.protocol.replace(':', ''),
-    parseInt(process.env.AVALANCHE_NETWORK_ID as string),
+    AVALANCHE_NETWORK_ID,
     'X',
     'C',
-    process.env.AVALANCHE_NETWORK_NAME,
+    AVALANCHE_NETWORK_NAME,
   );
 
   client.setAuthToken(process.env.DATAHUB_AVALANCHE_API_KEY as string);

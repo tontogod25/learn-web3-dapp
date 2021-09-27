@@ -27,7 +27,7 @@ const Connect = () => {
   const getConnection = async () => {
     setFetching(true);
     try {
-      const response = await axios.post(`/api/solana/connect`, state);
+      const response = await axios.post(`/api/avalanche/connect`, state);
       setVersion(response.data);
     } catch (error) {
       setVersion(null);
@@ -51,7 +51,7 @@ const Connect = () => {
             <Alert
               message={
                 <Space>
-                  Connected to Solana:
+                  Connected to {globalState.chain}:
                   <Text code>version {version}</Text>
                 </Space>
               }
