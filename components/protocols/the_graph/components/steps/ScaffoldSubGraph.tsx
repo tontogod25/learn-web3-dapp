@@ -55,7 +55,7 @@ const GraphNode = () => {
     setIsValid(false);
     setError(null);
     try {
-      const response = await axios.get(`/api/the-graph/graph-node`);
+      const response = await axios.get(`/api/the-graph/scallfold`);
       setIsValid(response.data);
     } catch (error) {
       setError(prettyError(error));
@@ -77,19 +77,19 @@ const GraphNode = () => {
             size="large"
           >
             {' '}
-            Test local graph node{' '}
+            Test subgraph scaffold{' '}
           </Button>
           {isValid ? (
             <>
               <Alert
-                message={<Space>Local graph node setup</Space>}
+                message={<Space>Subgraph scallfolding done!</Space>}
                 type="success"
                 showIcon
               />
             </>
           ) : (
             <Alert
-              message="No local graph node detected. Click to check!"
+              message="Subgraph scallfolding not yet done."
               type="error"
               showIcon
             />

@@ -89,7 +89,7 @@ const GraphNode = () => {
             </>
           ) : (
             <Alert
-              message="No local graph node detected. Click to check!"
+              message="No local graph node detected."
               type="error"
               showIcon
             />

@@ -55,7 +55,7 @@ const GraphNode = () => {
     setIsValid(false);
     setError(null);
     try {
-      const response = await axios.get(`/api/the-graph/graph-node`);
+      const response = await axios.get(`/api/the-graph/manifest`);
       setIsValid(response.data);
     } catch (error) {
       setError(prettyError(error));
@@ -77,19 +77,19 @@ const GraphNode = () => {
             size="large"
           >
             {' '}
-            Test local graph node{' '}
+            Test manifest{' '}
           </Button>
           {isValid ? (
             <>
               <Alert
-                message={<Space>Local graph node setup</Space>}
+                message={<Space>Manifest file is looking good!</Space>}
                 type="success"
                 showIcon
               />
             </>
           ) : (
             <Alert
-              message="No local graph node detected. Click to check!"
+              message="Manifest File not yet ready!"
               type="error"
               showIcon
             />
