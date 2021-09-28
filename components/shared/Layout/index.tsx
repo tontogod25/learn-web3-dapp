@@ -10,7 +10,7 @@ import {
   initialGlobalState,
   GlobalState,
 } from 'context';
-import {GRID_LAYOUT} from 'lib/constants';
+import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
 import styled from 'styled-components';
 import Footer from './Footer';
 
@@ -54,14 +54,19 @@ const Layout = (
             <Protocol step={step} />
           </Col>
         </BelowNav>
-        <Footer steps={chain.steps} prevStep={prevStep} nextStep={nextStep} />
+        <Footer
+          step={step}
+          steps={chain.steps}
+          prevStep={prevStep}
+          nextStep={nextStep}
+        />
       </Col>
     </GlobalContext.Provider>
   );
 };
 
 const BelowNav = styled(Row)`
-  margin-top: 80px;
+  margin-top: ${HEADER_HEIGHT}px;
   position: fixed;
 `;
 

@@ -138,7 +138,8 @@ export type ChainsType = {
 export type StepType = {
   id: string;
   title: string;
-  url: string;
+  skipValidation?: boolean;
+  url?: string;
 };
 
 export enum UserActivity {

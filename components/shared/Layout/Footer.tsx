@@ -6,12 +6,15 @@ import styled from 'styled-components';
 import {useGlobalState} from 'context';
 import {CHAINS, StepType} from 'types';
 import React from 'react';
+import {FOOTER_HEIGHT} from 'lib/constants';
 
 const Footer = ({
+  step,
   steps,
   prevStep,
   nextStep,
 }: {
+  step: StepType;
   steps: StepType[];
   prevStep: StepType | null;
   nextStep: StepType | null;
@@ -49,7 +52,7 @@ const Footer = ({
 
   return (
     <Col span={24}>
-      <StepFooter justify={justify}>
+      <StepFooter justify={justify} align="middle">
         {prevStep && (
           <PrevButton
             size="large"
@@ -67,7 +70,7 @@ const Footer = ({
             onClick={() => next()}
             secondary_color={secondaryColor}
             primary_color={primaryColor}
-            disabled={state.valid == state.index}
+            disabled={step.skipValidation ? false : state.valid == state.index}
           >
             <Row align="middle">
               {`Next: ${nextStep.title}`}
@@ -108,7 +111,8 @@ const PrevButton = styled(Button)`
 `;
 
 const StepFooter = styled(Row)`
-  padding: 20px 40px;
+  padding: 0 40px;
+  height: ${FOOTER_HEIGHT}px;
   background: white;
   border-top: solid 2px black;
   position: fixed;

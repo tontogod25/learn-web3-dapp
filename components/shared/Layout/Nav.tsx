@@ -7,6 +7,7 @@ import Link from 'next/link';
 import {getChainColors} from 'utils/colors';
 import {ChainType} from 'types';
 import logoSVG from 'public/figment-learn-compact.svg';
+import {HEADER_HEIGHT} from 'lib/constants';
 
 const Nav = ({chain}: {chain: ChainType}) => {
   const {primaryColor, secondaryColor} = getChainColors(chain.id);
@@ -34,7 +35,7 @@ const StyledNav = styled(Row)<{primary_color: string}>`
   left: 0;
   right: 0;
   top: 0;
-  height: 80px;
+  height: ${HEADER_HEIGHT}px;
   z-index: 10;
   padding: 0 40px;
   background: ${({primary_color}) => primary_color};

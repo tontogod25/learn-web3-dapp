@@ -4,7 +4,7 @@ import {Col, Space, Menu, Dropdown} from 'antd';
 import {OrderedListOutlined} from '@ant-design/icons';
 import Markdown from '@figment-networks/gitbook-markdown-renderer';
 
-import {GRID_LAYOUT} from 'lib/constants';
+import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
 import {MarkdownForChainT, StepType} from 'types';
 
 const Sidebar = ({
@@ -40,12 +40,14 @@ const Sidebar = ({
   );
 };
 
+const heightOffset = `${FOOTER_HEIGHT + HEADER_HEIGHT}px`;
+
 const Left = styled(Col)`
   position: relative;
   padding: 40px;
   border-right: solid 2px black;
   overflow: scroll;
-  height: calc(100vh - 160px);
+  height: calc(100vh - ${heightOffset});
 `;
 
 const StepHeader = styled(Space)`
