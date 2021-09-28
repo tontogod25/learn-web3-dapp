@@ -365,4 +365,32 @@ export const CHAINS_CONFIG: ChainsType = {
       },
     ],
   },
+  [CHAINS.CERAMIC]: {
+    id: CHAINS.CERAMIC,
+    label: 'Ceramic',
+    active: true,
+    logoUrl: 'https://developers.ceramic.network/images/ceramic-no-shadow.png',
+    steps: [
+      {
+        id: 'connect',
+        title: 'Connect using MetaMask',
+        url: 'https://learn.figment.io/tutorials/connect-to-tezos-node',
+      },
+      {
+        id: 'login',
+        title: 'Log in with IDX',
+        url: 'https://learn.figment.io/tutorials/create-a-tezos-account',
+      },
+      {
+        id: 'basicProfile',
+        title: 'Update your profile',
+        url: 'https://learn.figment.io/tutorials/check-tezos-account-balance',
+      },
+      {
+        id: 'customSchema',
+        title: 'Deploy and use custom schema',
+        url: 'https://learn.figment.io/tutorials/transfer-tez-tokens',
+      },
+    ],
+  },
 };
