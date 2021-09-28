@@ -1,47 +1,77 @@
-export const VERSION = '0.0.1';
-
-/*
-import {Popover, Button, Select} from 'antd';
-import {trackStorageCleared} from '@funnel/tracking-utils';
+import {Typography, Popover, Button, Tag, Space, Select} from 'antd';
+import {trackStorageCleared} from 'utils/tracking-utils';
+import type {ErrorT, EntryT} from '@the-graph/types';
+import {getEtherScanContract} from '@the-graph/lib';
+import {FundViewOutlined} from '@ant-design/icons';
+import {useAppState} from '@the-graph/context';
+import ReactJson from 'react-json-view';
 import {useGlobalState} from 'context';
+
+const {Paragraph} = Typography;
 
 const {Option} = Select;
 
+const ErrorBox = ({error}: {error: ErrorT}) => {
+  return (
+    <ReactJson
+      src={error}
+      collapsed={false}
+      name={'error'}
+      displayDataTypes={false}
+      displayObjectSize={false}
+      collapseStringsAfterLength={35}
+    />
+  );
+};
+
 const Nav = () => {
   const {state: globalState, dispatch: globalDispatch} = useGlobalState();
-  // const {dispatch} = useAppState();
+  const {state} = useAppState();
+  const {address} = state;
 
-  const clear = () => {
-    globalDispatch({
-      type: 'SetIndex',
-      index: 0,
-    });
-    globalDispatch({
-      type: 'SetValid',
-      valid: 0,
-    });
-    trackStorageCleared(globalState.chain as string);
+  const displayAddress = (address: string) =>
+    `${address.slice(0, 6)}...${address.slice(-4)}`;
+
+  const Address = ({display, value}: EntryT) => {
+    return (
+      <Paragraph copyable={{text: value, tooltips: `Click to copy!`}}>
+        <a href={getEtherScanContract(value)} target="_blank" rel="noreferrer">
+          <Tag color="gold">
+            <Space>
+              <FundViewOutlined />
+              <div>
+                <strong>{display(value)}</strong>
+              </div>
+            </Space>
+          </Tag>
+        </a>
+      </Paragraph>
+    );
   };
 
-  const clearKeychain = () => {
-    alert('You are going to clear the storage');
-    /*
-    dispatch({
-      type: 'SetAddress',
-      address: undefined,
-    });
-    dispatch({
-      type: 'SetNetwork',
-      network: 'datahub',
-    });
-    clear();
+  const clearPathway = () => {
+    const proceed = confirm('Are you sure you want to reset the pathway?');
+    if (proceed) {
+      globalDispatch({
+        type: 'SetIndex',
+        index: 0,
+      });
+      globalDispatch({
+        type: 'SetValid',
+        valid: 0,
+      });
+      trackStorageCleared(globalState.chain as string);
+    }
   };
 
   const AppState = () => {
     return (
       <>
-        <Button danger onClick={clearKeychain} size={'small'}>
-          Clear Keychain
+        {address && (
+          <Address msg={'Address: '} value={address} display={displayAddress} />
+        )}
+        <Button danger onClick={clearPathway} size={'small'}>
+          Clear Pathway
         </Button>
       </>
     );
@@ -61,24 +91,22 @@ const Nav = () => {
     >
       <div>
         <Popover content={AppState} placement="leftBottom">
-          <Button type="primary">Keychain</Button>
+          <Button type="primary">Contract</Button>
         </Popover>
       </div>
       <div>
         <Select
-          defaultValue={'datahub'}
+          defaultValue={'localhost'}
           style={{width: 100, textAlign: 'center'}}
           disabled={true} //{state.index != 0}
           showArrow={false}
         >
-          <Option value="datahub">Datahub</Option>
-          <Option value="testnet">Testnet</Option>
-          <Option value="localhost">Localhost</Option>
+          <Option value="localhost">Local node</Option>
+          <Option value="studio">Graph Studio</Option>
         </Select>
       </div>
     </div>
   );
 };
 
-export {Nav};
-*/
+export {Nav, ErrorBox};

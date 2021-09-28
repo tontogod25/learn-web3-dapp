@@ -2,15 +2,16 @@ import {createContext, Dispatch, useContext} from 'react';
 
 export type State = {
   network: string;
-  address?: string;
+  address: string;
 };
 
 type Action =
   | {type: 'SetNetwork'; network: string}
-  | {type: 'SetAddress'; address?: string};
+  | {type: 'SetAddress'; address: string};
 
 const initialState = {
-  network: 'the_graph',
+  network: 'localhost',
+  address: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB',
 };
 
 function protocolReducer(state: State, action: Action): State {

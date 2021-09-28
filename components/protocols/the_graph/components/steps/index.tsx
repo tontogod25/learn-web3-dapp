@@ -1,4 +1,5 @@
-import FirstPunks from '@the-graph/components/steps/FirstPunks';
-import FinalPunks from '@the-graph/components/steps/FinalPunks';
+import GraphNode from '@the-graph/components/steps/GraphNode';
+import ScaffoldSubGraph from '@the-graph/components/steps/ScaffoldSubGraph';
+import HackingTheManifest from '@the-graph/components/steps/HackingTheManifest';
 
-export {FirstPunks, FinalPunks};
+export {GraphNode, ScaffoldSubGraph, HackingTheManifest};

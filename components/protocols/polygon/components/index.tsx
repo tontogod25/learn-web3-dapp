@@ -1,10 +1,11 @@
-import {getPolygonAddressExplorerURL} from '@polygon/lib';
 import {Typography, Popover, Button, Tag, Space, Select} from 'antd';
+import {trackStorageCleared} from 'utils/tracking-utils';
+import {getPolygonAddressExplorerURL} from '@polygon/lib';
+import {FundViewOutlined} from '@ant-design/icons';
 import {useAppState} from '@polygon/context';
 import type {EntryT} from '@polygon/types';
-import {trackStorageCleared} from '@funnel/tracking-utils';
-import {FundViewOutlined} from '@ant-design/icons';
 import {useGlobalState} from 'context';
+
 const {Paragraph} = Typography;
 
 const {Option} = Select;
@@ -51,16 +52,18 @@ const Nav = () => {
   };
 
   const clearKeychain = () => {
-    alert('You are going to clear the storage');
-    dispatch({
-      type: 'SetAddress',
-      address: undefined,
-    });
-    dispatch({
-      type: 'SetNetwork',
-      network: 'datahub',
-    });
-    clear();
+    const proceed = confirm('Are you sure you want to reset the pathway?');
+    if (proceed) {
+      dispatch({
+        type: 'SetAddress',
+        address: undefined,
+      });
+      dispatch({
+        type: 'SetNetwork',
+        network: 'datahub',
+      });
+      clear();
+    }
   };
 
   const AppState = () => {

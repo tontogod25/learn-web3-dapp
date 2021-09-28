@@ -1,9 +1,13 @@
-import {FirstPunks, FinalPunks} from '@the-graph/components/steps';
+import {
+  GraphNode,
+  ScaffoldSubGraph,
+  HackingTheManifest,
+} from '@the-graph/components/steps';
+import {Nav} from '@the-graph/components';
 import Layout from 'components/shared/Layout';
 import {useReducer, useEffect} from 'react';
-import {AppI} from '@the-graph/types';
 import {useLocalStorage} from 'hooks';
-import {StepType} from 'types';
+import {StepType, ChainType} from 'types';
 import {
   protocolReducer,
   initialState,
@@ -25,15 +29,19 @@ const TheGraph: React.FC<{step: StepType}> = ({step}) => {
   return (
     <TheGraphContext.Provider value={{state, dispatch}}>
       <div style={{minHeight: '250px', marginBottom: '10vh'}}>
-        {step.id === 'first-punks' && <FirstPunks />}
-        {step.id === 'final-punks' && <FinalPunks />}
+        {step.id === 'run-a-graph-node' && <GraphNode />}
+        {step.id === 'scaffold-a-subgraph' && <ScaffoldSubGraph />}
+        {step.id === 'hacking-the-manifest' && <HackingTheManifest />}
+        <Nav />
       </div>
     </TheGraphContext.Provider>
   );
 };
 
-const WrappedTheGraph: React.FC<AppI> = ({chain}) => {
+const WithLayoutTheGraph: React.FC<{
+  chain: ChainType;
+}> = ({chain}) => {
   return Layout(TheGraph, chain);
 };
 
-export default WrappedTheGraph;
+export default WithLayoutTheGraph;

@@ -61,7 +61,7 @@ const Nav = () => {
   };
 
   const clearKeychain = () => {
-    const proceed = confirm('Are you sure you want to clear the storage?');
+    const proceed = confirm('Are you sure you want to reset the pathway?');
     if (proceed) {
       dispatch({
         type: 'SetAddress',

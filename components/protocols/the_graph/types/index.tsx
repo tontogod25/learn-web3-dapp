@@ -1,5 +1,13 @@
-import {ChainType} from 'types';
+type ErrorT = {
+  message: string;
+  file?: string;
+  agrs?: string;
+};
 
-export interface AppI {
-  chain: ChainType;
-}
+type EntryT = {
+  msg: string;
+  display: (value: string) => string;
+  value: string;
+};
+
+export type {ErrorT, EntryT};
