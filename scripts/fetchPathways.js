@@ -17,7 +17,7 @@ function fetchPathways() {
           }
           fs.writeFileSync(`md/${chain}/${stepId}.md`, res.data);
         } catch (e) {
-          console.log('An error occurred.');
+          console.error('An error occurred.');
         }
       });
     });

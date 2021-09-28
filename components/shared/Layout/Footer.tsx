@@ -56,7 +56,6 @@ const Footer = ({
             style={{marginRight: '8px'}}
             onClick={() => prev()}
             icon={<ArrowLeftOutlined />}
-            disabled={state.index == 0}
           >
             {`Prev: ${prevStep.title}`}
           </PrevButton>
@@ -68,9 +67,7 @@ const Footer = ({
             onClick={() => next()}
             secondary_color={secondaryColor}
             primary_color={primaryColor}
-            disabled={
-              state.valid == state.index || steps.length == state.index + 1
-            }
+            disabled={state.valid == state.index}
           >
             <Row align="middle">
               {`Next: ${nextStep.title}`}

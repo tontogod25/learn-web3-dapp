@@ -1,11 +1,12 @@
-import {getChainColors} from '@funnel/colors';
 import {Row, Space} from 'antd';
 import React from 'react';
 import styled from 'styled-components';
-import {ChainType} from 'types';
-import logoSVG from 'public/figment-learn-compact.svg';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import {getChainColors} from 'utils/colors';
+import {ChainType} from 'types';
+import logoSVG from 'public/figment-learn-compact.svg';
 
 const Nav = ({chain}: {chain: ChainType}) => {
   const {primaryColor, secondaryColor} = getChainColors(chain.id);

@@ -50,7 +50,7 @@ const Layout = (
         <Nav chain={chain} />
         <BelowNav>
           <Sidebar step={step} steps={chain.steps} markdown={markdown} />
-          <Col span={GRID_LAYOUT[1]} style={{padding: '60px'}}>
+          <Col span={GRID_LAYOUT[1]} style={{padding: '120px 60px 60px 60px'}}>
             <Protocol step={step} />
           </Col>
         </BelowNav>

@@ -1,10 +1,11 @@
-import {MarkdownForChainT, StepType} from 'types';
+import React from 'react';
 import styled from 'styled-components';
 import {Col, Space, Menu, Dropdown} from 'antd';
-import React from 'react';
-import {GRID_LAYOUT} from 'lib/constants';
-import ReactMarkdown from 'react-markdown';
 import {OrderedListOutlined} from '@ant-design/icons';
+import Markdown from '@figment-networks/gitbook-markdown-renderer';
+
+import {GRID_LAYOUT} from 'lib/constants';
+import {MarkdownForChainT, StepType} from 'types';
 
 const Sidebar = ({
   steps,
@@ -15,7 +16,6 @@ const Sidebar = ({
   step: StepType;
   markdown: MarkdownForChainT;
 }) => {
-  console.log(markdown);
   const md = markdown[step.id];
 
   const menu = (
@@ -27,7 +27,7 @@ const Sidebar = ({
   );
 
   return (
-    <Left span={GRID_LAYOUT[0]}>
+    <Left span={GRID_LAYOUT[0]} key={step.id}>
       <StepHeader size="large" align="center">
         <StepTitle>{step.title}</StepTitle>
         <Dropdown overlay={menu}>
@@ -35,7 +35,7 @@ const Sidebar = ({
         </Dropdown>
       </StepHeader>
 
-      <ReactMarkdown>{md}</ReactMarkdown>
+      <Markdown captureMessage={() => {}}>{md}</Markdown>
     </Left>
   );
 };
