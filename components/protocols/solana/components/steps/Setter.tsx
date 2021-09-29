@@ -76,7 +76,7 @@ const Setter = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Text>Number of greetings:</Text>
         <Col>

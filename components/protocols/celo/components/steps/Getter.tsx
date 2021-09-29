@@ -29,7 +29,7 @@ const Getter = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
           <Text>Get the stored value:</Text>

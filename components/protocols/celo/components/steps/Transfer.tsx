@@ -46,7 +46,7 @@ const Transfer = () => {
       });
   };
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Form
         {...layout}
         name="transfer"

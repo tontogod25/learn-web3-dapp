@@ -58,7 +58,7 @@ const Balance = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical">
         <Input
           style={{width: '420px', fontWeight: 'bold'}}

@@ -66,7 +66,7 @@ const Deploy = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
           <Text>

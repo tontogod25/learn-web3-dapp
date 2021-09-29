@@ -50,7 +50,7 @@ const Account = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Button
         type="primary"
         onClick={generateKeypair}

@@ -28,7 +28,7 @@ const Estimate = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical">
         <Text strong>Calculate the estimated fees for a simple transfer</Text>
         <Button
