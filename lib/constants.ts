@@ -1,6 +1,6 @@
 import {ChainsType, CHAINS} from 'types';
 
-export const GRID_LAYOUT = [11, 13];
+export const GRID_LAYOUT = [13, 11];
 export const HEADER_HEIGHT = 80;
 export const FOOTER_HEIGHT = 90;
 
