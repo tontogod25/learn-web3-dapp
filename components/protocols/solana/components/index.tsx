@@ -4,6 +4,7 @@ import type {EntryT, ErrorT} from '@solana/types';
 import {useAppState} from '@solana/context';
 import ReactJson from 'react-json-view';
 import {useGlobalState} from 'context';
+import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 
 const {Option} = Select;
 
@@ -91,35 +92,21 @@ const Nav = () => {
   };
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        top: 25,
-        right: 0,
-        display: 'flex',
-        justifyContent: 'space-evenly',
-        minWidth: '300px',
-        minHeight: '100px',
-      }}
-    >
-      <div>
-        <Popover content={AppState} placement="leftBottom">
-          <Button type="primary">Keychain</Button>
-        </Popover>
-      </div>
-      <div>
-        <Select
-          defaultValue={state.network}
-          style={{width: 120}}
-          onChange={toggleLocal}
-          disabled={globalState.index != 0}
-        >
-          <Option value="datahub">Datahub</Option>
-          <Option value="devnet">Devnet</Option>
-          <Option value="localnet">Localnet</Option>
-        </Select>
-      </div>
-    </div>
+    <StepMenuBar>
+      <Popover content={AppState} placement="bottom">
+        <Button type="primary">Keychain</Button>
+      </Popover>
+      <Select
+        defaultValue={state.network}
+        style={{width: 120}}
+        onChange={toggleLocal}
+        disabled={globalState.index != 0}
+      >
+        <Option value="datahub">Datahub</Option>
+        <Option value="devnet">Devnet</Option>
+        <Option value="localnet">Localnet</Option>
+      </Select>
+    </StepMenuBar>
   );
 };
 

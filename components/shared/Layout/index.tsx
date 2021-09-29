@@ -10,7 +10,7 @@ import {
   initialGlobalState,
   GlobalState,
 } from 'context';
-import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
+import {GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
 import styled from 'styled-components';
 import Footer from './Footer';
 
