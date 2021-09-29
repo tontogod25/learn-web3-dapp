@@ -2,7 +2,7 @@ import type {NextApiRequest, NextApiResponse} from 'next';
 
 import {ApiPromise} from '@polkadot/api';
 import {WsProvider} from '@polkadot/rpc-provider';
-import {getSafeUrl} from '@polka/lib';
+import {getSafeUrl} from '@polkadot/lib';
 
 export default async function deposit(
   _req: NextApiRequest,

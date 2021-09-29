@@ -7,11 +7,15 @@ import {
   Estimate,
   Restore,
   Deposit,
-} from '@polka/components/steps';
-import {appStateReducer, initialState, PolkadotContext} from '@polka/context';
-import {useLocalStorage} from '@polka/hooks';
+} from '@polkadot/components/steps';
+import {
+  appStateReducer,
+  initialState,
+  PolkadotContext,
+} from '@polkadot/context';
+import {useLocalStorage} from '@polkadot/hooks';
 import {ChainType, StepType} from 'types';
-import Nav from '@polka/components/nav';
+import Nav from '@polkadot/components/nav';
 import Layout from 'components/shared/Layout';
 
 const Polkadot: React.FC<{step: StepType}> = ({step}) => {

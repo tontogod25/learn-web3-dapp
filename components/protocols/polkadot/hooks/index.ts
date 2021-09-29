@@ -1,6 +1,6 @@
 import {useState, useContext} from 'react';
-import type {State} from '@polka/context';
-import {PolkadotContext} from '@polka/context';
+import type {State} from '@polkadot/context';
+import {PolkadotContext} from '@polkadot/context';
 
 const useLocalStorage = (key: string, initialValue: State) => {
   const [storedValue, setStoredValue] = useState<State>(() => {

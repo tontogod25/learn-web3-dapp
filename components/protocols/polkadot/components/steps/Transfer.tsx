@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@polka/hooks';
+import {useAppState} from '@polkadot/hooks';
 import axios from 'axios';
 
 const layout = {
