@@ -1,5 +1,4 @@
 import type {Dispatch, SetStateAction} from 'react';
-import {ChainType, StepType} from 'types';
 
 // Components
 export type CheckAccountIdT = {
@@ -16,30 +15,3 @@ export type EntryT = {
   display: (value: string) => string;
   value: string;
 };
-
-// Components : Layout
-export interface StepButtonsI {
-  next(): void;
-  prev(): void;
-  isFirstStep: boolean;
-  isLastStep: boolean;
-}
-
-export interface StepI {
-  step: StepType;
-  isFirstStep: boolean;
-  isLastStep: boolean;
-  prev(): void;
-  next(): void;
-  body: JSX.Element;
-  nav?: JSX.Element;
-}
-
-export interface SidebarI {
-  steps: StepType[];
-  stepIndex: number;
-}
-
-export interface AppI {
-  chain: ChainType;
-}

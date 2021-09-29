@@ -35,7 +35,7 @@ const Change = () => {
     `${celo.slice(0, 1)}.${celo.slice(1, 3)}`;
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical">
         <Button type="primary" onClick={exchangeUSD} loading={fetching}>
           Swap 1 cUSD

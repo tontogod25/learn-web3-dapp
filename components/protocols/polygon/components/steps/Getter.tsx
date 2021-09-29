@@ -43,7 +43,7 @@ const Getter = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Button type="primary" onClick={getValue}>
           Get Value

@@ -39,7 +39,7 @@ const Query = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Space direction="vertical" style={{overflow: 'hidden'}}>
           <Button type="primary" onClick={getQuery}>

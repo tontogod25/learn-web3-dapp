@@ -57,7 +57,7 @@ const Connect = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" style={{width: '100%'}}>
         <Button type="primary" onClick={connect}>
           Check Metamask Connection

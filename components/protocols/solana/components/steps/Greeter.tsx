@@ -63,7 +63,7 @@ const Greeter = () => {
 
   if (state?.greeter) {
     return (
-      <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+      <Col>
         <Space direction="vertical">
           <Text>Greeter account created</Text>
           <Alert
@@ -102,7 +102,7 @@ const Greeter = () => {
   }
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
           <Text>

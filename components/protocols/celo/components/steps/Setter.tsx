@@ -52,7 +52,7 @@ const Setter = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Text>
           Below is the message stored on our &quot;greeter&quot; contract:

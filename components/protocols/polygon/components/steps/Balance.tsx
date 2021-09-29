@@ -46,7 +46,7 @@ const Balance = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" style={{width: '100%'}} size="large">
         <Button type="primary" onClick={checkBalance} loading={fetching}>
           Check Balance

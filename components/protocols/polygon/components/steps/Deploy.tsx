@@ -15,7 +15,7 @@ const Deploy = () => {
   }, []);
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       Follow the instructions on Figment Learn and deploy the Solidity contract
       on Polygon
     </Col>

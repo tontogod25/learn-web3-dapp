@@ -38,7 +38,7 @@ const Connect = () => {
   }, [version, setVersion]);
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       {fetchingVersion ? (
         <LoadingOutlined style={{fontSize: 24}} spin />
       ) : version ? (
