@@ -70,7 +70,7 @@ const Footer = ({
             onClick={() => next()}
             secondary_color={secondaryColor}
             primary_color={primaryColor}
-            disabled={step.skipValidation ? false : state.valid == state.index}
+            // disabled={state.valid == state.index}
           >
             <Row align="middle">
               {`Next: ${nextStep.title}`}

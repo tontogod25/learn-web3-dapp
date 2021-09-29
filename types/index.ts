@@ -138,7 +138,6 @@ export type ChainsType = {
 export type StepType = {
   id: string;
   title: string;
-  skipValidation?: boolean;
   url?: string;
 };
 
