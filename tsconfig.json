@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@near/*": ["components/protocols/near/*"],
-      "@polka/*": ["components/protocols/polkadot/*"],
+      "@polkadot/*": ["components/protocols/polkadot/*"],
       "@solana/*": ["components/protocols/solana/*"],
       "@celo/*": ["components/protocols/celo/*"],
       "@tezos/*": ["components/protocols/tezos/*"],
