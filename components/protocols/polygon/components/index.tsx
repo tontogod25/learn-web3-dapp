@@ -92,7 +92,7 @@ const Nav = () => {
     >
       <div>
         <Popover content={AppState} placement="leftBottom">
-          <Button type="primary">Keychain</Button>
+          <Button type="ghost">Keychain</Button>
         </Popover>
       </div>
       <div>
