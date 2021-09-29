@@ -12,34 +12,32 @@ export const CHAINS_CONFIG: ChainsType = {
     logoUrl: 'https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010',
     steps: [
       {
+        id: 'setup',
+        title: 'Setup the project',
+      },
+      {
         id: 'connect',
         title: 'Connect to Avalanche',
-        url: 'https://learn.figment.io/tutorials/connect-to-avalanche',
       },
       {
         id: 'account',
         title: 'Create a keypair',
-        url: 'https://learn.figment.io/tutorials/create-an-avalanche-keypair',
       },
       {
         id: 'balance',
         title: 'Get the balance',
-        url: 'https://learn.figment.io/tutorials/get-the-avalanche-balance',
       },
       {
         id: 'transfer',
         title: 'Transfer some AVAX',
-        url: 'https://learn.figment.io/tutorials/transfer-some-avax',
       },
       {
         id: 'export',
         title: 'Export tokens from X-Chain to C-Chain',
-        url: 'https://learn.figment.io/tutorials/export-token-from-x-chain-to-c-chain',
       },
       {
         id: 'import',
         title: 'Import tokens from X-Chain to C-Chain',
-        url: 'https://learn.figment.io/tutorials/import-token-from-x-chain-to-c-chain',
       },
     ],
   },
@@ -189,44 +187,40 @@ export const CHAINS_CONFIG: ChainsType = {
     logoUrl: 'https://cryptologos.cc/logos/polygon-matic-logo.svg?v=010',
     steps: [
       {
+        id: 'setup',
+        title: 'Setup the project',
+      },
+      {
         id: 'connect',
         title: 'Connect to Polygon',
-        url: 'https://learn.figment.io/tutorials/connect-to-polygon',
       },
       {
         id: 'query',
         title: 'Query Polygon',
-        url: 'https://learn.figment.io/tutorials/query-polygon',
       },
       {
         id: 'balance',
         title: 'Fund a Polygon account',
-        url: 'https://learn.figment.io/tutorials/fund-a-polygon-account',
       },
       {
         id: 'transfer',
         title: 'Transfer some MATIC',
-        url: 'https://learn.figment.io/tutorials/transfer-some-matic',
       },
       {
         id: 'deploy',
         title: 'Deploy a Solidity smart contract',
-        url: 'https://learn.figment.io/tutorials/deploy-a-solidity-smart-contract',
       },
       {
         id: 'setter',
         title: 'Set the storage of the contract',
-        url: 'https://learn.figment.io/tutorials/set-contract-storage',
       },
       {
         id: 'getter',
         title: 'Get the storage of the contract',
-        url: 'https://learn.figment.io/tutorials/get-contract-storage',
       },
       {
         id: 'restore',
         title: 'Restore your account',
-        url: 'https://learn.figment.io/tutorials/restore-from-mnemonic',
       },
     ],
   },
@@ -279,6 +273,10 @@ export const CHAINS_CONFIG: ChainsType = {
     logoUrl: 'https://cryptologos.cc/logos/solana-sol-logo.svg?v=010',
     active: true,
     steps: [
+      {
+        id: 'setup',
+        title: 'Setup the project',
+      },
       {
         id: 'connect',
         title: 'Connect to Solana',
