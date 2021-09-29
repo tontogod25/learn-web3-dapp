@@ -11,7 +11,7 @@ import {
 import {appStateReducer, initialState, PolkadotContext} from '@polka/context';
 import {useLocalStorage} from '@polka/hooks';
 import {ChainType, StepType} from 'types';
-import {Nav} from '@polka/components';
+import Nav from '@polka/components/nav';
 import Layout from 'components/shared/Layout';
 
 const Polkadot: React.FC<{step: StepType}> = ({step}) => {

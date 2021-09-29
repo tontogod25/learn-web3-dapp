@@ -6,7 +6,7 @@ import {
   Import,
   Export,
 } from '@avalanche/components/steps';
-import {Nav} from '@avalanche/components';
+import Nav from '@avalanche/components/nav';
 import {
   appStateReducer,
   initialState,

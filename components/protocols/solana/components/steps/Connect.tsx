@@ -2,7 +2,7 @@ import {Col, Alert, Space, Typography, Button, Modal} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import {useEffect, useState} from 'react';
 import {useAppState} from '@solana/context';
-import {ErrorBox} from '@solana/components';
+import {ErrorBox} from '@solana/components/nav';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import {useGlobalState} from 'context';

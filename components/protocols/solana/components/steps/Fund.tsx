@@ -1,6 +1,6 @@
 import {Alert, Button, Space, Col, Input, Typography, Modal} from 'antd';
 import {transactionExplorer, prettyError} from '@solana/lib';
-import {ErrorBox} from '@solana/components';
+import {ErrorBox} from '@solana/components/nav';
 import {useAppState} from '@solana/context';
 import type {ErrorT} from '@solana/types';
 import {useEffect, useState} from 'react';

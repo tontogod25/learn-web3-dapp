@@ -1,6 +1,5 @@
 // coucou husky
 import {useEffect, useReducer} from 'react';
-import {Row} from 'antd';
 import {
   Connect,
   Account,
@@ -11,11 +10,8 @@ import {
   Setter,
 } from '@secret/components/steps';
 import {appStateReducer, initialState, SecretContext} from '@secret/context';
-import {useAppState, useLocalStorage} from '@secret/hooks';
-import {Sidebar, Step} from '@secret/components/layout';
-import {Nav} from '@secret/components';
-import type {AppI} from '@secret/types';
-import {trackTutorialStepViewed} from '../../../utils/tracking-utils';
+import {useLocalStorage} from '@secret/hooks';
+import Nav from '@secret/components/nav';
 import Layout from 'components/shared/Layout';
 import {ChainType, StepType} from 'types';
 

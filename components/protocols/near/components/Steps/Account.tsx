@@ -4,7 +4,7 @@ import {Alert, Button, Col, Space, Typography, Input} from 'antd';
 import {useAppState} from '@near/hooks';
 import {getPublicKey} from '@near/lib';
 import {getAccountUrl} from '@near/lib';
-import {Notify} from '@near/components';
+import {Notify} from '@near/components/nav';
 
 import type {CheckAccountIdT, AlertT} from '@near/types';
 

@@ -2,7 +2,7 @@ import {Alert, Space, Typography, Popover, Button} from 'antd';
 import {useAppState} from '@near/hooks';
 import {getPrettyPublicKey} from '@near/lib';
 import type {EntryT, AlertT} from '@near/types';
-import {trackStorageCleared} from '../../../../utils/tracking-utils';
+import {trackStorageCleared} from '../../../../../utils/tracking-utils';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 
 const {Text, Paragraph} = Typography;
@@ -89,7 +89,7 @@ const Nav = () => {
   );
 };
 
-const Notify = ({msg, status}: {msg: string; status: AlertT}) => (
+export const Notify = ({msg, status}: {msg: string; status: AlertT}) => (
   <Alert
     message={
       <Space>
@@ -101,4 +101,4 @@ const Notify = ({msg, status}: {msg: string; status: AlertT}) => (
   />
 );
 
-export {Nav, Notify};
+export default Nav;

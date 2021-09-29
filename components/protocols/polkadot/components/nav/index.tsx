@@ -1,20 +1,20 @@
 import {Typography, Popover, Button} from 'antd';
-import {useAppState} from '@celo/hooks';
-import type {EntryT} from '@celo/types';
-import {trackStorageCleared} from '../../../../utils/tracking-utils';
+import {useAppState} from '@polka/hooks';
+import type {EntryT} from '@polka/types';
+import {trackStorageCleared} from '../../../../../utils/tracking-utils';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 
 const {Text, Paragraph} = Typography;
 
 const Nav = () => {
   const {state, dispatch} = useAppState();
-  const {network, secret, address, contract} = state;
+  const {network, address, mnemonic} = state;
 
-  const displayNetwork = (network: string) => network;
-  const displayAddress = (address: string) =>
-    `${address.slice(0, 5)}...${address.slice(-5)}`;
-  const displaySecret = (secret: string) =>
-    `${secret.slice(0, 5)}...${secret.slice(-5)}`;
+  const displayNetwork = (network: string) => network.slice(0, 5);
+  const displayPublicKey = (publicKey: string) =>
+    `${publicKey.slice(0, 5)}...${publicKey.slice(-5)}`;
+  const displayMnemonic = (mnemonic: string) =>
+    `${mnemonic.slice(0, 5)}...${mnemonic.slice(-5)}`;
 
   const Entry = ({msg, display, value}: EntryT) => {
     return (
@@ -29,20 +29,17 @@ const Nav = () => {
     return (
       <>
         {network && (
-          <Entry
-            msg={'Network version: '}
-            value={network}
-            display={displayNetwork}
-          />
+          <Entry msg={'Network: '} value={network} display={displayNetwork} />
         )}
         {address && (
-          <Entry msg={'Address: '} value={address} display={displayAddress} />
+          <Entry msg={'Address: '} value={address} display={displayPublicKey} />
         )}
-        {secret && (
-          <Entry msg={'Secret'} value={secret} display={displaySecret} />
-        )}
-        {contract && (
-          <Entry msg={'Contract: '} value={contract} display={displayAddress} />
+        {mnemonic && (
+          <Entry
+            msg={'mnemonic: '}
+            value={mnemonic}
+            display={displayMnemonic}
+          />
         )}
       </>
     );
@@ -50,18 +47,14 @@ const Nav = () => {
 
   const clearStorage = () => {
     alert('You are going to clear the storage');
-    localStorage.removeItem('celo');
+    localStorage.removeItem('polkadot');
     dispatch({
       type: 'SetAddress',
       address: undefined,
     });
     dispatch({
-      type: 'SetContract',
-      contract: undefined,
-    });
-    dispatch({
-      type: 'SetSecret',
-      secret: undefined,
+      type: 'SetMnemonic',
+      mnemonic: undefined,
     });
     dispatch({
       type: 'SetIndex',
@@ -69,9 +62,9 @@ const Nav = () => {
     });
     dispatch({
       type: 'SetNetwork',
-      network: 'alfajores',
+      network: 'westend',
     });
-    trackStorageCleared('celo');
+    trackStorageCleared('polkadot');
   };
 
   return (
@@ -86,4 +79,4 @@ const Nav = () => {
   );
 };
 
-export {Nav};
+export default Nav;

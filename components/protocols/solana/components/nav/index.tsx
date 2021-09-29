@@ -1,7 +1,8 @@
 import {trackStorageCleared} from 'utils/tracking-utils';
 import {Typography, Popover, Button, Select} from 'antd';
-import {useAppState} from '@avalanche/context';
-import type {EntryT} from '@avalanche/types';
+import type {EntryT, ErrorT} from '@solana/types';
+import {useAppState} from '@solana/context';
+import ReactJson from 'react-json-view';
 import {useGlobalState} from 'context';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 
@@ -12,7 +13,7 @@ const {Text, Paragraph} = Typography;
 const Nav = () => {
   const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const {state, dispatch} = useAppState();
-  const {address, secret} = state;
+  const {address, programId, secret, greeter} = state;
 
   const displayAddress = (address: string) =>
     `${address.slice(0, 5)}...${address.slice(-5)}`;
@@ -35,6 +36,12 @@ const Nav = () => {
         {secret && (
           <Entry msg={'Secret: '} value={secret} display={displayAddress} />
         )}
+        {programId && (
+          <Entry msg={'Program: '} value={programId} display={displayAddress} />
+        )}
+        {greeter && (
+          <Entry msg={'Greeter: '} value={greeter} display={displayAddress} />
+        )}
         <Button danger onClick={clearKeychain} size={'small'}>
           Clear Keychain
         </Button>
@@ -55,7 +62,7 @@ const Nav = () => {
   };
 
   const clearKeychain = () => {
-    const proceed = confirm('Are you sure you want to clear the keychain?');
+    const proceed = confirm('Are you sure you want to clear the storage?');
     if (proceed) {
       dispatch({
         type: 'SetAddress',
@@ -66,8 +73,12 @@ const Nav = () => {
         secret: undefined,
       });
       dispatch({
-        type: 'SetNetwork',
-        network: 'datahub',
+        type: 'SetProgramId',
+        programId: undefined,
+      });
+      dispatch({
+        type: 'SetGreeter',
+        greeter: undefined,
       });
       clear();
     }
@@ -87,16 +98,29 @@ const Nav = () => {
       </Popover>
       <Select
         defaultValue={state.network}
-        style={{width: 100, textAlign: 'center'}}
+        style={{width: 120}}
         onChange={toggleLocal}
         disabled={globalState.index != 0}
       >
         <Option value="datahub">Datahub</Option>
-        <Option value="devnet">Testnet</Option>
+        <Option value="devnet">Devnet</Option>
         <Option value="localnet">Localnet</Option>
       </Select>
     </StepMenuBar>
   );
 };
 
-export {Nav};
+export const ErrorBox = ({error}: {error: ErrorT}) => {
+  return (
+    <ReactJson
+      src={error}
+      collapsed={false}
+      name={'error'}
+      displayDataTypes={false}
+      displayObjectSize={false}
+      collapseStringsAfterLength={35}
+    />
+  );
+};
+
+export default Nav;

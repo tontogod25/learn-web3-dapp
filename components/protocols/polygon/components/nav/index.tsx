@@ -98,4 +98,4 @@ const Nav = () => {
   );
 };
 
-export {Nav};
+export default Nav;

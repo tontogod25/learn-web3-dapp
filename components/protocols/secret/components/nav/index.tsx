@@ -1,18 +1,18 @@
 import {Typography, Popover, Button} from 'antd';
-import {useAppState} from '@polka/hooks';
-import type {EntryT} from '@polka/types';
-import {trackStorageCleared} from '../../../../utils/tracking-utils';
+import {useAppState} from 'components/protocols/secret/hooks';
+import type {EntryT} from 'components/protocols/secret/types';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
+import {trackStorageCleared} from '../../../../../utils/tracking-utils';
 
 const {Text, Paragraph} = Typography;
 
 const Nav = () => {
   const {state, dispatch} = useAppState();
-  const {network, address, mnemonic} = state;
+  const {network, address, mnemonic, contract} = state;
 
-  const displayNetwork = (network: string) => network.slice(0, 5);
+  const displayNetwork = (network: string) => network;
   const displayPublicKey = (publicKey: string) =>
-    `${publicKey.slice(0, 5)}...${publicKey.slice(-5)}`;
+    `${publicKey.slice(7, 13)}...${publicKey.slice(-5)}`;
   const displayMnemonic = (mnemonic: string) =>
     `${mnemonic.slice(0, 5)}...${mnemonic.slice(-5)}`;
 
@@ -41,20 +41,31 @@ const Nav = () => {
             display={displayMnemonic}
           />
         )}
+        {contract && (
+          <Entry
+            msg={'contractAddress: '}
+            value={contract}
+            display={displayPublicKey}
+          />
+        )}
       </>
     );
   };
 
   const clearStorage = () => {
     alert('You are going to clear the storage');
-    localStorage.removeItem('polkadot');
+    localStorage.removeItem('secret');
+    dispatch({
+      type: 'SetMnemonic',
+      mnemonic: undefined,
+    });
     dispatch({
       type: 'SetAddress',
       address: undefined,
     });
     dispatch({
-      type: 'SetMnemonic',
-      mnemonic: undefined,
+      type: 'SetContract',
+      contract: undefined,
     });
     dispatch({
       type: 'SetIndex',
@@ -62,9 +73,9 @@ const Nav = () => {
     });
     dispatch({
       type: 'SetNetwork',
-      network: 'westend',
+      network: 'holodeck-2',
     });
-    trackStorageCleared('polkadot');
+    trackStorageCleared('secret');
   };
 
   return (
@@ -79,4 +90,4 @@ const Nav = () => {
   );
 };
 
-export {Nav};
+export default Nav;

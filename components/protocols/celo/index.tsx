@@ -14,7 +14,7 @@ import {useLocalStorage} from '@celo/hooks';
 import {ChainType, StepType} from 'types';
 import Layout from 'components/shared/Layout';
 import {useGlobalState} from 'context';
-import {Nav} from './components';
+import Nav from './components/nav';
 
 const Celo: React.FC<{step: StepType}> = ({step}) => {
   const {state: globalState} = useGlobalState();

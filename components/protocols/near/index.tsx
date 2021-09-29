@@ -11,7 +11,7 @@ import {
 } from '@near/components/Steps';
 import {appStateReducer, initialState, NearContext} from '@near/context';
 import {useLocalStorage} from '@near/hooks';
-import {Nav} from '@near/components';
+import Nav from '@near/components/nav';
 import {ChainType, StepType} from 'types';
 import Layout from 'components/shared/Layout';
 

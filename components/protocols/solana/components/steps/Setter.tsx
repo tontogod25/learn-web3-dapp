@@ -1,7 +1,7 @@
 import {Alert, Col, Button, Space, Typography, Modal} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import {transactionExplorer} from '@solana/lib';
-import {ErrorBox} from '@solana/components';
+import {ErrorBox} from '@solana/components/nav';
 import {useAppState} from '@solana/context';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from 'context';
