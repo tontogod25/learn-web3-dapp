@@ -24,6 +24,10 @@ Learn more about [Figment](https://figment.io/) and [Figment Learn](https://lear
 
 # 🧑‍💻 Get started
 
+Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/getting-started/install) installed.
+
+Start by cloning the repository and installing the dependencies with yarn :
+
 Clone the repo and install the dependencies with `yarn`:
 
 ```
