@@ -9,7 +9,7 @@ import React, {useEffect, useReducer} from 'react';
 import {StepType, ChainType} from 'types';
 import {useLocalStorage} from 'hooks';
 import {useGlobalState} from 'context';
-import {Nav} from '@solana/components';
+import Nav from '@solana/components/nav';
 import {
   Connect,
   Keypair,

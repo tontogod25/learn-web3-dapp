@@ -1,4 +1,4 @@
-import {Nav} from '@polygon/components';
+import Nav from '@polygon/components/nav';
 import Layout from 'components/shared/Layout';
 import {useReducer, useEffect} from 'react';
 import {useLocalStorage} from 'hooks';

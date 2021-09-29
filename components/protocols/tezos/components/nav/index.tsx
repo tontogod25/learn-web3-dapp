@@ -1,7 +1,7 @@
 import {Typography, Popover, Button} from 'antd';
 import {useAppState} from '@tezos/hooks';
 import type {EntryT} from '@tezos/types';
-import {trackStorageCleared} from '../../../../utils/tracking-utils';
+import {trackStorageCleared} from '../../../../../utils/tracking-utils';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 
 const {Text, Paragraph} = Typography;
@@ -91,4 +91,4 @@ const Nav = () => {
   );
 };
 
-export {Nav};
+export default Nav;

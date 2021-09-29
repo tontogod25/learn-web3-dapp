@@ -10,7 +10,7 @@ import {
 } from '@tezos/components/steps';
 import {appStateReducer, initialState, TezosContext} from '@tezos/context';
 import {useLocalStorage} from '@tezos/hooks';
-import {Nav} from '@tezos/components';
+import Nav from '@tezos/components/nav';
 import {ChainType, StepType} from 'types';
 import Layout from 'components/shared/Layout';
 

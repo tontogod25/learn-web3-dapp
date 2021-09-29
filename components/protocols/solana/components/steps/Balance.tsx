@@ -1,6 +1,6 @@
 import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
 import {LAMPORTS_PER_SOL} from '@solana/web3.js';
-import {ErrorBox} from '@solana/components';
+import {ErrorBox} from '@solana/components/nav';
 import {useAppState} from '@solana/context';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';

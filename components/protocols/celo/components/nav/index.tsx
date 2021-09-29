@@ -1,20 +1,20 @@
 import {Typography, Popover, Button} from 'antd';
-import {useAppState} from 'components/protocols/secret/hooks';
-import type {EntryT} from 'components/protocols/secret/types';
+import {useAppState} from '@celo/hooks';
+import type {EntryT} from '@celo/types';
+import {trackStorageCleared} from '../../../../../utils/tracking-utils';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
-import {trackStorageCleared} from '../../../../utils/tracking-utils';
 
 const {Text, Paragraph} = Typography;
 
 const Nav = () => {
   const {state, dispatch} = useAppState();
-  const {network, address, mnemonic, contract} = state;
+  const {network, secret, address, contract} = state;
 
   const displayNetwork = (network: string) => network;
-  const displayPublicKey = (publicKey: string) =>
-    `${publicKey.slice(7, 13)}...${publicKey.slice(-5)}`;
-  const displayMnemonic = (mnemonic: string) =>
-    `${mnemonic.slice(0, 5)}...${mnemonic.slice(-5)}`;
+  const displayAddress = (address: string) =>
+    `${address.slice(0, 5)}...${address.slice(-5)}`;
+  const displaySecret = (secret: string) =>
+    `${secret.slice(0, 5)}...${secret.slice(-5)}`;
 
   const Entry = ({msg, display, value}: EntryT) => {
     return (
@@ -29,24 +29,20 @@ const Nav = () => {
     return (
       <>
         {network && (
-          <Entry msg={'Network: '} value={network} display={displayNetwork} />
+          <Entry
+            msg={'Network version: '}
+            value={network}
+            display={displayNetwork}
+          />
         )}
         {address && (
-          <Entry msg={'Address: '} value={address} display={displayPublicKey} />
+          <Entry msg={'Address: '} value={address} display={displayAddress} />
         )}
-        {mnemonic && (
-          <Entry
-            msg={'mnemonic: '}
-            value={mnemonic}
-            display={displayMnemonic}
-          />
+        {secret && (
+          <Entry msg={'Secret'} value={secret} display={displaySecret} />
         )}
         {contract && (
-          <Entry
-            msg={'contractAddress: '}
-            value={contract}
-            display={displayPublicKey}
-          />
+          <Entry msg={'Contract: '} value={contract} display={displayAddress} />
         )}
       </>
     );
@@ -54,11 +50,7 @@ const Nav = () => {
 
   const clearStorage = () => {
     alert('You are going to clear the storage');
-    localStorage.removeItem('secret');
-    dispatch({
-      type: 'SetMnemonic',
-      mnemonic: undefined,
-    });
+    localStorage.removeItem('celo');
     dispatch({
       type: 'SetAddress',
       address: undefined,
@@ -68,14 +60,18 @@ const Nav = () => {
       contract: undefined,
     });
     dispatch({
+      type: 'SetSecret',
+      secret: undefined,
+    });
+    dispatch({
       type: 'SetIndex',
       index: 0,
     });
     dispatch({
       type: 'SetNetwork',
-      network: 'holodeck-2',
+      network: 'alfajores',
     });
-    trackStorageCleared('secret');
+    trackStorageCleared('celo');
   };
 
   return (
@@ -90,4 +86,4 @@ const Nav = () => {
   );
 };
 
-export {Nav};
+export default Nav;
