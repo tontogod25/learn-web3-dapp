@@ -3,6 +3,11 @@ const fs = require('fs');
 const markdownURLs = require('../lib/markdownURLs');
 
 function fetchPathways() {
+  if (!fs.existsSync('md')) {
+    fs.mkdirSync('md');
+    console.log(`✓ Created /md in root directory`);
+  }
+
   Object.keys(markdownURLs).forEach((chain) => {
     const steps = markdownURLs[chain];
 
