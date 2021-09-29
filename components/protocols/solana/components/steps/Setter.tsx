@@ -66,10 +66,7 @@ const Setter = () => {
     setError(null);
     setResetting(true);
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/setter`,
-        state,
-      );
+      const response = await axios.post(`/api/solana/setter`, state);
       setHash(response.data);
     } catch (error) {
       setError(prettyError(error));

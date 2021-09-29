@@ -60,3 +60,5 @@ contracts/near/target/
 /test-ledger
 /archives
 /secrets
+
+/docker

@@ -82,7 +82,7 @@ const Nav = () => {
   return (
     <StepMenuBar>
       <Popover content={AppState} placement="bottom">
-        <Button type="primary">Keychain</Button>
+        <Button type="ghost">Keychain</Button>
       </Popover>
       <Select
         defaultValue={'datahub'}

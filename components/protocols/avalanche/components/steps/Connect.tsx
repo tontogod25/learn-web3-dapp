@@ -41,7 +41,7 @@ const Connect = () => {
       <Space direction="vertical" size="large">
         <Space direction="horizontal" size="large">
           <Button
-            type="ghost"
+            type="primary"
             icon={<PoweroffOutlined />}
             onClick={getConnection}
             loading={fetching}
