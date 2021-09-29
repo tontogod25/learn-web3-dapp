@@ -1,9 +1,8 @@
 import {Nav} from '@polygon/components';
 import Layout from 'components/shared/Layout';
-import {AppI} from '@polygon/types';
 import {useReducer, useEffect} from 'react';
 import {useLocalStorage} from 'hooks';
-import {StepType} from 'types';
+import {ChainType, MarkdownForChainT, StepType} from 'types';
 import {
   Connect,
   Balance,
@@ -33,23 +32,24 @@ const Polygon: React.FC<{step: StepType}> = ({step}) => {
 
   return (
     <PolygonContext.Provider value={{state, dispatch}}>
-      <div style={{minHeight: '250px', marginBottom: '10vh'}}>
-        {step.id === 'connect' && <Connect />}
-        {step.id === 'query' && <Query />}
-        {step.id === 'balance' && <Balance />}
-        {step.id === 'transfer' && <Transfer />}
-        {step.id === 'deploy' && <Deploy />}
-        {step.id === 'setter' && <Setter />}
-        {step.id === 'getter' && <Getter />}
-        {step.id === 'restore' && <Restore />}
-        <Nav />
-      </div>
+      {step.id === 'connect' && <Connect />}
+      {step.id === 'query' && <Query />}
+      {step.id === 'balance' && <Balance />}
+      {step.id === 'transfer' && <Transfer />}
+      {step.id === 'deploy' && <Deploy />}
+      {step.id === 'setter' && <Setter />}
+      {step.id === 'getter' && <Getter />}
+      {step.id === 'restore' && <Restore />}
+      <Nav />
     </PolygonContext.Provider>
   );
 };
 
-const WithLayoutPolygon: React.FC<AppI> = ({chain}) => {
-  return Layout(Polygon, chain);
+const WithLayoutPolygon: React.FC<{
+  chain: ChainType;
+  markdown: MarkdownForChainT;
+}> = ({chain, markdown}) => {
+  return Layout(Polygon, chain, markdown);
 };
 
 export default WithLayoutPolygon;

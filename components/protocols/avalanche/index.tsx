@@ -31,21 +31,22 @@ const Avalanche: React.FC<{step: StepType}> = ({step}) => {
 
   return (
     <AvalancheContext.Provider value={{state, dispatch}}>
-      <div style={{minHeight: '250px', marginBottom: '10vh'}}>
-        {step.id === 'connect' && <Connect />}
-        {step.id === 'account' && <Account />}
-        {step.id === 'balance' && <Balance />}
-        {step.id === 'transfer' && <Transfer />}
-        {step.id === 'export' && <Export />}
-        {step.id === 'import' && <Import />}
-        <Nav />
-      </div>
+      {step.id === 'connect' && <Connect />}
+      {step.id === 'account' && <Account />}
+      {step.id === 'balance' && <Balance />}
+      {step.id === 'transfer' && <Transfer />}
+      {step.id === 'export' && <Export />}
+      {step.id === 'import' && <Import />}
+      <Nav />
     </AvalancheContext.Provider>
   );
 };
 
-const WithLayoutAvalanche: React.FC<{chain: ChainType}> = ({chain}) => {
-  return Layout(Avalanche, chain);
+const WithLayoutAvalanche: React.FC<{chain: ChainType; markdown: any}> = ({
+  chain,
+  markdown,
+}) => {
+  return Layout(Avalanche, chain, markdown);
 };
 
 export default WithLayoutAvalanche;

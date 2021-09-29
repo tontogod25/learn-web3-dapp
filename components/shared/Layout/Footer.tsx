@@ -1,13 +1,24 @@
 import {ArrowLeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
 import {trackTutorialStepViewed} from '@funnel/tracking-utils';
 import {getChainColors} from 'utils/colors';
-import {Button, Row, Space} from 'antd';
+import {Button, Col, Row, Space} from 'antd';
 import styled from 'styled-components';
 import {useGlobalState} from 'context';
 import {CHAINS, StepType} from 'types';
 import React from 'react';
+import {FOOTER_HEIGHT} from 'lib/constants';
 
-const Footer = ({steps}: {steps: StepType[]}) => {
+const Footer = ({
+  step,
+  steps,
+  prevStep,
+  nextStep,
+}: {
+  step: StepType;
+  steps: StepType[];
+  prevStep: StepType | null;
+  nextStep: StepType | null;
+}) => {
   const {state, dispatch} = useGlobalState();
   const next = () => {
     const index = state.index + 1;
@@ -36,31 +47,39 @@ const Footer = ({steps}: {steps: StepType[]}) => {
   };
 
   const {primaryColor, secondaryColor} = getChainColors(state.chain as CHAINS);
+  const justify =
+    prevStep && nextStep ? 'space-between' : prevStep ? 'start' : 'end';
+
   return (
-    <StepFooter size="large">
-      <PrevButton
-        size="large"
-        style={{marginRight: '8px'}}
-        onClick={() => prev()}
-        icon={<ArrowLeftOutlined />}
-        disabled={state.index == 0}
-      >
-        Previous Step
-      </PrevButton>
-      <NextButton
-        size="large"
-        type="primary"
-        onClick={() => next()}
-        secondary_color={secondaryColor}
-        primary_color={primaryColor}
-        disabled={state.valid == state.index || steps.length == state.index + 1}
-      >
-        <Row align="middle">
-          Next Step
-          <ArrowRightOutlined size={20} style={{marginLeft: '6px'}} />
-        </Row>
-      </NextButton>
-    </StepFooter>
+    <Col span={24}>
+      <StepFooter justify={justify} align="middle">
+        {prevStep && (
+          <PrevButton
+            size="large"
+            style={{marginRight: '8px'}}
+            onClick={() => prev()}
+            icon={<ArrowLeftOutlined />}
+          >
+            {`Prev: ${prevStep.title}`}
+          </PrevButton>
+        )}
+        {nextStep && (
+          <NextButton
+            size="large"
+            type="primary"
+            onClick={() => next()}
+            secondary_color={secondaryColor}
+            primary_color={primaryColor}
+            disabled={step.skipValidation ? false : state.valid == state.index}
+          >
+            <Row align="middle">
+              {`Next: ${nextStep.title}`}
+              <ArrowRightOutlined size={20} style={{marginLeft: '6px'}} />
+            </Row>
+          </NextButton>
+        )}
+      </StepFooter>
+    </Col>
   );
 };
 
@@ -91,8 +110,15 @@ const PrevButton = styled(Button)`
   }
 `;
 
-const StepFooter = styled(Space)`
-  margin: 20px 0 40px 0;
+const StepFooter = styled(Row)`
+  padding: 0 40px;
+  height: ${FOOTER_HEIGHT}px;
+  background: white;
+  border-top: solid 2px black;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `;
 
 export default Footer;
