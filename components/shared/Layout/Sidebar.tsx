@@ -47,6 +47,7 @@ const heightOffset = `${FOOTER_HEIGHT + HEADER_HEIGHT}px`;
 const Left = styled(Col)`
   position: relative;
   padding: 40px;
+  background: #eee;
   border-right: solid 2px black;
   overflow: scroll;
   height: calc(100vh - ${heightOffset});
