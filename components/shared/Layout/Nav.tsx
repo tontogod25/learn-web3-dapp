@@ -15,6 +15,7 @@ const Nav = ({chain}: {chain: ChainType}) => {
   return (
     <StyledNav
       primary_color={primaryColor}
+      secondary_color={secondaryColor}
       align="middle"
       justify="space-between"
     >
@@ -30,7 +31,7 @@ const Nav = ({chain}: {chain: ChainType}) => {
   );
 };
 
-const StyledNav = styled(Row)<{primary_color: string}>`
+const StyledNav = styled(Row)<{primary_color: string; secondary_color: string}>`
   position: fixed;
   left: 0;
   right: 0;
@@ -42,7 +43,7 @@ const StyledNav = styled(Row)<{primary_color: string}>`
   border-bottom: solid 2px black;
 
   a {
-    color: black;
+    color: ${({secondary_color}) => secondary_color};
     font-size: 15px;
     font-weight: 600;
   }

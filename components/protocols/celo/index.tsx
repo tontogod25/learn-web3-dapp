@@ -1,3 +1,4 @@
+import {useEffect, useReducer} from 'react';
 import {
   Connect,
   Account,
@@ -9,75 +10,44 @@ import {
   Setter,
 } from '@celo/components/steps';
 import {appStateReducer, initialState, CeloContext} from '@celo/context';
-import {useAppState, useLocalStorage} from '@celo/hooks';
-import {Sidebar, Step} from '@celo/components/layout';
-import {useEffect, useReducer} from 'react';
-import type {AppI} from '@celo/types';
-import {Nav} from '@celo/components';
-import {Row} from 'antd';
-import {trackTutorialStepViewed} from '../../../utils/tracking-utils';
+import {useLocalStorage} from '@celo/hooks';
+import {ChainType, StepType} from 'types';
+import Layout from 'components/shared/Layout';
+import {useGlobalState} from 'context';
+import {Nav} from './components';
 
-const CeloApp: React.FC<AppI> = ({chain}) => {
-  const {state, dispatch} = useAppState();
-  const {steps} = chain;
-  const step = steps[state.index];
-  const nextHandler = () => {
-    const index = state.index + 1;
-    dispatch({
-      type: 'SetIndex',
-      index,
-    });
-    trackTutorialStepViewed(chain.id, steps[index].title, 'next');
-  };
-  const prevHandler = () => {
-    const index = state.index - 1;
-    dispatch({
-      type: 'SetIndex',
-      index,
-    });
-    trackTutorialStepViewed(chain.id, steps[index].title, 'prev');
-  };
-  const isFirstStep = state.index == 0;
-  const isLastStep = state.index === steps.length - 1;
-
-  return (
-    <Row>
-      <Sidebar steps={steps} stepIndex={state.index} />
-      <Step
-        step={step}
-        isFirstStep={isFirstStep}
-        isLastStep={isLastStep}
-        prev={prevHandler}
-        next={nextHandler}
-        body={
-          <>
-            {step.id === 'connect' && <Connect />}
-            {step.id === 'account' && <Account />}
-            {step.id === 'balance' && <Balance />}
-            {step.id === 'transfer' && <Transfer />}
-            {step.id === 'swap' && <Swap />}
-            {step.id === 'deploy' && <Deploy />}
-            {step.id === 'getter' && <Getter />}
-            {step.id === 'setter' && <Setter />}
-          </>
-        }
-        nav={<Nav />}
-      />
-    </Row>
+const Celo: React.FC<{step: StepType}> = ({step}) => {
+  const {state: globalState} = useGlobalState();
+  const [storageState, setStorageState] = useLocalStorage<State>(
+    globalState.chain as string,
+    initialState,
   );
-};
-
-const Celo: React.FC<AppI> = ({chain}) => {
-  const [storageState, setStorageState] = useLocalStorage('celo', initialState);
   const [state, dispatch] = useReducer(appStateReducer, storageState);
+
   useEffect(() => {
     setStorageState(state);
-  }, [state]);
+  }, [state, step]);
+
   return (
     <CeloContext.Provider value={{state, dispatch}}>
-      <CeloApp chain={chain} />
+      {step.id === 'connect' && <Connect />}
+      {step.id === 'account' && <Account />}
+      {step.id === 'balance' && <Balance />}
+      {step.id === 'transfer' && <Transfer />}
+      {step.id === 'swap' && <Swap />}
+      {step.id === 'deploy' && <Deploy />}
+      {step.id === 'getter' && <Getter />}
+      {step.id === 'setter' && <Setter />}
+      <Nav />
     </CeloContext.Provider>
   );
 };
 
-export default Celo;
+const WithLayoutCelo: React.FC<{chain: ChainType; markdown: any}> = ({
+  chain,
+  markdown,
+}) => {
+  return Layout(Celo, chain, markdown);
+};
+
+export default WithLayoutCelo;

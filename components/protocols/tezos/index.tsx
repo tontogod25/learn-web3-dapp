@@ -1,5 +1,4 @@
 import {useEffect, useReducer} from 'react';
-import {Row} from 'antd';
 import {
   Connect,
   Balance,
@@ -10,75 +9,41 @@ import {
   Transfer,
 } from '@tezos/components/steps';
 import {appStateReducer, initialState, TezosContext} from '@tezos/context';
-import {useAppState, useLocalStorage} from '@tezos/hooks';
-import {Sidebar, Step} from '@tezos/components/layout';
+import {useLocalStorage} from '@tezos/hooks';
 import {Nav} from '@tezos/components';
-import type {AppI} from '@tezos/types';
-import {trackTutorialStepViewed} from '../../../utils/tracking-utils';
+import {ChainType, StepType} from 'types';
+import Layout from 'components/shared/Layout';
 
-const TezosApp: React.FC<AppI> = ({chain}) => {
-  const {state, dispatch} = useAppState();
-  const {steps} = chain;
-  const step = steps[state.index];
-  const nextHandler = () => {
-    const index = state.index + 1;
-    dispatch({
-      type: 'SetIndex',
-      index,
-    });
-    trackTutorialStepViewed(chain.id, steps[index].title, 'next');
-  };
-  const prevHandler = () => {
-    const index = state.index - 1;
-    dispatch({
-      type: 'SetIndex',
-      index,
-    });
-    trackTutorialStepViewed(chain.id, steps[index].title, 'prev');
-  };
-  const isFirstStep = state.index == 0;
-  const isLastStep = state.index === steps.length - 1;
-
-  return (
-    <Row>
-      <Sidebar steps={steps} stepIndex={state.index} />
-      <Step
-        step={step}
-        isFirstStep={isFirstStep}
-        isLastStep={isLastStep}
-        prev={prevHandler}
-        next={nextHandler}
-        body={
-          <>
-            {step.id === 'connect' && <Connect />}
-            {step.id === 'account' && <Account />}
-            {step.id === 'balance' && <Balance />}
-            {step.id === 'transfer' && <Transfer />}
-            {step.id === 'deploy' && <Deploy />}
-            {step.id === 'getter' && <Getter />}
-            {step.id === 'setter' && <Setter />}
-          </>
-        }
-        nav={<Nav />}
-      />
-    </Row>
-  );
-};
-
-const Tezos: React.FC<AppI> = ({chain}) => {
+const Tezos: React.FC<{step: StepType}> = ({step}) => {
   const [storageState, setStorageState] = useLocalStorage(
     'tezos',
     initialState,
   );
   const [state, dispatch] = useReducer(appStateReducer, storageState);
+
   useEffect(() => {
     setStorageState(state);
   }, [state]);
+
   return (
     <TezosContext.Provider value={{state, dispatch}}>
-      <TezosApp chain={chain} />
+      <Nav />
+      {step.id === 'connect' && <Connect />}
+      {step.id === 'account' && <Account />}
+      {step.id === 'balance' && <Balance />}
+      {step.id === 'transfer' && <Transfer />}
+      {step.id === 'deploy' && <Deploy />}
+      {step.id === 'getter' && <Getter />}
+      {step.id === 'setter' && <Setter />}
     </TezosContext.Provider>
   );
 };
 
-export default Tezos;
+const WithLayoutTezos: React.FC<{chain: ChainType; markdown: any}> = ({
+  chain,
+  markdown,
+}) => {
+  return Layout(Tezos, chain, markdown);
+};
+
+export default WithLayoutTezos;

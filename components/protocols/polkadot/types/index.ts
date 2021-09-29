@@ -1,3 +1,5 @@
+import {ChainType, StepType} from 'types';
+
 export type PolkadotConnectResponse = string;
 export type PolkadotConnectErrorResponse = {
   message: string;
@@ -69,17 +71,3 @@ export interface SidebarI {
 export interface AppI {
   chain: ChainType;
 }
-
-export type StepType = {
-  id: string;
-  title: string;
-  url: string;
-};
-
-export type ChainType = {
-  id: any;
-  label: string;
-  active: boolean;
-  logoUrl: string;
-  steps: StepType[];
-};
