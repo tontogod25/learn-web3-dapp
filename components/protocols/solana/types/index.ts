@@ -1,4 +1,4 @@
-import {ChainType} from 'types';
+import {ChainType, StepType} from 'types';
 
 export type AlertT = 'success' | 'info' | 'warning' | 'error' | undefined;
 
@@ -34,12 +34,6 @@ export interface SidebarI {
 export interface AppI {
   chain: ChainType;
 }
-
-export type StepType = {
-  id: string;
-  title: string;
-  url: string;
-};
 
 export type ErrorT = {
   message: string;

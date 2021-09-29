@@ -1,4 +1,5 @@
 import {BlockWithTransactions} from '@ethersproject/abstract-provider';
+import {ChainType, StepType} from 'types';
 
 export type PolygonChainIdT = {
   chainId: number;
@@ -52,17 +53,3 @@ export interface SidebarI {
 export interface AppI {
   chain: ChainType;
 }
-
-export type StepType = {
-  id: string;
-  title: string;
-  url: string;
-};
-
-export type ChainType = {
-  id: any;
-  label: string;
-  active: boolean;
-  logoUrl: string;
-  steps: StepType[];
-};

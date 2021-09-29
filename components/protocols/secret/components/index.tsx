@@ -1,6 +1,7 @@
 import {Typography, Popover, Button} from 'antd';
 import {useAppState} from 'components/protocols/secret/hooks';
 import type {EntryT} from 'components/protocols/secret/types';
+import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 import {trackStorageCleared} from '../../../../utils/tracking-utils';
 
 const {Text, Paragraph} = Typography;
@@ -78,18 +79,14 @@ const Nav = () => {
   };
 
   return (
-    <>
-      <div style={{position: 'fixed', top: 25, right: 60}}>
-        <Popover content={AppState} placement="rightBottom">
-          <Button type="primary">Storage</Button>
-        </Popover>
-      </div>
-      <div style={{position: 'fixed', top: 25, right: 165}}>
-        <Button danger onClick={clearStorage}>
-          Clear Storage
-        </Button>
-      </div>
-    </>
+    <StepMenuBar>
+      <Popover content={AppState} placement="bottom">
+        <Button type="ghost">Storage</Button>
+      </Popover>
+      <Button danger onClick={clearStorage}>
+        Clear Storage
+      </Button>
+    </StepMenuBar>
   );
 };
 

@@ -8,8 +8,10 @@ export default async function connect(
 ) {
   try {
     const url = getSafeUrl();
-    const kit = undefined;
-    const version = undefined;
+    const kit = newKit(url);
+    console.log(kit);
+    console.log(url);
+    const version = await kit.web3.eth.getNodeInfo();
     res.status(200).json(version.slice(5, 11));
   } catch (error) {
     console.error(error);

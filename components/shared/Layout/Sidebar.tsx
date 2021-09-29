@@ -21,7 +21,9 @@ const Sidebar = ({
   const menu = (
     <StyledMenu>
       {steps.map((step: StepType, index: number) => {
-        return <MenuItem>{`${index + 1} - ${step.title}`}</MenuItem>;
+        return (
+          <MenuItem key={index}>{`${index + 1} - ${step.title}`}</MenuItem>
+        );
       })}
     </StyledMenu>
   );

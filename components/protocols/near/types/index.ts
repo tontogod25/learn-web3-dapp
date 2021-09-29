@@ -1,5 +1,5 @@
 import type {Dispatch, SetStateAction} from 'react';
-import {ChainType} from 'types';
+import {ChainType, StepType} from 'types';
 
 // Components
 export type CheckAccountIdT = {
@@ -43,9 +43,3 @@ export interface SidebarI {
 export interface AppI {
   chain: ChainType;
 }
-
-export type StepType = {
-  id: string;
-  title: string;
-  url: string;
-};

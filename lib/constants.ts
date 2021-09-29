@@ -48,44 +48,40 @@ export const CHAINS_CONFIG: ChainsType = {
     logoUrl: 'https://cryptologos.cc/logos/celo-celo-logo.svg?v=010',
     steps: [
       {
+        id: 'setup',
+        title: 'Setup the project',
+      },
+      {
         id: 'connect',
         title: 'Connect to Celo',
-        url: 'https://learn.figment.io/tutorials/connect-to-celo',
       },
       {
         id: 'account',
         title: 'Create an account',
-        url: 'https://learn.figment.io/tutorials/create-a-celo-account',
       },
       {
         id: 'balance',
         title: 'Get the balance',
-        url: 'https://learn.figment.io/tutorials/get-the-celo-balance',
       },
       {
         id: 'transfer',
         title: 'Transfer some tokens',
-        url: 'https://learn.figment.io/tutorials/transfer-celo-token',
       },
       {
         id: 'swap',
         title: 'Swap cUSD to CELO',
-        url: 'https://learn.figment.io/tutorials/swap-your-celo',
       },
       {
         id: 'deploy',
         title: 'Deploy a smart contract',
-        url: 'https://learn.figment.io/tutorials/deploy-celo-contract',
       },
       {
         id: 'getter',
         title: 'Get the storage of a smart contract',
-        url: 'https://learn.figment.io/tutorials/read-a-celo-contract',
       },
       {
         id: 'setter',
         title: 'Set the storage of a smart contract',
-        url: 'https://learn.figment.io/tutorials/celo-set-contract-store',
       },
     ],
   },
@@ -96,44 +92,40 @@ export const CHAINS_CONFIG: ChainsType = {
     logoUrl: 'https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010',
     steps: [
       {
+        id: 'setup',
+        title: 'Setup the project',
+      },
+      {
         id: 'connect',
         title: 'Connect to NEAR',
-        url: 'https://learn.figment.io/tutorials/connect-to-near-node',
       },
       {
         id: 'keypair',
         title: 'Generate a keypair',
-        url: 'https://learn.figment.io/tutorials/create-near-keypair',
       },
       {
         id: 'account',
         title: 'Create an account',
-        url: 'https://learn.figment.io/tutorials/create-a-near-account',
       },
       {
         id: 'balance',
         title: 'Get account balance',
-        url: 'https://learn.figment.io/tutorials/check-near-account-balance',
       },
       {
         id: 'transfer',
         title: 'Transfer some NEAR',
-        url: 'https://learn.figment.io/tutorials/transfer-near-tokens',
       },
       {
         id: 'deploy',
         title: 'Deploy a contract',
-        url: 'https://learn.figment.io/tutorials/deploy-near-contract',
       },
       {
         id: 'getter',
         title: 'Get the storage of a smart contract',
-        url: 'https://learn.figment.io/tutorials/read-near-contract',
       },
       {
         id: 'setter',
         title: 'Set the storage of a smart contract',
-        url: 'https://learn.figment.io/tutorials/near-set-contract-store',
       },
     ],
   },
@@ -146,37 +138,30 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: 'connect',
         title: 'Connect to Polkadot',
-        url: 'https://learn.figment.io/tutorials/connect-to-polkadot',
       },
       {
         id: 'account',
         title: 'Create an account',
-        url: 'https://learn.figment.io/tutorials/create-an-account-on-polkadot',
       },
       {
         id: 'restore',
         title: 'Restore an account',
-        url: 'https://learn.figment.io/tutorials/restore-polkadot-account',
       },
       {
         id: 'estimate',
         title: 'Estimate transaction fees',
-        url: 'https://learn.figment.io/tutorials/estimate-polkadot-transaction-fees',
       },
       {
         id: 'balance',
         title: 'Get the balance',
-        url: 'https://learn.figment.io/tutorials/get-the-polkadot-balance',
       },
       {
         id: 'deposit',
         title: 'Existential deposit',
-        url: 'https://learn.figment.io/tutorials/existential-deposit',
       },
       {
         id: 'transfer',
         title: 'Transfer some tokens',
-        url: 'https://learn.figment.io/tutorials/transfer-some-polkadot-token',
       },
     ],
   },
@@ -231,39 +216,36 @@ export const CHAINS_CONFIG: ChainsType = {
     logoUrl: 'https://cryptologos.cc/logos/secret-scrt-logo.svg?v=010',
     steps: [
       {
+        id: 'setup',
+        title: 'Setup the project',
+      },
+      {
         id: 'connect',
         title: 'Connect to Secret',
-        url: 'https://learn.figment.io/tutorials/connect-to-secret-node',
       },
       {
         id: 'account',
         title: 'Create an account',
-        url: 'https://learn.figment.io/tutorials/create-a-secret-account',
       },
       {
         id: 'balance',
         title: 'Get the balance',
-        url: 'https://learn.figment.io/tutorials/check-secret-account-balance',
       },
       {
         id: 'transfer',
         title: 'Transfer some SCRT',
-        url: 'https://learn.figment.io/tutorials/transfer-secret-tokens',
       },
       {
         id: 'deploy',
         title: 'Deploy a smart contract',
-        url: 'https://learn.figment.io/tutorials/deploy-secret-contract',
       },
       {
         id: 'getter',
         title: 'Get the storage of a smart contract',
-        url: 'https://learn.figment.io/tutorials/read-secret-contract',
       },
       {
         id: 'setter',
         title: 'Set the storage of a smart contract',
-        url: 'https://learn.figment.io/tutorials/secret-set-contract-store',
       },
     ],
   },
@@ -322,39 +304,36 @@ export const CHAINS_CONFIG: ChainsType = {
     logoUrl: 'https://cryptologos.cc/logos/tezos-xtz-logo.svg?v=010',
     steps: [
       {
+        id: 'setup',
+        title: 'Setup the project',
+      },
+      {
         id: 'connect',
         title: 'Connect to Tezos',
-        url: 'https://learn.figment.io/tutorials/connect-to-tezos-node',
       },
       {
         id: 'account',
         title: 'Create an account',
-        url: 'https://learn.figment.io/tutorials/create-a-tezos-account',
       },
       {
         id: 'balance',
         title: 'Get the balance',
-        url: 'https://learn.figment.io/tutorials/check-tezos-account-balance',
       },
       {
         id: 'transfer',
         title: 'Transfer some TEZ',
-        url: 'https://learn.figment.io/tutorials/transfer-tez-tokens',
       },
       {
         id: 'deploy',
         title: 'Deploy a smart contract',
-        url: 'https://learn.figment.io/tutorials/deploy-tezos-contract',
       },
       {
         id: 'getter',
         title: 'Get the storage of a smart contract',
-        url: 'https://learn.figment.io/tutorials/read-tezos-contract',
       },
       {
         id: 'setter',
         title: 'Set the storage of a smart contract',
-        url: 'https://learn.figment.io/tutorials/tezos-set-contract-store',
       },
     ],
   },

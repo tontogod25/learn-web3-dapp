@@ -3,3 +3,4 @@ node_modules
 .next
 .gitignore
 yarn-lock
+lib/markdownURLs.js
