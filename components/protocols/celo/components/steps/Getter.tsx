@@ -1,5 +1,5 @@
 import {Alert, Col, Button, Space, Typography} from 'antd';
-import {useAppState} from '@ccelo/hooks';
+import {useAppState} from '@celo/hooks';
 import {useState} from 'react';
 import axios from 'axios';
 

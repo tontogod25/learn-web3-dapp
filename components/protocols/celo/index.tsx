@@ -7,13 +7,13 @@ import {
   Deploy,
   Getter,
   Setter,
-} from '@ccelo/components/steps';
-import {appStateReducer, initialState, CeloContext} from '@ccelo/context';
-import {useAppState, useLocalStorage} from '@ccelo/hooks';
-import {Sidebar, Step} from '@ccelo/components/layout';
+} from '@celo/components/steps';
+import {appStateReducer, initialState, CeloContext} from '@celo/context';
+import {useAppState, useLocalStorage} from '@celo/hooks';
+import {Sidebar, Step} from '@celo/components/layout';
 import {useEffect, useReducer} from 'react';
-import type {AppI} from '@ccelo/types';
-import {Nav} from '@ccelo/components';
+import type {AppI} from '@celo/types';
+import {Nav} from '@celo/components';
 import {Row} from 'antd';
 import {trackTutorialStepViewed} from '../../../utils/tracking-utils';
 

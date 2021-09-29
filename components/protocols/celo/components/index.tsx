@@ -1,6 +1,6 @@
 import {Typography, Popover, Button} from 'antd';
-import {useAppState} from '@ccelo/hooks';
-import type {EntryT} from '@ccelo/types';
+import {useAppState} from '@celo/hooks';
+import type {EntryT} from '@celo/types';
 import {trackStorageCleared} from '../../../../utils/tracking-utils';
 
 const {Text, Paragraph} = Typography;

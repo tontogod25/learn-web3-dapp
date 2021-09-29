@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@ccelo/hooks';
-import {transactionUrl} from '@ccelo/lib';
+import {useAppState} from '@celo/hooks';
+import {transactionUrl} from '@celo/lib';
 import axios from 'axios';
 
 const layout = {
