@@ -113,7 +113,7 @@ const PrevButton = styled(Button)`
 const StepFooter = styled(Row)`
   padding: 0 40px;
   height: ${FOOTER_HEIGHT}px;
-  background: white;
+  background: #f1f1f1;
   border-top: solid 2px black;
   position: fixed;
   left: 0;
