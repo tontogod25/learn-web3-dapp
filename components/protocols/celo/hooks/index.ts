@@ -1,6 +1,6 @@
 import {useState, useContext} from 'react';
-import type {State} from '@ccelo/context';
-import {CeloContext} from '@ccelo/context';
+import type {State} from '@celo/context';
+import {CeloContext} from '@celo/context';
 
 const useLocalStorage = (key: string, initialValue: State) => {
   const [storedValue, setStoredValue] = useState<State>(() => {

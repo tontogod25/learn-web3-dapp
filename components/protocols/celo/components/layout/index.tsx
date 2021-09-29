@@ -4,7 +4,7 @@ import {Alert, Button, Row, Col, Typography, Space, Steps} from 'antd';
 import {ArrowLeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
 import styled from 'styled-components';
 import {ArrowUpRight, ArrowLeft} from 'react-feather';
-import type {SidebarI, StepButtonsI, StepI, StepType} from '@ccelo/types';
+import type {SidebarI, StepButtonsI, StepI, StepType} from '@celo/types';
 
 const {Text} = Typography;
 

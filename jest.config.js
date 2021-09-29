@@ -19,7 +19,7 @@ module.exports = {
     '^@solana/(.*)$': 'components/protocols/solana/$1',
     '^@polka/(.*)$': 'components/protocols/polka/$1',
     '^@near/(.*)$': 'components/protocols/near/$1',
-    '^@ccelo/(.*)$': 'components/protocols/ccelo/$1',
+    '^@celo/(.*)$': 'components/protocols/celo/$1',
     '^@tezos/(.*)$': 'components/protocols/tezos/$1',
     '^@secret/(.*)$': 'components/protocols/secret/$1',
     '^@avalanche/(.*)$': 'components/protocols/avalanche/$1',

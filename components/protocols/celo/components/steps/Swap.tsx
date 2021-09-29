@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Col, Button, Alert, Space, Typography} from 'antd';
-import {useAppState} from '@ccelo/hooks';
-import {transactionUrl} from '@ccelo/lib';
+import {useAppState} from '@celo/hooks';
+import {transactionUrl} from '@celo/lib';
 import axios from 'axios';
 
 const {Text} = Typography;
