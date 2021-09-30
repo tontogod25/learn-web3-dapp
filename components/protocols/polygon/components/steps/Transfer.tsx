@@ -1,7 +1,6 @@
 import {Button, Alert, Space, Typography, Col} from 'antd';
 import {getPolygonTxExplorerURL} from '@polygon/lib';
 import {useState, useEffect} from 'react';
-import {useGlobalState} from 'context';
 import {ethers} from 'ethers';
 
 // A random test's address
@@ -14,7 +13,6 @@ const {Text} = Typography;
 declare let window: any;
 
 const Transfer = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   const [balance, setBalance] = useState('');
@@ -23,18 +21,6 @@ const Transfer = () => {
   useEffect(() => {
     checkBalance();
   }, []);
-
-  useEffect(() => {
-    checkBalance();
-    if (hash) {
-      if (globalState.valid < 5) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 5,
-        });
-      }
-    }
-  }, [hash, setHash]);
 
   const checkBalance = async () => {
     setFetching(true);

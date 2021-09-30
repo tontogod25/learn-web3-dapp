@@ -3,8 +3,7 @@ import SimpleStorageJson from 'contracts/polygon/SimpleStorage/build/contracts/S
 import {Alert, Button, Col, InputNumber, Space, Typography} from 'antd';
 import {getPolygonTxExplorerURL} from '@polygon/lib';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useState, useEffect} from 'react';
-import {useGlobalState} from 'context';
+import {useState} from 'react';
 import {ethers} from 'ethers';
 
 const {Text} = Typography;
@@ -14,22 +13,10 @@ const {Text} = Typography;
 declare let window: any;
 
 const Setter = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [inputNumber, setInputNumber] = useState<number>(0);
   const [fetchingSet, setFetchingSet] = useState<boolean>(false);
   const [txHash, setTxHash] = useState<string | null>(null);
   const [confirming, setConfirming] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (txHash) {
-      if (globalState.valid < 6) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 6,
-        });
-      }
-    }
-  }, [txHash, setTxHash]);
 
   const setValue = async () => {
     setFetchingSet(true);
@@ -59,7 +46,7 @@ const Setter = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Space direction="horizontal">
           <InputNumber value={inputNumber} onChange={setInputNumber} />

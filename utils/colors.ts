@@ -51,44 +51,11 @@ const getSecondaryColor = (chainId: CHAINS) => {
   } else if (chainId === CHAINS.TEZOS) {
     return '#F6F6F6';
   } else if (chainId === CHAINS.SECRET) {
-    return 'khaki';
+    return 'white';
   } else if (chainId === CHAINS.NEAR) {
     return 'white';
   } else if (chainId === CHAINS.CERAMIC) {
     return 'white';
   }
   return 'black';
-};
-
-const getButtonBgColor = (chainId: CHAINS) => {
-  if (chainId === CHAINS.SOLANA) {
-    return 'linear-gradient(253deg, #00FFA3, #DC1FFF)';
-  } else if (chainId === CHAINS.AVALANCHE) {
-    return '#e84141';
-  } else if (chainId === CHAINS.POLYGON) {
-    return '#8247e5';
-  } else if (chainId === CHAINS.POLKADOT) {
-    return '#e6007a';
-  } else if (chainId === CHAINS.TEZOS) {
-    return '#0f62ff';
-  } else if (chainId === CHAINS.CELO) {
-    return 'linear-gradient(253deg, rgb(251, 204, 92), rgb(53,208,127))';
-  } else if (chainId === CHAINS.NEAR) {
-    return 'linear-gradient(253deg, #00c1de, #00c08b)';
-  } else if (chainId === CHAINS.SECRET) {
-    return 'black';
-  }
-
-  return 'rgb(255,242,155)';
-};
-
-const getButtonTextColor = (chainId: CHAINS) => {
-  if (chainId === CHAINS.SOLANA) {
-    return 'white';
-  }
-  if (chainId === CHAINS.NEAR) {
-    return 'black';
-  }
-
-  return 'white';
 };

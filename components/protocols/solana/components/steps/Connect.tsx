@@ -1,8 +1,7 @@
 import {Col, Alert, Space, Typography, Button, Modal} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
+import {ErrorBox} from '@solana/components/nav';
 import {useEffect, useState} from 'react';
-import {useAppState} from '@solana/context';
-import {ErrorBox} from '@solana/components';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import {useGlobalState} from 'context';
@@ -11,22 +10,11 @@ import axios from 'axios';
 const {Text} = Typography;
 
 const Connect = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.solana;
   const [version, setVersion] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
-  const {state} = useAppState();
-
-  useEffect(() => {
-    if (version) {
-      if (globalState.valid < 1) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 1,
-        });
-      }
-    }
-  }, [version, setVersion]);
 
   useEffect(() => {
     if (error) {
@@ -58,11 +46,11 @@ const Connect = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Space direction="horizontal" size="large">
           <Button
-            type="ghost"
+            type="primary"
             icon={<PoweroffOutlined />}
             onClick={getConnection}
             loading={fetching}

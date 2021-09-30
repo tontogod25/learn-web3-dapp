@@ -1,35 +1,23 @@
 import {Alert, Col, Button, Space, Typography, Modal} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import {transactionExplorer} from '@solana/lib';
-import {ErrorBox} from '@solana/components';
-import {useAppState} from '@solana/context';
+import {ErrorBox} from '@solana/components/nav';
 import {useEffect, useState} from 'react';
-import {useGlobalState} from 'context';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Setter = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.solana;
   const [fetching, setFetching] = useState<boolean>(false);
   const [resetting, setResetting] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [hash, setHash] = useState<string>('');
   const [message, setMessage] = useState<number>(-1);
-  const {state} = useAppState();
-
-  useEffect(() => {
-    if (hash) {
-      if (globalState.valid < 9) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 9,
-        });
-      }
-    }
-  }, [hash, setHash]);
 
   useEffect(() => {
     if (error) {
@@ -66,10 +54,7 @@ const Setter = () => {
     setError(null);
     setResetting(true);
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/setter`,
-        state,
-      );
+      const response = await axios.post(`/api/solana/setter`, state);
       setHash(response.data);
     } catch (error) {
       setError(prettyError(error));
@@ -79,7 +64,7 @@ const Setter = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Text>Number of greetings:</Text>
         <Col>

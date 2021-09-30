@@ -54,7 +54,7 @@ const Setter = () => {
   const txUrl = getTransactionUrl(state.network)(txHash);
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Text>
           Below is the message stored on the &quot;greeter&quot; contract:

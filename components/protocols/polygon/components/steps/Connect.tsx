@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useAppState} from '@polygon/context';
 import detectEthereumProvider from '@metamask/detect-provider';
 import {Alert, Button, Col, Space, Typography} from 'antd';
 import {Network} from '@ethersproject/networks';
@@ -14,27 +13,21 @@ const {Text} = Typography;
 declare let window: any;
 
 const Connect = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.polygon;
   const [network, setNetwork] = useState<Network | undefined>(undefined);
   const [address, setAddress] = useState<string | undefined>(undefined);
-  const {state, dispatch} = useAppState();
 
   useEffect(() => {
     if (address && network) {
       dispatch({
-        type: 'SetAddress',
+        type: 'SetPolygonAddress',
         address: address,
       });
       dispatch({
-        type: 'SetNetwork',
+        type: 'SetPolygonNetwork',
         network: network.name,
       });
-      if (globalState.valid < 1) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 1,
-        });
-      }
     }
   }, [address, network]);
 
@@ -57,7 +50,7 @@ const Connect = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" style={{width: '100%'}}>
         <Button type="primary" onClick={connect}>
           Check Metamask Connection

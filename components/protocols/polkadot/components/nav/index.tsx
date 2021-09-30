@@ -1,17 +1,18 @@
 import {Typography, Popover, Button} from 'antd';
-import {useAppState} from 'components/protocols/secret/hooks';
-import type {EntryT} from 'components/protocols/secret/types';
-import {trackStorageCleared} from '../../../../utils/tracking-utils';
+import {useAppState} from '@polkadot/hooks';
+import type {EntryT} from '@polkadot/types';
+import {trackStorageCleared} from '../../../../../utils/tracking-utils';
+import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 
 const {Text, Paragraph} = Typography;
 
 const Nav = () => {
   const {state, dispatch} = useAppState();
-  const {network, address, mnemonic, contract} = state;
+  const {network, address, mnemonic} = state;
 
-  const displayNetwork = (network: string) => network;
+  const displayNetwork = (network: string) => network.slice(0, 5);
   const displayPublicKey = (publicKey: string) =>
-    `${publicKey.slice(7, 13)}...${publicKey.slice(-5)}`;
+    `${publicKey.slice(0, 5)}...${publicKey.slice(-5)}`;
   const displayMnemonic = (mnemonic: string) =>
     `${mnemonic.slice(0, 5)}...${mnemonic.slice(-5)}`;
 
@@ -40,31 +41,20 @@ const Nav = () => {
             display={displayMnemonic}
           />
         )}
-        {contract && (
-          <Entry
-            msg={'contractAddress: '}
-            value={contract}
-            display={displayPublicKey}
-          />
-        )}
       </>
     );
   };
 
   const clearStorage = () => {
     alert('You are going to clear the storage');
-    localStorage.removeItem('secret');
-    dispatch({
-      type: 'SetMnemonic',
-      mnemonic: undefined,
-    });
+    localStorage.removeItem('polkadot');
     dispatch({
       type: 'SetAddress',
       address: undefined,
     });
     dispatch({
-      type: 'SetContract',
-      contract: undefined,
+      type: 'SetMnemonic',
+      mnemonic: undefined,
     });
     dispatch({
       type: 'SetIndex',
@@ -72,25 +62,21 @@ const Nav = () => {
     });
     dispatch({
       type: 'SetNetwork',
-      network: 'holodeck-2',
+      network: 'westend',
     });
-    trackStorageCleared('secret');
+    trackStorageCleared('polkadot');
   };
 
   return (
-    <>
-      <div style={{position: 'fixed', top: 25, right: 60}}>
-        <Popover content={AppState} placement="rightBottom">
-          <Button type="primary">Storage</Button>
-        </Popover>
-      </div>
-      <div style={{position: 'fixed', top: 25, right: 165}}>
-        <Button danger onClick={clearStorage}>
-          Clear Storage
-        </Button>
-      </div>
-    </>
+    <StepMenuBar>
+      <Popover content={AppState} placement="bottom">
+        <Button type="ghost">Storage</Button>
+      </Popover>
+      <Button danger onClick={clearStorage}>
+        Clear Storage
+      </Button>
+    </StepMenuBar>
   );
 };
 
-export {Nav};
+export default Nav;

@@ -1,5 +1,4 @@
 import {Alert, Button, Col, Space, Typography} from 'antd';
-import {useAppState} from '@avalanche/context';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from 'context';
 import axios from 'axios';
@@ -7,21 +6,10 @@ import axios from 'axios';
 const {Text} = Typography;
 
 const Account = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.avalanche;
   const [address, setAddress] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
-  const {state, dispatch} = useAppState();
-
-  useEffect(() => {
-    if (address) {
-      if (globalState.valid < 2) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 2,
-        });
-      }
-    }
-  }, [address, setAddress]);
 
   useEffect(() => {
     if (state?.address) {
@@ -36,11 +24,11 @@ const Account = () => {
       setAddress(response.data.address);
       setFetching(false);
       dispatch({
-        type: 'SetSecret',
+        type: 'SetAvalancheSecret',
         secret: response.data.secret,
       });
       dispatch({
-        type: 'SetAddress',
+        type: 'SetAvalancheAddress',
         address: response.data.address,
       });
     } catch (error) {
@@ -50,7 +38,7 @@ const Account = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Button
         type="primary"
         onClick={generateKeypair}

@@ -2,7 +2,8 @@ import {Alert, Space, Typography, Popover, Button} from 'antd';
 import {useAppState} from '@near/hooks';
 import {getPrettyPublicKey} from '@near/lib';
 import type {EntryT, AlertT} from '@near/types';
-import {trackStorageCleared} from '../../../../utils/tracking-utils';
+import {trackStorageCleared} from '../../../../../utils/tracking-utils';
+import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 
 const {Text, Paragraph} = Typography;
 
@@ -77,22 +78,18 @@ const Nav = () => {
   };
 
   return (
-    <>
-      <div style={{position: 'fixed', top: 25, right: 60}}>
-        <Popover content={AppState} placement="rightBottom">
-          <Button type="primary">Storage</Button>
-        </Popover>
-      </div>
-      <div style={{position: 'fixed', top: 25, right: 165}}>
-        <Button danger onClick={clearStorage}>
-          Clear Storage
-        </Button>
-      </div>
-    </>
+    <StepMenuBar>
+      <Popover content={AppState} placement="bottom">
+        <Button type="ghost">Storage</Button>
+      </Popover>
+      <Button danger onClick={clearStorage}>
+        Clear Storage
+      </Button>
+    </StepMenuBar>
   );
 };
 
-const Notify = ({msg, status}: {msg: string; status: AlertT}) => (
+export const Notify = ({msg, status}: {msg: string; status: AlertT}) => (
   <Alert
     message={
       <Space>
@@ -104,4 +101,4 @@ const Notify = ({msg, status}: {msg: string; status: AlertT}) => (
   />
 );
 
-export {Nav, Notify};
+export default Nav;
