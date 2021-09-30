@@ -1,6 +1,5 @@
 import {trackStorageCleared} from 'utils/tracking-utils';
 import {Typography, Popover, Button, Select} from 'antd';
-import {useAppState} from '@avalanche/context';
 import type {EntryT} from '@avalanche/types';
 import {useGlobalState} from 'context';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
@@ -10,9 +9,8 @@ const {Option} = Select;
 const {Text, Paragraph} = Typography;
 
 const Nav = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
-  const {state, dispatch} = useAppState();
-  const {address, secret} = state;
+  const {state: globalState, dispatch} = useGlobalState();
+  const {address, secret} = globalState.avalanche;
 
   const displayAddress = (address: string) =>
     `${address.slice(0, 5)}...${address.slice(-5)}`;
@@ -43,30 +41,30 @@ const Nav = () => {
   };
 
   const clear = () => {
-    globalDispatch({
-      type: 'SetIndex',
-      index: 0,
+    dispatch({
+      type: 'SetCurrentStepIndex',
+      currentStepIndex: 0,
     });
-    globalDispatch({
-      type: 'SetValid',
-      valid: 0,
+    dispatch({
+      type: 'SetHighestCompletedStepIndex',
+      highestCompletedStepIndex: 0,
     });
-    trackStorageCleared(globalState.chain as string);
+    trackStorageCleared(globalState.chainId as string);
   };
 
   const clearKeychain = () => {
     const proceed = confirm('Are you sure you want to clear the keychain?');
     if (proceed) {
       dispatch({
-        type: 'SetAddress',
+        type: 'SetAvalancheAddress',
         address: undefined,
       });
       dispatch({
-        type: 'SetSecret',
+        type: 'SetAvalancheSecret',
         secret: undefined,
       });
       dispatch({
-        type: 'SetNetwork',
+        type: 'SetAvalancheNetwork',
         network: 'datahub',
       });
       clear();
@@ -75,7 +73,7 @@ const Nav = () => {
 
   const toggleLocal = (network: string) => {
     dispatch({
-      type: 'SetNetwork',
+      type: 'SetAvalancheNetwork',
       network: network,
     });
   };
@@ -86,10 +84,10 @@ const Nav = () => {
         <Button type="ghost">Keychain</Button>
       </Popover>
       <Select
-        defaultValue={state.network}
+        defaultValue={globalState.avalanche.network}
         style={{width: 100, textAlign: 'center'}}
         onChange={toggleLocal}
-        disabled={globalState.index != 0}
+        disabled={globalState.currentStepIndex != 0}
       >
         <Option value="datahub">Datahub</Option>
         <Option value="devnet">Testnet</Option>

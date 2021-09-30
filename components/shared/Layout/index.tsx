@@ -19,9 +19,8 @@ const Layout = (
   chain: ChainType,
   markdown: MarkdownForChainT,
 ) => {
-  const storageKey = chain.id + '-nav';
   const [storageState, setStorageState] = useLocalStorage<GlobalState>(
-    storageKey,
+    'figment',
     initialGlobalState,
   );
   const [state, dispatch] = useReducer(globalStateReducer, storageState);

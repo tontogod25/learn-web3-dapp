@@ -1,27 +1,15 @@
 import {Col, Button, Alert, Space} from 'antd';
-import {useAppState} from '@avalanche/context';
 import {transactionUrl} from '@avalanche/lib';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from 'context';
 import axios from 'axios';
 
 const Import = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.avalanche;
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   const [hash, setHash] = useState(null);
-  const {state} = useAppState();
-
-  useEffect(() => {
-    if (hash) {
-      if (globalState.valid < 6) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 6,
-        });
-      }
-    }
-  }, [hash, setHash]);
 
   const importToken = async () => {
     setFetching(true);
