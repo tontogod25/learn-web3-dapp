@@ -1,11 +1,4 @@
 import {Col, Alert, Space, Typography, Button, Modal} from 'antd';
-import CeramicClient from '@ceramicnetwork/http-client';
-import {IDX} from '@ceramicstudio/idx';
-import {EthereumAuthProvider, ThreeIdConnect} from '@3id/connect';
-import {DID} from 'dids';
-import ThreeIdResolver from '@ceramicnetwork/3id-did-resolver';
-import {AlsoKnownAs, BasicProfile} from '@ceramicstudio/idx-constants';
-
 import {PoweroffOutlined} from '@ant-design/icons';
 import {useEffect, useState} from 'react';
 import {useAppState} from '@ceramic/context';
@@ -19,17 +12,9 @@ const {Text} = Typography;
 const LogIn = () => {
   const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const {state, dispatch} = useAppState();
-
   const [error, setError] = useState<ErrorT | null>(null);
-  const [providerFound, setProviderFound] = useState<boolean>(false);
 
   const {logIn, currentUserDID} = useIdx();
-
-  useEffect(() => {
-    if (window.ethereum) {
-      setProviderFound(true);
-    }
-  }, []);
 
   useEffect(() => {
     if (currentUserDID) {

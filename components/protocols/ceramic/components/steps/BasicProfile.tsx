@@ -15,6 +15,8 @@ import type {ErrorT} from '@ceramic/types';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from 'context';
 import {useIdx} from '@ceramic/context/idx';
+import {BasicProfile} from '@ceramicstudio/idx-constants';
+import {IdxSchema} from '@ceramic/types';
 
 const layout = {
   labelCol: {span: 4},
@@ -29,13 +31,11 @@ const {Text} = Typography;
 
 const BasicProfile = () => {
   const {state: globalState, dispatch: globalDispatch} = useGlobalState();
-  const [error, setError] = useState<ErrorT | null>(null);
   const [basicProfileSaved, setBasicProfileSaved] = useState<boolean>(false);
   const [saving, setSaving] = useState<boolean>(false);
-  const [fetching, setFetching] = useState(false);
-  const [basicProfile, setBasicProfile] = useState<typeof BasicProfile | null>(
-    null,
-  );
+  const [fetching, setFetching] = useState<boolean>(false);
+  const [error, setError] = useState<ErrorT | null>(null);
+  const [basicProfile, setBasicProfile] = useState<BasicProfile | null>(null);
   const {state} = useAppState();
 
   const {idx, currentUserDID} = useIdx();
@@ -59,19 +59,19 @@ const BasicProfile = () => {
 
   function errorMsg(error: ErrorT) {
     Modal.error({
-      title: 'Unable to save your name',
+      title: 'Something went wrong',
       content: <ErrorBox error={error} />,
       afterClose: () => setError(null),
       width: '800px',
     });
   }
 
-  const saveBasicProfile = async (values: any) => {
+  const saveBasicProfile = async (values: BasicProfile) => {
     setSaving(true);
     const {name} = values;
 
     try {
-      await idx.set('basicProfile', {name});
+      await idx.set(IdxSchema.BasicProfile, {name});
       setBasicProfileSaved(true);
     } catch (error) {
       setError(error);
@@ -83,11 +83,10 @@ const BasicProfile = () => {
   const handleGetName = async () => {
     try {
       setFetching(true);
-      const resp = await idx.get('basicProfile');
+      const resp = await idx.get<BasicProfile>(IdxSchema.BasicProfile);
       setBasicProfile(resp);
     } catch (error) {
       setError(error);
-      console.log('ERROR', error);
     } finally {
       setFetching(false);
     }

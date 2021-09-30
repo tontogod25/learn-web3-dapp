@@ -15,7 +15,7 @@ import type {ErrorT} from '@ceramic/types';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from 'context';
 import {useIdx} from '@ceramic/context/idx';
-import {QuoteSchemaT} from '@ceramic/types';
+import {IdxSchema, QuoteSchemaT} from '@ceramic/types';
 
 const layout = {
   labelCol: {span: 4},
@@ -60,22 +60,22 @@ const BasicProfile = () => {
 
   function errorMsg(error: ErrorT) {
     Modal.error({
-      title: 'Unable to fetch data',
+      title: 'Something went wrong',
       content: <ErrorBox error={error} />,
       afterClose: () => setError(null),
       width: '800px',
     });
   }
 
-  const saveQuote = async (values: any) => {
+  const saveQuote = async (values: QuoteSchemaT) => {
     setSaving(true);
     const {text, author} = values;
 
     try {
-      const resp = await idx.set('figment', {text, author});
+      await idx.set(IdxSchema.Figment, {text, author});
       setCustomSchemaSaved(true);
     } catch (error) {
-      console.log('ERROR', error);
+      setError(error);
     } finally {
       setSaving(false);
     }
@@ -83,11 +83,10 @@ const BasicProfile = () => {
 
   const handleGetQuote = async () => {
     try {
-      const resp = await idx.get('figment');
+      const resp = await idx.get<QuoteSchemaT>(IdxSchema.Figment);
       setCustomSchemaData(resp);
-      console.log('Name', resp);
     } catch (error) {
-      console.log('ERROR', error);
+      setError(error);
     } finally {
       setFetching(false);
     }

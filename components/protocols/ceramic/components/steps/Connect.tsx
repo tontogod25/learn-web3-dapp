@@ -20,7 +20,7 @@ const Connect = () => {
   const [error, setError] = useState<ErrorT | null>(null);
   const [providerFound, setProviderFound] = useState<boolean>(false);
 
-  const {state, dispatch} = useAppState();
+  const {dispatch} = useAppState();
 
   useEffect(() => {
     if (window.ethereum) {
@@ -55,15 +55,19 @@ const Connect = () => {
   }
 
   const getConnection = async () => {
-    const addresses = await window.ethereum.enable();
-    const address = addresses[0];
+    try {
+      const addresses = await window.ethereum.enable();
+      const address = addresses[0];
 
-    setAddress(address);
+      setAddress(address);
 
-    dispatch({
-      type: 'SetAddress',
-      address: address,
-    });
+      dispatch({
+        type: 'SetAddress',
+        address: address,
+      });
+    } catch (error) {
+      setError(error);
+    }
   };
 
   return (

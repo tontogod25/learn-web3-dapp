@@ -32,7 +32,7 @@ const initialState = {
 
 const IdxContext = createContext<{
   idxRef?: MutableRefObject<IDX>;
-  ceramicRef?: MutableRefObject<CeramicApi>;
+  ceramicRef?: MutableRefObject<CeramicClient>;
   currentUserDID?: string | null;
   setCurrentUserDID?: Dispatch<SetStateAction<string | null>>;
 }>({});
@@ -46,14 +46,14 @@ const Web3AuthProvider = (props: Web3AuthProviderProps) => {
   const {children, ceramicNodeUrl} = props;
   const [currentUserDID, setCurrentUserDID] = useState<string | null>(null);
 
-  const ceramicRef = useRef<CeramicApi>(new CeramicClient(ceramicNodeUrl));
+  const ceramicRef = useRef<CeramicClient>(new CeramicClient(ceramicNodeUrl));
   const idxRef = useRef<IDX>(new IDX({ceramic: ceramicRef.current, aliases}));
 
   return (
     <IdxContext.Provider
       value={{
-        idxRef: idxRef,
-        ceramicRef: ceramicRef,
+        idxRef,
+        ceramicRef,
         currentUserDID,
         setCurrentUserDID,
       }}
@@ -63,11 +63,27 @@ const Web3AuthProvider = (props: Web3AuthProviderProps) => {
   );
 };
 
-const useIdx = () => {
+type UseIdxHook = {
+  idx: IDX;
+  ceramic: CeramicClient;
+  logIn: (address: string) => Promise<string>;
+  currentUserDID: string | null;
+};
+
+const useIdx = (): UseIdxHook => {
   const {idxRef, ceramicRef, currentUserDID, setCurrentUserDID} =
     useContext(IdxContext);
 
-  const logIn = async (address: string) => {
+  if (
+    !ceramicRef ||
+    !idxRef ||
+    currentUserDID == undefined ||
+    setCurrentUserDID == undefined
+  ) {
+    throw new Error('Web3AuthProvider not used.');
+  }
+
+  const logIn = async (address: string): Promise<string> => {
     const threeIdConnect = new ThreeIdConnect();
 
     const provider = new EthereumAuthProvider(window.ethereum, address);
@@ -83,9 +99,12 @@ const useIdx = () => {
 
     await ceramicRef.current.setDID(didInstance);
 
-    const userDID = await ceramicRef.current.did.authenticate();
+    const did = ceramicRef.current.did as DID;
+    const userDID = await did.authenticate();
 
-    setCurrentUserDID(userDID);
+    if (setCurrentUserDID) {
+      setCurrentUserDID(userDID);
+    }
 
     idxRef.current = new IDX({
       ceramic: ceramicRef.current,
