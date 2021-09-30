@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import {Col, Row} from 'antd';
+import {Col} from 'antd';
 import styled from 'styled-components';
 
 import {CHAINS, UserActivity} from 'types';
@@ -11,51 +11,61 @@ import ProtocolLogo from 'components/icons';
 
 const Home = () => {
   return (
-    <Container>
+    <Container span={14} offset={5}>
       <Title>Figment Learn - All Pathways</Title>
-      <>
-        <Row>
-          <Cell span={8}>col-8</Cell>
-          <Cell span={8} offset={8}>
-            col-8
-          </Cell>
-        </Row>
-        <Row>
-          <Cell span={6} offset={6}>
-            col-6 col-offset-6
-          </Cell>
-          <Cell span={6} offset={6}>
-            col-6 col-offset-6
-          </Cell>
-        </Row>
-        <Row>
-          <Cell span={24}>Chains</Cell>
-        </Row>
-      </>
+      <ChainRow>
+        {Object.values(CHAINS_CONFIG)
+          .map((c) => c.id)
+          .map((chain: CHAINS) => {
+            const {id, active, label} = CHAINS_CONFIG[chain];
+            const {primaryColor, secondaryColor} = getChainColors(
+              chain as CHAINS,
+            );
+
+            const box = (
+              <ProtocolBox
+                key={id}
+                active={active}
+                primary_color={primaryColor}
+                secondary_color={secondaryColor}
+                onClick={() => {
+                  trackEvent(UserActivity.PROTOCOL_CLICKED, {
+                    protocolId: chain,
+                    protocolName: label,
+                  });
+                }}
+              >
+                <ProtocolLogo chainId={chain} />
+                <Label>{label}</Label>
+              </ProtocolBox>
+            );
+            return active ? (
+              <Link href={`/${id}`} key={id}>
+                {box}
+              </Link>
+            ) : (
+              box
+            );
+          })}
+      </ChainRow>
     </Container>
   );
 };
 
-const Cell = styled(Col)`
-  background: #eee;
-  border: solid 1px #555;
-`;
-
-const Container = styled.div`
-  width: 80%;
-  margin: 60px auto 0 auto;
+const Container = styled(Col)`
+  margin-top: 60px;
 `;
 
 const Title = styled.h1`
   margin-bottom: 40px;
 `;
 
-// const ChainRow = styled.div`
-//   display: grid;
-//   grid-template-columns: 1fr 1fr 1fr 1fr;
-//   column-gap: 20px;
-//   row-gap: 20px;
-// `;
+const ChainRow = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 20px;
+`;
 
 const ProtocolBox = styled.div<{
   active: boolean;
