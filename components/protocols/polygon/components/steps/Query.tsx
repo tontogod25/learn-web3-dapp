@@ -1,27 +1,14 @@
 import {PolygonQueryResponse} from '@polygon/types';
 import {LoadingOutlined} from '@ant-design/icons';
 import {Alert, Button, Col, Space} from 'antd';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import ReactJson from 'react-json-view';
-import {useGlobalState} from 'context';
 import axios from 'axios';
 
 const Query = () => {
   const [queryData, setQueryData] = useState<PolygonQueryResponse | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
-
-  useEffect(() => {
-    if (queryData) {
-      if (globalState.valid < 2) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 2,
-        });
-      }
-    }
-  }, [queryData, setQueryData]);
 
   const getQuery = async () => {
     setFetching(true);

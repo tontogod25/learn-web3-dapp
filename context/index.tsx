@@ -20,7 +20,8 @@ export type GlobalState = {
   };
   // Polygon global State
   polygon: {
-    network: string;
+    network?: string;
+    address?: string;
   };
 };
 
@@ -39,7 +40,8 @@ type Action =
   | {type: 'SetAvalancheAddress'; address?: string}
   | {type: 'SetAvalancheSecret'; secret?: string}
   // Polygon Actions
-  | {type: 'SetPolygonNetwork'; network: string};
+  | {type: 'SetPolygonNetwork'; network: string}
+  | {type: 'SetPolygonAddress'; address?: string};
 
 const initialGlobalState = {
   currentStepIndex: 0,
@@ -145,6 +147,15 @@ function globalStateReducer(state: GlobalState, action: Action): GlobalState {
       };
     }
     // Polygon State
+    case 'SetPolygonAddress': {
+      return {
+        ...state,
+        polygon: {
+          ...state.polygon,
+          address: action.address,
+        },
+      };
+    }
     case 'SetPolygonNetwork': {
       return {
         ...state,
