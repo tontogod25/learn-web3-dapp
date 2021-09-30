@@ -70,5 +70,6 @@ export const LinkIcon = styled.div`
 
   svg {
     color: #777;
+    width: 18px;
   }
 `;
