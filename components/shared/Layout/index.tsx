@@ -13,6 +13,7 @@ import {
 import {GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
 import styled from 'styled-components';
 import Footer from './Footer';
+import {setActionSetStepStatusFromChainId} from 'utils';
 
 const Layout = (
   Protocol: React.FC<{step: StepType}>,
@@ -30,11 +31,26 @@ const Layout = (
       type: 'SetChainId',
       chainId: chain.id,
     });
+    if (!state[chain.id]?.stepsStatus) {
+      const stepsStatus = JSON.stringify(
+        chain.steps.map((step) => [step.id, false]),
+      );
+      // @ts-ignore
+      dispatch(setActionSetStepStatusFromChainId(chain.id, stepsStatus));
+    } else {
+      const status = JSON.parse(state[chain.id]?.stepsStatus as string);
+      const currentIndex = status.filter((valid: any) => valid[1]).length;
+      console.log(currentIndex);
+      dispatch({
+        type: 'SetCurrentStepIndex',
+        currentStepIndex: currentIndex,
+      });
+    }
   }, []);
 
   useEffect(() => {
     setStorageState(state);
-  }, [state]);
+  }, [state, dispatch]);
 
   const step = chain.steps[state.currentStepIndex];
   const prevStep =
@@ -59,6 +75,7 @@ const Layout = (
         <Footer
           step={step}
           steps={chain.steps}
+          chainId={chain.id}
           prevStep={prevStep}
           nextStep={nextStep}
         />

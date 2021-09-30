@@ -7,15 +7,18 @@ import {useGlobalState} from 'context';
 import {CHAINS, StepType} from 'types';
 import React from 'react';
 import {FOOTER_HEIGHT} from 'lib/constants';
+import {getStepsStatus} from 'utils';
 
 const Footer = ({
   step,
   steps,
+  chainId,
   prevStep,
   nextStep,
 }: {
   step: StepType;
   steps: StepType[];
+  chainId: CHAINS;
   prevStep: StepType | null;
   nextStep: StepType | null;
 }) => {
@@ -52,6 +55,8 @@ const Footer = ({
   const justify =
     prevStep && nextStep ? 'space-between' : prevStep ? 'start' : 'end';
 
+  const isDisabled = getStepsStatus(state[chainId]?.stepsStatus, step.id);
+
   return (
     <Col span={24}>
       <StepFooter justify={justify} align="middle">
@@ -72,7 +77,7 @@ const Footer = ({
             onClick={() => next()}
             secondary_color={secondaryColor}
             primary_color={primaryColor}
-            // disabled={state.valid == state.index}
+            disabled={!isDisabled}
           >
             <Row align="middle">
               {`Next: ${nextStep.title}`}

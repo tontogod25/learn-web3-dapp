@@ -5,6 +5,7 @@ import {
   Transfer,
   Import,
   Export,
+  SetUp,
 } from '@avalanche/components/steps';
 import Nav from '@avalanche/components/nav';
 import Layout from 'components/shared/Layout';
@@ -14,12 +15,13 @@ import {StepType, ChainType} from 'types';
 const Avalanche: React.FC<{step: StepType}> = ({step}) => {
   return (
     <>
-      {step.id === 'connect' && <Connect />}
-      {step.id === 'account' && <Account />}
-      {step.id === 'balance' && <Balance />}
-      {step.id === 'transfer' && <Transfer />}
-      {step.id === 'export' && <Export />}
-      {step.id === 'import' && <Import />}
+      {step.id === 'setup' && <SetUp stepId={step.id} />}
+      {step.id === 'connect' && <Connect stepId={step.id} />}
+      {step.id === 'account' && <Account stepId={step.id} />}
+      {step.id === 'balance' && <Balance stepId={step.id} />}
+      {step.id === 'transfer' && <Transfer stepId={step.id} />}
+      {step.id === 'export' && <Export stepId={step.id} />}
+      {step.id === 'import' && <Import stepId={step.id} />}
       <Nav />
     </>
   );

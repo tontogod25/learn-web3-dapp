@@ -1,11 +1,12 @@
 import {Alert, Button, Col, Space, Typography} from 'antd';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from 'context';
+import {setStepsStatus} from 'utils';
 import axios from 'axios';
 
 const {Text} = Typography;
 
-const Account = () => {
+const Account = ({stepId}: {stepId: string}) => {
   const {state: globalState, dispatch} = useGlobalState();
   const state = globalState.avalanche;
   const [address, setAddress] = useState<string | null>(null);
@@ -30,6 +31,10 @@ const Account = () => {
       dispatch({
         type: 'SetAvalancheAddress',
         address: response.data.address,
+      });
+      dispatch({
+        type: 'SetAvalancheStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
       });
     } catch (error) {
       console.error(error);

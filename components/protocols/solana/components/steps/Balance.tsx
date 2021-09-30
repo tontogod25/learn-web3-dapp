@@ -6,10 +6,11 @@ import {prettyError} from '@solana/lib';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from 'context';
 import axios from 'axios';
+import {setStepsStatus} from 'utils';
 
 const {Text} = Typography;
 
-const Balance = () => {
+const Balance = ({stepId}: {stepId: string}) => {
   const {state: globalState, dispatch} = useGlobalState();
   const state = globalState.solana;
   const [fetching, setFetching] = useState<boolean>(false);
@@ -37,6 +38,10 @@ const Balance = () => {
     try {
       const response = await axios.post(`/api/solana/balance`, state);
       setBalance(response.data / LAMPORTS_PER_SOL);
+      dispatch({
+        type: 'SetSolanaStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+      });
     } catch (error) {
       setError(prettyError(error));
       setBalance(null);

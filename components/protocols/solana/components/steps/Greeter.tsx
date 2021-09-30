@@ -6,10 +6,11 @@ import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import axios from 'axios';
 import {useGlobalState} from 'context';
+import {setStepsStatus} from 'utils';
 
 const {Text} = Typography;
 
-const Greeter = () => {
+const Greeter = ({stepId}: {stepId: string}) => {
   const {state: globalState, dispatch} = useGlobalState();
   const state = globalState.solana;
   const [fetching, setFetching] = useState<boolean>(false);
@@ -39,8 +40,8 @@ const Greeter = () => {
       const response = await axios.post(`/api/solana/greeter`, state);
       setHash(response.data.hash);
       dispatch({
-        type: 'SetSolanaGreeter',
-        greeter: response.data.greeter,
+        type: 'SetSolanaStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
       });
     } catch (error) {
       setError(prettyError(error));
