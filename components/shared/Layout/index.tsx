@@ -40,9 +40,7 @@ const Layout = (
   const step = chain.steps[state.index];
   const prevStep = state.index - 1 >= 0 ? chain.steps[state.index - 1] : null;
   const nextStep =
-    state.index + 1 < chain.steps.length - 1
-      ? chain.steps[state.index + 1]
-      : null;
+    state.index < chain.steps.length - 1 ? chain.steps[state.index + 1] : null;
 
   return (
     <GlobalContext.Provider value={{state, dispatch}}>
