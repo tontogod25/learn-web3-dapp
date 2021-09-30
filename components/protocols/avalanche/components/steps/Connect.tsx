@@ -1,28 +1,16 @@
 import {Alert, Col, Space, Typography, Button} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
-import {useAppState} from '@avalanche/context';
-import {useEffect, useState} from 'react';
 import {useGlobalState} from 'context';
+import {useState} from 'react';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Connect = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.avalanche;
   const [version, setVersion] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
-  const {state} = useAppState();
-
-  useEffect(() => {
-    if (version) {
-      if (globalState.valid < 1) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 1,
-        });
-      }
-    }
-  }, [version, setVersion]);
 
   const getConnection = async () => {
     setFetching(true);
@@ -51,7 +39,7 @@ const Connect = () => {
             <Alert
               message={
                 <Space>
-                  Connected to {globalState.chain}:
+                  Connected to {globalState.chainId}:
                   <Text code>version {version}</Text>
                 </Space>
               }
@@ -61,7 +49,7 @@ const Connect = () => {
             />
           ) : (
             <Alert
-              message={`Not connected to ${globalState.chain}`}
+              message={`Not connected to ${globalState.chainId}`}
               type="error"
               showIcon
             />

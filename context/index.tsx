@@ -4,6 +4,7 @@ export type GlobalState = {
   currentStepIndex: number;
   highestCompletedStepIndex: number;
   chainId?: string;
+  // Solana global State
   solana: {
     network: string;
     address?: string;
@@ -11,6 +12,13 @@ export type GlobalState = {
     programId?: string;
     greeter?: string;
   };
+  // Avalanche global State
+  avalanche: {
+    network: string;
+    secret?: string;
+    address?: string;
+  };
+  // Polygon global State
   polygon: {
     network: string;
   };
@@ -20,19 +28,31 @@ type Action =
   | {type: 'SetCurrentStepIndex'; currentStepIndex: number}
   | {type: 'SetHighestCompletedStepIndex'; highestCompletedStepIndex: number}
   | {type: 'SetChainId'; chainId: string | undefined}
+  // Solana actions
   | {type: 'SetSolanaNetwork'; network: string}
   | {type: 'SetSolanaAddress'; address?: string}
   | {type: 'SetSolanaSecret'; secret?: string}
   | {type: 'SetSolanaProgramId'; programId?: string}
   | {type: 'SetSolanaGreeter'; greeter?: string}
+  // Avalanche Actions
+  | {type: 'SetAvalancheNetwork'; network: string}
+  | {type: 'SetAvalancheAddress'; address?: string}
+  | {type: 'SetAvalancheSecret'; secret?: string}
+  // Polygon Actions
   | {type: 'SetPolygonNetwork'; network: string};
 
 const initialGlobalState = {
   currentStepIndex: 0,
   highestCompletedStepIndex: 0,
+  // Solana initial state
   solana: {
     network: 'devnet',
   },
+  // Avalanche initial state
+  avalanche: {
+    network: 'datahub',
+  },
+  // Polygon initial state
   polygon: {
     network: 'datahub',
   },
@@ -93,6 +113,34 @@ function globalStateReducer(state: GlobalState, action: Action): GlobalState {
         solana: {
           ...state.solana,
           programId: action.programId,
+        },
+      };
+    }
+    // Avalanche State
+    case 'SetAvalancheNetwork': {
+      return {
+        ...state,
+        avalanche: {
+          ...state.avalanche,
+          network: action.network,
+        },
+      };
+    }
+    case 'SetAvalancheAddress': {
+      return {
+        ...state,
+        avalanche: {
+          ...state.avalanche,
+          address: action.address,
+        },
+      };
+    }
+    case 'SetAvalancheSecret': {
+      return {
+        ...state,
+        avalanche: {
+          ...state.avalanche,
+          secret: action.secret,
         },
       };
     }

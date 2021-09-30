@@ -1,6 +1,5 @@
 import {Alert, Button, Col, Space, Typography, Modal} from 'antd';
 import type {ErrorT} from '@solana/types';
-import {useAppState} from '@solana/context';
 import {ErrorBox} from '@solana/components/nav';
 import {useEffect, useState} from 'react';
 import {prettyError} from '@solana/lib';
