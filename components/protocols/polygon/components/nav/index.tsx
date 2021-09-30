@@ -1,6 +1,5 @@
 import {getPolygonAddressExplorerURL} from '@polygon/lib';
 import {Typography, Popover, Button, Tag, Space, Select} from 'antd';
-import {useAppState} from '@polygon/context';
 import type {EntryT} from '@polygon/types';
 import {trackStorageCleared} from '@funnel/tracking-utils';
 import {FundViewOutlined} from '@ant-design/icons';
@@ -8,12 +7,12 @@ import {useGlobalState} from 'context';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 
 const {Paragraph} = Typography;
+
 const {Option} = Select;
 
 const Nav = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
-  const {state, dispatch} = useAppState();
-  const {address} = state;
+  const {state: globalState, dispatch} = useGlobalState();
+  const {address} = globalState.polygon;
 
   const displayAddress = (address: string) =>
     `${address.slice(0, 6)}...${address.slice(-4)}`;
@@ -40,26 +39,26 @@ const Nav = () => {
   };
 
   const clear = () => {
-    globalDispatch({
-      type: 'SetIndex',
-      index: 0,
+    dispatch({
+      type: 'SetCurrentStepIndex',
+      currentStepIndex: 0,
     });
-    globalDispatch({
-      type: 'SetValid',
-      valid: 0,
+    dispatch({
+      type: 'SetHighestCompletedStepIndex',
+      highestCompletedStepIndex: 0,
     });
-    trackStorageCleared(globalState.chain as string);
+    trackStorageCleared(globalState.chainId as string);
   };
 
   const clearKeychain = () => {
     const proceed = confirm('Are you sure you want to clear the keychain?');
     if (proceed) {
       dispatch({
-        type: 'SetAddress',
+        type: 'SetPolygonAddress',
         address: undefined,
       });
       dispatch({
-        type: 'SetNetwork',
+        type: 'SetPolygonNetwork',
         network: 'datahub',
       });
       clear();

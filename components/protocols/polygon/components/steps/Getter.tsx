@@ -11,20 +11,10 @@ import {ethers} from 'ethers';
 declare let window: any;
 
 const Getter = () => {
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.polygon;
   const [fetching, setFetching] = useState<boolean>(false);
   const [contractNumber, setContractNumber] = useState<string | null>(null);
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
-
-  useEffect(() => {
-    if (contractNumber) {
-      if (globalState.valid < 7) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 7,
-        });
-      }
-    }
-  }, [contractNumber, setContractNumber]);
 
   const getValue = async () => {
     try {
