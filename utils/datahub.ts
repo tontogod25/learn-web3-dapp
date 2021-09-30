@@ -1,3 +1,4 @@
+import rehypeFilter from 'react-markdown/lib/rehype-filter';
 import {
   NETWORKS,
   PROTOCOLS,
@@ -38,6 +39,8 @@ const getTestnetNodeURL = (chain: CHAINS): string => {
       return 'https://api.devnet.solana.com';
     case CHAINS.AVALANCHE:
       return 'https://api.avax-test.network';
+    case CHAINS.NEAR:
+      return 'https://rpc.testnet.near.org';
     default:
       return '';
   }

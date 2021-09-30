@@ -1,4 +1,3 @@
-import {useEffect, useReducer} from 'react';
 import {
   Connect,
   Keys,
@@ -8,23 +7,14 @@ import {
   Deploy,
   Getter,
   Setter,
-} from '@near/components/Steps';
-import {appStateReducer, initialState, NearContext} from '@near/context';
-import {useLocalStorage} from '@near/hooks';
+} from '@near/components/steps';
 import Nav from '@near/components/nav';
 import {ChainType, StepType} from 'types';
 import Layout from 'components/shared/Layout';
 
 const Near: React.FC<{step: StepType}> = ({step}) => {
-  const [storageState, setStorageState] = useLocalStorage('near', initialState);
-  const [state, dispatch] = useReducer(appStateReducer, storageState);
-
-  useEffect(() => {
-    setStorageState(state);
-  }, [state]);
-
   return (
-    <NearContext.Provider value={{state, dispatch}}>
+    <>
       {step.id === 'connect' && <Connect />}
       {step.id === 'keypair' && <Keys />}
       {step.id === 'account' && <Account />}
@@ -34,7 +24,7 @@ const Near: React.FC<{step: StepType}> = ({step}) => {
       {step.id === 'getter' && <Getter />}
       {step.id === 'setter' && <Setter />}
       <Nav />
-    </NearContext.Provider>
+    </>
   );
 };
 

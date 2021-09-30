@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {Alert, Col, Input, Button, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import axios from 'axios';
-import {useAppState} from '@near/hooks';
+import {useGlobalState} from 'context';
 import {getAccountUrl} from '@near/lib';
 
 const {Text} = Typography;
@@ -10,32 +10,30 @@ const {Text} = Typography;
 const DECIMAL_OFFSET = 10 ** 24;
 
 const Balance = () => {
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.near;
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [balance, setBalance] = useState<number>(0);
-  const {state} = useAppState();
   const {network, accountId} = state;
 
-  const getBalance = () => {
+  const getBalance = async () => {
     setError(null);
     setFetching(true);
-    axios
-      .post(`/api/near/balance`, state)
-      .then((res) => {
-        const amount = res.data;
-        const intoNear = (parseFloat(amount) / DECIMAL_OFFSET).toFixed();
-        setBalance(parseFloat(intoNear));
-        setFetching(false);
-      })
-      .catch((err) => {
-        const data = err.data;
-        setFetching(false);
-        setBalance(0);
-        setError(data);
-      });
+    setBalance(0);
+    try {
+      const response = await axios.post(`/api/near/balance`, state);
+      const intoNear = (parseFloat(response.data) / DECIMAL_OFFSET).toFixed();
+      setBalance(parseFloat(intoNear));
+    } catch (error) {
+      const data = error.data;
+      setError(data);
+    } finally {
+      setFetching(false);
+    }
   };
 
-  const explorerUrl = getAccountUrl(network)(accountId as string);
+  const explorerUrl = getAccountUrl(accountId as string);
 
   return (
     <Col>

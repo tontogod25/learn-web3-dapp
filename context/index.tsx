@@ -4,7 +4,7 @@ export type GlobalState = {
   currentStepIndex: number;
   highestCompletedStepIndex: number;
   chainId?: string;
-  // Solana global State
+  // Solana global state
   solana: {
     network: string;
     address?: string;
@@ -12,13 +12,20 @@ export type GlobalState = {
     programId?: string;
     greeter?: string;
   };
-  // Avalanche global State
+  // Avalanche global state
   avalanche: {
     network: string;
     secret?: string;
     address?: string;
   };
-  // Polygon global State
+  // Near global state
+  near: {
+    network: string;
+    accountId?: string;
+    secret?: string;
+    contractId?: string;
+  };
+  // Polygon global state
   polygon: {
     network?: string;
     address?: string;
@@ -39,6 +46,11 @@ type Action =
   | {type: 'SetAvalancheNetwork'; network: string}
   | {type: 'SetAvalancheAddress'; address?: string}
   | {type: 'SetAvalancheSecret'; secret?: string}
+  // Near Actions
+  | {type: 'SetNearNetwork'; network: string}
+  | {type: 'SetNearAccountId'; accountId?: string}
+  | {type: 'SetNearSecret'; secret?: string}
+  | {type: 'SetNearConractId'; contractId?: string}
   // Polygon Actions
   | {type: 'SetPolygonNetwork'; network: string}
   | {type: 'SetPolygonAddress'; address?: string};
@@ -52,6 +64,10 @@ const initialGlobalState = {
   },
   // Avalanche initial state
   avalanche: {
+    network: 'datahub',
+  },
+  // Near initial state
+  near: {
     network: 'datahub',
   },
   // Polygon initial state
@@ -146,7 +162,44 @@ function globalStateReducer(state: GlobalState, action: Action): GlobalState {
         },
       };
     }
-    // Polygon State
+    // Near State
+    case 'SetNearNetwork': {
+      return {
+        ...state,
+        near: {
+          ...state.near,
+          network: action.network,
+        },
+      };
+    }
+    case 'SetNearAccountId': {
+      return {
+        ...state,
+        near: {
+          ...state.near,
+          accountId: action.accountId,
+        },
+      };
+    }
+    case 'SetNearSecret': {
+      return {
+        ...state,
+        near: {
+          ...state.near,
+          secret: action.secret,
+        },
+      };
+    }
+    case 'SetNearConractId': {
+      return {
+        ...state,
+        near: {
+          ...state.near,
+          contractId: action.contractId,
+        },
+      };
+    }
+    // Polygon state
     case 'SetPolygonAddress': {
       return {
         ...state,

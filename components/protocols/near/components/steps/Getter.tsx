@@ -1,31 +1,29 @@
 import {Alert, Col, Button, Space, Typography} from 'antd';
-import {useAppState} from '@near/hooks';
+import {useGlobalState} from 'context';
 import {useState} from 'react';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Getter = () => {
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.near;
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [greeting, setGreeting] = useState<number | null>(null);
-  const {state} = useAppState();
 
-  const getGreeting = () => {
+  const getGreeting = async () => {
     setError(null);
+    setGreeting(null);
     setFetching(true);
-    axios
-      .post(`/api/near/getter`, state)
-      .then((res) => {
-        setGreeting(res.data);
-        setFetching(false);
-      })
-      .catch((err) => {
-        const data = err.response.data;
-        setFetching(false);
-        setGreeting(null);
-        setError(data.message);
-      });
+    try {
+      const response = await axios.post(`/api/near/getter`, state);
+      setGreeting(response.data);
+    } catch (error) {
+      setError(error.response.data);
+    } finally {
+      setFetching(false);
+    }
   };
 
   return (
