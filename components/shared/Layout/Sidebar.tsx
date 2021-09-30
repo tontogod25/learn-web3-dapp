@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Col, Space, Menu, Dropdown} from 'antd';
 import {OrderedListOutlined} from '@ant-design/icons';
-import Markdown from '@figment-networks/gitbook-markdown-renderer';
+import Markdown from 'components/shared/CustomMarkdown';
 
 import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
 import {MarkdownForChainT, StepType} from 'types';
