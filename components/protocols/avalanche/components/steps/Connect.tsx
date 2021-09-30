@@ -3,10 +3,11 @@ import {PoweroffOutlined} from '@ant-design/icons';
 import {useGlobalState} from 'context';
 import {useState} from 'react';
 import axios from 'axios';
+import {setStepsStatus} from 'utils';
 
 const {Text} = Typography;
 
-const Connect = () => {
+const Connect = ({stepId}: {stepId: string}) => {
   const {state: globalState, dispatch} = useGlobalState();
   const state = globalState.avalanche;
   const [version, setVersion] = useState<string | null>(null);
@@ -17,6 +18,10 @@ const Connect = () => {
     try {
       const response = await axios.post(`/api/avalanche/connect`, state);
       setVersion(response.data);
+      dispatch({
+        type: 'SetAvalancheStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+      });
     } catch (error) {
       setVersion(null);
     } finally {

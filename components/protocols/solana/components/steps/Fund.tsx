@@ -5,10 +5,11 @@ import type {ErrorT} from '@solana/types';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from 'context';
 import axios from 'axios';
+import {setStepsStatus} from 'utils';
 
 const {Text} = Typography;
 
-const Fund = () => {
+const Fund = ({stepId}: {stepId: string}) => {
   const {state: globalState, dispatch} = useGlobalState();
   const state = globalState.solana;
   const [fetching, setFetching] = useState<boolean>(false);
@@ -43,12 +44,12 @@ const Fund = () => {
       if (response.data.length === 0) {
         throw new Error('Complete the code');
       }
-      dispatch({
-        type: 'SetHighestCompletedStepIndex',
-        highestCompletedStepIndex: 1,
-      });
       setHash(response.data);
       setIsFunded(true);
+      dispatch({
+        type: 'SetSolanaStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+      });
     } catch (error) {
       if (error.message === 'Complete the code') {
         setError({message: 'Complete the code'});

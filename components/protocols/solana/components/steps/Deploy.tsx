@@ -6,10 +6,11 @@ import {prettyError} from '@solana/lib';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useGlobalState} from 'context';
+import {setStepsStatus} from 'utils';
 
 const {Text} = Typography;
 
-const Deploy = () => {
+const Deploy = ({stepId}: {stepId: string}) => {
   const {state: globalState, dispatch} = useGlobalState();
   const state = globalState.solana;
   const [value, setValue] = useState<string | null>(null);
@@ -43,8 +44,8 @@ const Deploy = () => {
       });
       setChecked(response.data);
       dispatch({
-        type: 'SetSolanaProgramId',
-        programId: value as string,
+        type: 'SetSolanaStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
       });
     } catch (error) {
       setError(prettyError(error));

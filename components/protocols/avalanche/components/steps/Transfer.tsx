@@ -4,6 +4,7 @@ import {transactionUrl} from '@avalanche/lib';
 import {useState, useEffect} from 'react';
 import {useGlobalState} from 'context';
 import axios from 'axios';
+import {setStepsStatus} from 'utils';
 
 const layout = {
   labelCol: {span: 4},
@@ -18,7 +19,7 @@ const recipient = 'X-fuji1j2zasjlkkvptegp6dpm222q6sn02k0rp9fj92d';
 
 const {Text} = Typography;
 
-const Transfer = () => {
+const Transfer = ({stepId}: {stepId: string}) => {
   const {state: globalState, dispatch} = useGlobalState();
   const state = globalState.avalanche;
   const [error, setError] = useState<string | null>(null);
@@ -39,6 +40,10 @@ const Transfer = () => {
         recipient,
       });
       setHash(response.data);
+      dispatch({
+        type: 'SetAvalancheStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+      });
     } catch (error) {
       setError(error.message);
     } finally {

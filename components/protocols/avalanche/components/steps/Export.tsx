@@ -3,8 +3,9 @@ import {transactionUrl} from '@avalanche/lib';
 import {useState} from 'react';
 import {useGlobalState} from 'context';
 import axios from 'axios';
+import {setStepsStatus} from 'utils';
 
-const Export = () => {
+const Export = ({stepId}: {stepId: string}) => {
   const {state: globalState, dispatch} = useGlobalState();
   const state = globalState.avalanche;
   const [error, setError] = useState<string | null>(null);
@@ -16,6 +17,10 @@ const Export = () => {
     try {
       const response = await axios.post(`/api/avalanche/export`, state);
       setHash(response.data);
+      dispatch({
+        type: 'SetAvalancheStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+      });
     } catch (error) {
       console.log(error);
     } finally {
