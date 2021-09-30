@@ -20,7 +20,6 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@celo/contractkit": "^1.2.4",
-    "@figment-networks/gitbook-markdown-renderer": "1.0.4",
     "@iov/crypto": "^2.5.0",
     "@maticnetwork/maticjs": "^2.0.43",
     "@metamask/detect-provider": "^1.2.0",
