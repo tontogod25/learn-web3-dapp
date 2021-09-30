@@ -1,9 +1,9 @@
-import Sidebar from './Sidebar';
-import Nav from './Nav';
-import React, {useEffect, useReducer} from 'react';
 import {ChainType, MarkdownForChainT, StepType} from 'types';
+import React, {useEffect, useReducer} from 'react';
 import {useLocalStorage} from 'hooks';
+import Sidebar from './Sidebar';
 import {Row, Col} from 'antd';
+import Nav from './Nav';
 import {
   GlobalContext,
   globalStateReducer,
@@ -28,8 +28,8 @@ const Layout = (
 
   useEffect(() => {
     dispatch({
-      type: 'SetChain',
-      chain: chain.id,
+      type: 'SetChainId',
+      chainId: chain.id,
     });
   }, []);
 
@@ -37,10 +37,15 @@ const Layout = (
     setStorageState(state);
   }, [state]);
 
-  const step = chain.steps[state.index];
-  const prevStep = state.index - 1 >= 0 ? chain.steps[state.index - 1] : null;
+  const step = chain.steps[state.currentStepIndex];
+  const prevStep =
+    state.currentStepIndex - 1 >= 0
+      ? chain.steps[state.currentStepIndex - 1]
+      : null;
   const nextStep =
-    state.index < chain.steps.length - 1 ? chain.steps[state.index + 1] : null;
+    state.currentStepIndex < chain.steps.length - 1
+      ? chain.steps[state.currentStepIndex + 1]
+      : null;
 
   return (
     <GlobalContext.Provider value={{state, dispatch}}>

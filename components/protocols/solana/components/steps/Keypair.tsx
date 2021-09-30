@@ -10,22 +10,11 @@ import axios from 'axios';
 const {Text} = Typography;
 
 const Keypair = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.solana;
   const [address, setAddress] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
-  const {state, dispatch} = useAppState();
-
-  useEffect(() => {
-    if (address) {
-      if (globalState.valid < 2) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 2,
-        });
-      }
-    }
-  }, [address, setAddress]);
 
   useEffect(() => {
     if (error) {
@@ -53,11 +42,11 @@ const Keypair = () => {
       const response = await axios.get(`/api/solana/keypair`);
       setAddress(response.data.address);
       dispatch({
-        type: 'SetSecret',
+        type: 'SetSolanaSecret',
         secret: response.data.secret,
       });
       dispatch({
-        type: 'SetAddress',
+        type: 'SetSolanaAddress',
         address: response.data.address,
       });
     } catch (error) {

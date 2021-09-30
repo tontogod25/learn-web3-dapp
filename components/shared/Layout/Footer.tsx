@@ -1,7 +1,7 @@
 import {ArrowLeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
-import {trackTutorialStepViewed} from '@funnel/tracking-utils';
+import {trackTutorialStepViewed} from 'utils/tracking-utils';
 import {getChainColors} from 'utils/colors';
-import {Button, Col, Row, Space} from 'antd';
+import {Button, Col, Row} from 'antd';
 import styled from 'styled-components';
 import {useGlobalState} from 'context';
 import {CHAINS, StepType} from 'types';
@@ -21,32 +21,34 @@ const Footer = ({
 }) => {
   const {state, dispatch} = useGlobalState();
   const next = () => {
-    const index = state.index + 1;
+    const currentStepIndex = state.currentStepIndex + 1;
     dispatch({
-      type: 'SetIndex',
-      index,
+      type: 'SetCurrentStepIndex',
+      currentStepIndex,
     });
     trackTutorialStepViewed(
-      state.chain as CHAINS,
-      steps[state.index].title,
+      state.chainId as CHAINS,
+      steps[state.currentStepIndex].title,
       'next',
     );
   };
 
   const prev = () => {
-    const index = state.index - 1;
+    const currentStepIndex = state.currentStepIndex - 1;
     dispatch({
-      type: 'SetIndex',
-      index,
+      type: 'SetCurrentStepIndex',
+      currentStepIndex,
     });
     trackTutorialStepViewed(
-      state.chain as CHAINS,
-      steps[state.index].title,
-      'prev',
+      state.chainId as CHAINS,
+      steps[state.currentStepIndex].title,
+      'next',
     );
   };
 
-  const {primaryColor, secondaryColor} = getChainColors(state.chain as CHAINS);
+  const {primaryColor, secondaryColor} = getChainColors(
+    state.chainId as CHAINS,
+  );
   const justify =
     prevStep && nextStep ? 'space-between' : prevStep ? 'start' : 'end';
 
