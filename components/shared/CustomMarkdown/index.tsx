@@ -38,10 +38,16 @@ const Markdown = ({
       components={{
         code({node, inline, className, children, ...props}) {
           const match = /language-(\w+)/.exec(className || '');
+          const isSolution = String(children).indexOf('// solution') > -1;
+          const codeStr = String(children)
+            .replace('// solution\n', '')
+            .replace(/\n$/, '');
+
           return !inline && match ? (
             <CodeBlock
               language={match[1]}
-              codeStr={String(children).replace(/\n$/, '')}
+              isSolution={isSolution}
+              codeStr={codeStr}
             />
           ) : (
             <Text code>{children}</Text>
