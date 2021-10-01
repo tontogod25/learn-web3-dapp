@@ -3,8 +3,16 @@ import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {dracula} from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import styled from 'styled-components';
 
-const CodeBlock = ({codeStr, language}: {codeStr: any; language: any}) => {
-  const [showCode, setShowCode] = useState<boolean>(false);
+const CodeBlock = ({
+  codeStr,
+  language,
+  isSolution,
+}: {
+  codeStr: any;
+  language: any;
+  isSolution: boolean;
+}) => {
+  const [showCode, setShowCode] = useState<boolean>(!isSolution);
 
   return (
     <RevealWrapper>
