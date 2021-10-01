@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {dracula} from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import gfm from 'remark-gfm';
 import {Typography, Divider, Tag} from 'antd';
@@ -9,6 +8,7 @@ import {FileOutlined, LinkOutlined} from '@ant-design/icons';
 import {extractStringFromTree, stringToCssId} from './utils/string-utils';
 import {GitbookHintType, gitbookHintTypeToAntd} from './utils/markdown-utils';
 import VideoPlayer from './VideoPlayer';
+import CodeBlock from './CodeBlock';
 
 import {
   StyledListItem,
@@ -39,15 +39,10 @@ const Markdown = ({
         code({node, inline, className, children, ...props}) {
           const match = /language-(\w+)/.exec(className || '');
           return !inline && match ? (
-            <SyntaxHighlighter
+            <CodeBlock
               language={match[1]}
-              PreTag="div"
-              customStyle={{margin: '1.5em 0'}}
-              style={dracula}
-              {...props}
-            >
-              {String(children).replace(/\n$/, '')}
-            </SyntaxHighlighter>
+              codeStr={String(children).replace(/\n$/, '')}
+            />
           ) : (
             <Text code>{children}</Text>
           );
