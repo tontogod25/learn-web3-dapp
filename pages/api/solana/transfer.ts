@@ -29,10 +29,10 @@ export default async function transfer(
     // How could you construct a signer array's
     const signers = undefined;
 
-    // Maybe adding someting to a Transaction could be interesting ?
+    // Maybe adding something to a Transaction could be interesting ?
     const transaction = new Transaction();
 
-    const hash = res.status(200).json(hash); // You should now what is expected here.
+    const hash = res.status(200).json(hash); // You should know what is expected here.
   } catch (error) {
     console.log(error);
     res.status(500).json(error.message);
