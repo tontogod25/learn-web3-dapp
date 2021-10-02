@@ -1,7 +1,7 @@
 type ErrorT = {
   message: string;
   file?: string;
-  agrs?: string;
+  args?: string;
 };
 
 type EntryT = {

@@ -2,7 +2,7 @@ const prettyError = (error: any) => {
   return {
     message: error?.response?.data ?? 'Unknown message',
     file: error?.config?.url ?? 'Unknown file',
-    agrs: error?.config?.data
+    args: error?.config?.data
       ? JSON.parse(error.config.data)
       : {error: 'Unknown'},
   };

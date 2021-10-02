@@ -44,7 +44,7 @@ export type StepType = {
 export type ErrorT = {
   message: string;
   file?: string;
-  agrs?: string;
+  args?: string;
 };
 
 export type StepT = {

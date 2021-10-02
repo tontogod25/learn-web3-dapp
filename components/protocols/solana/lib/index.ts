@@ -21,11 +21,11 @@ const transactionExplorer = (hash: string, network: string) => {
 
 const prettyError = (error: any) => {
   return {
-    message: error?.response?.data ?? 'Unkown message',
-    file: error?.config?.url ?? 'Unkown file',
-    agrs: error?.config?.data
+    message: error?.response?.data ?? 'Unknown message',
+    file: error?.config?.url ?? 'Unknown file',
+    args: error?.config?.data
       ? JSON.parse(error.config.data)
-      : {error: 'inconnue'},
+      : {error: 'Unknown'},
   };
 };
 
