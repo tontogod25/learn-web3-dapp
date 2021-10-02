@@ -14,6 +14,7 @@ import {
 } from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
 import axios from 'axios';
+import {setStepsStatus} from 'utils';
 
 const {Text} = Typography;
 

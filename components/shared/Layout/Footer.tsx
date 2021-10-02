@@ -55,6 +55,8 @@ const Footer = () => {
   const justify =
     previousStep && nextStep ? 'space-between' : previousStep ? 'start' : 'end';
 
+  const isDisabled = getStepsStatus(state[chainId]?.stepsStatus, step.id);
+
   return (
     <Col span={24}>
       <StepFooter justify={justify} align="middle">
