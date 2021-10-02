@@ -5,35 +5,44 @@ import {OrderedListOutlined} from '@ant-design/icons';
 import Markdown from 'components/shared/CustomMarkdown';
 
 import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
-import {MarkdownForChainT, StepType} from 'types';
-import {getStepNumber} from 'utils/steps';
+import {MarkdownForChainT, CHAINS} from 'types';
+import {
+  getChainCurrentStepId,
+  getChainStepsTitle,
+  useGlobalState,
+  getChainSteps,
+  getCurrentChainId,
+  getChainStepsId,
+  getChainStepsPosition,
+} from 'context';
 
-const Sidebar = ({
-  steps,
-  step,
-  markdown,
-}: {
-  steps: StepType[];
-  step: StepType;
-  markdown: MarkdownForChainT;
-}) => {
-  const md = markdown[step.id];
-  const stepIndex = getStepNumber({steps, step});
+const Sidebar = ({markdown}: {markdown: MarkdownForChainT}) => {
+  const {state} = useGlobalState();
+  const chainId = getCurrentChainId(state) as CHAINS;
+  const currentStepId = getChainCurrentStepId(state, chainId);
+  const stepTitle = getChainStepsTitle(state, chainId, currentStepId);
+  const stepId = getChainStepsId(state, chainId, currentStepId);
+  const steps = Object.values(getChainSteps(state, chainId)).map((step) => {
+    const index = step.position as number;
+    const title = step.title as string;
+    return {index, title};
+  });
+
+  const md = markdown[currentStepId];
+  const stepIndex = getChainStepsPosition(state, chainId, currentStepId);
 
   const menu = (
     <StyledMenu>
-      {steps.map((step: StepType, index: number) => {
-        return (
-          <MenuItem key={index}>{`${index + 1} - ${step.title}`}</MenuItem>
-        );
+      {steps.map(({index, title}) => {
+        return <MenuItem key={index}>{`${index + 1} - ${title}`}</MenuItem>;
       })}
     </StyledMenu>
   );
 
   return (
-    <Left span={GRID_LAYOUT[0]} key={step.id}>
+    <Left span={GRID_LAYOUT[0]} key={stepId}>
       <StepHeader size="large" align="center">
-        <StepTitle>{step.title}</StepTitle>
+        <StepTitle>{stepTitle}</StepTitle>
         <StepNumber>{`(${stepIndex}/${steps.length})`}</StepNumber>
         <Dropdown overlay={menu}>
           <OrderedListOutlined style={{fontSize: 20}} />

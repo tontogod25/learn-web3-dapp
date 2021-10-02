@@ -3,15 +3,21 @@ import type {ErrorT} from '@solana/types';
 import {ErrorBox} from '@solana/components/nav';
 import {useEffect, useState} from 'react';
 import {prettyError} from '@solana/lib';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getChainCurrentStepId,
+} from 'context';
 import axios from 'axios';
-import {setStepsStatus} from 'utils';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
-const Keypair = ({stepId}: {stepId: string}) => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.solana;
+const Keypair = () => {
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getChainCurrentStepId(state, chainId);
+
   const [address, setAddress] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
@@ -30,11 +36,13 @@ const Keypair = ({stepId}: {stepId: string}) => {
       width: '800px',
     });
   }
+  /*
   useEffect(() => {
     if (state?.address) {
       setAddress(state.address);
     }
   }, []);
+  */
 
   const generateKeypair = async () => {
     setFetching(true);
@@ -42,16 +50,22 @@ const Keypair = ({stepId}: {stepId: string}) => {
       const response = await axios.get(`/api/solana/keypair`);
       setAddress(response.data.address);
       dispatch({
-        type: 'SetSolanaSecret',
-        secret: response.data.secret,
+        type: 'SetChainInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.SECRET,
+        value: response.data.secret,
       });
       dispatch({
-        type: 'SetSolanaAddress',
-        address: response.data.address,
+        type: 'SetChainInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
+        value: response.data.address,
       });
       dispatch({
-        type: 'SetSolanaStepsStatus',
-        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+        type: 'SetChainProgressIsCompleted',
+        chainId,
+        stepId,
+        value: true,
       });
     } catch (error) {
       setError(prettyError(error));

@@ -4,15 +4,22 @@ import {ErrorBox} from '@solana/components/nav';
 import {useEffect, useState} from 'react';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getChainCurrentStepId,
+  getChainNetwork,
+} from 'context';
 import axios from 'axios';
-import {setStepsStatus} from 'utils';
 
 const {Text} = Typography;
 
-const Connect = ({stepId}: {stepId: string}) => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.solana;
+const Connect = () => {
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getChainCurrentStepId(state, chainId);
+  const network = getChainNetwork(state, chainId);
+
   const [version, setVersion] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
@@ -36,11 +43,13 @@ const Connect = ({stepId}: {stepId: string}) => {
     setFetching(true);
     setError(null);
     try {
-      const response = await axios.post(`/api/solana/connect`, state);
+      const response = await axios.post(`/api/solana/connect`, {network});
       setVersion(response.data);
       dispatch({
-        type: 'SetSolanaStepsStatus',
-        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+        type: 'SetChainProgressIsCompleted',
+        chainId,
+        stepId,
+        value: true,
       });
     } catch (error) {
       setError(prettyError(error));

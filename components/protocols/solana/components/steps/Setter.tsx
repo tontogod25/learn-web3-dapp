@@ -5,15 +5,42 @@ import {ErrorBox} from '@solana/components/nav';
 import {useEffect, useState} from 'react';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getChainCurrentStepId,
+  getChainNetwork,
+  getChainInnerState,
+} from 'context';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 import axios from 'axios';
-import {setStepsStatus} from 'utils';
 
 const {Text} = Typography;
 
-const Setter = ({stepId}: {stepId: string}) => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.solana;
+const Setter = () => {
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getChainCurrentStepId(state, chainId);
+  const network = getChainNetwork(state, chainId);
+
+  const secret = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.SECRET,
+  ) as string;
+  const programId = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
+  ) as string;
+  console.log(programId);
+
+  const greeter = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.GREETER,
+  ) as string;
+
   const [fetching, setFetching] = useState<boolean>(false);
   const [resetting, setResetting] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
@@ -40,11 +67,18 @@ const Setter = ({stepId}: {stepId: string}) => {
       setError(null);
       setFetching(true);
       try {
-        const response = await axios.post(`/api/solana/getter`, state);
+        const response = await axios.post(`/api/solana/getter`, {
+          greeter,
+          secret,
+          programId,
+          network,
+        });
         setMessage(response.data);
         dispatch({
-          type: 'SetSolanaStepsStatus',
-          stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+          type: 'SetChainProgressIsCompleted',
+          chainId,
+          stepId,
+          value: true,
         });
       } catch (error) {
         setError(prettyError(error));
@@ -59,7 +93,12 @@ const Setter = ({stepId}: {stepId: string}) => {
     setError(null);
     setResetting(true);
     try {
-      const response = await axios.post(`/api/solana/setter`, state);
+      const response = await axios.post(`/api/solana/setter`, {
+        greeter,
+        secret,
+        programId,
+        network,
+      });
       setHash(response.data);
     } catch (error) {
       setError(prettyError(error));
@@ -98,7 +137,7 @@ const Setter = ({stepId}: {stepId: string}) => {
                 message={<Text strong>{`The greeting has been sent`}</Text>}
                 description={
                   <a
-                    href={transactionExplorer(hash, state.network)}
+                    href={transactionExplorer(hash, network)}
                     target="_blank"
                     rel="noreferrer"
                   >

@@ -1,84 +1,52 @@
-import {ChainType, MarkdownForChainT, StepType} from 'types';
+import {GlobalContext, globalStateReducer, initialGlobalState} from 'context';
+import {ChainType, MarkdownForChainT, GlobalStateT} from 'types';
+import {GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
 import React, {useEffect, useReducer} from 'react';
+import styled from 'styled-components';
 import {useLocalStorage} from 'hooks';
 import Sidebar from './Sidebar';
 import {Row, Col} from 'antd';
-import Nav from './Nav';
-import {
-  GlobalContext,
-  globalStateReducer,
-  initialGlobalState,
-  GlobalState,
-} from 'context';
-import {GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
-import styled from 'styled-components';
 import Footer from './Footer';
-import {setActionSetStepStatusFromChainId} from 'utils';
+import Nav from './Nav';
 
 const Layout = (
-  Protocol: React.FC<{step: StepType}>,
+  Protocol: React.FC,
   chain: ChainType,
   markdown: MarkdownForChainT,
 ) => {
-  const [storageState, setStorageState] = useLocalStorage<GlobalState>(
+  const [storageState, setStorageState] = useLocalStorage<GlobalStateT>(
     'figment',
     initialGlobalState,
   );
+
   const [state, dispatch] = useReducer(globalStateReducer, storageState);
 
   useEffect(() => {
     dispatch({
       type: 'SetChainId',
-      chainId: chain.id,
+      currentChainId: chain.id,
     });
-    if (!state[chain.id]?.stepsStatus) {
-      const stepsStatus = JSON.stringify(
-        chain.steps.map((step) => [step.id, false]),
-      );
-      // @ts-ignore
-      dispatch(setActionSetStepStatusFromChainId(chain.id, stepsStatus));
-    } else {
-      const status = JSON.parse(state[chain.id]?.stepsStatus as string);
-      const currentIndex = status.filter((valid: any) => valid[1]).length;
-      console.log(currentIndex);
-      dispatch({
-        type: 'SetCurrentStepIndex',
-        currentStepIndex: currentIndex,
-      });
-    }
-  }, []);
+  }, [chain]);
 
   useEffect(() => {
     setStorageState(state);
   }, [state, dispatch]);
 
-  const step = chain.steps[state.currentStepIndex];
-  const prevStep =
-    state.currentStepIndex - 1 >= 0
-      ? chain.steps[state.currentStepIndex - 1]
-      : null;
-  const nextStep =
-    state.currentStepIndex < chain.steps.length - 1
-      ? chain.steps[state.currentStepIndex + 1]
-      : null;
+  if (!state.currentChainId) {
+    return <div> Loading </div>;
+  }
 
   return (
     <GlobalContext.Provider value={{state, dispatch}}>
       <Col>
-        <Nav chain={chain} />
+        <Nav />
         <BelowNav>
-          <Sidebar step={step} steps={chain.steps} markdown={markdown} />
+          <Sidebar markdown={markdown} />
           <Col span={GRID_LAYOUT[1]} style={{padding: '120px 60px 60px 60px'}}>
-            <Protocol step={step} />
+            <Protocol />
           </Col>
         </BelowNav>
-        <Footer
-          step={step}
-          steps={chain.steps}
-          chainId={chain.id}
-          prevStep={prevStep}
-          nextStep={nextStep}
-        />
+        <Footer />
       </Col>
     </GlobalContext.Provider>
   );

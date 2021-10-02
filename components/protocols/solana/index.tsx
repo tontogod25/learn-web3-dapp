@@ -1,8 +1,8 @@
 import Layout from 'components/shared/Layout';
-import {StepType, ChainType} from 'types';
+import {ChainType, PROTOCOL_STEPS_ID, CHAINS} from 'types';
 import Nav from '@solana/components/nav';
 import {
-  SetUp,
+  Setup,
   Connect,
   Keypair,
   Fund,
@@ -13,21 +13,31 @@ import {
   Getter,
   Setter,
 } from '@solana/components/steps';
+import {
+  getChainCurrentStepId,
+  getCurrentChainId,
+  useGlobalState,
+} from 'context';
 
-const Solana: React.FC<{step: StepType}> = ({step}) => {
+const Solana: React.FC = () => {
+  const {state} = useGlobalState();
+  const chainId = getCurrentChainId(state) as CHAINS;
+  const stepId = getChainCurrentStepId(state, chainId);
+
+  console.log(stepId);
   return (
     <>
-      {step.id === 'setup' && <SetUp stepId={step.id} />}
-      {step.id === 'connect' && <Connect stepId={step.id} />}
-      {step.id === 'account' && <Keypair stepId={step.id} />}
-      {step.id === 'fund' && <Fund stepId={step.id} />}
-      {step.id === 'balance' && <Balance stepId={step.id} />}
-      {step.id === 'transfer' && <Transfer stepId={step.id} />}
-      {step.id === 'deploy' && <Deploy stepId={step.id} />}
-      {step.id === 'greeter' && <Greeter stepId={step.id} />}
-      {step.id === 'getter' && <Getter stepId={step.id} />}
-      {step.id === 'setter' && <Setter stepId={step.id} />}
-      <Nav />
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && <Setup />}
+      {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
+      {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Keypair />}
+      {stepId === PROTOCOL_STEPS_ID.FUND_ACCOUNT && <Fund />}
+      {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
+      {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
+      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}
+      {stepId === PROTOCOL_STEPS_ID.SOLANA_CREATE_GREETER && <Greeter />}
+      {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Getter />}
+      {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Setter />}
+      {/* <Nav /> */}
     </>
   );
 };

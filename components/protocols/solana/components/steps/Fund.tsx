@@ -3,15 +3,29 @@ import {transactionExplorer, prettyError} from '@solana/lib';
 import {ErrorBox} from '@solana/components/nav';
 import type {ErrorT} from '@solana/types';
 import {useEffect, useState} from 'react';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getChainCurrentStepId,
+  getChainNetwork,
+  getChainInnerState,
+} from 'context';
 import axios from 'axios';
-import {setStepsStatus} from 'utils';
+import {NETWORK, PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
-const Fund = ({stepId}: {stepId: string}) => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.solana;
+const Fund = () => {
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getChainCurrentStepId(state, chainId);
+  const network = getChainNetwork(state, chainId);
+  const address = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.ADDRESS,
+  );
+
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [isFunded, setIsFunded] = useState<boolean>(false);
@@ -35,20 +49,22 @@ const Fund = ({stepId}: {stepId: string}) => {
   const airdrop = async () => {
     setFetching(true);
     setError(null);
-    let state0;
-    if (state.network === 'datahub') {
-      state0 = {...state, network: 'devnet'};
-    }
+
     try {
-      const response = await axios.post(`/api/solana/fund`, state0 ?? state);
+      const response = await axios.post(`/api/solana/fund`, {
+        address,
+        network: NETWORK.DEVNET,
+      });
       if (response.data.length === 0) {
         throw new Error('Complete the code');
       }
       setHash(response.data);
       setIsFunded(true);
       dispatch({
-        type: 'SetSolanaStepsStatus',
-        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+        type: 'SetChainProgressIsCompleted',
+        chainId,
+        stepId,
+        value: true,
       });
     } catch (error) {
       if (error.message === 'Complete the code') {
@@ -67,7 +83,7 @@ const Fund = ({stepId}: {stepId: string}) => {
       <Space direction="vertical">
         <Input
           style={{width: '420px', fontWeight: 'bold'}}
-          defaultValue={state.address}
+          defaultValue={address as string}
           disabled={true}
         />
         <Button type="primary" onClick={airdrop} loading={fetching}>
@@ -78,7 +94,7 @@ const Fund = ({stepId}: {stepId: string}) => {
             message={<Text strong>Address Funded!</Text>}
             description={
               <a
-                href={transactionExplorer(hash, state.network)}
+                href={transactionExplorer(hash, network)}
                 target="_blank"
                 rel="noreferrer"
               >

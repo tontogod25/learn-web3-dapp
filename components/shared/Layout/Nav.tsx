@@ -5,12 +5,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import {getChainColors} from 'utils/colors';
-import {ChainType} from 'types';
+import {CHAINS} from 'types';
 import logoSVG from 'public/figment-learn-compact.svg';
 import {HEADER_HEIGHT} from 'lib/constants';
+import {getChainLabel, getCurrentChainId, useGlobalState} from 'context';
 
-const Nav = ({chain}: {chain: ChainType}) => {
-  const {primaryColor, secondaryColor} = getChainColors(chain.id);
+const Nav = () => {
+  const {state} = useGlobalState();
+  const currentChainId = getCurrentChainId(state) as CHAINS;
+  const chainLabel = getChainLabel(state, currentChainId);
+  const {primaryColor, secondaryColor} = getChainColors(currentChainId);
 
   return (
     <StyledNav
@@ -23,7 +27,7 @@ const Nav = ({chain}: {chain: ChainType}) => {
         <Image src={logoSVG} alt="Figment Learn" height={41} width={100} />
         <ChainTitle
           secondary_color={secondaryColor}
-        >{`${chain.label} Pathway`}</ChainTitle>
+        >{`${chainLabel} Pathway`}</ChainTitle>
       </Space>
 
       <Link href="/">See All Pathways</Link>

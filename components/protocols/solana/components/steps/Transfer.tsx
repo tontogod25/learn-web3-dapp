@@ -5,9 +5,15 @@ import {ErrorBox} from '@solana/components/nav';
 import type {ErrorT} from '@solana/types';
 import {useEffect, useState} from 'react';
 import {Keypair} from '@solana/web3.js';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getChainCurrentStepId,
+  getChainNetwork,
+  getChainInnerState,
+} from 'context';
 import axios from 'axios';
-import {setStepsStatus} from 'utils';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const layout = {
   labelCol: {span: 4},
@@ -20,9 +26,22 @@ const tailLayout = {
 
 const {Text} = Typography;
 
-const Transfer = ({stepId}: {stepId: string}) => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.solana;
+const Transfer = () => {
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getChainCurrentStepId(state, chainId);
+  const network = getChainNetwork(state, chainId);
+  const address = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.ADDRESS,
+  );
+  const secret = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.SECRET,
+  );
+
   const [recipient, setRecipient] = useState<string | null>(null);
   const [error, setError] = useState<ErrorT | null>(null);
   const [hash, setHash] = useState<string | null>(null);
@@ -58,14 +77,18 @@ const Transfer = ({stepId}: {stepId: string}) => {
       }
 
       const response = await axios.post(`/api/solana/transfer`, {
-        ...state,
+        address,
+        secret,
+        network,
         lamports,
         recipient,
       });
       setHash(response.data);
       dispatch({
-        type: 'SetSolanaStepsStatus',
-        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+        type: 'SetChainProgressIsCompleted',
+        chainId,
+        stepId,
+        value: true,
       });
     } catch (error) {
       if (error.message === 'invalid amount') {
@@ -78,7 +101,7 @@ const Transfer = ({stepId}: {stepId: string}) => {
     }
   };
 
-  const explorerUrl = transactionExplorer(hash ?? '', state.network);
+  const explorerUrl = transactionExplorer(hash ?? '', network);
 
   return (
     <Col>
@@ -88,11 +111,11 @@ const Transfer = ({stepId}: {stepId: string}) => {
         layout="horizontal"
         onFinish={transfer}
         initialValues={{
-          from: state?.address,
+          from: address,
         }}
       >
         <Form.Item label="Sender" name="from" required>
-          <Text code>{state?.address}</Text>
+          <Text code>{address}</Text>
         </Form.Item>
 
         <Form.Item

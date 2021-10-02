@@ -3,15 +3,36 @@ import {ErrorBox} from '@solana/components/nav';
 import type {ErrorT} from '@solana/types';
 import {useState, useEffect} from 'react';
 import {prettyError} from '@solana/lib';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getChainCurrentStepId,
+  getChainNetwork,
+  getChainInnerState,
+} from 'context';
 import axios from 'axios';
-import {setStepsStatus} from 'utils';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
-const Getter = ({stepId}: {stepId: string}) => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.solana;
+const Getter = () => {
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getChainCurrentStepId(state, chainId);
+  const network = getChainNetwork(state, chainId);
+
+  const programId = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
+  ) as string;
+
+  const greeter = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.GREETER,
+  ) as string;
+
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [greeting, setGreeting] = useState<number>(-1);
@@ -35,11 +56,16 @@ const Getter = ({stepId}: {stepId: string}) => {
     setError(null);
     setFetching(true);
     try {
-      const response = await axios.post(`/api/solana/getter`, state);
+      const response = await axios.post(`/api/solana/getter`, {
+        network,
+        greeter,
+      });
       setGreeting(response.data);
       dispatch({
-        type: 'SetSolanaStepsStatus',
-        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+        type: 'SetChainProgressIsCompleted',
+        chainId,
+        stepId,
+        value: true,
       });
     } catch (error) {
       setError(prettyError(error));

@@ -5,14 +5,28 @@ import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import {useGlobalState} from 'context';
-import {setStepsStatus} from 'utils';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getChainCurrentStepId,
+  getChainNetwork,
+  getChainInnerState,
+} from 'context';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
-const Deploy = ({stepId}: {stepId: string}) => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.solana;
+const Deploy = () => {
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getChainCurrentStepId(state, chainId);
+  const network = getChainNetwork(state, chainId);
+  const programId = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
+  ) as string;
+
   const [value, setValue] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
@@ -39,13 +53,21 @@ const Deploy = ({stepId}: {stepId: string}) => {
     setFetching(true);
     try {
       const response = await axios.post(`/api/solana/deploy`, {
-        ...state,
+        network,
         programId: value,
       });
       setChecked(response.data);
       dispatch({
-        type: 'SetSolanaStepsStatus',
-        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+        type: 'SetChainInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
+        value: value as string,
+      });
+      dispatch({
+        type: 'SetChainProgressIsCompleted',
+        chainId,
+        stepId,
+        value: true,
       });
     } catch (error) {
       setError(prettyError(error));
@@ -76,7 +98,7 @@ const Deploy = ({stepId}: {stepId: string}) => {
             message={<Text strong>{`The program is correctly deployed`}</Text>}
             description={
               <a
-                href={accountExplorer(state?.programId ?? '', state.network)}
+                href={accountExplorer(programId ?? '', network)}
                 target="_blank"
                 rel="noreferrer"
               >

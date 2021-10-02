@@ -1,427 +1,375 @@
 import {createContext, Dispatch, useContext} from 'react';
+import {CHAINS_CONFIG} from 'lib/constants';
+import {
+  GlobalStateT,
+  ProtocolStepsT,
+  ProtocolsStateT,
+  CHAINS,
+  StepType,
+  PROTOCOL_STEPS_ID,
+  NETWORK,
+  PROTOCOL,
+  PROTOCOL_INNER_STATES_ID,
+  InnerStateTypeT,
+  PROTOCOL_STEPS_POSITION,
+} from 'types';
 
-export type GlobalState = {
-  currentStepIndex: number;
-  highestCompletedStepIndex: number;
-  chainId?: string;
-  // Solana global state
-  solana: {
-    network: string;
-    address?: string;
-    secret?: string;
-    programId?: string;
-    greeter?: string;
-    stepsStatus?: string;
+const stepsReducerHelper = (
+  progress: ProtocolStepsT,
+  step: StepType,
+): ProtocolStepsT => {
+  const id = step.id as PROTOCOL_STEPS_ID;
+  const title = step.title;
+  const isSkippable = !!step.skippable;
+  const isCompleted = isSkippable ? true : false;
+  const isVisited = isSkippable ? true : false;
+  const position = step.position;
+  progress[id] = {
+    id,
+    title,
+    isVisited,
+    isCompleted,
+    isSkippable,
+    position,
   };
-  // Avalanche global state
-  avalanche: {
-    network: string;
-    secret?: string;
-    address?: string;
-    stepsStatus?: string;
-  };
-  // Near global state
-  near: {
-    network: string;
-    accountId?: string;
-    secret?: string;
-    contractId?: string;
-    stepsStatus?: string;
-  };
-  // Polygon global state
-  polygon: {
-    network?: string;
-    address?: string;
-    stepsStatus?: string;
-  };
-  // Celo global state
-  celo: {
-    network: string;
-    stepsStatus?: string;
-  };
-  // The Graph global state
-  the_graph: {
-    network: string;
-    stepsStatus?: string;
-  };
-  // Polkadot global state
-  polkadot: {
-    network: string;
-    stepsStatus?: string;
-  };
-  // Tezos global state
-  tezos: {
-    network: string;
-    stepsStatus?: string;
-  };
-  // Secret global state
-  secret: {
-    network: string;
-    stepsStatus?: string;
-  };
+  return progress;
 };
 
-type Action =
-  | {type: 'SetCurrentStepIndex'; currentStepIndex: number}
-  | {type: 'SetHighestCompletedStepIndex'; highestCompletedStepIndex: number}
-  | {type: 'SetChainId'; chainId: string | undefined}
-  // Solana actions
-  | {type: 'SetSolanaNetwork'; network: string}
-  | {type: 'SetSolanaAddress'; address?: string}
-  | {type: 'SetSolanaSecret'; secret?: string}
-  | {type: 'SetSolanaProgramId'; programId?: string}
-  | {type: 'SetSolanaGreeter'; greeter?: string}
-  | {type: 'SetSolanaStepsStatus'; stepsStatus?: string}
-  // Avalanche actions
-  | {type: 'SetAvalancheNetwork'; network: string}
-  | {type: 'SetAvalancheAddress'; address?: string}
-  | {type: 'SetAvalancheSecret'; secret?: string}
-  | {
-      type: 'SetAvalancheStepsStatus';
-      stepsStatus?: string;
-    }
-  // Near actions
-  | {type: 'SetNearNetwork'; network: string}
-  | {type: 'SetNearAccountId'; accountId?: string}
-  | {type: 'SetNearSecret'; secret?: string}
-  | {type: 'SetNearConractId'; contractId?: string}
-  | {type: 'SetNearStepsStatus'; stepsStatus?: string}
-  // Polygon actions
-  | {type: 'SetPolygonNetwork'; network: string | undefined}
-  | {type: 'SetPolygonAddress'; address?: string | undefined}
-  | {type: 'SetPolygonStepsStatus'; stepsStatus?: string}
-  // Celo actions
-  | {type: 'SetCeloNetwork'; network: string}
-  | {type: 'SetCeloStepsStatus'; stepsStatus?: string}
-  // Tezos actions
-  | {type: 'SetTezosNetwork'; network: string}
-  | {type: 'SetTezosStepsStatus'; stepsStatus?: string}
-  // Polkadot actions
-  | {type: 'SetPolkadotNetwork'; network: string}
-  | {type: 'SetPolkadotStepsStatus'; stepsStatus?: string}
-  // Secret actions
-  | {type: 'SetSecretNetwork'; network: string}
-  | {type: 'SetSecretStepsStatus'; stepsStatus?: string}
-  // The Graph actions
-  | {type: 'SetTheGraphNetwork'; network: string}
-  | {type: 'SetTheGraphStepsStatus'; stepsStatus?: string};
+const protocolsReducerHelper = (
+  protocolsData: ProtocolsStateT,
+  chainId: CHAINS,
+): ProtocolsStateT => {
+  protocolsData[chainId] = {
+    id: CHAINS_CONFIG[chainId].id,
+    label: CHAINS_CONFIG[chainId].label,
+    logoUrl: CHAINS_CONFIG[chainId].logoUrl,
+    network: CHAINS_CONFIG[chainId].defaultNetwork,
+    protocol: CHAINS_CONFIG[chainId].defaultProtocol,
+    isActive: CHAINS_CONFIG[chainId].active,
+    currentStepIndex: 0,
+    currentStepId: PROTOCOL_STEPS_ID.PROJECT_SETUP,
+    innerState: {},
+    steps: CHAINS_CONFIG[chainId].steps.reduce(
+      (progress, stepElement) => stepsReducerHelper(progress, stepElement),
+      {} as ProtocolStepsT,
+    ),
+  };
+  return protocolsData;
+};
+
+const buildInitialState = (): ProtocolsStateT => {
+  return Object.keys(CHAINS_CONFIG).reduce(
+    (protocolsData, chainId) =>
+      protocolsReducerHelper(protocolsData, chainId as CHAINS),
+    {} as ProtocolsStateT,
+  );
+};
 
 const initialGlobalState = {
-  currentStepIndex: 0,
-  highestCompletedStepIndex: 0,
-  // Solana initial state
-  solana: {
-    network: 'devnet',
-  },
-  // Avalanche initial state
-  avalanche: {
-    network: 'datahub',
-  },
-  // Near initial state
-  near: {
-    network: 'datahub',
-  },
-  // Polygon initial state
-  polygon: {
-    network: 'datahub',
-  },
-  // Celo initial state
-  celo: {
-    network: 'datahub',
-  },
-  // The Graph initial state
-  network: {
-    network: 'datahub',
-  },
-  // Secret initial state
-  secret: {
-    network: 'datahub',
-  },
-  // Tezos initial state
-  tezos: {
-    network: 'datahub',
-  },
-  // Polkadot initial state
-  polkadot: {
-    network: 'datahub',
-  },
-  // The Graph initial state
-  the_graph: {
-    network: 'datahub',
-  },
+  currentChainId: undefined,
+  protocols: buildInitialState(),
 };
 
-function globalStateReducer(state: GlobalState, action: Action): GlobalState {
+// console.log(JSON.stringify(initialGlobalState, null, 2));
+
+type Action =
+  | {type: 'SetChainId'; currentChainId: CHAINS}
+  | {
+      type: 'SetChainCurrentStepIndex';
+      chainId: CHAINS;
+      currentStepIndex: number;
+    }
+  | {type: 'SetChainNetwork'; chainId: CHAINS; network: NETWORK}
+  | {type: 'SetChainProtocol'; chainId: CHAINS; protocol: PROTOCOL}
+  | {type: 'SetChainIsActive'; chainId: CHAINS; isActive: boolean}
+  | {
+      type: 'SetChainCurrentStepId';
+      chainId: CHAINS;
+      currentStepId: PROTOCOL_STEPS_ID;
+    }
+  | {
+      type: 'SetChainProgressIsVisited';
+      chainId: CHAINS;
+      stepId: PROTOCOL_STEPS_ID;
+      value: boolean;
+    }
+  | {
+      type: 'SetChainProgressIsCompleted';
+      chainId: CHAINS;
+      stepId: PROTOCOL_STEPS_ID;
+      value: boolean;
+    }
+  | {
+      type: 'SetChainInnerState';
+      chainId: CHAINS;
+      innerStateId: PROTOCOL_INNER_STATES_ID;
+      value: InnerStateTypeT;
+    };
+
+function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
   switch (action.type) {
-    // Shared State
-    case 'SetCurrentStepIndex':
-      return {...state, currentStepIndex: action.currentStepIndex};
-    case 'SetHighestCompletedStepIndex':
-      return {
-        ...state,
-        highestCompletedStepIndex: action.highestCompletedStepIndex,
-      };
     case 'SetChainId':
-      return {...state, chainId: action.chainId};
-    // Solana State
-    case 'SetSolanaNetwork': {
+      return {...state, currentChainId: action.currentChainId};
+
+    case 'SetChainCurrentStepIndex':
       return {
         ...state,
-        solana: {
-          ...state.solana,
-          network: action.network,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            currentStepIndex: action.currentStepIndex,
+          },
         },
       };
-    }
-    case 'SetSolanaAddress': {
+
+    case 'SetChainCurrentStepId':
       return {
         ...state,
-        solana: {
-          ...state.solana,
-          address: action.address,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            currentStepId: action.currentStepId,
+          },
         },
       };
-    }
-    case 'SetSolanaSecret': {
+
+    case 'SetChainNetwork':
       return {
         ...state,
-        solana: {
-          ...state.solana,
-          secret: action.secret,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            network: action.network,
+          },
         },
       };
-    }
-    case 'SetSolanaGreeter': {
+
+    case 'SetChainProtocol':
       return {
         ...state,
-        solana: {
-          ...state.solana,
-          greeter: action.greeter,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            protocol: action.protocol,
+          },
         },
       };
-    }
-    case 'SetSolanaProgramId': {
+
+    case 'SetChainIsActive':
       return {
         ...state,
-        solana: {
-          ...state.solana,
-          programId: action.programId,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            isActive: action.isActive,
+          },
         },
       };
-    }
-    case 'SetSolanaStepsStatus': {
+
+    case 'SetChainProgressIsCompleted':
       return {
         ...state,
-        solana: {
-          ...state.solana,
-          stepsStatus: action.stepsStatus,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            steps: {
+              ...state.protocols[action.chainId].steps,
+              [action.stepId]: {
+                ...state.protocols[action.chainId].steps[action.stepId],
+                isCompleted: action.value,
+              },
+            },
+          },
         },
       };
-    }
-    // Avalanche State
-    case 'SetAvalancheNetwork': {
+
+    case 'SetChainProgressIsVisited':
       return {
         ...state,
-        avalanche: {
-          ...state.avalanche,
-          network: action.network,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            steps: {
+              ...state.protocols[action.chainId].steps,
+              [action.stepId]: {
+                ...state.protocols[action.chainId].steps[action.stepId],
+                isVisited: action.value,
+              },
+            },
+          },
         },
       };
-    }
-    case 'SetAvalancheAddress': {
+
+    case 'SetChainInnerState':
       return {
         ...state,
-        avalanche: {
-          ...state.avalanche,
-          address: action.address,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            innerState: {
+              ...state.protocols[action.chainId].innerState,
+              [action.innerStateId]: action.value,
+            },
+          },
         },
       };
-    }
-    case 'SetAvalancheSecret': {
-      return {
-        ...state,
-        avalanche: {
-          ...state.avalanche,
-          secret: action.secret,
-        },
-      };
-    }
-    case 'SetAvalancheStepsStatus': {
-      return {
-        ...state,
-        avalanche: {
-          ...state.avalanche,
-          stepsStatus: action.stepsStatus,
-        },
-      };
-    }
-    // Near State
-    case 'SetNearNetwork': {
-      return {
-        ...state,
-        near: {
-          ...state.near,
-          network: action.network,
-        },
-      };
-    }
-    case 'SetNearAccountId': {
-      return {
-        ...state,
-        near: {
-          ...state.near,
-          accountId: action.accountId,
-        },
-      };
-    }
-    case 'SetNearSecret': {
-      return {
-        ...state,
-        near: {
-          ...state.near,
-          secret: action.secret,
-        },
-      };
-    }
-    case 'SetNearConractId': {
-      return {
-        ...state,
-        near: {
-          ...state.near,
-          contractId: action.contractId,
-        },
-      };
-    }
-    case 'SetNearStepsStatus': {
-      return {
-        ...state,
-        near: {
-          ...state.near,
-          stepsStatus: action.stepsStatus,
-        },
-      };
-    }
-    // Polygon state
-    case 'SetPolygonAddress': {
-      return {
-        ...state,
-        polygon: {
-          ...state.polygon,
-          address: action.address,
-        },
-      };
-    }
-    case 'SetPolygonNetwork': {
-      return {
-        ...state,
-        polygon: {
-          ...state.polygon,
-          network: action.network,
-        },
-      };
-    }
-    case 'SetPolygonStepsStatus': {
-      return {
-        ...state,
-        polygon: {
-          ...state.polygon,
-          stepsStatus: action.stepsStatus,
-        },
-      };
-    }
-    // Celo state
-    case 'SetCeloNetwork': {
-      return {
-        ...state,
-        celo: {
-          ...state.celo,
-          network: action.network,
-        },
-      };
-    }
-    case 'SetCeloStepsStatus': {
-      return {
-        ...state,
-        celo: {
-          ...state.celo,
-          stepsStatus: action.stepsStatus,
-        },
-      };
-    }
-    // Polkadot state
-    case 'SetPolkadotNetwork': {
-      return {
-        ...state,
-        polkadot: {
-          ...state.polkadot,
-          network: action.network,
-        },
-      };
-    }
-    case 'SetPolkadotStepsStatus': {
-      return {
-        ...state,
-        polkadot: {
-          ...state.polkadot,
-          stepsStatus: action.stepsStatus,
-        },
-      };
-    }
-    // Tezos state
-    case 'SetTezosNetwork': {
-      return {
-        ...state,
-        tezos: {
-          ...state.tezos,
-          network: action.network,
-        },
-      };
-    }
-    case 'SetTezosStepsStatus': {
-      return {
-        ...state,
-        tezos: {
-          ...state.tezos,
-          stepsStatus: action.stepsStatus,
-        },
-      };
-    }
-    // Secret state
-    case 'SetSecretStepsStatus': {
-      return {
-        ...state,
-        secret: {
-          ...state.secret,
-          stepsStatus: action.stepsStatus,
-        },
-      };
-    }
-    // The Graph state
-    case 'SetTheGraphNetwork': {
-      return {
-        ...state,
-        the_graph: {
-          ...state.the_graph,
-          network: action.network,
-        },
-      };
-    }
-    case 'SetTheGraphStepsStatus': {
-      return {
-        ...state,
-        the_graph: {
-          ...state.the_graph,
-          stepsStatus: action.stepsStatus,
-        },
-      };
-    }
+
     default:
       return state;
   }
 }
 
+export const getCurrentChainId = (state: GlobalStateT) => {
+  return state.currentChainId as CHAINS;
+};
+
+export const getChainLogoUrl = (state: GlobalStateT, chainId: CHAINS) => {
+  return state.protocols[chainId].logoUrl;
+};
+
+export const getChainLabel = (state: GlobalStateT, chainId: CHAINS) => {
+  return state.protocols[chainId].label;
+};
+
+export const getChainId = (state: GlobalStateT, chainId: CHAINS) => {
+  return state.protocols[chainId].id;
+};
+
+export const getChainNetwork = (state: GlobalStateT, chainId: CHAINS) => {
+  return state.protocols[chainId].network;
+};
+
+export const getChainProtocol = (state: GlobalStateT, chainId: CHAINS) => {
+  return state.protocols[chainId].protocol;
+};
+
+export const getChainStatus = (state: GlobalStateT, chainId: CHAINS) => {
+  return state.protocols[chainId].isActive;
+};
+
+export const getChainInnerStates = (state: GlobalStateT, chainId: CHAINS) => {
+  return state.protocols[chainId].innerState;
+};
+
+export const getChainCurrentStepIndex = (
+  state: GlobalStateT,
+  chainId: CHAINS,
+) => {
+  return state.protocols[chainId].currentStepIndex;
+};
+
+export const getChainCurrentStepId = (state: GlobalStateT, chainId: CHAINS) => {
+  return state.protocols[chainId].currentStepId;
+};
+
+export const getChainPreviousStep = (state: GlobalStateT, chainId: CHAINS) => {
+  const currentStepId = getChainCurrentStepId(state, chainId);
+  const currentPosition =
+    state.protocols[chainId].steps[currentStepId].position;
+  if (currentPosition === PROTOCOL_STEPS_POSITION.FIRST) {
+    return null;
+  } else {
+    return Object.values(getChainSteps(state, chainId)).filter(
+      (step) => step.position === currentPosition - 1,
+    )[0];
+  }
+};
+
+export const getChainNextStep = (state: GlobalStateT, chainId: CHAINS) => {
+  const currentStepId = getChainCurrentStepId(state, chainId);
+  const currentPosition =
+    state.protocols[chainId].steps[currentStepId].position;
+  if (currentPosition === PROTOCOL_STEPS_POSITION.LAST) {
+    return null;
+  } else {
+    return Object.values(getChainSteps(state, chainId)).filter(
+      (step) => step.position === currentPosition + 1,
+    )[0];
+  }
+};
+
+export const getChainNextStepId = (state: GlobalStateT, chainId: CHAINS) => {
+  return getChainNextStep(state, chainId)?.id;
+};
+
+export const getChainPreviousStepId = (
+  state: GlobalStateT,
+  chainId: CHAINS,
+) => {
+  return getChainPreviousStep(state, chainId)?.id;
+};
+
+export const getChainInnerState = (
+  state: GlobalStateT,
+  chainId: CHAINS,
+  stateId: PROTOCOL_INNER_STATES_ID,
+) => {
+  return state.protocols[chainId].innerState[stateId];
+};
+
+export const getChainStepsIsCompleted = (
+  state: GlobalStateT,
+  chainId: CHAINS,
+  stepId: PROTOCOL_STEPS_ID,
+) => {
+  return state.protocols[chainId].steps[stepId].isCompleted;
+};
+
+export const getChainStepsIsVisited = (
+  state: GlobalStateT,
+  chainId: CHAINS,
+  stepId: PROTOCOL_STEPS_ID,
+) => {
+  return state.protocols[chainId].steps[stepId].isVisited;
+};
+
+export const getChainStepsId = (
+  state: GlobalStateT,
+  chainId: CHAINS,
+  stepId: PROTOCOL_STEPS_ID,
+) => {
+  return state.protocols[chainId].steps[stepId].id;
+};
+
+export const getChainSteps = (state: GlobalStateT, chainId: CHAINS) => {
+  return state.protocols[chainId].steps;
+};
+
+export const getChainStepsTitle = (
+  state: GlobalStateT,
+  chainId: CHAINS,
+  stepId: PROTOCOL_STEPS_ID,
+) => {
+  return state.protocols[chainId].steps[stepId].title;
+};
+
+export const getChainStepsPosition = (
+  state: GlobalStateT,
+  chainId: CHAINS,
+  stepId: PROTOCOL_STEPS_ID,
+) => {
+  return state.protocols[chainId].steps[stepId].position;
+};
+
+export const getChainStepsIsSkippable = (
+  state: GlobalStateT,
+  chainId: CHAINS,
+  stepId: PROTOCOL_STEPS_ID,
+) => {
+  return state.protocols[chainId].steps[stepId].isSkippable;
+};
+
+//-------------------------------------------------
 const GlobalContext = createContext<{
-  state: GlobalState;
+  state: GlobalStateT;
   dispatch: Dispatch<Action>;
 }>({
   state: initialGlobalState,

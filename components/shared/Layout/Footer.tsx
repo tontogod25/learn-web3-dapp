@@ -3,71 +3,69 @@ import {trackTutorialStepViewed} from 'utils/tracking-utils';
 import {getChainColors} from 'utils/colors';
 import {Button, Col, Row} from 'antd';
 import styled from 'styled-components';
-import {useGlobalState} from 'context';
-import {CHAINS, StepType} from 'types';
+import {
+  getChainCurrentStepId,
+  getChainStepsTitle,
+  useGlobalState,
+  getChainStepsIsCompleted,
+  getCurrentChainId,
+  getChainPreviousStep,
+  getChainPreviousStepId,
+  getChainNextStep,
+  getChainNextStepId,
+} from 'context';
 import React from 'react';
 import {FOOTER_HEIGHT} from 'lib/constants';
-import {getStepsStatus} from 'utils';
+import {PROTOCOL_STEPS_ID} from 'types';
 
-const Footer = ({
-  step,
-  steps,
-  chainId,
-  prevStep,
-  nextStep,
-}: {
-  step: StepType;
-  steps: StepType[];
-  chainId: CHAINS;
-  prevStep: StepType | null;
-  nextStep: StepType | null;
-}) => {
+const Footer = () => {
   const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const currentStepId = getChainCurrentStepId(state, chainId);
+  const isCompleted = getChainStepsIsCompleted(state, chainId, currentStepId);
+
   const next = () => {
-    const currentStepIndex = state.currentStepIndex + 1;
+    const currentStepId = getChainCurrentStepId(state, chainId);
+    const title = getChainStepsTitle(state, chainId, currentStepId);
     dispatch({
-      type: 'SetCurrentStepIndex',
-      currentStepIndex,
+      type: 'SetChainCurrentStepId',
+      chainId: chainId,
+      currentStepId: getChainNextStepId(state, chainId) as PROTOCOL_STEPS_ID,
     });
-    trackTutorialStepViewed(
-      state.chainId as CHAINS,
-      steps[state.currentStepIndex].title,
-      'next',
-    );
+    trackTutorialStepViewed(chainId, title, 'next');
   };
 
   const prev = () => {
-    const currentStepIndex = state.currentStepIndex - 1;
+    const currentStepId = getChainCurrentStepId(state, chainId);
+    const title = getChainStepsTitle(state, chainId, currentStepId);
     dispatch({
-      type: 'SetCurrentStepIndex',
-      currentStepIndex,
+      type: 'SetChainCurrentStepId',
+      chainId: chainId,
+      currentStepId: getChainPreviousStepId(
+        state,
+        chainId,
+      ) as PROTOCOL_STEPS_ID,
     });
-    trackTutorialStepViewed(
-      state.chainId as CHAINS,
-      steps[state.currentStepIndex].title,
-      'next',
-    );
+    trackTutorialStepViewed(chainId, title, 'prev');
   };
 
-  const {primaryColor, secondaryColor} = getChainColors(
-    state.chainId as CHAINS,
-  );
+  const {primaryColor, secondaryColor} = getChainColors(chainId);
+  const previousStep = getChainPreviousStep(state, chainId);
+  const nextStep = getChainNextStep(state, chainId);
   const justify =
-    prevStep && nextStep ? 'space-between' : prevStep ? 'start' : 'end';
-
-  const isDisabled = getStepsStatus(state[chainId]?.stepsStatus, step.id);
+    previousStep && nextStep ? 'space-between' : previousStep ? 'start' : 'end';
 
   return (
     <Col span={24}>
       <StepFooter justify={justify} align="middle">
-        {prevStep && (
+        {previousStep && (
           <PrevButton
             size="large"
             style={{marginRight: '8px'}}
             onClick={() => prev()}
             icon={<ArrowLeftOutlined />}
           >
-            {`Prev: ${prevStep.title}`}
+            {`Prev: ${previousStep.title}`}
           </PrevButton>
         )}
         {nextStep && (
@@ -77,7 +75,7 @@ const Footer = ({
             onClick={() => next()}
             secondary_color={secondaryColor}
             primary_color={primaryColor}
-            disabled={!isDisabled}
+            disabled={!isCompleted}
           >
             <Row align="middle">
               {`Next: ${nextStep.title}`}
