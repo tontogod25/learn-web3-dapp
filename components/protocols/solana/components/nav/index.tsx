@@ -4,7 +4,6 @@ import type {EntryT, ErrorT} from '@solana/types';
 import ReactJson from 'react-json-view';
 import {useGlobalState} from 'context';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
-import {resetStepsStatus} from 'utils';
 
 const {Option} = Select;
 

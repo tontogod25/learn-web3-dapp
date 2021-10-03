@@ -24,7 +24,7 @@ export const CHAINS_CONFIG: ChainsType = {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
         skippable: true,
-        position: PROTOCOL_STEPS_POSITION.FIRST,
+        position: PROTOCOL_STEPS_POSITION.ZERO,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -54,7 +54,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.IMPORT_TOKEN,
         title: 'Import tokens from X-Chain to C-Chain',
-        position: PROTOCOL_STEPS_POSITION.LAST,
+        position: PROTOCOL_STEPS_POSITION.SIX,
       },
     ],
   },
@@ -70,7 +70,7 @@ export const CHAINS_CONFIG: ChainsType = {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
         skippable: true,
-        position: PROTOCOL_STEPS_POSITION.FIRST,
+        position: PROTOCOL_STEPS_POSITION.ZERO,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -110,7 +110,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
         title: 'Set the storage of a smart contract',
-        position: PROTOCOL_STEPS_POSITION.LAST,
+        position: PROTOCOL_STEPS_POSITION.EIGHT,
       },
     ],
   },
@@ -126,7 +126,7 @@ export const CHAINS_CONFIG: ChainsType = {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
         skippable: true,
-        position: PROTOCOL_STEPS_POSITION.FIRST,
+        position: PROTOCOL_STEPS_POSITION.ZERO,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -166,7 +166,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
         title: 'Set the storage of a smart contract',
-        position: PROTOCOL_STEPS_POSITION.LAST,
+        position: PROTOCOL_STEPS_POSITION.EIGHT,
       },
     ],
   },
@@ -179,40 +179,45 @@ export const CHAINS_CONFIG: ChainsType = {
     defaultNetwork: NETWORK.TESTNET,
     steps: [
       {
+        id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
+        title: 'Setup the project',
+        skippable: true,
+        position: PROTOCOL_STEPS_POSITION.ZERO,
+      },
+      {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
         title: 'Connect to Polkadot',
-        skippable: true,
-        position: PROTOCOL_STEPS_POSITION.FIRST,
+        position: PROTOCOL_STEPS_POSITION.ONE,
       },
       {
         id: PROTOCOL_STEPS_ID.CREATE_ACCOUNT,
         title: 'Create an account',
-        position: PROTOCOL_STEPS_POSITION.ONE,
+        position: PROTOCOL_STEPS_POSITION.TWO,
       },
       {
         id: PROTOCOL_STEPS_ID.RESTORE_ACCOUNT,
         title: 'Restore an account',
-        position: PROTOCOL_STEPS_POSITION.TWO,
+        position: PROTOCOL_STEPS_POSITION.THREE,
       },
       {
         id: PROTOCOL_STEPS_ID.ESTIMATE_FEES,
         title: 'Estimate transaction fees',
-        position: PROTOCOL_STEPS_POSITION.THREE,
+        position: PROTOCOL_STEPS_POSITION.FOUR,
       },
       {
         id: PROTOCOL_STEPS_ID.GET_BALANCE,
         title: 'Get the balance',
-        position: PROTOCOL_STEPS_POSITION.FOUR,
+        position: PROTOCOL_STEPS_POSITION.FIVE,
       },
       {
         id: PROTOCOL_STEPS_ID.ESTIMATE_DEPOSIT,
         title: 'Existential deposit',
-        position: PROTOCOL_STEPS_POSITION.FIVE,
+        position: PROTOCOL_STEPS_POSITION.SIX,
       },
       {
         id: PROTOCOL_STEPS_ID.TRANSFER_TOKEN,
         title: 'Transfer some tokens',
-        position: PROTOCOL_STEPS_POSITION.LAST,
+        position: PROTOCOL_STEPS_POSITION.SEVEN,
       },
     ],
   },
@@ -228,7 +233,7 @@ export const CHAINS_CONFIG: ChainsType = {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
         skippable: true,
-        position: PROTOCOL_STEPS_POSITION.FIRST,
+        position: PROTOCOL_STEPS_POSITION.ZERO,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -268,7 +273,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.RESTORE_ACCOUNT,
         title: 'Restore your account',
-        position: PROTOCOL_STEPS_POSITION.LAST,
+        position: PROTOCOL_STEPS_POSITION.EIGHT,
       },
     ],
   },
@@ -284,7 +289,7 @@ export const CHAINS_CONFIG: ChainsType = {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
         skippable: true,
-        position: PROTOCOL_STEPS_POSITION.FIRST,
+        position: PROTOCOL_STEPS_POSITION.ZERO,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -319,7 +324,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
         title: 'Set the storage of a smart contract',
-        position: PROTOCOL_STEPS_POSITION.LAST,
+        position: PROTOCOL_STEPS_POSITION.SEVEN,
       },
     ],
   },
@@ -335,7 +340,7 @@ export const CHAINS_CONFIG: ChainsType = {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
         skippable: true,
-        position: PROTOCOL_STEPS_POSITION.FIRST,
+        position: PROTOCOL_STEPS_POSITION.ZERO,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -380,7 +385,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
         title: 'Send data to the program',
-        position: PROTOCOL_STEPS_POSITION.LAST,
+        position: PROTOCOL_STEPS_POSITION.NINE,
       },
     ],
   },
@@ -396,7 +401,7 @@ export const CHAINS_CONFIG: ChainsType = {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
         skippable: true,
-        position: PROTOCOL_STEPS_POSITION.FIRST,
+        position: PROTOCOL_STEPS_POSITION.ZERO,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -431,7 +436,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
         title: 'Set the storage of a smart contract',
-        position: PROTOCOL_STEPS_POSITION.LAST,
+        position: PROTOCOL_STEPS_POSITION.EIGHT,
       },
     ],
   },

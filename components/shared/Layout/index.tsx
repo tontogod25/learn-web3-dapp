@@ -1,5 +1,5 @@
 import {GlobalContext, globalStateReducer, initialGlobalState} from 'context';
-import {ChainType, MarkdownForChainT, GlobalStateT} from 'types';
+import {ChainType, MarkdownForChainIdT, GlobalStateT} from 'types';
 import {GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
 import React, {useEffect, useReducer} from 'react';
 import styled from 'styled-components';
@@ -12,7 +12,7 @@ import Nav from './Nav';
 const Layout = (
   Protocol: React.FC,
   chain: ChainType,
-  markdown: MarkdownForChainT,
+  markdown: MarkdownForChainIdT,
 ) => {
   const [storageState, setStorageState] = useLocalStorage<GlobalStateT>(
     'figment',

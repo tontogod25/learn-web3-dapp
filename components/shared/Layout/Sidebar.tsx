@@ -5,7 +5,7 @@ import {OrderedListOutlined} from '@ant-design/icons';
 import Markdown from 'components/shared/CustomMarkdown';
 
 import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
-import {MarkdownForChainT, CHAINS} from 'types';
+import {MarkdownForChainIdT, CHAINS} from 'types';
 import {
   getChainCurrentStepId,
   getChainStepsTitle,
@@ -16,10 +16,11 @@ import {
   getChainStepsPosition,
 } from 'context';
 
-const Sidebar = ({markdown}: {markdown: MarkdownForChainT}) => {
+const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
   const {state} = useGlobalState();
-  const chainId = getCurrentChainId(state) as CHAINS;
+  const chainId = getCurrentChainId(state);
   const currentStepId = getChainCurrentStepId(state, chainId);
+  console.log(currentStepId);
   const stepTitle = getChainStepsTitle(state, chainId, currentStepId);
   const stepId = getChainStepsId(state, chainId, currentStepId);
   const steps = Object.values(getChainSteps(state, chainId)).map((step) => {

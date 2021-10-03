@@ -18,7 +18,7 @@ const stepsReducerHelper = (
   progress: ProtocolStepsT,
   step: StepType,
 ): ProtocolStepsT => {
-  const id = step.id as PROTOCOL_STEPS_ID;
+  const id = step.id;
   const title = step.title;
   const isSkippable = !!step.skippable;
   const isCompleted = isSkippable ? true : false;
@@ -273,7 +273,7 @@ export const getChainPreviousStep = (state: GlobalStateT, chainId: CHAINS) => {
   const currentStepId = getChainCurrentStepId(state, chainId);
   const currentPosition =
     state.protocols[chainId].steps[currentStepId].position;
-  if (currentPosition === PROTOCOL_STEPS_POSITION.FIRST) {
+  if (currentPosition === PROTOCOL_STEPS_POSITION.ZERO) {
     return null;
   } else {
     return Object.values(getChainSteps(state, chainId)).filter(
@@ -286,13 +286,17 @@ export const getChainNextStep = (state: GlobalStateT, chainId: CHAINS) => {
   const currentStepId = getChainCurrentStepId(state, chainId);
   const currentPosition =
     state.protocols[chainId].steps[currentStepId].position;
-  if (currentPosition === PROTOCOL_STEPS_POSITION.LAST) {
+  if (currentPosition === getChainStepsLength(state, chainId)) {
     return null;
   } else {
     return Object.values(getChainSteps(state, chainId)).filter(
       (step) => step.position === currentPosition + 1,
     )[0];
   }
+};
+
+export const getChainStepsLength = (state: GlobalStateT, chainId: CHAINS) => {
+  return Object.keys(state.protocols[chainId].steps).length;
 };
 
 export const getChainNextStepId = (state: GlobalStateT, chainId: CHAINS) => {
@@ -347,6 +351,7 @@ export const getChainStepsTitle = (
   chainId: CHAINS,
   stepId: PROTOCOL_STEPS_ID,
 ) => {
+  console.log('inside', stepId);
   return state.protocols[chainId].steps[stepId].title;
 };
 

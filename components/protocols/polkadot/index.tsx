@@ -14,15 +14,26 @@ import {
   PolkadotContext,
 } from '@polkadot/context';
 import {useLocalStorage} from '@polkadot/hooks';
-import {ChainType, StepType} from 'types';
+import {PROTOCOL_STEPS_ID, CHAINS, ChainType} from 'types';
 import Nav from '@polkadot/components/nav';
 import Layout from 'components/shared/Layout';
+import {
+  getChainCurrentStepId,
+  getCurrentChainId,
+  useGlobalState,
+} from 'context';
 
-const Polkadot: React.FC<{step: StepType}> = ({step}) => {
+const Polkadot: React.FC = () => {
+  const {state: gstate} = useGlobalState();
+  const chainId = getCurrentChainId(gstate);
+  const stepId = getChainCurrentStepId(gstate, chainId);
+  console.log(stepId);
+
   const [storageState, setStorageState] = useLocalStorage(
     'polkadot',
     initialState,
   );
+
   const [state, dispatch] = useReducer(appStateReducer, storageState);
 
   useEffect(() => {
@@ -32,13 +43,13 @@ const Polkadot: React.FC<{step: StepType}> = ({step}) => {
   return (
     <PolkadotContext.Provider value={{state, dispatch}}>
       <Nav />
-      {step.id === 'connect' && <Connect />}
-      {step.id === 'account' && <Account />}
-      {step.id === 'restore' && <Restore />}
-      {step.id === 'balance' && <Balance />}
-      {step.id === 'estimate' && <Estimate />}
-      {step.id === 'deposit' && <Deposit />}
-      {step.id === 'transfer' && <Transfer />}
+      {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
+      {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}
+      {stepId === PROTOCOL_STEPS_ID.RESTORE_ACCOUNT && <Restore />}
+      {stepId === PROTOCOL_STEPS_ID.ESTIMATE_FEES && <Balance />}
+      {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Estimate />}
+      {stepId === PROTOCOL_STEPS_ID.ESTIMATE_DEPOSIT && <Deposit />}
+      {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
     </PolkadotContext.Provider>
   );
 };

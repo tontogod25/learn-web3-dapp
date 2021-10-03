@@ -1,23 +1,23 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import {CHAINS_CONFIG} from 'lib/constants';
-import {CHAINS, ChainType, MarkdownForChainT} from 'types';
+import {CHAINS, ChainType, MarkdownForChainIdT} from 'types';
 import {ComponentType} from 'react';
 import styled from 'styled-components';
 import {LoadingOutlined} from '@ant-design/icons';
 import {getChainColors} from 'utils/colors';
-import {markdownFetch} from 'utils/markdown';
+import {fetchMarkdownForChainId} from 'utils/markdown';
 
 type DynChainT = ComponentType<{
   chain: ChainType;
-  markdown: MarkdownForChainT;
+  markdown: MarkdownForChainIdT;
 }>;
 
 export async function getServerSideProps(context: any) {
   return {
     props: {
       chain: CHAINS_CONFIG[context.query.chainId],
-      markdown: markdownFetch(context.query.chainId),
+      markdown: fetchMarkdownForChainId(context.query.chainId),
     },
   };
 }
@@ -27,7 +27,7 @@ export default function Chain({
   markdown,
 }: {
   chain: ChainType;
-  markdown: MarkdownForChainT;
+  markdown: MarkdownForChainIdT;
 }) {
   const chainLabel = chain.label;
   const chainId = chain.id;

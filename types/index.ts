@@ -182,8 +182,14 @@ export interface ProtocolI {
   index?: number;
 }
 
+/*
 export type MarkdownForChainT = {
   [stepId: string]: string;
+};
+*/
+
+export type MarkdownForChainIdT = {
+  [key in PROTOCOL_STEPS_ID]: string;
 };
 
 //-----------------------------------------------------------
@@ -265,7 +271,7 @@ export enum PROTOCOL_STEPS_ID {
 }
 
 export enum PROTOCOL_STEPS_POSITION {
-  FIRST = 0,
+  ZERO = 0,
   ONE = 1,
   TWO = 2,
   THREE = 3,
@@ -276,5 +282,4 @@ export enum PROTOCOL_STEPS_POSITION {
   EIGHT = 8,
   NINE = 9,
   TEN = 10,
-  LAST = 12,
 }

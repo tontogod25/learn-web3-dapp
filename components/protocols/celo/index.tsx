@@ -11,33 +11,37 @@ import {
 } from '@celo/components/steps';
 import {appStateReducer, initialState, CeloContext} from '@celo/context';
 import {useLocalStorage} from '@celo/hooks';
-import {ChainType, StepType} from 'types';
+import {PROTOCOL_STEPS_ID, CHAINS, ChainType} from 'types';
 import Layout from 'components/shared/Layout';
-import {useGlobalState} from 'context';
 import Nav from './components/nav';
+import {
+  getChainCurrentStepId,
+  getCurrentChainId,
+  useGlobalState,
+} from 'context';
 
-const Celo: React.FC<{step: StepType}> = ({step}) => {
-  const {state: globalState} = useGlobalState();
-  const [storageState, setStorageState] = useLocalStorage<State>(
-    globalState.chain as string,
-    initialState,
-  );
+const Celo: React.FC = () => {
+  const {state: gstate} = useGlobalState();
+  const chainId = getCurrentChainId(gstate) as CHAINS;
+  const stepId = getChainCurrentStepId(gstate, chainId);
+
+  const [storageState, setStorageState] = useLocalStorage('celo', initialState);
   const [state, dispatch] = useReducer(appStateReducer, storageState);
 
   useEffect(() => {
     setStorageState(state);
-  }, [state, step]);
+  }, [state]);
 
   return (
     <CeloContext.Provider value={{state, dispatch}}>
-      {step.id === 'connect' && <Connect />}
-      {step.id === 'account' && <Account />}
-      {step.id === 'balance' && <Balance />}
-      {step.id === 'transfer' && <Transfer />}
-      {step.id === 'swap' && <Swap />}
-      {step.id === 'deploy' && <Deploy />}
-      {step.id === 'getter' && <Getter />}
-      {step.id === 'setter' && <Setter />}
+      {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
+      {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}
+      {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
+      {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
+      {stepId === PROTOCOL_STEPS_ID.SWAP_TOKEN && <Swap />}
+      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}
+      {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Getter />}
+      {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Setter />}
       <Nav />
     </CeloContext.Provider>
   );
