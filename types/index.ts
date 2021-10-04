@@ -169,6 +169,7 @@ export type ProtocolStateT = {
   network: NETWORKS;
   protocol: PROTOCOLS;
   isActive: boolean;
+  // numberOfSteps
   numberOfStep: number;
   currentStepId: PROTOCOL_STEPS_ID;
   firstStepId: PROTOCOL_STEPS_ID;

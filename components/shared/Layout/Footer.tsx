@@ -21,9 +21,9 @@ import {PROTOCOL_STEPS_ID} from 'types';
 const Footer = () => {
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
-  const isCompleted = getIsSkippableForCurrentStepId(state)
-    ? true
-    : getIsCompletedForCurrentStepId(state);
+  const isCompleted =
+    getIsSkippableForCurrentStepId(state) ||
+    getIsCompletedForCurrentStepId(state);
 
   const next = () => {
     const title = getTitleForCurrentStepId(state);
@@ -51,6 +51,7 @@ const Footer = () => {
   const previousStep = getPreviousStepForCurrentStepId(state);
   const nextStep = getNextStepForCurrentStepId(state);
 
+  // To optimize
   const isFirstStep = previousStep === null ? true : false;
   const isLastStep = nextStep === null ? true : false;
 

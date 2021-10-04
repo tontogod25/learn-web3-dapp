@@ -14,12 +14,7 @@ const Layout = (
   chain: ChainType,
   markdown: MarkdownForChainIdT,
 ) => {
-  const [storageState, setStorageState] = useLocalStorage<GlobalStateT>(
-    'figment',
-    initialGlobalState,
-  );
-
-  const [state, dispatch] = useReducer(globalStateReducer, storageState);
+  const [state, dispatch] = useReducer(globalStateReducer, initialGlobalState);
 
   useEffect(() => {
     dispatch({
@@ -28,10 +23,7 @@ const Layout = (
     });
   }, []);
 
-  useEffect(() => {
-    setStorageState(state);
-  }, [state, dispatch]);
-
+  // Add spinner
   if (!state.currentChainId) {
     return <div> Loading </div>;
   }

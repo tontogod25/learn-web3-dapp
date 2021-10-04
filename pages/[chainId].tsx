@@ -16,7 +16,7 @@ type DynChainT = ComponentType<{
 export async function getServerSideProps(context: any) {
   return {
     props: {
-      chain: CHAINS_CONFIG[context.query.chainId],
+      chain: CHAINS_CONFIG[context.query.chainId as CHAINS],
       markdown: fetchMarkdownForChainId(context.query.chainId),
     },
   };

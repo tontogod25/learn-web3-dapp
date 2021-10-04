@@ -19,7 +19,7 @@ const Solana: React.FC = () => {
   const stepId = getCurrentStepIdForCurrentChain(state);
 
   return (
-    <>
+    <div key={stepId}>
       <Nav />
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Keypair />}
@@ -30,7 +30,7 @@ const Solana: React.FC = () => {
       {stepId === PROTOCOL_STEPS_ID.SOLANA_CREATE_GREETER && <Greeter />}
       {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Getter />}
       {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Setter />}
-    </>
+    </div>
   );
 };
 
