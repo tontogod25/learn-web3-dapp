@@ -26,7 +26,7 @@ const stepsReducerHelper = (
   const isSkippable = !!step.skippable;
   const isCompleted = isSkippable ? true : false;
   const isVisited = isSkippable ? true : false;
-  const position = index;
+  const position = index + 1;
   const previousStepId =
     index === 0 ? null : (Object.keys(data)[index - 1] as PROTOCOL_STEPS_ID);
   data[id] = {

@@ -30,7 +30,7 @@ const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
   const menu = (
     <StyledMenu>
       {steps.map(({index, title}) => {
-        return <MenuItem key={index}>{`${index + 1} - ${title}`}</MenuItem>;
+        return <MenuItem key={index}>{`${index} - ${title}`}</MenuItem>;
       })}
     </StyledMenu>
   );
