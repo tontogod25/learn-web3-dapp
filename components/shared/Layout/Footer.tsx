@@ -4,15 +4,14 @@ import {getChainColors} from 'utils/colors';
 import {Button, Col, Row} from 'antd';
 import styled from 'styled-components';
 import {
-  getChainCurrentStepId,
-  getChainStepsTitle,
   useGlobalState,
-  getChainStepsIsCompleted,
+  getPreviousStepIdForCurrentStepId,
   getCurrentChainId,
-  getChainPreviousStep,
-  getChainPreviousStepId,
-  getChainNextStep,
-  getChainNextStepId,
+  getTitleForCurrentStepId,
+  getNextStepIdForCurrentStepId,
+  getIsCompletedForCurrentStepId,
+  getPreviousStepForCurrentStepId,
+  getNextStepForCurrentStepId,
 } from 'context';
 import React from 'react';
 import {FOOTER_HEIGHT} from 'lib/constants';
@@ -21,39 +20,45 @@ import {PROTOCOL_STEPS_ID} from 'types';
 const Footer = () => {
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
-  const currentStepId = getChainCurrentStepId(state, chainId);
-  const isCompleted = getChainStepsIsCompleted(state, chainId, currentStepId);
+  const isCompleted = getIsCompletedForCurrentStepId(state);
 
   const next = () => {
-    const currentStepId = getChainCurrentStepId(state, chainId);
-    const title = getChainStepsTitle(state, chainId, currentStepId);
+    const title = getTitleForCurrentStepId(state);
     dispatch({
       type: 'SetChainCurrentStepId',
       chainId: chainId,
-      currentStepId: getChainNextStepId(state, chainId) as PROTOCOL_STEPS_ID,
+      currentStepId: getNextStepIdForCurrentStepId(state) as PROTOCOL_STEPS_ID,
     });
     trackTutorialStepViewed(chainId, title, 'next');
   };
 
   const prev = () => {
-    const currentStepId = getChainCurrentStepId(state, chainId);
-    const title = getChainStepsTitle(state, chainId, currentStepId);
+    const title = getTitleForCurrentStepId(state);
     dispatch({
       type: 'SetChainCurrentStepId',
       chainId: chainId,
-      currentStepId: getChainPreviousStepId(
+      currentStepId: getPreviousStepIdForCurrentStepId(
         state,
-        chainId,
       ) as PROTOCOL_STEPS_ID,
     });
     trackTutorialStepViewed(chainId, title, 'prev');
   };
 
   const {primaryColor, secondaryColor} = getChainColors(chainId);
-  const previousStep = getChainPreviousStep(state, chainId);
-  const nextStep = getChainNextStep(state, chainId);
-  const justify =
-    previousStep && nextStep ? 'space-between' : previousStep ? 'start' : 'end';
+  const previousStep = getPreviousStepForCurrentStepId(state);
+  const nextStep = getNextStepForCurrentStepId(state);
+
+  const isFirstStep = previousStep === null ? true : false;
+  const isLastStep = nextStep === null ? true : false;
+
+  let justify: 'start' | 'end' | 'space-between';
+  if (isFirstStep) {
+    justify = 'end';
+  } else if (isLastStep) {
+    justify = 'start';
+  } else {
+    justify = 'space-between';
+  }
 
   return (
     <Col span={24}>

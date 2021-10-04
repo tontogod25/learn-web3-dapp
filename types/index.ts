@@ -9,22 +9,17 @@ export enum CHAINS {
   TEZOS = 'tezos',
 }
 
-export enum PROTOCOL {
-  RPC = 'RPC',
-  WS = 'WS',
-  LCD = 'LCD',
-  JSON_RPC = 'JSON_RPC',
-}
-
-export enum NETWORK {
-  MAINNET = 'mainnet',
-  TESTNET = 'testnet',
-  LOCALNET = 'localnet',
-  DEVNET = 'devnet',
-  DATAHUB = 'datahub',
-}
-
 // Protocol's Enum
+export type PROTOCOLS =
+  | POLYGON_PROTOCOLS
+  | SOLANA_PROTOCOLS
+  | POLKADOT_PROTOCOLS
+  | AVALANCHE_PROTOCOLS
+  | SECRET_PROTOCOLS
+  | NEAR_PROTOCOLS
+  | CELO_PROTOCOLS
+  | TEZOS_PROTOCOLS;
+
 export enum AVALANCHE_PROTOCOLS {
   RPC = 'RPC',
 }
@@ -46,6 +41,12 @@ export enum TEZOS_PROTOCOLS {
   RPC = 'RPC',
 }
 
+export enum POLYGON_PROTOCOLS {
+  RPC = 'RPC',
+  JSON_RPC = 'JSON_RPC',
+  WS = 'WS',
+}
+
 export enum POLKADOT_PROTOCOLS {
   RPC = 'RPC',
   WS = 'WS',
@@ -56,68 +57,43 @@ export enum SOLANA_PROTOCOLS {
   WS = 'WS',
 }
 
-// ----------------------------- Avalanche
+// NETWORKS ----------------------
 export enum AVALANCHE_NETWORKS {
   MAINNET = 'MAINNET',
   FUJI = 'FUJI',
 }
 
-export enum POLYGON_PROTOCOLS {
-  RPC = 'RPC',
-  JSON_RPC = 'JSON_RPC',
-  WS = 'WS',
-}
-
-// ----------------------------- Celo
 export enum CELO_NETWORKS {
   MAINNET = 'MAINNET',
   ALFAJORES = 'alfajores',
 }
 
-// -----------------------------
-
-// ----------------------------- Secret
 export enum SECRET_NETWORKS {
   MAINNET = 'MAINNET',
   TESTNET = 'HOLODECK-2',
 }
 
-// -----------------------------
-
-// ----------------------------- Near
 export enum NEAR_NETWORKS {
   MAINNET = 'MAINNET',
   TESTNET = 'TESTNET',
 }
 
-// -----------------------------
-
-// ----------------------------- Tezos
 export enum TEZOS_NETWORKS {
   MAINNET = 'MAINNET',
   TESTNET = 'TESTNET',
 }
 
-// -----------------------------
-
-// -----------------------------  Polkadot
 export enum POLKADOT_NETWORKS {
   WESTEND = 'WESTEND',
   MAINNET = 'MAINNET',
 }
 
-// -----------------------------
-
-// -----------------------------  Polygon
 export enum POLYGON_NETWORKS {
   MAINNET = 'MAINNET',
   TESTNET = 'TESTNET',
   DEFAULT = 'DATAHUB',
 }
 
-// -----------------------------
-
-// -----------------------------  Solana
 export enum SOLANA_NETWORKS {
   MAINNET = 'MAINNET',
   DEVNET = 'DEVNET',
@@ -125,7 +101,6 @@ export enum SOLANA_NETWORKS {
 }
 
 // -----------------------------
-
 export type NETWORKS =
   | POLYGON_NETWORKS
   | AVALANCHE_NETWORKS
@@ -136,16 +111,6 @@ export type NETWORKS =
   | CELO_NETWORKS
   | TEZOS_NETWORKS;
 
-export type PROTOCOLS =
-  | POLYGON_PROTOCOLS
-  | SOLANA_PROTOCOLS
-  | POLKADOT_PROTOCOLS
-  | AVALANCHE_PROTOCOLS
-  | SECRET_PROTOCOLS
-  | NEAR_PROTOCOLS
-  | CELO_PROTOCOLS
-  | TEZOS_PROTOCOLS;
-
 // ---------------------------------------------------
 export type ChainType = {
   id: CHAINS;
@@ -153,19 +118,18 @@ export type ChainType = {
   active: boolean;
   logoUrl: string;
   steps: StepType[];
-  defaultProtocol: PROTOCOL;
-  defaultNetwork: NETWORK;
+  protocol: PROTOCOLS;
+  network: NETWORKS;
 };
 
 export type ChainsType = {
-  [key: string]: ChainType;
+  [key in CHAINS]: ChainType;
 };
 
 export type StepType = {
   id: PROTOCOL_STEPS_ID;
   title: string;
   skippable?: boolean;
-  position: PROTOCOL_STEPS_POSITION;
 };
 
 export enum UserActivity {
@@ -173,20 +137,6 @@ export enum UserActivity {
   TUTORIAL_STEP_VIEWED = 'TUTORIAL_STEP_VIEWED',
   STORAGE_CLEARED = 'STORAGE_CLEARED',
 }
-
-export interface ProtocolI {
-  chainId: string;
-  clear(chain: string): void;
-  validate(n: number): void;
-  step: StepType;
-  index?: number;
-}
-
-/*
-export type MarkdownForChainT = {
-  [stepId: string]: string;
-};
-*/
 
 export type MarkdownForChainIdT = {
   [key in PROTOCOL_STEPS_ID]: string;
@@ -207,22 +157,26 @@ export type ProtocolStateT = {
   id: CHAINS;
   label: string;
   logoUrl: string;
-  network: NETWORK;
-  protocol: PROTOCOL;
+  network: NETWORKS;
+  protocol: PROTOCOLS;
   isActive: boolean;
-  currentStepIndex: number;
+  numberOfStep: number;
   currentStepId: PROTOCOL_STEPS_ID;
+  firstStepId: PROTOCOL_STEPS_ID;
+  lastStepId: PROTOCOL_STEPS_ID;
   steps: ProtocolStepsT;
-  innerState: InnerStateT;
+  innerState?: InnerStateT;
 };
 
 export type ProtocolStepT = {
-  id: string;
+  id: PROTOCOL_STEPS_ID;
   title: string;
   isVisited: boolean;
   isSkippable: boolean;
   isCompleted: boolean;
-  position: PROTOCOL_STEPS_POSITION;
+  previousStepId: PROTOCOL_STEPS_ID | null;
+  nextStepId: PROTOCOL_STEPS_ID | null;
+  position: number;
 };
 
 export type ProtocolStepsT = {
@@ -230,10 +184,8 @@ export type ProtocolStepsT = {
 };
 
 export type InnerStateT = {
-  [Key in PROTOCOL_INNER_STATES_ID]?: InnerStateTypeT;
+  [Key in PROTOCOL_INNER_STATES_ID]?: string;
 };
-
-export type InnerStateTypeT = string | boolean;
 
 export enum PROTOCOL_INNER_STATES_ID {
   SECRET = 'SECRET',
@@ -268,18 +220,4 @@ export enum PROTOCOL_STEPS_ID {
   DEPLOY_CONTRACT = 'DEPLOY_CONTRACT',
   GET_CONTRACT_VALUE = 'GET_CONTRACT_VALUE',
   SET_CONTRACT_VALUE = 'SET_CONTRACT_VALUE',
-}
-
-export enum PROTOCOL_STEPS_POSITION {
-  ZERO = 0,
-  ONE = 1,
-  TWO = 2,
-  THREE = 3,
-  FOUR = 4,
-  FIVE = 5,
-  SIX = 6,
-  SEVEN = 7,
-  EIGHT = 8,
-  NINE = 9,
-  TEN = 10,
 }

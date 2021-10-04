@@ -23,7 +23,7 @@ const Layout = (
 
   useEffect(() => {
     dispatch({
-      type: 'SetChainId',
+      type: 'SetCurrentChainId',
       currentChainId: chain.id,
     });
   }, [chain]);

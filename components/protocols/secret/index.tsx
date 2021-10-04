@@ -12,17 +12,12 @@ import {appStateReducer, initialState, SecretContext} from '@secret/context';
 import {useLocalStorage} from '@secret/hooks';
 import Nav from '@secret/components/nav';
 import Layout from 'components/shared/Layout';
-import {PROTOCOL_STEPS_ID, CHAINS, ChainType} from 'types';
-import {
-  getChainCurrentStepId,
-  getCurrentChainId,
-  useGlobalState,
-} from 'context';
+import {PROTOCOL_STEPS_ID, ChainType} from 'types';
+import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 
 const Secret: React.FC = () => {
-  const {state: gstate} = useGlobalState();
-  const chainId = getCurrentChainId(gstate) as CHAINS;
-  const stepId = getChainCurrentStepId(gstate, chainId);
+  const {state: global_state} = useGlobalState();
+  const stepId = getCurrentStepIdForCurrentChain(global_state);
 
   const [storageState, setStorageState] = useLocalStorage(
     'secret',

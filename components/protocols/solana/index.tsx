@@ -1,6 +1,6 @@
 import Layout from 'components/shared/Layout';
-import {ChainType, PROTOCOL_STEPS_ID, CHAINS} from 'types';
-import Nav from '@solana/components/nav';
+import {ChainType, PROTOCOL_STEPS_ID, MarkdownForChainIdT} from 'types';
+// import Nav from '@solana/components/nav';
 import {
   Setup,
   Connect,
@@ -13,18 +13,12 @@ import {
   Getter,
   Setter,
 } from '@solana/components/steps';
-import {
-  getChainCurrentStepId,
-  getCurrentChainId,
-  useGlobalState,
-} from 'context';
+import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 
 const Solana: React.FC = () => {
   const {state} = useGlobalState();
-  const chainId = getCurrentChainId(state) as CHAINS;
-  const stepId = getChainCurrentStepId(state, chainId);
+  const stepId = getCurrentStepIdForCurrentChain(state);
 
-  console.log(stepId);
   return (
     <>
       {/* <Nav /> */}
@@ -42,10 +36,10 @@ const Solana: React.FC = () => {
   );
 };
 
-const WithLayoutSolana: React.FC<{chain: ChainType; markdown: any}> = ({
-  chain,
-  markdown,
-}) => {
+const WithLayoutSolana: React.FC<{
+  chain: ChainType;
+  markdown: MarkdownForChainIdT;
+}> = ({chain, markdown}) => {
   return Layout(Solana, chain, markdown);
 };
 

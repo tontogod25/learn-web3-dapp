@@ -8,30 +8,34 @@ import {
   Getter,
   Setter,
 } from '@near/components/steps';
-import Nav from '@near/components/nav';
-import {ChainType, StepType} from 'types';
+// import Nav from '@near/components/nav';
+import {ChainType, PROTOCOL_STEPS_ID, MarkdownForChainIdT} from 'types';
 import Layout from 'components/shared/Layout';
+import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 
-const Near: React.FC<{step: StepType}> = ({step}) => {
+const Near: React.FC = () => {
+  const {state} = useGlobalState();
+  const stepId = getCurrentStepIdForCurrentChain(state);
+
   return (
     <>
-      {step.id === 'connect' && <Connect />}
-      {step.id === 'keypair' && <Keys />}
-      {step.id === 'account' && <Account />}
-      {step.id === 'balance' && <Balance />}
-      {step.id === 'transfer' && <Transfer />}
-      {step.id === 'deploy' && <Deploy />}
-      {step.id === 'getter' && <Getter />}
-      {step.id === 'setter' && <Setter />}
-      <Nav />
+      {/* <Nav /> */}
+      {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
+      {stepId === PROTOCOL_STEPS_ID.CREATE_KEYPAIR && <Keys />}
+      {stepId === PROTOCOL_STEPS_ID.CREATE_KEYPAIR && <Account />}
+      {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
+      {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
+      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}
+      {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Getter />}
+      {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Setter />}
     </>
   );
 };
 
-const WithLayoutNear: React.FC<{chain: ChainType; markdown: any}> = ({
-  chain,
-  markdown,
-}) => {
+const WithLayoutNear: React.FC<{
+  chain: ChainType;
+  markdown: MarkdownForChainIdT;
+}> = ({chain, markdown}) => {
   return Layout(Near, chain, markdown);
 };
 

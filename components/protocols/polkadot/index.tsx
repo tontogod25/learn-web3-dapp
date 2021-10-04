@@ -14,20 +14,14 @@ import {
   PolkadotContext,
 } from '@polkadot/context';
 import {useLocalStorage} from '@polkadot/hooks';
-import {PROTOCOL_STEPS_ID, CHAINS, ChainType} from 'types';
+import {PROTOCOL_STEPS_ID, ChainType, MarkdownForChainIdT} from 'types';
 import Nav from '@polkadot/components/nav';
 import Layout from 'components/shared/Layout';
-import {
-  getChainCurrentStepId,
-  getCurrentChainId,
-  useGlobalState,
-} from 'context';
+import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 
 const Polkadot: React.FC = () => {
-  const {state: gstate} = useGlobalState();
-  const chainId = getCurrentChainId(gstate);
-  const stepId = getChainCurrentStepId(gstate, chainId);
-  console.log(stepId);
+  const {state: global_state} = useGlobalState();
+  const stepId = getCurrentStepIdForCurrentChain(global_state);
 
   const [storageState, setStorageState] = useLocalStorage(
     'polkadot',
@@ -54,10 +48,10 @@ const Polkadot: React.FC = () => {
   );
 };
 
-const WithLayoutPolkadot: React.FC<{chain: ChainType; markdown: any}> = ({
-  chain,
-  markdown,
-}) => {
+const WithLayoutPolkadot: React.FC<{
+  chain: ChainType;
+  markdown: MarkdownForChainIdT;
+}> = ({chain, markdown}) => {
   return Layout(Polkadot, chain, markdown);
 };
 

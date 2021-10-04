@@ -8,12 +8,16 @@ import {getChainColors} from 'utils/colors';
 import {CHAINS} from 'types';
 import logoSVG from 'public/figment-learn-compact.svg';
 import {HEADER_HEIGHT} from 'lib/constants';
-import {getChainLabel, getCurrentChainId, useGlobalState} from 'context';
+import {
+  getLabelForCurrentChain,
+  getCurrentChainId,
+  useGlobalState,
+} from 'context';
 
 const Nav = () => {
   const {state} = useGlobalState();
   const currentChainId = getCurrentChainId(state) as CHAINS;
-  const chainLabel = getChainLabel(state, currentChainId);
+  const chainLabel = getLabelForCurrentChain(state);
   const {primaryColor, secondaryColor} = getChainColors(currentChainId);
 
   return (

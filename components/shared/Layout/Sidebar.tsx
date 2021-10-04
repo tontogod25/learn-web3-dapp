@@ -5,32 +5,27 @@ import {OrderedListOutlined} from '@ant-design/icons';
 import Markdown from 'components/shared/CustomMarkdown';
 
 import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
-import {MarkdownForChainIdT, CHAINS} from 'types';
+import {MarkdownForChainIdT} from 'types';
 import {
-  getChainCurrentStepId,
-  getChainStepsTitle,
   useGlobalState,
-  getChainSteps,
-  getCurrentChainId,
-  getChainStepsId,
-  getChainStepsPosition,
+  getTitleForCurrentStepId,
+  getStepsForCurrentChain,
+  getPositionForCurrentStepId,
+  getCurrentStepIdForCurrentChain,
 } from 'context';
 
 const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
   const {state} = useGlobalState();
-  const chainId = getCurrentChainId(state);
-  const currentStepId = getChainCurrentStepId(state, chainId);
-  console.log(currentStepId);
-  const stepTitle = getChainStepsTitle(state, chainId, currentStepId);
-  const stepId = getChainStepsId(state, chainId, currentStepId);
-  const steps = Object.values(getChainSteps(state, chainId)).map((step) => {
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  const stepTitle = getTitleForCurrentStepId(state);
+  const steps = Object.values(getStepsForCurrentChain(state)).map((step) => {
     const index = step.position as number;
     const title = step.title as string;
     return {index, title};
   });
 
   const md = markdown[currentStepId];
-  const stepIndex = getChainStepsPosition(state, chainId, currentStepId);
+  const stepIndex = getPositionForCurrentStepId(state);
 
   const menu = (
     <StyledMenu>
@@ -41,7 +36,7 @@ const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
   );
 
   return (
-    <Left span={GRID_LAYOUT[0]} key={stepId}>
+    <Left span={GRID_LAYOUT[0]} key={currentStepId}>
       <StepHeader size="large" align="center">
         <StepTitle>{stepTitle}</StepTitle>
         <StepNumber>{`(${stepIndex}/${steps.length})`}</StepNumber>

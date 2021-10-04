@@ -11,18 +11,13 @@ import {
 import {appStateReducer, initialState, TezosContext} from '@tezos/context';
 import {useLocalStorage} from '@tezos/hooks';
 import Nav from '@tezos/components/nav';
-import {PROTOCOL_STEPS_ID, CHAINS, ChainType} from 'types';
+import {PROTOCOL_STEPS_ID, ChainType, MarkdownForChainIdT} from 'types';
 import Layout from 'components/shared/Layout';
-import {
-  getChainCurrentStepId,
-  getCurrentChainId,
-  useGlobalState,
-} from 'context';
+import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 
 const Tezos: React.FC = () => {
-  const {state: gstate} = useGlobalState();
-  const chainId = getCurrentChainId(gstate) as CHAINS;
-  const stepId = getChainCurrentStepId(gstate, chainId);
+  const {state: global_state} = useGlobalState();
+  const stepId = getCurrentStepIdForCurrentChain(global_state);
 
   const [storageState, setStorageState] = useLocalStorage(
     'tezos',
@@ -48,10 +43,10 @@ const Tezos: React.FC = () => {
   );
 };
 
-const WithLayoutTezos: React.FC<{chain: ChainType; markdown: any}> = ({
-  chain,
-  markdown,
-}) => {
+const WithLayoutTezos: React.FC<{
+  chain: ChainType;
+  markdown: MarkdownForChainIdT;
+}> = ({chain, markdown}) => {
   return Layout(Tezos, chain, markdown);
 };
 

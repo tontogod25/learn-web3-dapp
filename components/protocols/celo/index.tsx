@@ -11,19 +11,14 @@ import {
 } from '@celo/components/steps';
 import {appStateReducer, initialState, CeloContext} from '@celo/context';
 import {useLocalStorage} from '@celo/hooks';
-import {PROTOCOL_STEPS_ID, CHAINS, ChainType} from 'types';
+import {PROTOCOL_STEPS_ID, ChainType} from 'types';
 import Layout from 'components/shared/Layout';
 import Nav from './components/nav';
-import {
-  getChainCurrentStepId,
-  getCurrentChainId,
-  useGlobalState,
-} from 'context';
+import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 
 const Celo: React.FC = () => {
-  const {state: gstate} = useGlobalState();
-  const chainId = getCurrentChainId(gstate) as CHAINS;
-  const stepId = getChainCurrentStepId(gstate, chainId);
+  const {state: global_state} = useGlobalState();
+  const stepId = getCurrentStepIdForCurrentChain(global_state);
 
   const [storageState, setStorageState] = useLocalStorage('celo', initialState);
   const [state, dispatch] = useReducer(appStateReducer, storageState);
