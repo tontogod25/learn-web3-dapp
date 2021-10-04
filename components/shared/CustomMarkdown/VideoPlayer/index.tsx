@@ -2,7 +2,7 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import {StyledCard} from './VideoPlayer.styles';
 
-const VideoPlayer = (props) => {
+const VideoPlayer = (props: any) => {
   const {url, caption} = props;
 
   return (

@@ -1,16 +1,18 @@
-import fs from 'fs';
+import {MarkdownForChainIdT, PROTOCOL_STEPS_ID, CHAINS} from 'types';
 import markdownURLs from 'lib/markdownURLs';
-import {MarkdownForChainT} from 'types';
+import path from 'path';
+import fs from 'fs';
 
-export function markdownFetch(chainId: string): MarkdownForChainT {
-  // @ts-ignore
-  const stepsObj = markdownURLs[chainId];
+const MARKDOWN_PATH = path.resolve('md');
 
-  return Object.keys(stepsObj).reduce((acc, stepId) => {
-    const data = fs.readFileSync(`md/${chainId}/${stepId}.md`);
-    const stepMd = data.toString();
-    // @ts-ignore
-    acc[stepId] = stepMd;
-    return acc;
-  }, {});
+export function fetchMarkdownForChainId(chainId: CHAINS): MarkdownForChainIdT {
+  const steps = markdownURLs[chainId];
+
+  return Object.keys(steps).reduce((markdownMap, stepId) => {
+    const filePath = path.join(MARKDOWN_PATH, chainId, `${stepId}.md`);
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    const markdown = fileContent.toString();
+    markdownMap[stepId as PROTOCOL_STEPS_ID] = markdown;
+    return markdownMap;
+  }, {} as MarkdownForChainIdT);
 }

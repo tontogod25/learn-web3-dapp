@@ -1,6 +1,11 @@
 import {Alert, Col, Input, Button, Space, Typography} from 'antd';
 import {useState} from 'react';
 import {ethers} from 'ethers';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 
 const {Text} = Typography;
 
@@ -9,6 +14,7 @@ const {Text} = Typography;
 declare let window: any;
 
 const Restore = () => {
+  const {state, dispatch} = useGlobalState();
   const [address, setAddress] = useState<string | null>(null);
   const [secret, setSecret] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -24,6 +30,12 @@ const Restore = () => {
       } else {
         setError('Unable to restore account');
       }
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
     } catch (error) {
       setAddress(null);
       setSecret(null);

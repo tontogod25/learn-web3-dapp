@@ -1,5 +1,5 @@
 import Layout from 'components/shared/Layout';
-import {StepType, ChainType} from 'types';
+import {ChainType, PROTOCOL_STEPS_ID, MarkdownForChainIdT} from 'types';
 import Nav from '@solana/components/nav';
 import {
   Connect,
@@ -12,28 +12,32 @@ import {
   Getter,
   Setter,
 } from '@solana/components/steps';
+import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 
-const Solana: React.FC<{step: StepType}> = ({step}) => {
+const Solana: React.FC = () => {
+  const {state} = useGlobalState();
+  const stepId = getCurrentStepIdForCurrentChain(state);
+
   return (
-    <>
-      {step.id === 'connect' && <Connect />}
-      {step.id === 'account' && <Keypair />}
-      {step.id === 'fund' && <Fund />}
-      {step.id === 'balance' && <Balance />}
-      {step.id === 'transfer' && <Transfer />}
-      {step.id === 'deploy' && <Deploy />}
-      {step.id === 'greeter' && <Greeter />}
-      {step.id === 'getter' && <Getter />}
-      {step.id === 'setter' && <Setter />}
+    <div key={stepId}>
       <Nav />
-    </>
+      {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
+      {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Keypair />}
+      {stepId === PROTOCOL_STEPS_ID.FUND_ACCOUNT && <Fund />}
+      {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
+      {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
+      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}
+      {stepId === PROTOCOL_STEPS_ID.SOLANA_CREATE_GREETER && <Greeter />}
+      {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Getter />}
+      {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Setter />}
+    </div>
   );
 };
 
-const WithLayoutSolana: React.FC<{chain: ChainType; markdown: any}> = ({
-  chain,
-  markdown,
-}) => {
+const WithLayoutSolana: React.FC<{
+  chain: ChainType;
+  markdown: MarkdownForChainIdT;
+}> = ({chain, markdown}) => {
   return Layout(Solana, chain, markdown);
 };
 

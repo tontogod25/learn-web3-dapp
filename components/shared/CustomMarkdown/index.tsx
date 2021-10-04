@@ -55,7 +55,7 @@ const Markdown = ({
         },
         hr: ({...props}) => {
           const {sourcePosition} = props;
-          if (sourcePosition.start.line !== 1) {
+          if (sourcePosition?.start.line !== 1) {
             return <Divider />;
           } else {
             return null;
@@ -164,7 +164,7 @@ const Markdown = ({
             const id = stringToCssId(text);
 
             if (
-              sourcePosition.start.line === 2 &&
+              sourcePosition?.start.line === 2 &&
               text.includes('description:')
             ) {
               return null;

@@ -5,13 +5,37 @@ import {useState, useEffect} from 'react';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import axios from 'axios';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getNetworkForCurrentChain,
+  getChainInnerState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
 const Greeter = () => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.solana;
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const network = getNetworkForCurrentChain(state);
+  const secret = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.SECRET,
+  );
+  const programId = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
+  );
+  const greeter = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.GREETER,
+  );
+
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [hash, setHash] = useState<string | null>(null);
@@ -36,11 +60,23 @@ const Greeter = () => {
     setHash(null);
     setFetching(true);
     try {
-      const response = await axios.post(`/api/solana/greeter`, state);
+      const response = await axios.post(`/api/solana/greeter`, {
+        network,
+        secret,
+        programId,
+      });
       setHash(response.data.hash);
       dispatch({
-        type: 'SetSolanaGreeter',
-        greeter: response.data.greeter,
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.GREETER,
+        value: response.data.greeter,
+      });
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId,
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
       });
     } catch (error) {
       setError(prettyError(error));
@@ -49,7 +85,7 @@ const Greeter = () => {
     }
   };
 
-  if (state?.greeter) {
+  if (greeter) {
     return (
       <Col>
         <Space direction="vertical">
@@ -57,7 +93,7 @@ const Greeter = () => {
           <Alert
             message={
               <a
-                href={accountExplorer(state?.greeter ?? '', state.network)}
+                href={accountExplorer(greeter, network)}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -72,7 +108,7 @@ const Greeter = () => {
               message={
                 <Text>
                   <a
-                    href={transactionExplorer(hash ?? '', state.network)}
+                    href={transactionExplorer(hash, network)}
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -97,7 +133,7 @@ const Greeter = () => {
             We&apos;re going to derive the greeter account from the programId
           </Text>
           <Input
-            placeholder={state?.programId}
+            placeholder={programId as string}
             disabled={true}
             style={{width: '500px'}}
           />

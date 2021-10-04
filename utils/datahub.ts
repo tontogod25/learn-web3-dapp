@@ -1,4 +1,3 @@
-import rehypeFilter from 'react-markdown/lib/rehype-filter';
 import {
   NETWORKS,
   PROTOCOLS,

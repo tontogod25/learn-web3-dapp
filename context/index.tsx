@@ -1,230 +1,345 @@
 import {createContext, Dispatch, useContext} from 'react';
+import {CHAINS_CONFIG} from 'lib/constants';
+import {
+  GlobalStateT,
+  ProtocolStepsT,
+  ProtocolsStateT,
+  CHAINS,
+  StepType,
+  PROTOCOL_STEPS_ID,
+  PROTOCOL_INNER_STATES_ID,
+  NETWORKS,
+  PROTOCOLS,
+} from 'types';
 
-export type GlobalState = {
-  currentStepIndex: number;
-  highestCompletedStepIndex: number;
-  chainId?: string;
-  // Solana global state
-  solana: {
-    network: string;
-    address?: string;
-    secret?: string;
-    programId?: string;
-    greeter?: string;
+type StepsReducerHelperT = {
+  index: number;
+  data: ProtocolStepsT;
+};
+
+const stepsReducerHelper = (
+  {index, data}: {index: number; data: ProtocolStepsT},
+  step: StepType,
+): StepsReducerHelperT => {
+  const id = step.id;
+  const title = step.title;
+  const isSkippable = !!step.skippable;
+  const isCompleted = isSkippable ? true : false;
+  const isVisited = isSkippable ? true : false;
+  const position = index;
+  const previousStepId =
+    index === 0 ? null : (Object.keys(data)[index - 1] as PROTOCOL_STEPS_ID);
+  data[id] = {
+    id,
+    title,
+    isVisited,
+    isCompleted,
+    isSkippable,
+    position,
+    previousStepId,
+    nextStepId: null,
   };
-  // Avalanche global state
-  avalanche: {
-    network: string;
-    secret?: string;
-    address?: string;
+
+  if (previousStepId) {
+    data[previousStepId].nextStepId = id;
+  }
+
+  return {index: index + 1, data};
+};
+
+const protocolsReducerHelper = (
+  protocolsData: ProtocolsStateT,
+  chainId: CHAINS,
+): ProtocolsStateT => {
+  const steps = CHAINS_CONFIG[chainId].steps.reduce(
+    (data, step) => stepsReducerHelper(data, step),
+    {index: 0, data: {}} as StepsReducerHelperT,
+  );
+  const stepsIds = Object.keys(steps.data) as PROTOCOL_STEPS_ID[];
+  const numberOfStep = stepsIds.length;
+  const firstStepId = stepsIds[0];
+  const lastStepId = stepsIds[numberOfStep - 1];
+
+  protocolsData[chainId] = {
+    id: CHAINS_CONFIG[chainId].id,
+    label: CHAINS_CONFIG[chainId].label,
+    logoUrl: CHAINS_CONFIG[chainId].logoUrl,
+    network: CHAINS_CONFIG[chainId].network,
+    isActive: CHAINS_CONFIG[chainId].active,
+    protocol: CHAINS_CONFIG[chainId].protocol,
+    currentStepId: PROTOCOL_STEPS_ID.PROJECT_SETUP,
+    steps: steps.data,
+    firstStepId,
+    lastStepId,
+    numberOfStep,
+    innerState: undefined,
   };
-  // Near global state
-  near: {
-    network: string;
-    accountId?: string;
-    secret?: string;
-    contractId?: string;
-  };
-  // Polygon global state
-  polygon: {
-    network?: string;
-    address?: string;
-  };
+
+  return protocolsData;
+};
+
+const buildInitialState = (): ProtocolsStateT => {
+  return Object.keys(CHAINS_CONFIG).reduce(
+    (protocolsData, chainId) =>
+      protocolsReducerHelper(protocolsData, chainId as CHAINS),
+    {} as ProtocolsStateT,
+  );
+};
+
+const clearStepProgression = (steps: ProtocolStepsT): ProtocolStepsT => {
+  return Object.keys(steps).reduce((steps, stepId) => {
+    steps[stepId as PROTOCOL_STEPS_ID].isCompleted = false;
+    steps[stepId as PROTOCOL_STEPS_ID].isVisited = false;
+    return steps;
+  }, steps);
+};
+
+const initialGlobalState = {
+  currentChainId: undefined,
+  protocols: buildInitialState(),
 };
 
 type Action =
-  | {type: 'SetCurrentStepIndex'; currentStepIndex: number}
-  | {type: 'SetHighestCompletedStepIndex'; highestCompletedStepIndex: number}
-  | {type: 'SetChainId'; chainId: string | undefined}
-  // Solana actions
-  | {type: 'SetSolanaNetwork'; network: string}
-  | {type: 'SetSolanaAddress'; address?: string}
-  | {type: 'SetSolanaSecret'; secret?: string}
-  | {type: 'SetSolanaProgramId'; programId?: string}
-  | {type: 'SetSolanaGreeter'; greeter?: string}
-  // Avalanche Actions
-  | {type: 'SetAvalancheNetwork'; network: string}
-  | {type: 'SetAvalancheAddress'; address?: string}
-  | {type: 'SetAvalancheSecret'; secret?: string}
-  // Near Actions
-  | {type: 'SetNearNetwork'; network: string}
-  | {type: 'SetNearAccountId'; accountId?: string}
-  | {type: 'SetNearSecret'; secret?: string}
-  | {type: 'SetNearConractId'; contractId?: string}
-  // Polygon Actions
-  | {type: 'SetPolygonNetwork'; network: string}
-  | {type: 'SetPolygonAddress'; address?: string};
+  | {type: 'SetCurrentChainId'; currentChainId: CHAINS}
+  | {type: 'SetChainNetwork'; chainId: CHAINS; network: NETWORKS}
+  | {type: 'SetChainProtocol'; chainId: CHAINS; protocol: PROTOCOLS}
+  | {
+      type: 'SetChainCurrentStepId';
+      chainId: CHAINS;
+      currentStepId: PROTOCOL_STEPS_ID;
+    }
+  | {
+      type: 'SetStepIsCompleted';
+      chainId: CHAINS;
+      stepId: PROTOCOL_STEPS_ID;
+      value: boolean;
+    }
+  | {
+      type: 'ClearStepProgression';
+      chainId: CHAINS;
+    }
+  | {
+      type: 'SetStepInnerState';
+      chainId: CHAINS;
+      innerStateId: PROTOCOL_INNER_STATES_ID;
+      value: string | null;
+    };
 
-const initialGlobalState = {
-  currentStepIndex: 0,
-  highestCompletedStepIndex: 0,
-  // Solana initial state
-  solana: {
-    network: 'devnet',
-  },
-  // Avalanche initial state
-  avalanche: {
-    network: 'datahub',
-  },
-  // Near initial state
-  near: {
-    network: 'datahub',
-  },
-  // Polygon initial state
-  polygon: {
-    network: 'datahub',
-  },
-};
-
-function globalStateReducer(state: GlobalState, action: Action): GlobalState {
+function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
   switch (action.type) {
-    // Shared State
-    case 'SetCurrentStepIndex':
-      return {...state, currentStepIndex: action.currentStepIndex};
-    case 'SetHighestCompletedStepIndex':
+    case 'SetCurrentChainId':
+      return {...state, currentChainId: action.currentChainId};
+
+    case 'SetChainCurrentStepId':
       return {
         ...state,
-        highestCompletedStepIndex: action.highestCompletedStepIndex,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            currentStepId: action.currentStepId,
+          },
+        },
       };
-    case 'SetChainId':
-      return {...state, chainId: action.chainId};
-    // Solana State
-    case 'SetSolanaNetwork': {
+
+    case 'SetChainNetwork':
       return {
         ...state,
-        solana: {
-          ...state.solana,
-          network: action.network,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            network: action.network,
+          },
+        },
+      };
+
+    case 'SetChainProtocol':
+      return {
+        ...state,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            protocol: action.protocol,
+          },
+        },
+      };
+
+    case 'SetStepIsCompleted':
+      return {
+        ...state,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            steps: {
+              ...state.protocols[action.chainId].steps,
+              [action.stepId]: {
+                ...state.protocols[action.chainId].steps[action.stepId],
+                isCompleted: action.value,
+              },
+            },
+          },
+        },
+      };
+
+    case 'ClearStepProgression': {
+      const newSteps = clearStepProgression(getStepsForCurrentChain(state));
+      return {
+        ...state,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            steps: newSteps,
+          },
         },
       };
     }
-    case 'SetSolanaAddress': {
+
+    case 'SetStepInnerState':
       return {
         ...state,
-        solana: {
-          ...state.solana,
-          address: action.address,
+        protocols: {
+          ...state.protocols,
+          [action.chainId]: {
+            ...state.protocols[action.chainId],
+            innerState: {
+              ...state.protocols[action.chainId].innerState,
+              [action.innerStateId]: action.value,
+            },
+          },
         },
       };
-    }
-    case 'SetSolanaSecret': {
-      return {
-        ...state,
-        solana: {
-          ...state.solana,
-          secret: action.secret,
-        },
-      };
-    }
-    case 'SetSolanaGreeter': {
-      return {
-        ...state,
-        solana: {
-          ...state.solana,
-          greeter: action.greeter,
-        },
-      };
-    }
-    case 'SetSolanaProgramId': {
-      return {
-        ...state,
-        solana: {
-          ...state.solana,
-          programId: action.programId,
-        },
-      };
-    }
-    // Avalanche State
-    case 'SetAvalancheNetwork': {
-      return {
-        ...state,
-        avalanche: {
-          ...state.avalanche,
-          network: action.network,
-        },
-      };
-    }
-    case 'SetAvalancheAddress': {
-      return {
-        ...state,
-        avalanche: {
-          ...state.avalanche,
-          address: action.address,
-        },
-      };
-    }
-    case 'SetAvalancheSecret': {
-      return {
-        ...state,
-        avalanche: {
-          ...state.avalanche,
-          secret: action.secret,
-        },
-      };
-    }
-    // Near State
-    case 'SetNearNetwork': {
-      return {
-        ...state,
-        near: {
-          ...state.near,
-          network: action.network,
-        },
-      };
-    }
-    case 'SetNearAccountId': {
-      return {
-        ...state,
-        near: {
-          ...state.near,
-          accountId: action.accountId,
-        },
-      };
-    }
-    case 'SetNearSecret': {
-      return {
-        ...state,
-        near: {
-          ...state.near,
-          secret: action.secret,
-        },
-      };
-    }
-    case 'SetNearConractId': {
-      return {
-        ...state,
-        near: {
-          ...state.near,
-          contractId: action.contractId,
-        },
-      };
-    }
-    // Polygon state
-    case 'SetPolygonAddress': {
-      return {
-        ...state,
-        polygon: {
-          ...state.polygon,
-          address: action.address,
-        },
-      };
-    }
-    case 'SetPolygonNetwork': {
-      return {
-        ...state,
-        polygon: {
-          ...state.polygon,
-          network: action.network,
-        },
-      };
-    }
     default:
       return state;
   }
 }
 
+// Global State function, upmost level
+export const getCurrentChainId = (state: GlobalStateT) => {
+  return state.currentChainId as CHAINS;
+};
+
+// Current chain function
+export const getLogoUrlForCurrentChain = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  return state.protocols[chainId].logoUrl;
+};
+
+export const getLabelForCurrentChain = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  return state.protocols[chainId].label;
+};
+
+export const getNetworkForCurrentChain = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  return state.protocols[chainId].network;
+};
+
+export const getProtocolForCurrentChain = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  return state.protocols[chainId].protocol;
+};
+
+export const getCurrentStepIdForCurrentChain = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  return state.protocols[chainId].currentStepId;
+};
+
+export const getNumberOfStepForCurrentChain = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  return state.protocols[chainId].numberOfStep;
+};
+
+export const getStepsForCurrentChain = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  return state.protocols[chainId].steps;
+};
+
+export const getFirstStepIdForCurrentChain = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  return state.protocols[chainId].firstStepId;
+};
+
+// Current Step Id function
+export const getNextStepIdForCurrentStepId = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  return state.protocols[chainId].steps[currentStepId].nextStepId;
+};
+
+export const getPreviousStepIdForCurrentStepId = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  return state.protocols[chainId].steps[currentStepId].previousStepId;
+};
+
+export const getNextStepForCurrentStepId = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const nextStepId = getNextStepIdForCurrentStepId(state);
+  return nextStepId === null
+    ? null
+    : state.protocols[chainId].steps[nextStepId];
+};
+
+export const getPreviousStepForCurrentStepId = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const previousStep = getPreviousStepIdForCurrentStepId(state);
+  return previousStep === null
+    ? null
+    : state.protocols[chainId].steps[previousStep];
+};
+
+export const getTitleForCurrentStepId = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  return state.protocols[chainId].steps[currentStepId].title;
+};
+
+export const getPositionForCurrentStepId = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  return state.protocols[chainId].steps[currentStepId].position;
+};
+
+export const getIsCompletedForCurrentStepId = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  return state.protocols[chainId].steps[currentStepId].isCompleted;
+};
+
+export const getIsSkippableForCurrentStepId = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  return state.protocols[chainId].steps[currentStepId].isSkippable;
+};
+
+export const getIsVisitedForCurrentStepId = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  return state.protocols[chainId].steps[currentStepId].isSkippable;
+};
+
+export const isFirstStepForCurrentStepId = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  return state.protocols[chainId].steps[currentStepId].position === 0;
+};
+
+// Inner state functions
+export const getChainInnerState = (
+  state: GlobalStateT,
+  chainId: CHAINS,
+  stateId: PROTOCOL_INNER_STATES_ID,
+) => {
+  return state.protocols[chainId].innerState?.[stateId];
+};
+
+//-------------------------------------------------
 const GlobalContext = createContext<{
-  state: GlobalState;
+  state: GlobalStateT;
   dispatch: Dispatch<Action>;
 }>({
   state: initialGlobalState,

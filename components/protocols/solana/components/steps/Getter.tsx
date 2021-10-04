@@ -3,14 +3,28 @@ import {ErrorBox} from '@solana/components/nav';
 import type {ErrorT} from '@solana/types';
 import {useState, useEffect} from 'react';
 import {prettyError} from '@solana/lib';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getNetworkForCurrentChain,
+  getChainInnerState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Getter = () => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.solana;
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const network = getNetworkForCurrentChain(state);
+  const greeter = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.GREETER,
+  );
+
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [greeting, setGreeting] = useState<number>(-1);
@@ -34,8 +48,17 @@ const Getter = () => {
     setError(null);
     setFetching(true);
     try {
-      const response = await axios.post(`/api/solana/getter`, state);
+      const response = await axios.post(`/api/solana/getter`, {
+        network,
+        greeter,
+      });
       setGreeting(response.data);
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId,
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
     } catch (error) {
       setError(prettyError(error));
     } finally {

@@ -5,6 +5,11 @@ import {getPolygonTxExplorerURL} from '@polygon/lib';
 import {LoadingOutlined} from '@ant-design/icons';
 import {useState} from 'react';
 import {ethers} from 'ethers';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 
 const {Text} = Typography;
 
@@ -13,6 +18,7 @@ const {Text} = Typography;
 declare let window: any;
 
 const Setter = () => {
+  const {state, dispatch} = useGlobalState();
   const [inputNumber, setInputNumber] = useState<number>(0);
   const [fetchingSet, setFetchingSet] = useState<boolean>(false);
   const [txHash, setTxHash] = useState<string | null>(null);
@@ -40,6 +46,12 @@ const Setter = () => {
       const receipt = await transactionResult.wait();
       setTxHash(receipt.transactionHash);
       setConfirming(false);
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
     } catch (error) {
       setFetchingSet(false);
     }
