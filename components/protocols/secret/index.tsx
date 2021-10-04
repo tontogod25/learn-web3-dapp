@@ -33,7 +33,7 @@ const Secret: React.FC = () => {
     <SecretContext.Provider value={{state, dispatch}}>
       <Nav />
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
-      {stepId === PROTOCOL_STEPS_ID.CREATE_KEYPAIR && <Account />}
+      {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
       {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
       {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}
