@@ -86,23 +86,21 @@ const buildInitialState = (): ProtocolsStateT => {
   );
 };
 
+const clearStepProgression = (steps: ProtocolStepsT): ProtocolStepsT => {
+  return Object.keys(steps).reduce((steps, stepId) => {
+    steps[stepId as PROTOCOL_STEPS_ID].isCompleted = false;
+    steps[stepId as PROTOCOL_STEPS_ID].isVisited = false;
+    return steps;
+  }, steps);
+};
+
 const initialGlobalState = {
   currentChainId: undefined,
   protocols: buildInitialState(),
 };
 
-/*
-console.log('coucou');
-console.log(JSON.stringify(initialGlobalState, null, 2));
-*/
-
 type Action =
   | {type: 'SetCurrentChainId'; currentChainId: CHAINS}
-  | {
-      type: 'SetChainCurrentStepIndex';
-      chainId: CHAINS;
-      currentStepIndex: number;
-    }
   | {type: 'SetChainNetwork'; chainId: CHAINS; network: NETWORKS}
   | {type: 'SetChainProtocol'; chainId: CHAINS; protocol: PROTOCOLS}
   | {
@@ -111,40 +109,26 @@ type Action =
       currentStepId: PROTOCOL_STEPS_ID;
     }
   | {
-      type: 'SetChainProgressIsVisited';
+      type: 'SetStepIsCompleted';
       chainId: CHAINS;
       stepId: PROTOCOL_STEPS_ID;
       value: boolean;
     }
   | {
-      type: 'SetChainProgressIsCompleted';
+      type: 'ClearStepProgression';
       chainId: CHAINS;
-      stepId: PROTOCOL_STEPS_ID;
-      value: boolean;
     }
   | {
-      type: 'SetChainInnerState';
+      type: 'SetStepInnerState';
       chainId: CHAINS;
       innerStateId: PROTOCOL_INNER_STATES_ID;
-      value: string;
+      value: string | null;
     };
 
 function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
   switch (action.type) {
     case 'SetCurrentChainId':
       return {...state, currentChainId: action.currentChainId};
-
-    case 'SetChainCurrentStepIndex':
-      return {
-        ...state,
-        protocols: {
-          ...state.protocols,
-          [action.chainId]: {
-            ...state.protocols[action.chainId],
-            currentStepIndex: action.currentStepIndex,
-          },
-        },
-      };
 
     case 'SetChainCurrentStepId':
       return {
@@ -182,7 +166,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
         },
       };
 
-    case 'SetChainProgressIsCompleted':
+    case 'SetStepIsCompleted':
       return {
         ...state,
         protocols: {
@@ -200,25 +184,21 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
         },
       };
 
-    case 'SetChainProgressIsVisited':
+    case 'ClearStepProgression': {
+      const newSteps = clearStepProgression(getStepsForCurrentChain(state));
       return {
         ...state,
         protocols: {
           ...state.protocols,
           [action.chainId]: {
             ...state.protocols[action.chainId],
-            steps: {
-              ...state.protocols[action.chainId].steps,
-              [action.stepId]: {
-                ...state.protocols[action.chainId].steps[action.stepId],
-                isVisited: action.value,
-              },
-            },
+            steps: newSteps,
           },
         },
       };
+    }
 
-    case 'SetChainInnerState':
+    case 'SetStepInnerState':
       return {
         ...state,
         protocols: {

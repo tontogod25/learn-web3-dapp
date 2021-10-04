@@ -6,20 +6,19 @@ import {useEffect, useState} from 'react';
 import {
   getCurrentChainId,
   useGlobalState,
-  getChainCurrentStepId,
-  getChainNetwork,
+  getCurrentStepIdForCurrentChain,
+  getNetworkForCurrentChain,
   getChainInnerState,
 } from 'context';
 import axios from 'axios';
-import {NETWORK, PROTOCOL_INNER_STATES_ID} from 'types';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
 const Fund = () => {
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
-  const stepId = getChainCurrentStepId(state, chainId);
-  const network = getChainNetwork(state, chainId);
+  const network = getNetworkForCurrentChain(state);
   const address = getChainInnerState(
     state,
     chainId,
@@ -53,7 +52,7 @@ const Fund = () => {
     try {
       const response = await axios.post(`/api/solana/fund`, {
         address,
-        network: NETWORK.DEVNET,
+        network,
       });
       if (response.data.length === 0) {
         throw new Error('Complete the code');
@@ -61,9 +60,9 @@ const Fund = () => {
       setHash(response.data);
       setIsFunded(true);
       dispatch({
-        type: 'SetChainProgressIsCompleted',
+        type: 'SetStepIsCompleted',
         chainId,
-        stepId,
+        stepId: getCurrentStepIdForCurrentChain(state),
         value: true,
       });
     } catch (error) {

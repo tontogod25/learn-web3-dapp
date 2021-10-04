@@ -5,7 +5,6 @@ import {
   Transfer,
   Import,
   Export,
-  SetUp,
 } from '@avalanche/components/steps';
 // import Nav from '@avalanche/components/nav';
 import Layout from 'components/shared/Layout';
@@ -20,7 +19,6 @@ const Avalanche: React.FC = () => {
   return (
     <>
       {/* <Nav /> */}
-      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && <SetUp stepId={stepId} />}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && (
         <Connect stepId={stepId} />
       )}

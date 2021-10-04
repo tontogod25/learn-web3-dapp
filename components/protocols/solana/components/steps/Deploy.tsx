@@ -8,9 +8,9 @@ import axios from 'axios';
 import {
   getCurrentChainId,
   useGlobalState,
-  getChainCurrentStepId,
-  getChainNetwork,
+  getNetworkForCurrentChain,
   getChainInnerState,
+  getCurrentStepIdForCurrentChain,
 } from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
 
@@ -19,8 +19,7 @@ const {Text} = Typography;
 const Deploy = () => {
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
-  const stepId = getChainCurrentStepId(state, chainId);
-  const network = getChainNetwork(state, chainId);
+  const network = getNetworkForCurrentChain(state);
   const programId = getChainInnerState(
     state,
     chainId,
@@ -58,15 +57,15 @@ const Deploy = () => {
       });
       setChecked(response.data);
       dispatch({
-        type: 'SetChainInnerState',
+        type: 'SetStepInnerState',
         chainId,
         innerStateId: PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
-        value: value as string,
+        value: value,
       });
       dispatch({
-        type: 'SetChainProgressIsCompleted',
+        type: 'SetStepIsCompleted',
         chainId,
-        stepId,
+        stepId: getCurrentStepIdForCurrentChain(state),
         value: true,
       });
     } catch (error) {

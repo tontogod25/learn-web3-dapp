@@ -8,22 +8,20 @@ import {prettyError} from '@solana/lib';
 import {
   getCurrentChainId,
   useGlobalState,
-  getChainCurrentStepId,
-  getChainNetwork,
+  getNetworkForCurrentChain,
   getChainInnerState,
+  getCurrentStepIdForCurrentChain,
 } from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
+
 import axios from 'axios';
-import {setStepsStatus} from 'utils';
 
 const {Text} = Typography;
 
 const Setter = () => {
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
-  const stepId = getChainCurrentStepId(state, chainId);
-  const network = getChainNetwork(state, chainId);
-
+  const network = getNetworkForCurrentChain(state);
   const secret = getChainInnerState(
     state,
     chainId,
@@ -34,8 +32,6 @@ const Setter = () => {
     chainId,
     PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
   ) as string;
-  console.log(programId);
-
   const greeter = getChainInnerState(
     state,
     chainId,
@@ -76,9 +72,9 @@ const Setter = () => {
         });
         setMessage(response.data);
         dispatch({
-          type: 'SetChainProgressIsCompleted',
+          type: 'SetStepIsCompleted',
           chainId,
-          stepId,
+          stepId: getCurrentStepIdForCurrentChain(state),
           value: true,
         });
       } catch (error) {

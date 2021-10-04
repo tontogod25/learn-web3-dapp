@@ -8,9 +8,9 @@ import axios from 'axios';
 import {
   getCurrentChainId,
   useGlobalState,
-  getChainCurrentStepId,
-  getChainNetwork,
+  getNetworkForCurrentChain,
   getChainInnerState,
+  getCurrentStepIdForCurrentChain,
 } from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
 
@@ -19,8 +19,7 @@ const {Text} = Typography;
 const Greeter = () => {
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
-  const stepId = getChainCurrentStepId(state, chainId);
-  const network = getChainNetwork(state, chainId);
+  const network = getNetworkForCurrentChain(state);
 
   const secret = getChainInnerState(
     state,
@@ -71,15 +70,15 @@ const Greeter = () => {
       });
       setHash(response.data.hash);
       dispatch({
-        type: 'SetChainInnerState',
+        type: 'SetStepInnerState',
         chainId,
         innerStateId: PROTOCOL_INNER_STATES_ID.GREETER,
-        value: programId,
+        value: response.data.greeter,
       });
       dispatch({
-        type: 'SetChainProgressIsCompleted',
+        type: 'SetStepIsCompleted',
         chainId,
-        stepId,
+        stepId: getCurrentStepIdForCurrentChain(state),
         value: true,
       });
     } catch (error) {

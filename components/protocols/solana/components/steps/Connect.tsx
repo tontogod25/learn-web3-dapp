@@ -7,8 +7,8 @@ import {prettyError} from '@solana/lib';
 import {
   getCurrentChainId,
   useGlobalState,
-  getChainCurrentStepId,
-  getChainNetwork,
+  getCurrentStepIdForCurrentChain,
+  getNetworkForCurrentChain,
 } from 'context';
 import axios from 'axios';
 
@@ -16,10 +16,6 @@ const {Text} = Typography;
 
 const Connect = () => {
   const {state, dispatch} = useGlobalState();
-  const chainId = getCurrentChainId(state);
-  const stepId = getChainCurrentStepId(state, chainId);
-  const network = getChainNetwork(state, chainId);
-
   const [version, setVersion] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
@@ -43,12 +39,13 @@ const Connect = () => {
     setFetching(true);
     setError(null);
     try {
+      const network = getNetworkForCurrentChain(state);
       const response = await axios.post(`/api/solana/connect`, {network});
       setVersion(response.data);
       dispatch({
-        type: 'SetChainProgressIsCompleted',
-        chainId,
-        stepId,
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
         value: true,
       });
     } catch (error) {

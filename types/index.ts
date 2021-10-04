@@ -57,6 +57,15 @@ export enum SOLANA_PROTOCOLS {
   WS = 'WS',
 }
 
+// BlockChain's Providers -----------------------
+export enum CHAIN_PROVIDERS {
+  DATAHUB = 'DATAHUB',
+  ALCHEMY = 'ALCHEMY',
+  INFURA = 'INFURA',
+  PUBLIC = 'PUBLIC',
+  LOCAL = 'LOCAL',
+}
+
 // NETWORKS ----------------------
 export enum AVALANCHE_NETWORKS {
   MAINNET = 'MAINNET',
@@ -91,12 +100,11 @@ export enum POLKADOT_NETWORKS {
 export enum POLYGON_NETWORKS {
   MAINNET = 'MAINNET',
   TESTNET = 'TESTNET',
-  DEFAULT = 'DATAHUB',
 }
 
 export enum SOLANA_NETWORKS {
   MAINNET = 'MAINNET',
-  DEVNET = 'DEVNET',
+  DEVNET = 'devnet',
   DEFAULT = 'DATAHUB',
 }
 
@@ -184,7 +192,7 @@ export type ProtocolStepsT = {
 };
 
 export type InnerStateT = {
-  [Key in PROTOCOL_INNER_STATES_ID]?: string;
+  [Key in PROTOCOL_INNER_STATES_ID]?: string | null;
 };
 
 export enum PROTOCOL_INNER_STATES_ID {
@@ -199,6 +207,7 @@ export enum PROTOCOL_INNER_STATES_ID {
   EMAIL = 'EMAIL',
   PROGRAM_ID = 'PROGRAM_ID',
   GREETER = 'GREETER',
+  METAMASK_NETWORK_NAME = 'METAMASK_NETWORK_NAME',
 }
 
 export enum PROTOCOL_STEPS_ID {

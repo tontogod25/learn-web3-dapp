@@ -4,8 +4,14 @@ import {Alert, Button, Col, Space} from 'antd';
 import {useState} from 'react';
 import ReactJson from 'react-json-view';
 import axios from 'axios';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 
 const Query = () => {
+  const {state, dispatch} = useGlobalState();
   const [queryData, setQueryData] = useState<PolygonQueryResponse | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -16,6 +22,12 @@ const Query = () => {
       const response = await axios.get(`/api/polygon/query`);
       setQueryData(response.data);
       setFetching(false);
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
     } catch (error) {
       const data = error.response?.data;
       setFetching(false);

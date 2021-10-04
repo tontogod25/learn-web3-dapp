@@ -6,7 +6,7 @@ import {prettyError} from '@solana/lib';
 import {
   getCurrentChainId,
   useGlobalState,
-  getChainCurrentStepId,
+  getCurrentStepIdForCurrentChain,
 } from 'context';
 import axios from 'axios';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
@@ -15,8 +15,6 @@ const {Text} = Typography;
 
 const Keypair = () => {
   const {state, dispatch} = useGlobalState();
-  const chainId = getCurrentChainId(state);
-  const stepId = getChainCurrentStepId(state, chainId);
 
   const [address, setAddress] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
@@ -36,13 +34,6 @@ const Keypair = () => {
       width: '800px',
     });
   }
-  /*
-  useEffect(() => {
-    if (state?.address) {
-      setAddress(state.address);
-    }
-  }, []);
-  */
 
   const generateKeypair = async () => {
     setFetching(true);
@@ -50,21 +41,21 @@ const Keypair = () => {
       const response = await axios.get(`/api/solana/keypair`);
       setAddress(response.data.address);
       dispatch({
-        type: 'SetChainInnerState',
-        chainId,
+        type: 'SetStepInnerState',
+        chainId: getCurrentChainId(state),
         innerStateId: PROTOCOL_INNER_STATES_ID.SECRET,
         value: response.data.secret,
       });
       dispatch({
-        type: 'SetChainInnerState',
-        chainId,
+        type: 'SetStepInnerState',
+        chainId: getCurrentChainId(state),
         innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
         value: response.data.address,
       });
       dispatch({
-        type: 'SetChainProgressIsCompleted',
-        chainId,
-        stepId,
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
         value: true,
       });
     } catch (error) {

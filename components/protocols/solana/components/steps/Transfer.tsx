@@ -8,8 +8,8 @@ import {Keypair} from '@solana/web3.js';
 import {
   getCurrentChainId,
   useGlobalState,
-  getChainCurrentStepId,
-  getChainNetwork,
+  getCurrentStepIdForCurrentChain,
+  getNetworkForCurrentChain,
   getChainInnerState,
 } from 'context';
 import axios from 'axios';
@@ -29,8 +29,7 @@ const {Text} = Typography;
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
-  const stepId = getChainCurrentStepId(state, chainId);
-  const network = getChainNetwork(state, chainId);
+  const network = getNetworkForCurrentChain(state);
   const address = getChainInnerState(
     state,
     chainId,
@@ -75,7 +74,6 @@ const Transfer = () => {
       if (isNaN(lamports)) {
         throw new Error('invalid amount');
       }
-
       const response = await axios.post(`/api/solana/transfer`, {
         address,
         secret,
@@ -85,9 +83,9 @@ const Transfer = () => {
       });
       setHash(response.data);
       dispatch({
-        type: 'SetChainProgressIsCompleted',
-        chainId,
-        stepId,
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
         value: true,
       });
     } catch (error) {

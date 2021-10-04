@@ -7,8 +7,8 @@ import {useEffect, useState} from 'react';
 import {
   getCurrentChainId,
   useGlobalState,
-  getChainCurrentStepId,
-  getChainNetwork,
+  getCurrentStepIdForCurrentChain,
+  getNetworkForCurrentChain,
   getChainInnerState,
 } from 'context';
 import axios from 'axios';
@@ -22,8 +22,6 @@ const Balance = () => {
   const [error, setError] = useState<ErrorT | null>(null);
   const [balance, setBalance] = useState<number | null>(null);
   const chainId = getCurrentChainId(state);
-  const stepId = getChainCurrentStepId(state, chainId);
-  const network = getChainNetwork(state, chainId);
   const address = getChainInnerState(
     state,
     chainId,
@@ -49,15 +47,16 @@ const Balance = () => {
     setFetching(true);
     setError(null);
     try {
+      const network = getNetworkForCurrentChain(state);
       const response = await axios.post(`/api/solana/balance`, {
         network,
         address,
       });
       setBalance(response.data / LAMPORTS_PER_SOL);
       dispatch({
-        type: 'SetChainProgressIsCompleted',
-        chainId,
-        stepId,
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
         value: true,
       });
     } catch (error) {
