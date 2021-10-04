@@ -1,6 +1,6 @@
 import Layout from 'components/shared/Layout';
 import {ChainType, PROTOCOL_STEPS_ID, MarkdownForChainIdT} from 'types';
-// import Nav from '@solana/components/nav';
+import Nav from '@solana/components/nav';
 import {
   Connect,
   Keypair,
@@ -20,7 +20,7 @@ const Solana: React.FC = () => {
 
   return (
     <>
-      {/* <Nav /> */}
+      <Nav />
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Keypair />}
       {stepId === PROTOCOL_STEPS_ID.FUND_ACCOUNT && <Fund />}

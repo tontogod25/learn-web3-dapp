@@ -20,24 +20,21 @@ const Greeter = () => {
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
   const network = getNetworkForCurrentChain(state);
-
   const secret = getChainInnerState(
     state,
     chainId,
     PROTOCOL_INNER_STATES_ID.SECRET,
-  ) as string;
+  );
   const programId = getChainInnerState(
     state,
     chainId,
     PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
-  ) as string;
-  console.log(programId);
-
+  );
   const greeter = getChainInnerState(
     state,
     chainId,
     PROTOCOL_INNER_STATES_ID.GREETER,
-  ) as string;
+  );
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
@@ -136,7 +133,7 @@ const Greeter = () => {
             We&apos;re going to derive the greeter account from the programId
           </Text>
           <Input
-            placeholder={programId}
+            placeholder={programId as string}
             disabled={true}
             style={{width: '500px'}}
           />

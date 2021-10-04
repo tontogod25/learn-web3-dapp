@@ -57,7 +57,7 @@ export enum SOLANA_PROTOCOLS {
   WS = 'WS',
 }
 
-// BlockChain's Providers -----------------------
+// BlockChain Providers -----------------------
 export enum CHAIN_PROVIDERS {
   DATAHUB = 'DATAHUB',
   ALCHEMY = 'ALCHEMY',
@@ -105,7 +105,8 @@ export enum POLYGON_NETWORKS {
 export enum SOLANA_NETWORKS {
   MAINNET = 'MAINNET',
   DEVNET = 'devnet',
-  DEFAULT = 'DATAHUB',
+  DATAHUB = 'datahub',
+  LOCALNET = 'localnet',
 }
 
 // -----------------------------

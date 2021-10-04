@@ -26,17 +26,17 @@ const Setter = () => {
     state,
     chainId,
     PROTOCOL_INNER_STATES_ID.SECRET,
-  ) as string;
+  );
   const programId = getChainInnerState(
     state,
     chainId,
     PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
-  ) as string;
+  );
   const greeter = getChainInnerState(
     state,
     chainId,
     PROTOCOL_INNER_STATES_ID.GREETER,
-  ) as string;
+  );
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [resetting, setResetting] = useState<boolean>(false);

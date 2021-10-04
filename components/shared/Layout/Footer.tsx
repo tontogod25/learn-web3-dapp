@@ -12,6 +12,7 @@ import {
   getIsCompletedForCurrentStepId,
   getPreviousStepForCurrentStepId,
   getNextStepForCurrentStepId,
+  getIsSkippableForCurrentStepId,
 } from 'context';
 import React from 'react';
 import {FOOTER_HEIGHT} from 'lib/constants';
@@ -20,7 +21,9 @@ import {PROTOCOL_STEPS_ID} from 'types';
 const Footer = () => {
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
-  const isCompleted = getIsCompletedForCurrentStepId(state);
+  const isCompleted = getIsSkippableForCurrentStepId(state)
+    ? true
+    : getIsCompletedForCurrentStepId(state);
 
   const next = () => {
     const title = getTitleForCurrentStepId(state);

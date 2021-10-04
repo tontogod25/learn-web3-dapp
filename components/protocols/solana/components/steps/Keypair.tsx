@@ -15,7 +15,6 @@ const {Text} = Typography;
 
 const Keypair = () => {
   const {state, dispatch} = useGlobalState();
-
   const [address, setAddress] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);

@@ -23,7 +23,7 @@ const Getter = () => {
     state,
     chainId,
     PROTOCOL_INNER_STATES_ID.GREETER,
-  ) as string;
+  );
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);

@@ -26,7 +26,7 @@ const Layout = (
       type: 'SetCurrentChainId',
       currentChainId: chain.id,
     });
-  }, [chain]);
+  }, []);
 
   useEffect(() => {
     setStorageState(state);

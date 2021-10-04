@@ -24,7 +24,7 @@ const Deploy = () => {
     state,
     chainId,
     PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
-  ) as string;
+  );
 
   const [value, setValue] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
