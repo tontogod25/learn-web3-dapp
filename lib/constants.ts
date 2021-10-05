@@ -429,7 +429,7 @@ export const CHAINS_CONFIG: ChainsType = {
       },
       {
         id: PROTOCOL_STEPS_ID.RUN_A_GRAPH_NODE,
-        title: 'Run a Graph node',
+        title: 'Run a local Graph node',
       },
       {
         id: PROTOCOL_STEPS_ID.SCAFFOLD_A_SUBGRAPH,

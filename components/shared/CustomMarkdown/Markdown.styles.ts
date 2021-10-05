@@ -1,5 +1,7 @@
 import styled, {css} from 'styled-components';
-import {Alert} from 'antd';
+import {Alert, Typography} from 'antd';
+
+const {Text} = Typography;
 
 const headingWithLinkMixin = css`
   margin-left: -20px;
@@ -72,4 +74,14 @@ export const LinkIcon = styled.div`
     color: #777;
     width: 18px;
   }
+`;
+
+export const TextCode = styled(Text)`
+  padding: 0.2em 0.4em;
+  margin: 0;
+  color: #25292e;
+  background-color: #dbdbdb;
+  font-family: 'Monaco';
+  font-size: 85%;
+  border-radius: 6px;
 `;

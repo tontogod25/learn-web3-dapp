@@ -10,6 +10,7 @@ import {useReducer} from 'react';
 import {ChainType, MarkdownForChainIdT, PROTOCOL_STEPS_ID} from 'types';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 import {appReducer, initialState, TheGraphContext} from '@the-graph/context';
+import SetupWizard from 'components/shared/SetupWizard';
 
 const TheGraph: React.FC = () => {
   const {state: globalState} = useGlobalState();
@@ -19,7 +20,8 @@ const TheGraph: React.FC = () => {
 
   return (
     <TheGraphContext.Provider value={{state, dispatch}}>
-      <Nav />
+      {/* <Nav /> */}
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && <SetupWizard />}
       {stepId === PROTOCOL_STEPS_ID.RUN_A_GRAPH_NODE && <GraphNode />}
       {stepId === PROTOCOL_STEPS_ID.SCAFFOLD_A_SUBGRAPH && <ScaffoldSubGraph />}
       {stepId === PROTOCOL_STEPS_ID.HACKING_THE_MANIFEST && (

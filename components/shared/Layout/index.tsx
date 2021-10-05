@@ -34,7 +34,7 @@ const Layout = (
         <Nav />
         <BelowNav>
           <Sidebar markdown={markdown} />
-          <Col span={GRID_LAYOUT[1]} style={{padding: '120px 60px 60px 60px'}}>
+          <Col span={GRID_LAYOUT[1]} style={{padding: '120px 60px 20px 60px'}}>
             <Protocol />
           </Col>
         </BelowNav>
@@ -47,6 +47,7 @@ const Layout = (
 const BelowNav = styled(Row)`
   margin-top: ${HEADER_HEIGHT}px;
   position: fixed;
+  width: 100vw;
 `;
 
 export default Layout;

@@ -50,7 +50,7 @@ const QueryPunk = () => {
 
   return (
     <ApolloProvider client={client}>
-      <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+      <Col>
         <Space direction="vertical" style={{width: '100%'}}></Space>
         <Punks />
       </Col>

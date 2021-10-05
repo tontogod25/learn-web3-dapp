@@ -62,7 +62,7 @@ const Left = styled(Col)`
 `;
 
 const StepHeader = styled(Space)`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 const StepTitle = styled.div`

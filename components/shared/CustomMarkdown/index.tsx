@@ -19,9 +19,12 @@ import {
   StyledH3,
   LinkIcon,
   StyledLink,
+  TextCode,
 } from './Markdown.styles';
 
 const {Text, Paragraph} = Typography;
+
+const SHOW_LINK_ICON = false;
 
 const Markdown = ({
   children,
@@ -50,7 +53,7 @@ const Markdown = ({
               codeStr={codeStr}
             />
           ) : (
-            <Text code>{children}</Text>
+            <TextCode>{children}</TextCode>
           );
         },
         hr: ({...props}) => {
@@ -145,11 +148,13 @@ const Markdown = ({
             return (
               <StyledH1 id={id}>
                 {text}
-                <a href={`#${id}`}>
-                  <LinkIcon>
-                    <LinkOutlined size={16} />
-                  </LinkIcon>
-                </a>
+                {SHOW_LINK_ICON && (
+                  <a href={`#${id}`}>
+                    <LinkIcon>
+                      <LinkOutlined size={16} />
+                    </LinkIcon>
+                  </a>
+                )}
               </StyledH1>
             );
           }
@@ -170,13 +175,15 @@ const Markdown = ({
               return null;
             } else {
               return (
-                <StyledH2 uppercase id={id}>
+                <StyledH2 id={id}>
                   {text}
-                  <a href={`#${id}`}>
-                    <LinkIcon>
-                      <LinkOutlined size={16} />
-                    </LinkIcon>
-                  </a>
+                  {SHOW_LINK_ICON && (
+                    <a href={`#${id}`}>
+                      <LinkIcon>
+                        <LinkOutlined size={16} />
+                      </LinkIcon>
+                    </a>
+                  )}
                 </StyledH2>
               );
             }
@@ -193,11 +200,13 @@ const Markdown = ({
             return (
               <StyledH3 id={id}>
                 {text}
-                <a href={`#${id}`}>
-                  <LinkIcon>
-                    <LinkOutlined size={16} />
-                  </LinkIcon>
-                </a>
+                {SHOW_LINK_ICON && (
+                  <a href={`#${id}`}>
+                    <LinkIcon>
+                      <LinkOutlined size={16} />
+                    </LinkIcon>
+                  </a>
+                )}
               </StyledH3>
             );
           }

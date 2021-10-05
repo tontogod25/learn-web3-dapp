@@ -61,7 +61,7 @@ const GraphNode = () => {
   return (
     <>
       {/* {isValid && <Confetti tweenDuration={200} run={false} />} */}
-      <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+      <Col>
         <Space direction="vertical" size="large">
           <Button
             type="ghost"
