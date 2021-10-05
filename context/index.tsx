@@ -99,7 +99,7 @@ const initialGlobalState = {
   protocols: buildInitialState(),
 };
 
-type Action =
+export type Action =
   | {type: 'SetCurrentChainId'; currentChainId: CHAINS}
   | {type: 'SetChainNetwork'; chainId: CHAINS; network: NETWORKS}
   | {type: 'SetChainProtocol'; chainId: CHAINS; protocol: PROTOCOLS}
@@ -263,6 +263,11 @@ export const getFirstStepIdForCurrentChain = (state: GlobalStateT) => {
   return state.protocols[chainId].firstStepId;
 };
 
+export const getLastStepIdForCurrentChain = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  return state.protocols[chainId].lastStepId;
+};
+
 // Current Step Id function
 export const getNextStepIdForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
@@ -323,9 +328,24 @@ export const getIsVisitedForCurrentStepId = (state: GlobalStateT) => {
 };
 
 export const isFirstStepForCurrentStepId = (state: GlobalStateT) => {
-  const chainId = getCurrentChainId(state);
-  const currentStepId = getCurrentStepIdForCurrentChain(state);
-  return state.protocols[chainId].steps[currentStepId].position === 0;
+  return (
+    getCurrentStepIdForCurrentChain(state) ===
+    getFirstStepIdForCurrentChain(state)
+  );
+};
+
+export const isLastStepForCurrentStepId = (state: GlobalStateT) => {
+  return (
+    getCurrentStepIdForCurrentChain(state) ===
+    getLastStepIdForCurrentChain(state)
+  );
+};
+
+export const isCompletedForCurrentStepId = (state: GlobalStateT) => {
+  const isCompleted =
+    getIsSkippableForCurrentStepId(state) ||
+    getIsCompletedForCurrentStepId(state);
+  return isCompleted;
 };
 
 // Inner state functions
