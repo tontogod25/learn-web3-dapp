@@ -22,7 +22,7 @@ const Polygon: React.FC = () => {
       {/* <Nav /> */}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.QUERY_CHAIN && <Query />}
-      {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Balance />}
+      {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
       {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
       {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}
       {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Setter />}
