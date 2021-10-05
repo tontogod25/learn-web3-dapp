@@ -1,17 +1,19 @@
-import {trackStorageCleared} from 'utils/tracking-utils';
 import {Typography, Popover, Button, Select} from 'antd';
 import type {EntryT} from '@avalanche/types';
-import {useGlobalState} from 'context';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
-import {resetStepsStatus} from 'utils';
+import {getCurrentChainId, useGlobalState} from 'context';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
+import {getAvalancheInnerState} from '@avalanche/lib';
+import {trackStorageCleared} from '@funnel/tracking-utils';
 
 const {Option} = Select;
 
 const {Text, Paragraph} = Typography;
 
 const Nav = () => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const {address, secret} = globalState.avalanche;
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const {ADDRESS, SECRET} = getAvalancheInnerState(state);
 
   const displayAddress = (address: string) =>
     `${address.slice(0, 5)}...${address.slice(-5)}`;
@@ -28,11 +30,11 @@ const Nav = () => {
   const AppState = () => {
     return (
       <>
-        {address && (
-          <Entry msg={'Address: '} value={address} display={displayAddress} />
+        {ADDRESS && (
+          <Entry msg={'Address: '} value={ADDRESS} display={displayAddress} />
         )}
-        {secret && (
-          <Entry msg={'Secret: '} value={secret} display={displayAddress} />
+        {SECRET && (
+          <Entry msg={'Secret: '} value={SECRET} display={displayAddress} />
         )}
         <Button danger onClick={clearKeychain} size={'small'}>
           Clear Keychain
@@ -41,46 +43,27 @@ const Nav = () => {
     );
   };
 
-  const clear = () => {
-    dispatch({
-      type: 'SetCurrentStepIndex',
-      currentStepIndex: 0,
-    });
-    dispatch({
-      type: 'SetHighestCompletedStepIndex',
-      highestCompletedStepIndex: 0,
-    });
-    dispatch({
-      type: 'SetAvalancheStepsStatus',
-      stepsStatus: resetStepsStatus(globalState.avalanche.stepsStatus),
-    });
-    trackStorageCleared(globalState.chainId as string);
-  };
-
   const clearKeychain = () => {
     const proceed = confirm('Are you sure you want to clear the keychain?');
     if (proceed) {
       dispatch({
-        type: 'SetAvalancheAddress',
-        address: undefined,
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
+        value: null,
       });
       dispatch({
-        type: 'SetAvalancheSecret',
-        secret: undefined,
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.SECRET,
+        value: null,
       });
       dispatch({
-        type: 'SetAvalancheNetwork',
-        network: 'datahub',
+        type: 'ClearStepProgression',
+        chainId,
       });
-      clear();
+      trackStorageCleared(chainId);
     }
-  };
-
-  const toggleLocal = (network: string) => {
-    dispatch({
-      type: 'SetAvalancheNetwork',
-      network: network,
-    });
   };
 
   return (
@@ -89,14 +72,13 @@ const Nav = () => {
         <Button type="ghost">Keychain</Button>
       </Popover>
       <Select
-        defaultValue={globalState.avalanche.network}
+        defaultValue={'datahub'}
         style={{width: 100, textAlign: 'center'}}
-        onChange={toggleLocal}
-        disabled={globalState.currentStepIndex != 0}
+        onChange={() => {}}
+        disabled={true}
       >
         <Option value="datahub">Datahub</Option>
-        <Option value="devnet">Testnet</Option>
-        <Option value="localnet">Localnet</Option>
+        <Option value="testnet">Testnet</Option>
       </Select>
     </StepMenuBar>
   );
