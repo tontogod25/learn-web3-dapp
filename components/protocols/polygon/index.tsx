@@ -1,4 +1,4 @@
-// import Nav from '@polygon/components/nav';
+import Nav from '@polygon/components/nav';
 import Layout from 'components/shared/Layout';
 import {ChainType, MarkdownForChainIdT, PROTOCOL_STEPS_ID} from 'types';
 import {
@@ -19,7 +19,7 @@ const Polygon: React.FC = () => {
 
   return (
     <>
-      {/* <Nav /> */}
+      <Nav />
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.QUERY_CHAIN && <Query />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
