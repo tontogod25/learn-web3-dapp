@@ -1,21 +1,22 @@
-import {Alert, Space, Typography, Popover, Button} from 'antd';
-import {useAppState} from '@near/hooks';
+import {Select, Typography, Popover, Button} from 'antd';
+import {useGlobalState} from 'context';
 import {getPrettyPublicKey} from '@near/lib';
-import type {EntryT, AlertT} from '@near/types';
-import {trackStorageCleared} from '../../../../../utils/tracking-utils';
+import type {EntryT} from '@near/types';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
+import {trackStorageCleared} from 'utils/tracking-utils';
+
+const {Option} = Select;
 
 const {Text, Paragraph} = Typography;
 
 const Nav = () => {
-  const {state, dispatch} = useAppState();
-  const {network, secret, accountId, contractId} = state;
+  const {state: globalState, dispatch} = useGlobalState();
+  const {network, secret, accountId, contractId} = globalState.near;
 
   const displaySecret = (secret: string) =>
     `${getPrettyPublicKey(secret).slice(0, 5)}...${getPrettyPublicKey(
       secret,
     ).slice(-5)}`;
-  const displayNetwork = (network: string) => network;
   const displayAccountId = (accountId: string) => accountId;
   const displayContractId = (contractId: string) => contractId;
 
@@ -31,9 +32,6 @@ const Nav = () => {
   const AppState = () => {
     return (
       <>
-        {network && (
-          <Entry msg={'Network: '} value={network} display={displayNetwork} />
-        )}
         {secret && (
           <Entry msg={'Secret: '} value={secret} display={displaySecret} />
         )}
@@ -51,54 +49,72 @@ const Nav = () => {
             display={displayContractId}
           />
         )}
+        <Button danger onClick={clearKeychain} size={'small'}>
+          Clear Keychain
+        </Button>
       </>
     );
   };
 
-  const clearStorage = () => {
-    alert('You are going to clear the storage');
-    localStorage.removeItem('near');
+  const clear = () => {
     dispatch({
-      type: 'SetSecret',
-      secret: undefined,
+      type: 'SetCurrentStepIndex',
+      currentStepIndex: 0,
     });
     dispatch({
-      type: 'SetAccountId',
-      accountId: undefined,
+      type: 'SetHighestCompletedStepIndex',
+      highestCompletedStepIndex: 0,
     });
+    trackStorageCleared(globalState.chainId as string);
+  };
+
+  const clearKeychain = () => {
+    const proceed = confirm('Are you sure you want to clear the keychain?');
+    if (proceed) {
+      dispatch({
+        type: 'SetNearSecret',
+        secret: undefined,
+      });
+      dispatch({
+        type: 'SetNearAccountId',
+        accountId: undefined,
+      });
+      dispatch({
+        type: 'SetCurrentStepIndex',
+        currentStepIndex: 0,
+      });
+      dispatch({
+        type: 'SetNearConractId',
+        contractId: undefined,
+      });
+      clear();
+    }
+  };
+
+  const toggleLocal = (network: string) => {
     dispatch({
-      type: 'SetContractId',
-      contractId: undefined,
+      type: 'SetNearNetwork',
+      network: network,
     });
-    dispatch({
-      type: 'SetIndex',
-      index: 0,
-    });
-    trackStorageCleared('near');
   };
 
   return (
     <StepMenuBar>
       <Popover content={AppState} placement="bottom">
-        <Button type="ghost">Storage</Button>
+        <Button type="ghost">Keychain</Button>
       </Popover>
-      <Button danger onClick={clearStorage}>
-        Clear Storage
-      </Button>
+      <Select
+        defaultValue={globalState.near.network}
+        style={{width: 100, textAlign: 'center'}}
+        onChange={toggleLocal}
+        disabled={globalState.currentStepIndex != 0}
+      >
+        <Option value="datahub">Datahub</Option>
+        <Option value="testnet">Testnet</Option>
+        {/* <Option value="localnet">Localnet</Option> */}
+      </Select>
     </StepMenuBar>
   );
 };
-
-export const Notify = ({msg, status}: {msg: string; status: AlertT}) => (
-  <Alert
-    message={
-      <Space>
-        <Text strong>{msg}</Text>
-      </Space>
-    }
-    type={status}
-    showIcon
-  />
-);
 
 export default Nav;

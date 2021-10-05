@@ -3,12 +3,13 @@ import {LoadingOutlined} from '@ant-design/icons';
 import {useState} from 'react';
 import {useGlobalState} from 'context';
 import axios from 'axios';
+import {setStepsStatus} from 'utils';
 
 const {Text} = Typography;
 
 const DECIMAL_OFFSET = 10 ** 9;
 
-const Balance = () => {
+const Balance = ({stepId}: {stepId: string}) => {
   const {state: globalState, dispatch} = useGlobalState();
   const state = globalState.avalanche;
   const [fetching, setFetching] = useState<boolean>(false);
@@ -23,6 +24,10 @@ const Balance = () => {
       setBalance(
         parseFloat((parseFloat(response.data) / DECIMAL_OFFSET).toFixed()),
       );
+      dispatch({
+        type: 'SetAvalancheStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+      });
     } catch (error) {
       const data = error.data;
       setBalance(0);

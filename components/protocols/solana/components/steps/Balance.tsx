@@ -4,17 +4,29 @@ import {ErrorBox} from '@solana/components/nav';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import {useEffect, useState} from 'react';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+  getNetworkForCurrentChain,
+  getChainInnerState,
+} from 'context';
 import axios from 'axios';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
 const Balance = () => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.solana;
+  const {state, dispatch} = useGlobalState();
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [balance, setBalance] = useState<number | null>(null);
+  const chainId = getCurrentChainId(state);
+  const address = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.ADDRESS,
+  );
 
   useEffect(() => {
     if (error) {
@@ -35,8 +47,18 @@ const Balance = () => {
     setFetching(true);
     setError(null);
     try {
-      const response = await axios.post(`/api/solana/balance`, state);
+      const network = getNetworkForCurrentChain(state);
+      const response = await axios.post(`/api/solana/balance`, {
+        network,
+        address,
+      });
       setBalance(response.data / LAMPORTS_PER_SOL);
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
     } catch (error) {
       setError(prettyError(error));
       setBalance(null);
@@ -50,7 +72,7 @@ const Balance = () => {
       <Space direction="vertical">
         <Input
           style={{width: '420px', fontWeight: 'bold'}}
-          defaultValue={state.address}
+          defaultValue={address as string}
           disabled={true}
         />
         <Button type="primary" onClick={getBalance} loading={fetching}>

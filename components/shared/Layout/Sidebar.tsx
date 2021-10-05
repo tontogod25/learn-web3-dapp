@@ -5,33 +5,41 @@ import {OrderedListOutlined} from '@ant-design/icons';
 import Markdown from 'components/shared/CustomMarkdown';
 
 import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
-import {MarkdownForChainT, StepType} from 'types';
+import {MarkdownForChainIdT} from 'types';
+import {
+  useGlobalState,
+  getTitleForCurrentStepId,
+  getStepsForCurrentChain,
+  getPositionForCurrentStepId,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 
-const Sidebar = ({
-  steps,
-  step,
-  markdown,
-}: {
-  steps: StepType[];
-  step: StepType;
-  markdown: MarkdownForChainT;
-}) => {
-  const md = markdown[step.id];
+const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
+  const {state} = useGlobalState();
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  const stepTitle = getTitleForCurrentStepId(state);
+  const steps = Object.values(getStepsForCurrentChain(state)).map((step) => {
+    const index = step.position as number;
+    const title = step.title as string;
+    return {index, title};
+  });
+
+  const md = markdown[currentStepId];
+  const stepIndex = getPositionForCurrentStepId(state);
 
   const menu = (
     <StyledMenu>
-      {steps.map((step: StepType, index: number) => {
-        return (
-          <MenuItem key={index}>{`${index + 1} - ${step.title}`}</MenuItem>
-        );
+      {steps.map(({index, title}) => {
+        return <MenuItem key={index}>{`${index} - ${title}`}</MenuItem>;
       })}
     </StyledMenu>
   );
 
   return (
-    <Left span={GRID_LAYOUT[0]} key={step.id}>
+    <Left span={GRID_LAYOUT[0]} key={currentStepId}>
       <StepHeader size="large" align="center">
-        <StepTitle>{step.title}</StepTitle>
+        <StepTitle>{stepTitle}</StepTitle>
+        <StepNumber>{`(${stepIndex}/${steps.length})`}</StepNumber>
         <Dropdown overlay={menu}>
           <OrderedListOutlined style={{fontSize: 20}} />
         </Dropdown>
@@ -61,6 +69,12 @@ const StepTitle = styled.div`
   font-size: 36px;
   font-weight: 600;
   margin-bottom: 10px;
+`;
+
+const StepNumber = styled.div`
+  font-size: 24px;
+  font-weight: 600;
+  color: #666;
 `;
 
 const StyledMenu = styled(Menu)`

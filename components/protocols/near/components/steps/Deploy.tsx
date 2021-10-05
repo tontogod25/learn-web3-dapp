@@ -1,35 +1,34 @@
 import {Alert, Col, Input, Button, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import {getTransactionUrl} from '@near/lib';
-import {useAppState} from '@near/hooks';
+import {useGlobalState} from 'context';
 import {useState} from 'react';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Deploy = () => {
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.near;
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string>('');
-  const {state} = useAppState();
 
-  const deployContract = () => {
+  const deployContract = async () => {
     setError(null);
     setFetching(true);
-    axios
-      .post(`/api/near/deploy`, state)
-      .then((res) => {
-        setTxHash(res.data);
-        setFetching(false);
-      })
-      .catch((err) => {
-        const data = err.response.data;
-        setFetching(false);
-        setError(data);
-      });
+    try {
+      const response = await axios.post(`/api/near/deploy`, state);
+      setTxHash(response.data);
+    } catch (error) {
+      const data = error.response.data;
+      setError(data);
+    } finally {
+      setFetching(false);
+    }
   };
 
-  const txUrl = getTransactionUrl(state.network)(txHash);
+  const txUrl = getTransactionUrl(txHash);
 
   return (
     <Col>

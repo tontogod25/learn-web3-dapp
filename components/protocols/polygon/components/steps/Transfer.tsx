@@ -2,6 +2,12 @@ import {Button, Alert, Space, Typography, Col} from 'antd';
 import {getPolygonTxExplorerURL} from '@polygon/lib';
 import {useState, useEffect} from 'react';
 import {ethers} from 'ethers';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 
 // A random test's address
 const recipient = '0xb11D554F2139d843F5c94a3185d17C4d5762a7c7';
@@ -13,6 +19,7 @@ const {Text} = Typography;
 declare let window: any;
 
 const Transfer = () => {
+  const {state, dispatch} = useGlobalState();
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   const [balance, setBalance] = useState('');
@@ -55,6 +62,12 @@ const Transfer = () => {
       const hash = undefined;
       const receipt = await hash.wait();
       setHash(receipt.transactionHash);
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
     } catch (error) {
       setError(error.message);
     } finally {

@@ -1,8 +1,8 @@
-import {useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@near/hooks';
 import {getTransactionUrl} from '@near/lib';
+import {useGlobalState} from 'context';
+import {useState} from 'react';
 import axios from 'axios';
 
 const layout = {
@@ -17,13 +17,15 @@ const tailLayout = {
 const {Text} = Typography;
 
 const Transfer = () => {
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.near;
   const [toAddress, _setToAddress] = useState('pizza.testnet');
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   const [txSignature, setTxSignature] = useState(null);
-  const {network, secret, accountId} = useAppState().state;
+  const {network, secret, accountId} = state;
 
-  const transfer = (values: any) => {
+  const transfer = async (values: any) => {
     const isValidAmount = parseFloat(values.amount);
     if (isNaN(isValidAmount)) {
       setError('Amount needs to be a valid number');
@@ -40,17 +42,15 @@ const Transfer = () => {
       secret,
     };
     setFetching(true);
-    axios
-      .post(`/api/near/transfer`, options)
-      .then((res) => {
-        const result = res.data;
-        setTxSignature(result);
-        setFetching(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setFetching(false);
-      });
+    try {
+      const response = await axios.post(`/api/near/transfer`, options);
+      setTxSignature(response.data);
+    } catch (error) {
+      console.error(error);
+      setFetching(false);
+    } finally {
+      setFetching(false);
+    }
   };
 
   return (
@@ -110,7 +110,7 @@ const Transfer = () => {
               message={<Text strong>Transfer confirmed!</Text>}
               description={
                 <a
-                  href={getTransactionUrl(network)(txSignature ?? '')}
+                  href={getTransactionUrl(txSignature ?? '')}
                   target="_blank"
                   rel="noreferrer"
                 >

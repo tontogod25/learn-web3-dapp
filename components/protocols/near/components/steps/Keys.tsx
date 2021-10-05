@@ -1,15 +1,16 @@
 import {Alert, Button, Col, Space, Typography} from 'antd';
 import {useEffect, useState} from 'react';
-import {useAppState} from '@near/hooks';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 import {KeyPair} from 'near-api-js';
 
 const {Text} = Typography;
 
 const Keys = () => {
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.near;
   const [fetching, setFetching] = useState<boolean>(false);
   const [address, setAddress] = useState<string | null>(null);
-  const {state, dispatch} = useAppState();
 
   useEffect(() => {
     if (state?.secret) {
@@ -26,7 +27,7 @@ const Keys = () => {
       setFetching(true);
       const response = await axios.get(`/api/near/keypair`);
       dispatch({
-        type: 'SetSecret',
+        type: 'SetNearSecret',
         secret: response.data,
       });
       setFetching(false);
