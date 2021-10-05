@@ -419,21 +419,29 @@ export const CHAINS_CONFIG: ChainsType = {
     label: 'The Graph',
     active: true,
     logoUrl: 'https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=013',
+    protocol: TEZOS_PROTOCOLS.RPC,
+    network: TEZOS_NETWORKS.TESTNET,
     steps: [
       {
-        id: 'run-a-graph-node',
+        id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
+        title: 'Setup the project',
+        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.RUN_A_GRAPH_NODE,
         title: 'Run a Graph node',
-        url: 'https://learn.figment.io/tutorials/run-a-graph-node',
       },
       {
-        id: 'scaffold-a-subgraph',
+        id: PROTOCOL_STEPS_ID.SCAFFOLD_A_SUBGRAPH,
         title: 'Scaffold a subgraph',
-        url: 'https://learn.figment.io/tutorials/scaffold-a-subgraph',
       },
       {
-        id: 'hacking-the-manifest',
+        id: PROTOCOL_STEPS_ID.HACKING_THE_MANIFEST,
         title: 'Hacking the Manifest',
-        url: 'https://learn.figment.io/tutorials/hacking-the-manifest',
+      },
+      {
+        id: PROTOCOL_STEPS_ID.QUERY_THE_PUNK,
+        title: 'Query your custom subgraph',
       },
     ],
   },

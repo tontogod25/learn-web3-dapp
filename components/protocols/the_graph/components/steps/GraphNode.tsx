@@ -1,37 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Alert, Space, Button, Modal} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
-import {ErrorBox} from '@the-graph/components';
+import {ErrorBox} from '@the-graph/components/error';
 import type {ErrorT} from '@the-graph/types';
 import {prettyError} from '@the-graph/lib';
-import {useGlobalState} from 'context';
 // import Confetti from 'react-confetti';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 import axios from 'axios';
 
 const GraphNode = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
   const [isValid, setIsValid] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
 
   useEffect(() => {
-    setIsValid(false);
-  }, [globalState.valid]);
-
-  useEffect(() => {
-    if (globalState.valid >= 1) {
-      setIsValid(true);
-    }
-  }, []);
-
-  useEffect(() => {
     if (isValid) {
-      if (globalState.valid < 1) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 1,
-        });
-      }
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
     }
   }, [isValid, setIsValid]);
 

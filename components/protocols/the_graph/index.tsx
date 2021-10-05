@@ -2,46 +2,39 @@ import {
   GraphNode,
   ScaffoldSubGraph,
   HackingTheManifest,
+  QueryPunk,
 } from '@the-graph/components/steps';
-import {Nav} from '@the-graph/components';
+import Nav from '@the-graph/components/nav';
 import Layout from 'components/shared/Layout';
-import {useReducer, useEffect} from 'react';
-import {useLocalStorage} from 'hooks';
-import {StepType, ChainType} from 'types';
-import {
-  protocolReducer,
-  initialState,
-  TheGraphContext,
-  State,
-} from '@the-graph/context';
+import {useReducer} from 'react';
+import {ChainType, MarkdownForChainIdT, PROTOCOL_STEPS_ID} from 'types';
+import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
+import {appReducer, initialState, TheGraphContext} from '@the-graph/context';
 
-const TheGraph: React.FC<{step: StepType}> = ({step}) => {
-  console.log('here');
-  const [storageState, setStorageState] = useLocalStorage<State>(
-    'the_graph',
-    initialState,
-  );
-  const [state, dispatch] = useReducer(protocolReducer, storageState);
-  useEffect(() => {
-    setStorageState(state);
-  }, [state, step]);
+const TheGraph: React.FC = () => {
+  const {state: globalState} = useGlobalState();
+  const stepId = getCurrentStepIdForCurrentChain(globalState);
+
+  const [state, dispatch] = useReducer(appReducer, initialState);
 
   return (
     <TheGraphContext.Provider value={{state, dispatch}}>
-      <div style={{minHeight: '250px', marginBottom: '10vh'}}>
-        {step.id === 'run-a-graph-node' && <GraphNode />}
-        {step.id === 'scaffold-a-subgraph' && <ScaffoldSubGraph />}
-        {step.id === 'hacking-the-manifest' && <HackingTheManifest />}
-        <Nav />
-      </div>
+      <Nav />
+      {stepId === PROTOCOL_STEPS_ID.RUN_A_GRAPH_NODE && <GraphNode />}
+      {stepId === PROTOCOL_STEPS_ID.SCAFFOLD_A_SUBGRAPH && <ScaffoldSubGraph />}
+      {stepId === PROTOCOL_STEPS_ID.HACKING_THE_MANIFEST && (
+        <HackingTheManifest />
+      )}
+      {stepId === PROTOCOL_STEPS_ID.QUERY_THE_PUNK && <QueryPunk />}
     </TheGraphContext.Provider>
   );
 };
 
 const WithLayoutTheGraph: React.FC<{
   chain: ChainType;
-}> = ({chain}) => {
-  return Layout(TheGraph, chain);
+  markdown: MarkdownForChainIdT;
+}> = ({chain, markdown}) => {
+  return Layout(TheGraph, chain, markdown);
 };
 
 export default WithLayoutTheGraph;
