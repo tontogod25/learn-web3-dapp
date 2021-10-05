@@ -1,40 +1,44 @@
-import {useState} from 'react';
 import {Alert, Col, Input, Button, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
+import {useState} from 'react';
+import {useGlobalState} from 'context';
 import axios from 'axios';
-import {useAppState} from '@avalanche/hooks';
+import {setStepsStatus} from 'utils';
 
 const {Text} = Typography;
 
 const DECIMAL_OFFSET = 10 ** 9;
 
-const Balance = () => {
+const Balance = ({stepId}: {stepId: string}) => {
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.avalanche;
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [balance, setBalance] = useState<number>(0);
-  const {state} = useAppState();
 
-  const getBalance = () => {
+  const getBalance = async () => {
     setError(null);
     setFetching(true);
-    axios
-      .post(`/api/avalanche/balance`, state)
-      .then((res) => {
-        const avax = res.data;
-        const intoAVAX = (parseFloat(avax) / DECIMAL_OFFSET).toFixed();
-        setBalance(parseFloat(intoAVAX));
-        setFetching(false);
-      })
-      .catch((err) => {
-        const data = err.data;
-        setFetching(false);
-        setBalance(0);
-        setError(data);
+    try {
+      const response = await axios.post(`/api/avalanche/balance`, state);
+      setBalance(
+        parseFloat((parseFloat(response.data) / DECIMAL_OFFSET).toFixed()),
+      );
+      dispatch({
+        type: 'SetAvalancheStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
       });
+    } catch (error) {
+      const data = error.data;
+      setBalance(0);
+      setError(data);
+    } finally {
+      setFetching(false);
+    }
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
           <Text>

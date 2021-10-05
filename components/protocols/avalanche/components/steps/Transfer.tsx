@@ -1,9 +1,10 @@
-import {useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@avalanche/hooks';
 import {transactionUrl} from '@avalanche/lib';
+import {useState, useEffect} from 'react';
+import {useGlobalState} from 'context';
 import axios from 'axios';
+import {setStepsStatus} from 'utils';
 
 const layout = {
   labelCol: {span: 4},
@@ -18,37 +19,40 @@ const recipient = 'X-fuji1j2zasjlkkvptegp6dpm222q6sn02k0rp9fj92d';
 
 const {Text} = Typography;
 
-const Transfer = () => {
+const Transfer = ({stepId}: {stepId: string}) => {
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.avalanche;
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   const [hash, setHash] = useState(null);
-  const {state} = useAppState();
 
-  const transfer = (values: any) => {
-    const isValidAmount = parseFloat(values.amount);
-    if (isNaN(isValidAmount)) {
-      setError('Amount needs to be a valid number');
-      throw Error('Invalid Amount');
-    }
-
-    const amount = values.amount;
-
+  const transfer = async (values: any) => {
     setFetching(true);
-    axios
-      .post(`/api/avalanche/transfer`, {...state, amount, recipient})
-      .then((res) => {
-        const hash = res.data;
-        setHash(hash);
-        setFetching(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setFetching(false);
+    const navax = parseFloat(values.amount);
+    try {
+      if (isNaN(navax)) {
+        throw new Error('invalid amount');
+      }
+
+      const response = await axios.post(`/api/avalanche/transfer`, {
+        ...state,
+        navax,
+        recipient,
       });
+      setHash(response.data);
+      dispatch({
+        type: 'SetAvalancheStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
+      });
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setFetching(false);
+    }
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Form
         {...layout}
         name="transfer"

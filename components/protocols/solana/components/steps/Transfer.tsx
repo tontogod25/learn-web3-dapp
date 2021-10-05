@@ -1,13 +1,19 @@
 import {Form, Input, Button, Alert, Space, Typography, Col, Modal} from 'antd';
 import {LoadingOutlined, RedoOutlined} from '@ant-design/icons';
 import {prettyError, transactionExplorer} from '@solana/lib';
-import {ErrorBox} from '@solana/components';
-import {useAppState} from '@solana/context';
+import {ErrorBox} from '@solana/components/nav';
 import type {ErrorT} from '@solana/types';
 import {useEffect, useState} from 'react';
 import {Keypair} from '@solana/web3.js';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+  getNetworkForCurrentChain,
+  getChainInnerState,
+} from 'context';
 import axios from 'axios';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const layout = {
   labelCol: {span: 4},
@@ -21,23 +27,24 @@ const tailLayout = {
 const {Text} = Typography;
 
 const Transfer = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const network = getNetworkForCurrentChain(state);
+  const address = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.ADDRESS,
+  );
+  const secret = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.SECRET,
+  );
+
   const [recipient, setRecipient] = useState<string | null>(null);
   const [error, setError] = useState<ErrorT | null>(null);
   const [hash, setHash] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
-  const {state} = useAppState();
-
-  useEffect(() => {
-    if (hash) {
-      if (globalState.valid < 5) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 5,
-        });
-      }
-    }
-  }, [hash, setHash]);
 
   const generate = () => {
     const keypair = Keypair.generate();
@@ -67,13 +74,20 @@ const Transfer = () => {
       if (isNaN(lamports)) {
         throw new Error('invalid amount');
       }
-
       const response = await axios.post(`/api/solana/transfer`, {
-        ...state,
+        address,
+        secret,
+        network,
         lamports,
         recipient,
       });
       setHash(response.data);
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
     } catch (error) {
       if (error.message === 'invalid amount') {
         setError({message: 'invalid amount'});
@@ -85,21 +99,21 @@ const Transfer = () => {
     }
   };
 
-  const explorerUrl = transactionExplorer(hash ?? '', state.network);
+  const explorerUrl = transactionExplorer(hash ?? '', network);
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Form
         {...layout}
         name="transfer"
         layout="horizontal"
         onFinish={transfer}
         initialValues={{
-          from: state?.address,
+          from: address,
         }}
       >
         <Form.Item label="Sender" name="from" required>
-          <Text code>{state?.address}</Text>
+          <Text code>{address}</Text>
         </Form.Item>
 
         <Form.Item

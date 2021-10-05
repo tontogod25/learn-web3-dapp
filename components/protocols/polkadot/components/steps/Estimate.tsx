@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Alert, Button, Col, Space, Typography} from 'antd';
-import {useAppState} from '@polka/hooks';
+import {useAppState} from '@polkadot/hooks';
 import axios from 'axios';
 
 const {Text} = Typography;
@@ -28,7 +28,7 @@ const Estimate = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical">
         <Text strong>Calculate the estimated fees for a simple transfer</Text>
         <Button

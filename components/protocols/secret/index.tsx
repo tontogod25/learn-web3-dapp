@@ -1,6 +1,4 @@
-// coucou husky
 import {useEffect, useReducer} from 'react';
-import {Row} from 'antd';
 import {
   Connect,
   Account,
@@ -11,75 +9,45 @@ import {
   Setter,
 } from '@secret/components/steps';
 import {appStateReducer, initialState, SecretContext} from '@secret/context';
-import {useAppState, useLocalStorage} from '@secret/hooks';
-import {Sidebar, Step} from '@secret/components/layout';
-import {Nav} from '@secret/components';
-import type {AppI} from '@secret/types';
-import {trackTutorialStepViewed} from '../../../utils/tracking-utils';
+import {useLocalStorage} from '@secret/hooks';
+import Nav from '@secret/components/nav';
+import Layout from 'components/shared/Layout';
+import {PROTOCOL_STEPS_ID, ChainType} from 'types';
+import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 
-const SecretApp: React.FC<AppI> = ({chain}) => {
-  const {state, dispatch} = useAppState();
-  const {steps} = chain;
-  const step = steps[state.index];
-  const nextHandler = () => {
-    const index = state.index + 1;
-    dispatch({
-      type: 'SetIndex',
-      index,
-    });
-    trackTutorialStepViewed(chain.id, steps[index].title, 'next');
-  };
-  const prevHandler = () => {
-    const index = state.index - 1;
-    dispatch({
-      type: 'SetIndex',
-      index,
-    });
-    trackTutorialStepViewed(chain.id, steps[index].title, 'prev');
-  };
-  const isFirstStep = state.index == 0;
-  const isLastStep = state.index === steps.length - 1;
+const Secret: React.FC = () => {
+  const {state: global_state} = useGlobalState();
+  const stepId = getCurrentStepIdForCurrentChain(global_state);
 
-  return (
-    <Row>
-      <Sidebar steps={steps} stepIndex={state.index} />
-      <Step
-        step={step}
-        isFirstStep={isFirstStep}
-        isLastStep={isLastStep}
-        prev={prevHandler}
-        next={nextHandler}
-        body={
-          <>
-            {step.id === 'connect' && <Connect />}
-            {step.id === 'account' && <Account />}
-            {step.id === 'balance' && <Balance />}
-            {step.id === 'transfer' && <Transfer />}
-            {step.id === 'deploy' && <Deploy />}
-            {step.id === 'getter' && <Getter />}
-            {step.id === 'setter' && <Setter />}
-          </>
-        }
-        nav={<Nav />}
-      />
-    </Row>
-  );
-};
-
-const Secret: React.FC<AppI> = ({chain}) => {
   const [storageState, setStorageState] = useLocalStorage(
     'secret',
     initialState,
   );
   const [state, dispatch] = useReducer(appStateReducer, storageState);
+
   useEffect(() => {
     setStorageState(state);
   }, [state]);
+
   return (
     <SecretContext.Provider value={{state, dispatch}}>
-      <SecretApp chain={chain} />
+      <Nav />
+      {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
+      {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}
+      {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
+      {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
+      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}
+      {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Getter />}
+      {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Setter />}
     </SecretContext.Provider>
   );
 };
 
-export default Secret;
+const WithLayoutSecret: React.FC<{chain: ChainType; markdown: any}> = ({
+  chain,
+  markdown,
+}) => {
+  return Layout(Secret, chain, markdown);
+};
+
+export default WithLayoutSecret;

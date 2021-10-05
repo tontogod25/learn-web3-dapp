@@ -1,6 +1,6 @@
 import {Alert, Col, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@ccelo/hooks';
+import {useAppState} from '@celo/hooks';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
@@ -37,7 +37,7 @@ const Connect = () => {
   }, [version, setVersion]);
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       {fetchingVersion ? (
         <LoadingOutlined style={{fontSize: 24}} spin />
       ) : version ? (

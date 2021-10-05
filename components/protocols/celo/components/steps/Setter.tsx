@@ -2,8 +2,8 @@ import {useEffect, useState} from 'react';
 import {Alert, Col, Input, Button, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import axios from 'axios';
-import {useAppState} from '@ccelo/hooks';
-import {transactionUrl} from '@ccelo/lib';
+import {useAppState} from '@celo/hooks';
+import {transactionUrl} from '@celo/lib';
 
 const {Text} = Typography;
 
@@ -52,7 +52,7 @@ const Setter = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Text>
           Below is the message stored on our &quot;greeter&quot; contract:

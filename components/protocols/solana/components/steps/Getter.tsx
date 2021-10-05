@@ -1,31 +1,33 @@
 import {Alert, Col, Button, Space, Typography, Modal} from 'antd';
-import {useAppState} from '@solana/context';
-import {ErrorBox} from '@solana/components';
+import {ErrorBox} from '@solana/components/nav';
 import type {ErrorT} from '@solana/types';
 import {useState, useEffect} from 'react';
 import {prettyError} from '@solana/lib';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getNetworkForCurrentChain,
+  getChainInnerState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Getter = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const network = getNetworkForCurrentChain(state);
+  const greeter = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.GREETER,
+  );
+
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [greeting, setGreeting] = useState<number>(-1);
-  const {state} = useAppState();
-
-  useEffect(() => {
-    if (greeting) {
-      if (globalState.valid < 8) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 8,
-        });
-      }
-    }
-  }, [greeting, setGreeting]);
 
   useEffect(() => {
     if (error) {
@@ -46,8 +48,17 @@ const Getter = () => {
     setError(null);
     setFetching(true);
     try {
-      const response = await axios.post(`/api/solana/getter`, state);
+      const response = await axios.post(`/api/solana/getter`, {
+        network,
+        greeter,
+      });
       setGreeting(response.data);
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId,
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
     } catch (error) {
       setError(prettyError(error));
     } finally {
@@ -56,7 +67,7 @@ const Getter = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
           <Text>Get the counter&apos;s value from the program:</Text>

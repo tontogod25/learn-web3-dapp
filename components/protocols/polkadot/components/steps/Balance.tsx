@@ -1,6 +1,6 @@
 import {Alert, Col, Input, Button, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@polka/hooks';
+import {useAppState} from '@polkadot/hooks';
 import {useState} from 'react';
 import axios from 'axios';
 
@@ -35,7 +35,7 @@ const Balance = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
           <Text>

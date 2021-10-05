@@ -1,31 +1,23 @@
 import {Alert, Button, Col, Space, Typography, Modal} from 'antd';
 import type {ErrorT} from '@solana/types';
-import {useAppState} from '@solana/context';
-import {ErrorBox} from '@solana/components';
+import {ErrorBox} from '@solana/components/nav';
 import {useEffect, useState} from 'react';
 import {prettyError} from '@solana/lib';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 import axios from 'axios';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
 const Keypair = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
   const [address, setAddress] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
-  const {state, dispatch} = useAppState();
-
-  useEffect(() => {
-    if (address) {
-      if (globalState.valid < 2) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 2,
-        });
-      }
-    }
-  }, [address, setAddress]);
 
   useEffect(() => {
     if (error) {
@@ -41,11 +33,6 @@ const Keypair = () => {
       width: '800px',
     });
   }
-  useEffect(() => {
-    if (state?.address) {
-      setAddress(state.address);
-    }
-  }, []);
 
   const generateKeypair = async () => {
     setFetching(true);
@@ -53,12 +40,22 @@ const Keypair = () => {
       const response = await axios.get(`/api/solana/keypair`);
       setAddress(response.data.address);
       dispatch({
-        type: 'SetSecret',
-        secret: response.data.secret,
+        type: 'SetStepInnerState',
+        chainId: getCurrentChainId(state),
+        innerStateId: PROTOCOL_INNER_STATES_ID.SECRET,
+        value: response.data.secret,
       });
       dispatch({
-        type: 'SetAddress',
-        address: response.data.address,
+        type: 'SetStepInnerState',
+        chainId: getCurrentChainId(state),
+        innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
+        value: response.data.address,
+      });
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
       });
     } catch (error) {
       setError(prettyError(error));
@@ -68,7 +65,7 @@ const Keypair = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical">
         <Button
           type="primary"

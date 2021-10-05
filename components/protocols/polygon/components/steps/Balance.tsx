@@ -1,10 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Alert, Button, Col, Space, Typography} from 'antd';
 import {getPolygonAddressExplorerURL} from '@polygon/lib';
-import {useAppState} from '@polygon/context';
 import {useState, useEffect} from 'react';
 import {ethers} from 'ethers';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 
 const {Text} = Typography;
 
@@ -13,22 +16,10 @@ const {Text} = Typography;
 declare let window: any;
 
 const Balance = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
   const [balance, setBalance] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
   const [fetching, setFetching] = useState<boolean>(false);
-  const {state} = useAppState();
-
-  useEffect(() => {
-    if (balance != undefined) {
-      if (globalState.valid < 3) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 3,
-        });
-      }
-    }
-  }, [balance, setBalance]);
 
   const checkBalance = async () => {
     setFetching(true);
@@ -38,6 +29,12 @@ const Balance = () => {
       const selectedAddressBalance = undefined;
       const balanceToDisplay = undefined;
       setBalance(balanceToDisplay);
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
     } catch (error) {
       setError(error.message);
     } finally {
@@ -46,7 +43,7 @@ const Balance = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" style={{width: '100%'}} size="large">
         <Button type="primary" onClick={checkBalance} loading={fetching}>
           Check Balance

@@ -1,33 +1,35 @@
 import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
 import {accountExplorer} from '@solana/lib';
-import {useAppState} from '@solana/context';
-import {ErrorBox} from '@solana/components';
+import {ErrorBox} from '@solana/components/nav';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import {useGlobalState} from 'context';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getNetworkForCurrentChain,
+  getChainInnerState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
 const Deploy = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const network = getNetworkForCurrentChain(state);
+  const programId = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
+  );
+
   const [value, setValue] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [checked, setChecked] = useState<boolean>(false);
-  const {state, dispatch} = useAppState();
-
-  useEffect(() => {
-    if (checked) {
-      if (globalState.valid < 6) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 6,
-        });
-      }
-    }
-  }, [checked, setChecked]);
 
   useEffect(() => {
     if (error) {
@@ -50,13 +52,21 @@ const Deploy = () => {
     setFetching(true);
     try {
       const response = await axios.post(`/api/solana/deploy`, {
-        ...state,
+        network,
         programId: value,
       });
       setChecked(response.data);
       dispatch({
-        type: 'SetProgramId',
-        programId: value as string,
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
+        value: value,
+      });
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId,
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
       });
     } catch (error) {
       setError(prettyError(error));
@@ -66,7 +76,7 @@ const Deploy = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
           <Text>
@@ -87,7 +97,7 @@ const Deploy = () => {
             message={<Text strong>{`The program is correctly deployed`}</Text>}
             description={
               <a
-                href={accountExplorer(state?.programId ?? '', state.network)}
+                href={accountExplorer(programId ?? '', network)}
                 target="_blank"
                 rel="noreferrer"
               >

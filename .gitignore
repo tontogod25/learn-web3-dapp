@@ -40,6 +40,9 @@ package-lock.json
 # vscode
 .vscode
 
+# markdown
+md
+
 # contracts
 /dist
 /contracts/solana/program/target/

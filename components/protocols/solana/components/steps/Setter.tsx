@@ -1,35 +1,48 @@
 import {Alert, Col, Button, Space, Typography, Modal} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import {transactionExplorer} from '@solana/lib';
-import {ErrorBox} from '@solana/components';
-import {useAppState} from '@solana/context';
+import {ErrorBox} from '@solana/components/nav';
 import {useEffect, useState} from 'react';
-import {useGlobalState} from 'context';
 import type {ErrorT} from '@solana/types';
 import {prettyError} from '@solana/lib';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getNetworkForCurrentChain,
+  getChainInnerState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
+
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Setter = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const network = getNetworkForCurrentChain(state);
+  const secret = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.SECRET,
+  );
+  const programId = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
+  );
+  const greeter = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.GREETER,
+  );
+
   const [fetching, setFetching] = useState<boolean>(false);
   const [resetting, setResetting] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [hash, setHash] = useState<string>('');
   const [message, setMessage] = useState<number>(-1);
-  const {state} = useAppState();
-
-  useEffect(() => {
-    if (hash) {
-      if (globalState.valid < 9) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 9,
-        });
-      }
-    }
-  }, [hash, setHash]);
 
   useEffect(() => {
     if (error) {
@@ -51,8 +64,19 @@ const Setter = () => {
       setError(null);
       setFetching(true);
       try {
-        const response = await axios.post(`/api/solana/getter`, state);
+        const response = await axios.post(`/api/solana/getter`, {
+          greeter,
+          secret,
+          programId,
+          network,
+        });
         setMessage(response.data);
+        dispatch({
+          type: 'SetStepIsCompleted',
+          chainId,
+          stepId: getCurrentStepIdForCurrentChain(state),
+          value: true,
+        });
       } catch (error) {
         setError(prettyError(error));
       } finally {
@@ -66,10 +90,12 @@ const Setter = () => {
     setError(null);
     setResetting(true);
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/solana/setter`,
-        state,
-      );
+      const response = await axios.post(`/api/solana/setter`, {
+        greeter,
+        secret,
+        programId,
+        network,
+      });
       setHash(response.data);
     } catch (error) {
       setError(prettyError(error));
@@ -79,7 +105,7 @@ const Setter = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Text>Number of greetings:</Text>
         <Col>
@@ -108,7 +134,7 @@ const Setter = () => {
                 message={<Text strong>{`The greeting has been sent`}</Text>}
                 description={
                   <a
-                    href={transactionExplorer(hash, state.network)}
+                    href={transactionExplorer(hash, network)}
                     target="_blank"
                     rel="noreferrer"
                   >

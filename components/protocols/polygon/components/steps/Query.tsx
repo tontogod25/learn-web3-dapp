@@ -1,27 +1,20 @@
 import {PolygonQueryResponse} from '@polygon/types';
 import {LoadingOutlined} from '@ant-design/icons';
 import {Alert, Button, Col, Space} from 'antd';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import ReactJson from 'react-json-view';
-import {useGlobalState} from 'context';
 import axios from 'axios';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 
 const Query = () => {
+  const {state, dispatch} = useGlobalState();
   const [queryData, setQueryData] = useState<PolygonQueryResponse | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
-
-  useEffect(() => {
-    if (queryData) {
-      if (globalState.valid < 2) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 2,
-        });
-      }
-    }
-  }, [queryData, setQueryData]);
 
   const getQuery = async () => {
     setFetching(true);
@@ -29,6 +22,12 @@ const Query = () => {
       const response = await axios.get(`/api/polygon/query`);
       setQueryData(response.data);
       setFetching(false);
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
     } catch (error) {
       const data = error.response?.data;
       setFetching(false);
@@ -39,7 +38,7 @@ const Query = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" size="large">
         <Space direction="vertical" style={{overflow: 'hidden'}}>
           <Button type="primary" onClick={getQuery}>

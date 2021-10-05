@@ -1,14 +1,16 @@
-import {useEffect, useState} from 'react';
 import {Alert, Button, Col, Space, Typography} from 'antd';
-import {useAppState} from '@avalanche/hooks';
+import {useEffect, useState} from 'react';
+import {useGlobalState} from 'context';
+import {setStepsStatus} from 'utils';
 import axios from 'axios';
 
 const {Text} = Typography;
 
-const Account = () => {
-  const [fetching, setFetching] = useState<boolean>(false);
+const Account = ({stepId}: {stepId: string}) => {
+  const {state: globalState, dispatch} = useGlobalState();
+  const state = globalState.avalanche;
   const [address, setAddress] = useState<string | null>(null);
-  const {state, dispatch} = useAppState();
+  const [fetching, setFetching] = useState<boolean>(false);
 
   useEffect(() => {
     if (state?.address) {
@@ -23,12 +25,16 @@ const Account = () => {
       setAddress(response.data.address);
       setFetching(false);
       dispatch({
-        type: 'SetSecret',
+        type: 'SetAvalancheSecret',
         secret: response.data.secret,
       });
       dispatch({
-        type: 'SetAddress',
+        type: 'SetAvalancheAddress',
         address: response.data.address,
+      });
+      dispatch({
+        type: 'SetAvalancheStepsStatus',
+        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
       });
     } catch (error) {
       console.error(error);
@@ -37,7 +43,7 @@ const Account = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Button
         type="primary"
         onClick={generateKeypair}

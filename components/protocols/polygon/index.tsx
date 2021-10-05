@@ -1,9 +1,6 @@
-import {Nav} from '@polygon/components';
+// import Nav from '@polygon/components/nav';
 import Layout from 'components/shared/Layout';
-import {AppI} from '@polygon/types';
-import {useReducer, useEffect} from 'react';
-import {useLocalStorage} from 'hooks';
-import {StepType} from 'types';
+import {ChainType, MarkdownForChainIdT, PROTOCOL_STEPS_ID} from 'types';
 import {
   Connect,
   Balance,
@@ -14,42 +11,32 @@ import {
   Getter,
   Transfer,
 } from '@polygon/components/steps';
-import {
-  appStateReducer,
-  initialState,
-  PolygonContext,
-  State,
-} from '@polygon/context';
+import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 
-const Polygon: React.FC<{step: StepType}> = ({step}) => {
-  const [storageState, setStorageState] = useLocalStorage<State>(
-    'polygon',
-    initialState,
-  );
-  const [state, dispatch] = useReducer(appStateReducer, storageState);
-  useEffect(() => {
-    setStorageState(state);
-  }, [state, step]);
+const Polygon: React.FC = () => {
+  const {state: global_state} = useGlobalState();
+  const stepId = getCurrentStepIdForCurrentChain(global_state);
 
   return (
-    <PolygonContext.Provider value={{state, dispatch}}>
-      <div style={{minHeight: '250px', marginBottom: '10vh'}}>
-        {step.id === 'connect' && <Connect />}
-        {step.id === 'query' && <Query />}
-        {step.id === 'balance' && <Balance />}
-        {step.id === 'transfer' && <Transfer />}
-        {step.id === 'deploy' && <Deploy />}
-        {step.id === 'setter' && <Setter />}
-        {step.id === 'getter' && <Getter />}
-        {step.id === 'restore' && <Restore />}
-        <Nav />
-      </div>
-    </PolygonContext.Provider>
+    <>
+      {/* <Nav /> */}
+      {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
+      {stepId === PROTOCOL_STEPS_ID.QUERY_CHAIN && <Query />}
+      {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Balance />}
+      {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
+      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}
+      {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Setter />}
+      {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Getter />}
+      {stepId === PROTOCOL_STEPS_ID.RESTORE_ACCOUNT && <Restore />}
+    </>
   );
 };
 
-const WrappedPolygon: React.FC<AppI> = ({chain}) => {
-  return Layout(Polygon, chain);
+const WithLayoutPolygon: React.FC<{
+  chain: ChainType;
+  markdown: MarkdownForChainIdT;
+}> = ({chain, markdown}) => {
+  return Layout(Polygon, chain, markdown);
 };
 
-export default WrappedPolygon;
+export default WithLayoutPolygon;

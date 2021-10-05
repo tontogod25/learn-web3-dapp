@@ -1,11 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useAppState} from '@polygon/context';
 import detectEthereumProvider from '@metamask/detect-provider';
 import {Alert, Button, Col, Space, Typography} from 'antd';
 import {Network} from '@ethersproject/networks';
 import {useState, useEffect} from 'react';
-import {useGlobalState} from 'context';
 import {ethers} from 'ethers';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+  getChainInnerState,
+} from 'context';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
@@ -14,27 +19,45 @@ const {Text} = Typography;
 declare let window: any;
 
 const Connect = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getCurrentStepIdForCurrentChain(state);
+
+  const metamaskNetwork = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.METAMASK_NETWORK_NAME,
+  );
+
+  const polygonAddress = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.ADDRESS,
+  );
+
   const [network, setNetwork] = useState<Network | undefined>(undefined);
   const [address, setAddress] = useState<string | undefined>(undefined);
-  const {state, dispatch} = useAppState();
 
   useEffect(() => {
     if (address && network) {
       dispatch({
-        type: 'SetAddress',
-        address: address,
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
+        value: address,
       });
       dispatch({
-        type: 'SetNetwork',
-        network: network.name,
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.METAMASK_NETWORK_NAME,
+        value: network.name,
       });
-      if (globalState.valid < 1) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 1,
-        });
-      }
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId,
+        stepId,
+        value: true,
+      });
     }
   }, [address, network]);
 
@@ -57,19 +80,19 @@ const Connect = () => {
   };
 
   return (
-    <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+    <Col>
       <Space direction="vertical" style={{width: '100%'}}>
         <Button type="primary" onClick={connect}>
           Check Metamask Connection
         </Button>
-        {state.address && state.network && (
+        {polygonAddress && metamaskNetwork && (
           <Alert
             message={<Text strong>{`Connected to ${network?.name}`}</Text>}
             type="success"
             showIcon
           />
         )}
-        {!network && !state.address && (
+        {!metamaskNetwork && !polygonAddress && (
           <Alert message="Not connected to Polygon" type="error" showIcon />
         )}
       </Space>
