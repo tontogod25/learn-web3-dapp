@@ -21,6 +21,10 @@ export default async function query(
     const gasPriceAsGwei = undefined;
     const blockInfo = undefined;
 
+    if (!chainId || !blockHeight || !gasPriceAsGwei || !blockInfo) {
+      throw new Error('Please complete the code');
+    }
+
     res.status(200).json({
       networkName,
       chainId,
@@ -28,9 +32,9 @@ export default async function query(
       gasPriceAsGwei,
       blockInfo,
     });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      message: err.message,
+      message: error.message,
     });
   }
 }

@@ -1,83 +1,42 @@
 import {ArrowLeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
-import {trackTutorialStepViewed} from 'utils/tracking-utils';
+import {useGlobalState, getCurrentChainId} from 'context';
 import {getChainColors} from 'utils/colors';
-import {Button, Col, Row} from 'antd';
-import styled from 'styled-components';
-import {
-  useGlobalState,
-  getPreviousStepIdForCurrentStepId,
-  getCurrentChainId,
-  getTitleForCurrentStepId,
-  getNextStepIdForCurrentStepId,
-  getIsCompletedForCurrentStepId,
-  getPreviousStepForCurrentStepId,
-  getNextStepForCurrentStepId,
-  getIsSkippableForCurrentStepId,
-} from 'context';
-import React from 'react';
 import {FOOTER_HEIGHT} from 'lib/constants';
-import {PROTOCOL_STEPS_ID} from 'types';
+import styled from 'styled-components';
+import {Button, Col, Row} from 'antd';
+import {useSteps} from 'hooks';
 
 const Footer = () => {
   const {state, dispatch} = useGlobalState();
-  const chainId = getCurrentChainId(state);
-  const isCompleted =
-    getIsSkippableForCurrentStepId(state) ||
-    getIsCompletedForCurrentStepId(state);
+  const {
+    next,
+    prev,
+    isFirstStep,
+    isLastStep,
+    justify,
+    nextStepTitle,
+    previousStepTitle,
+    isCompleted,
+  } = useSteps(state, dispatch);
 
-  const next = () => {
-    const title = getTitleForCurrentStepId(state);
-    dispatch({
-      type: 'SetChainCurrentStepId',
-      chainId: chainId,
-      currentStepId: getNextStepIdForCurrentStepId(state) as PROTOCOL_STEPS_ID,
-    });
-    trackTutorialStepViewed(chainId, title, 'next');
-  };
-
-  const prev = () => {
-    const title = getTitleForCurrentStepId(state);
-    dispatch({
-      type: 'SetChainCurrentStepId',
-      chainId: chainId,
-      currentStepId: getPreviousStepIdForCurrentStepId(
-        state,
-      ) as PROTOCOL_STEPS_ID,
-    });
-    trackTutorialStepViewed(chainId, title, 'prev');
-  };
-
-  const {primaryColor, secondaryColor} = getChainColors(chainId);
-  const previousStep = getPreviousStepForCurrentStepId(state);
-  const nextStep = getNextStepForCurrentStepId(state);
-
-  // To optimize
-  const isFirstStep = previousStep === null ? true : false;
-  const isLastStep = nextStep === null ? true : false;
-
-  let justify: 'start' | 'end' | 'space-between';
-  if (isFirstStep) {
-    justify = 'end';
-  } else if (isLastStep) {
-    justify = 'start';
-  } else {
-    justify = 'space-between';
-  }
+  const {primaryColor, secondaryColor} = getChainColors(
+    getCurrentChainId(state),
+  );
 
   return (
     <Col span={24}>
       <StepFooter justify={justify} align="middle">
-        {previousStep && (
+        {!isFirstStep && (
           <PrevButton
             size="large"
             style={{marginRight: '8px'}}
             onClick={() => prev()}
             icon={<ArrowLeftOutlined />}
           >
-            {`Prev: ${previousStep.title}`}
+            {`Prev: ${previousStepTitle}`}
           </PrevButton>
         )}
-        {nextStep && (
+        {!isLastStep && (
           <NextButton
             size="large"
             type="primary"
@@ -87,7 +46,7 @@ const Footer = () => {
             disabled={!isCompleted}
           >
             <Row align="middle">
-              {`Next: ${nextStep.title}`}
+              {`Next: ${nextStepTitle}`}
               <ArrowRightOutlined size={20} style={{marginLeft: '6px'}} />
             </Row>
           </NextButton>

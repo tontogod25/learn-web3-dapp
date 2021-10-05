@@ -19,7 +19,20 @@ const Getter = () => {
   const [fetching, setFetching] = useState<boolean>(false);
   const [contractNumber, setContractNumber] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (contractNumber) {
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
+    }
+  }, [contractNumber, setContractNumber]);
+
   const getValue = async () => {
+    setFetching(true);
+    setContractNumber(null);
     try {
       setFetching(true);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -29,14 +42,7 @@ const Getter = () => {
       const storage = undefined;
       setContractNumber(storage.toString());
       setFetching(false);
-      dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
-      });
     } catch (error) {
-      console.log(error);
       setFetching(false);
     }
   };
