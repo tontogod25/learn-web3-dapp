@@ -2,7 +2,7 @@ import {Col, Alert, Space, Typography, Button, Modal} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import {useEffect, useState} from 'react';
 import {useAppState} from '@ceramic/context';
-import {ErrorBox} from '@ceramic/components';
+import {ErrorBox} from '@ceramic/components/nav';
 import type {ErrorT} from '@ceramic/types';
 import {useGlobalState} from 'context';
 import {useIdx} from '@ceramic/context/idx';

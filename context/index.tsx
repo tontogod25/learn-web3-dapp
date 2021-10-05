@@ -23,6 +23,12 @@ export type GlobalState = {
     network?: string;
     address?: string;
   };
+  // Ceramic global State
+  ceramic: {
+    network?: string;
+    address?: string;
+    DID?: string;
+  };
 };
 
 type Action =
@@ -41,7 +47,11 @@ type Action =
   | {type: 'SetAvalancheSecret'; secret?: string}
   // Polygon Actions
   | {type: 'SetPolygonNetwork'; network: string}
-  | {type: 'SetPolygonAddress'; address?: string};
+  | {type: 'SetPolygonAddress'; address?: string}
+  // Ceramic Actions
+  | {type: 'SetCeramicNetwork'; network: string}
+  | {type: 'SetCeramicAddress'; address?: string}
+  | {type: 'SetCeramicDID'; DID?: string};
 
 const initialGlobalState = {
   currentStepIndex: 0,
@@ -57,6 +67,10 @@ const initialGlobalState = {
   // Polygon initial state
   polygon: {
     network: 'datahub',
+  },
+  // Ceramic initial state
+  ceramic: {
+    network: 'testnet',
   },
 };
 
@@ -162,6 +176,34 @@ function globalStateReducer(state: GlobalState, action: Action): GlobalState {
         polygon: {
           ...state.polygon,
           network: action.network,
+        },
+      };
+    }
+    // Ceramic State
+    case 'SetCeramicAddress': {
+      return {
+        ...state,
+        polygon: {
+          ...state.polygon,
+          address: action.address,
+        },
+      };
+    }
+    case 'SetCeramicNetwork': {
+      return {
+        ...state,
+        polygon: {
+          ...state.polygon,
+          network: action.network,
+        },
+      };
+    }
+    case 'SetCeramicDID': {
+      return {
+        ...state,
+        polygon: {
+          ...state.polygon,
+          network: action.DID,
         },
       };
     }

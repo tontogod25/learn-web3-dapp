@@ -9,7 +9,7 @@ import {
   Modal,
   Divider,
 } from 'antd';
-import {ErrorBox} from '@ceramic/components';
+import {ErrorBox} from '@ceramic/components/nav';
 import {useAppState} from '@ceramic/context';
 import type {ErrorT} from '@ceramic/types';
 import {useEffect, useState} from 'react';
@@ -29,7 +29,7 @@ const tailLayout = {
 
 const {Text} = Typography;
 
-const BasicProfile = () => {
+const BasicProfileStep = () => {
   const {state: globalState, dispatch: globalDispatch} = useGlobalState();
   const [basicProfileSaved, setBasicProfileSaved] = useState<boolean>(false);
   const [saving, setSaving] = useState<boolean>(false);
@@ -156,4 +156,4 @@ const BasicProfile = () => {
   );
 };
 
-export default BasicProfile;
+export default BasicProfileStep;

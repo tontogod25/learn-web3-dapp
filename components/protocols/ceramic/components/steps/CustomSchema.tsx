@@ -9,7 +9,7 @@ import {
   Modal,
   Divider,
 } from 'antd';
-import {ErrorBox} from '@ceramic/components';
+import {ErrorBox} from '@ceramic/components/nav';
 import {useAppState} from '@ceramic/context';
 import type {ErrorT} from '@ceramic/types';
 import {useEffect, useState} from 'react';

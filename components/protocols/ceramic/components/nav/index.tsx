@@ -41,26 +41,26 @@ const Nav = () => {
   };
 
   const clear = () => {
-    globalDispatch({
-      type: 'SetIndex',
-      index: 0,
+    dispatch({
+      type: 'SetCurrentStepIndex',
+      currentStepIndex: 0,
     });
-    globalDispatch({
-      type: 'SetValid',
-      valid: 0,
+    dispatch({
+      type: 'SetHighestCompletedStepIndex',
+      highestCompletedStepIndex: 0,
     });
-    trackStorageCleared(globalState.chain as string);
+    trackStorageCleared(globalState.chainId as string);
   };
 
   const clearKeychain = () => {
     const proceed = confirm('Are you sure you want to clear the storage?');
     if (proceed) {
       dispatch({
-        type: 'SetAddress',
+        type: 'SetCeramicAddress',
         address: undefined,
       });
       dispatch({
-        type: 'SetDID',
+        type: 'SetCeramicDID',
         DID: undefined,
       });
       clear();
@@ -69,7 +69,7 @@ const Nav = () => {
 
   const toggleLocal = (network: string) => {
     dispatch({
-      type: 'SetNetwork',
+      type: 'SetCeramicNetwork',
       network: network,
     });
   };
@@ -93,10 +93,10 @@ const Nav = () => {
       </div>
       <div>
         <Select
-          defaultValue={state.network}
+          defaultValue={state.ceramic.network}
           style={{width: 120}}
           onChange={toggleLocal}
-          disabled={globalState.index != 0}
+          disabled={globalState.currentStepIndex != 0}
         >
           <Option value="testnet">Testnet</Option>
           <Option value="localnet">Localnet</Option>
