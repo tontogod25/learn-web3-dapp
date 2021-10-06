@@ -17,6 +17,8 @@ import {
   SOLANA_PROTOCOLS,
   SOLANA_NETWORKS,
   POLKADOT_NETWORKS,
+  CERAMIC_PROTOCOLS,
+  CERAMIC_NETWORKS,
 } from 'types';
 
 export const GRID_LAYOUT = [13, 11];
@@ -419,26 +421,29 @@ export const CHAINS_CONFIG: ChainsType = {
     label: 'Ceramic',
     active: true,
     logoUrl: 'https://developers.ceramic.network/images/ceramic-no-shadow.png',
+    protocol: CERAMIC_PROTOCOLS.HTTP,
+    network: CERAMIC_NETWORKS.TESTNET,
     steps: [
       {
-        id: 'connect',
+        id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
+        title: 'Introduction',
+        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
         title: 'Connect using MetaMask',
-        url: 'https://learn.figment.io/tutorials/connect-to-tezos-node',
       },
       {
-        id: 'login',
+        id: PROTOCOL_STEPS_ID.LOGIN,
         title: 'Log in with IDX',
-        url: 'https://learn.figment.io/tutorials/create-a-tezos-account',
       },
       {
-        id: 'basicProfile',
-        title: 'Update your profile',
-        url: 'https://learn.figment.io/tutorials/check-tezos-account-balance',
+        id: PROTOCOL_STEPS_ID.BASIC_PROFILE,
+        title: 'Update and read your profile',
       },
       {
-        id: 'customSchema',
-        title: 'Deploy and use custom schema',
-        url: 'https://learn.figment.io/tutorials/transfer-tez-tokens',
+        id: PROTOCOL_STEPS_ID.CUSTOM_DEFINITION,
+        title: 'Deploy and use custom definition',
       },
     ],
   },

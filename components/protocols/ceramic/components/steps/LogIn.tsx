@@ -1,60 +1,65 @@
 import {Col, Alert, Space, Typography, Button, Modal} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
-import {useEffect, useState} from 'react';
-import {useAppState} from '@ceramic/context';
-import {ErrorBox} from '@ceramic/components/nav';
-import type {ErrorT} from '@ceramic/types';
-import {useGlobalState} from 'context';
+import {useEffect} from 'react';
+import {
+  getChainInnerState,
+  getCurrentChainId,
+  getCurrentStepIdForCurrentChain,
+  useGlobalState,
+} from 'context';
 import {useIdx} from '@ceramic/context/idx';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
 const LogIn = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
-  const {state, dispatch} = useAppState();
-  const [error, setError] = useState<ErrorT | null>(null);
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getCurrentStepIdForCurrentChain(state);
 
   const {logIn, currentUserDID} = useIdx();
 
+  const userAddress = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.ADDRESS,
+  );
+
+  const idxDID = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.DID,
+  );
+
   useEffect(() => {
     if (currentUserDID) {
-      if (globalState.valid < 2) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 2,
-        });
-      }
+      dispatch({
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.DID,
+        value: currentUserDID,
+      });
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId,
+        stepId,
+        value: true,
+      });
     }
   }, [currentUserDID]);
 
-  useEffect(() => {
-    if (error) {
-      errorMsg(error);
-    }
-  }, [error, setError]);
-
-  function errorMsg(error: ErrorT) {
-    Modal.error({
-      title: 'Unable to log in',
-      content: <ErrorBox error={error} />,
-      afterClose: () => setError(null),
-      width: '800px',
-    });
-  }
-
   const handleLogIn = async () => {
-    const didString = await logIn(state.address as string);
-
-    dispatch({
-      type: 'SetDID',
-      DID: didString,
-    });
+    try {
+      await logIn(userAddress as string);
+    } catch (err) {
+      alert('Something went wrong');
+    }
   };
 
   return (
     <Col style={{minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
-        {!currentUserDID && (
+        {!idxDID && (
           <Button
             type="ghost"
             icon={<PoweroffOutlined />}
@@ -64,12 +69,12 @@ const LogIn = () => {
             Log In
           </Button>
         )}
-        {currentUserDID ? (
+        {idxDID ? (
           <Alert
             message={
               <div>
                 You are logged in as:
-                <Text code>{currentUserDID}</Text>
+                <Text code>{idxDID}</Text>
               </div>
             }
             type="success"

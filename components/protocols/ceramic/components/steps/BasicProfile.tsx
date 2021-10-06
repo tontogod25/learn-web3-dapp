@@ -6,17 +6,19 @@ import {
   Space,
   Typography,
   Col,
-  Modal,
   Divider,
 } from 'antd';
-import {ErrorBox} from '@ceramic/components/nav';
-import {useAppState} from '@ceramic/context';
-import type {ErrorT} from '@ceramic/types';
 import {useEffect, useState} from 'react';
-import {useGlobalState} from 'context';
+import {
+  getChainInnerState,
+  getCurrentChainId,
+  getCurrentStepIdForCurrentChain,
+  useGlobalState,
+} from 'context';
 import {useIdx} from '@ceramic/context/idx';
 import {BasicProfile} from '@ceramicstudio/idx-constants';
 import {IdxSchema} from '@ceramic/types';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const layout = {
   labelCol: {span: 4},
@@ -30,41 +32,33 @@ const tailLayout = {
 const {Text} = Typography;
 
 const BasicProfileStep = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getCurrentStepIdForCurrentChain(state);
+
   const [basicProfileSaved, setBasicProfileSaved] = useState<boolean>(false);
   const [saving, setSaving] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
-  const [error, setError] = useState<ErrorT | null>(null);
   const [basicProfile, setBasicProfile] = useState<BasicProfile | null>(null);
-  const {state} = useAppState();
 
   const {idx, currentUserDID} = useIdx();
 
-  useEffect(() => {
-    if (basicProfile) {
-      if (globalState.valid < 3) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 3,
-        });
-      }
-    }
-  }, [basicProfile]);
+  const idxDID = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.DID,
+  );
 
   useEffect(() => {
-    if (error) {
-      errorMsg(error);
+    if (basicProfileSaved && basicProfile) {
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId,
+        stepId,
+        value: true,
+      });
     }
-  }, [error, setError]);
-
-  function errorMsg(error: ErrorT) {
-    Modal.error({
-      title: 'Something went wrong',
-      content: <ErrorBox error={error} />,
-      afterClose: () => setError(null),
-      width: '800px',
-    });
-  }
+  }, [basicProfileSaved, basicProfile]);
 
   const saveBasicProfile = async (values: BasicProfile) => {
     setSaving(true);
@@ -74,7 +68,7 @@ const BasicProfileStep = () => {
       await idx.set(IdxSchema.BasicProfile, {name});
       setBasicProfileSaved(true);
     } catch (error) {
-      setError(error);
+      alert(error.message);
     } finally {
       setSaving(false);
     }
@@ -86,7 +80,7 @@ const BasicProfileStep = () => {
       const resp = await idx.get<BasicProfile>(IdxSchema.BasicProfile);
       setBasicProfile(resp);
     } catch (error) {
-      setError(error);
+      alert(error.message);
     } finally {
       setFetching(false);
     }
@@ -107,11 +101,11 @@ const BasicProfileStep = () => {
         layout="horizontal"
         onFinish={saveBasicProfile}
         initialValues={{
-          from: state?.DID,
+          from: idxDID,
         }}
       >
         <Form.Item label="DID" name="from" required>
-          <Text code>{state?.DID}</Text>
+          <Text code>{idxDID}</Text>
         </Form.Item>
 
         <Form.Item

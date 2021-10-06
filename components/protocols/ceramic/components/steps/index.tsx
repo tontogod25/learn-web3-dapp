@@ -1,6 +1,6 @@
 import Connect from '@ceramic/components/steps/Connect';
 import LogIn from '@ceramic/components/steps/LogIn';
 import BasicProfile from '@ceramic/components/steps/BasicProfile';
-import CustomSchema from '@ceramic/components/steps/CustomSchema';
+import CustomDefinition from '@ceramic/components/steps/CustomDefinition';
 
-export {Connect, LogIn, BasicProfile, CustomSchema};
+export {Connect, LogIn, BasicProfile, CustomDefinition};

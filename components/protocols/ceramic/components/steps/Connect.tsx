@@ -1,10 +1,14 @@
 import {Col, Alert, Space, Typography, Button, Modal} from 'antd';
 import {LinkOutlined} from '@ant-design/icons';
 import {useEffect, useState} from 'react';
-import {useAppState} from '@ceramic/context';
-import {ErrorBox} from '@ceramic/components/nav';
-import type {ErrorT} from '@ceramic/types';
-import {useGlobalState} from 'context';
+import {
+  getChainInnerState,
+  getCurrentChainId,
+  getCurrentStepIdForCurrentChain,
+  useGlobalState,
+} from 'context';
+import detectEthereumProvider from '@metamask/detect-provider';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
@@ -15,58 +19,49 @@ declare let window: {
 };
 
 const Connect = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getCurrentStepIdForCurrentChain(state);
+
   const [address, setAddress] = useState<string | null>(null);
-  const [error, setError] = useState<ErrorT | null>(null);
-  const [providerFound, setProviderFound] = useState<boolean>(false);
 
-  const {dispatch} = useAppState();
-
-  useEffect(() => {
-    if (window.ethereum) {
-      setProviderFound(true);
-    }
-  }, []);
+  const ethereumAddress = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.ADDRESS,
+  );
 
   useEffect(() => {
     if (address) {
-      if (globalState.valid < 1) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 1,
-        });
-      }
+      dispatch({
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
+        value: address,
+      });
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId,
+        stepId,
+        value: true,
+      });
     }
   }, [address]);
 
-  useEffect(() => {
-    if (error) {
-      errorMsg(error);
-    }
-  }, [error, setError]);
-
-  function errorMsg(error: ErrorT) {
-    Modal.error({
-      title: 'Unable to connect',
-      content: <ErrorBox error={error} />,
-      afterClose: () => setError(null),
-      width: '800px',
-    });
-  }
-
   const getConnection = async () => {
     try {
-      const addresses = await window.ethereum.enable();
-      const address = addresses[0];
+      const provider = await detectEthereumProvider();
 
-      setAddress(address);
+      if (provider) {
+        const addresses = await window.ethereum.enable();
+        const address = addresses[0];
 
-      dispatch({
-        type: 'SetAddress',
-        address: address,
-      });
+        setAddress(address);
+      } else {
+        alert('Please install Metamask at https://metamask.io');
+      }
     } catch (error) {
-      setError(error);
+      alert('Something went wrong');
     }
   };
 
@@ -74,45 +69,35 @@ const Connect = () => {
     <Col style={{minHeight: '350px', maxWidth: '600px'}}>
       <Space direction="vertical" size="large">
         <Space direction="vertical" size="large">
-          {providerFound ? (
-            <>
-              {address && (
-                <Button
-                  type="ghost"
-                  icon={<LinkOutlined />}
-                  onClick={getConnection}
-                  size="large"
-                >
-                  Connect
-                </Button>
-              )}
-              {address ? (
-                <Alert
-                  message={
-                    <span>
-                      Connected to MetaMask:
-                      <Text code>Address {address}</Text>
-                    </span>
-                  }
-                  type="success"
-                  showIcon
-                  onClick={getConnection}
-                />
-              ) : (
-                <Alert
-                  message="Not connected to MetaMask"
-                  type="error"
-                  showIcon
-                />
-              )}
-            </>
-          ) : (
-            <Alert
-              message="Please install MetaMask extension"
-              type="error"
-              showIcon
-            />
-          )}
+          <>
+            <Button
+              type="ghost"
+              icon={<LinkOutlined />}
+              onClick={getConnection}
+              size="large"
+            >
+              Connect
+            </Button>
+            {ethereumAddress ? (
+              <Alert
+                message={
+                  <span>
+                    Connected to MetaMask:
+                    <Text code>Address {ethereumAddress}</Text>
+                  </span>
+                }
+                type="success"
+                showIcon
+                onClick={getConnection}
+              />
+            ) : (
+              <Alert
+                message="Not connected to MetaMask"
+                type="error"
+                showIcon
+              />
+            )}
+          </>
         </Space>
       </Space>
     </Col>

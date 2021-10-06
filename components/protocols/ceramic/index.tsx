@@ -1,25 +1,44 @@
 import {Web3AuthProvider} from '@ceramic/context/idx';
 import Layout from 'components/shared/Layout';
 import React from 'react';
-import {StepType, ChainType} from 'types';
-import {Nav} from '@ceramic/components/nav';
 import {
-  Connect,
-  LogIn,
+  CERAMIC_NETWORKS,
+  CERAMIC_PROTOCOLS,
+  ChainType,
+  PROTOCOL_STEPS_ID,
+} from 'types';
+import Nav from '@ceramic/components/nav';
+import {
   BasicProfile,
-  CustomSchema,
+  Connect,
+  CustomDefinition,
+  LogIn,
 } from '@ceramic/components/steps';
+import {
+  getCurrentChainId,
+  getCurrentStepIdForCurrentChain,
+  useGlobalState,
+} from 'context';
+import {getNodeURL} from '@funnel/datahub';
 
-const Ceramic: React.FC<{step: StepType}> = ({step}) => {
+const Ceramic: React.FC = () => {
+  const {state} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getCurrentStepIdForCurrentChain(state);
+  const nodeUrl = getNodeURL(
+    chainId,
+    CERAMIC_NETWORKS.TESTNET,
+    CERAMIC_PROTOCOLS.HTTP,
+    'devnet',
+  );
+
   return (
-    <Web3AuthProvider
-      ceramicNodeUrl={process.env.NEXT_PUBLIC_CERAMIC_TESTNET_URL as string}
-    >
+    <Web3AuthProvider ceramicNodeUrl={nodeUrl}>
       <div style={{minHeight: '250px', marginBottom: '10vh'}}>
-        {step.id === 'connect' && <Connect />}
-        {step.id === 'login' && <LogIn />}
-        {step.id === 'basicProfile' && <BasicProfile />}
-        {step.id === 'customSchema' && <CustomSchema />}
+        {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
+        {stepId === PROTOCOL_STEPS_ID.LOGIN && <LogIn />}
+        {stepId === PROTOCOL_STEPS_ID.BASIC_PROFILE && <BasicProfile />}
+        {stepId === PROTOCOL_STEPS_ID.CUSTOM_DEFINITION && <CustomDefinition />}
         <Nav />
       </div>
     </Web3AuthProvider>

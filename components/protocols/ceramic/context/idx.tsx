@@ -12,28 +12,12 @@ import CeramicClient from '@ceramicnetwork/http-client';
 import {EthereumAuthProvider, ThreeIdConnect} from '@3id/connect';
 import {DID} from 'dids';
 import ThreeIdResolver from '@ceramicnetwork/3id-did-resolver';
-import {CeramicApi} from '@ceramicnetwork/common';
 import {aliases} from '@ceramic/lib';
-
-export type State = {
-  network: string;
-  address?: string;
-  DID?: string;
-};
-
-type Action =
-  | {type: 'SetNetwork'; network: string}
-  | {type: 'SetAddress'; address?: string}
-  | {type: 'SetDID'; DID?: string};
-
-const initialState = {
-  network: 'testnet',
-};
 
 const IdxContext = createContext<{
   idxRef?: MutableRefObject<IDX>;
   ceramicRef?: MutableRefObject<CeramicClient>;
-  currentUserDID?: string | null;
+  currentUserDID?: string | null | undefined;
   setCurrentUserDID?: Dispatch<SetStateAction<string | null>>;
 }>({});
 
@@ -67,19 +51,14 @@ type UseIdxHook = {
   idx: IDX;
   ceramic: CeramicClient;
   logIn: (address: string) => Promise<string>;
-  currentUserDID: string | null;
+  currentUserDID: string | null | undefined;
 };
 
 const useIdx = (): UseIdxHook => {
   const {idxRef, ceramicRef, currentUserDID, setCurrentUserDID} =
     useContext(IdxContext);
 
-  if (
-    !ceramicRef ||
-    !idxRef ||
-    currentUserDID == undefined ||
-    setCurrentUserDID == undefined
-  ) {
+  if (!ceramicRef || !idxRef) {
     throw new Error('Web3AuthProvider not used.');
   }
 
@@ -122,4 +101,4 @@ const useIdx = (): UseIdxHook => {
   };
 };
 
-export {IdxContext, initialState, useIdx, Web3AuthProvider};
+export {IdxContext, useIdx, Web3AuthProvider};

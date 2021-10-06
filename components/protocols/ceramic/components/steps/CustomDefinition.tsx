@@ -6,16 +6,18 @@ import {
   Space,
   Typography,
   Col,
-  Modal,
   Divider,
 } from 'antd';
-import {ErrorBox} from '@ceramic/components/nav';
-import {useAppState} from '@ceramic/context';
-import type {ErrorT} from '@ceramic/types';
 import {useEffect, useState} from 'react';
-import {useGlobalState} from 'context';
+import {
+  getChainInnerState,
+  getCurrentChainId,
+  getCurrentStepIdForCurrentChain,
+  useGlobalState,
+} from 'context';
 import {useIdx} from '@ceramic/context/idx';
 import {IdxSchema, QuoteSchemaT} from '@ceramic/types';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const layout = {
   labelCol: {span: 4},
@@ -28,44 +30,36 @@ const tailLayout = {
 
 const {Text} = Typography;
 
-const BasicProfile = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
-  const [error, setError] = useState<ErrorT | null>(null);
+const CustomDefinition = () => {
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+  const stepId = getCurrentStepIdForCurrentChain(state);
+
   const [saving, setSaving] = useState<boolean>(false);
-  const [customSchemaSaved, setCustomSchemaSaved] = useState<boolean>(false);
+  const [customDefinitionSaved, setCustomDefinitionSaved] =
+    useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
-  const [customSchemaData, setCustomSchemaData] = useState<QuoteSchemaT | null>(
-    null,
-  );
-  const {state} = useAppState();
+  const [customDefinitionData, setCustomDefinitionData] =
+    useState<QuoteSchemaT | null>(null);
 
   const {idx, currentUserDID} = useIdx();
 
-  useEffect(() => {
-    if (customSchemaData) {
-      if (globalState.valid < 5) {
-        globalDispatch({
-          type: 'SetValid',
-          valid: 5,
-        });
-      }
-    }
-  }, [customSchemaData]);
+  const idxDID = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.DID,
+  );
 
   useEffect(() => {
-    if (error) {
-      errorMsg(error);
+    if (customDefinitionSaved && customDefinitionData) {
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId,
+        stepId,
+        value: true,
+      });
     }
-  }, [error, setError]);
-
-  function errorMsg(error: ErrorT) {
-    Modal.error({
-      title: 'Something went wrong',
-      content: <ErrorBox error={error} />,
-      afterClose: () => setError(null),
-      width: '800px',
-    });
-  }
+  }, [customDefinitionSaved, customDefinitionData]);
 
   const saveQuote = async (values: QuoteSchemaT) => {
     setSaving(true);
@@ -73,9 +67,9 @@ const BasicProfile = () => {
 
     try {
       await idx.set(IdxSchema.Figment, {text, author});
-      setCustomSchemaSaved(true);
+      setCustomDefinitionSaved(true);
     } catch (error) {
-      setError(error);
+      alert(error.message);
     } finally {
       setSaving(false);
     }
@@ -84,9 +78,9 @@ const BasicProfile = () => {
   const handleGetQuote = async () => {
     try {
       const resp = await idx.get<QuoteSchemaT>(IdxSchema.Figment);
-      setCustomSchemaData(resp);
+      setCustomDefinitionData(resp);
     } catch (error) {
-      setError(error);
+      alert(error.message);
     } finally {
       setFetching(false);
     }
@@ -107,11 +101,11 @@ const BasicProfile = () => {
         layout="horizontal"
         onFinish={saveQuote}
         initialValues={{
-          from: state?.DID,
+          from: idxDID,
         }}
       >
         <Form.Item label="DID" name="from" required>
-          <Text code>{state?.DID}</Text>
+          <Text code>{idxDID}</Text>
         </Form.Item>
 
         <Form.Item
@@ -148,7 +142,7 @@ const BasicProfile = () => {
         </Form.Item>
       </Form>
 
-      {customSchemaSaved && (
+      {customDefinitionSaved && (
         <>
           <Divider />
           <Button
@@ -160,10 +154,10 @@ const BasicProfile = () => {
             Get name
           </Button>
 
-          {customSchemaData && (
+          {customDefinitionData && (
             <div>
-              <div>Text: {customSchemaData.text}</div>
-              <div>Author: {customSchemaData.author}</div>
+              <div>Text: {customDefinitionData.text}</div>
+              <div>Author: {customDefinitionData.author}</div>
             </div>
           )}
         </>
@@ -172,4 +166,4 @@ const BasicProfile = () => {
   );
 };
 
-export default BasicProfile;
+export default CustomDefinition;

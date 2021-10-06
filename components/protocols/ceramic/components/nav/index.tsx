@@ -1,38 +1,78 @@
 import {trackStorageCleared} from 'utils/tracking-utils';
-import {Typography, Popover, Button, Select} from 'antd';
-import type {EntryT, ErrorT} from '@solana/types';
-import {useAppState} from '@ceramic/context';
-import ReactJson from 'react-json-view';
-import {useGlobalState} from 'context';
+import {Typography, Popover, Button, Select, Tag, Space} from 'antd';
+import type {EntryT} from '@solana/types';
+import {getChainInnerState, getCurrentChainId, useGlobalState} from 'context';
+import {CERAMIC_NETWORKS, PROTOCOL_INNER_STATES_ID} from 'types';
+import {FundViewOutlined} from '@ant-design/icons';
+import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 
 const {Option} = Select;
 
-const {Text, Paragraph} = Typography;
+const {Paragraph} = Typography;
 
 const Nav = () => {
-  const {state: globalState, dispatch: globalDispatch} = useGlobalState();
-  const {state, dispatch} = useAppState();
-  const {address, DID} = state;
+  const {state, dispatch} = useGlobalState();
+  const chainId = getCurrentChainId(state);
+
+  const ceramicAddress = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.ADDRESS,
+  );
+
+  const DID = getChainInnerState(state, chainId, PROTOCOL_INNER_STATES_ID.DID);
 
   const displayAddress = (address: string) =>
-    `${address.slice(0, 5)}...${address.slice(-5)}`;
+    `${address.slice(0, 6)}...${address.slice(-4)}`;
 
-  const Entry = ({msg, display, value}: EntryT) => {
+  const Address = ({display, value}: EntryT) => {
     return (
-      <Paragraph copyable={{text: value}}>
-        <Text strong>{msg}</Text>
-        <Text code>{display(value)}</Text>
+      <Paragraph copyable={{text: value, tooltips: `Click to copy!`}}>
+        <Tag color="gold">
+          <Space>
+            <FundViewOutlined />
+            <div>
+              <strong>{display(value)}</strong>
+            </div>
+          </Space>
+        </Tag>
       </Paragraph>
     );
+  };
+
+  const clearKeychain = () => {
+    const proceed = confirm('Are you sure you want to clear the keychain?');
+    if (proceed) {
+      dispatch({
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
+        value: null,
+      });
+      dispatch({
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.DID,
+        value: null,
+      });
+      dispatch({
+        type: 'ClearStepProgression',
+        chainId,
+      });
+      trackStorageCleared(chainId);
+    }
   };
 
   const AppState = () => {
     return (
       <>
-        {address && (
-          <Entry msg={'Address: '} value={address} display={displayAddress} />
+        {ceramicAddress && (
+          <Address
+            msg={'Address: '}
+            value={ceramicAddress}
+            display={displayAddress}
+          />
         )}
-        {DID && <Entry msg={'DID: '} value={DID} display={displayAddress} />}
         <Button danger onClick={clearKeychain} size={'small'}>
           Clear Keychain
         </Button>
@@ -40,83 +80,21 @@ const Nav = () => {
     );
   };
 
-  const clear = () => {
-    dispatch({
-      type: 'SetCurrentStepIndex',
-      currentStepIndex: 0,
-    });
-    dispatch({
-      type: 'SetHighestCompletedStepIndex',
-      highestCompletedStepIndex: 0,
-    });
-    trackStorageCleared(globalState.chainId as string);
-  };
-
-  const clearKeychain = () => {
-    const proceed = confirm('Are you sure you want to clear the storage?');
-    if (proceed) {
-      dispatch({
-        type: 'SetCeramicAddress',
-        address: undefined,
-      });
-      dispatch({
-        type: 'SetCeramicDID',
-        DID: undefined,
-      });
-      clear();
-    }
-  };
-
-  const toggleLocal = (network: string) => {
-    dispatch({
-      type: 'SetCeramicNetwork',
-      network: network,
-    });
-  };
-
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 25,
-        right: 60,
-        display: 'flex',
-        justifyContent: 'space-evenly',
-        minWidth: '300px',
-        minHeight: '100px',
-      }}
-    >
-      <div>
-        <Popover content={AppState} placement="leftBottom">
-          <Button type="primary">Keychain</Button>
-        </Popover>
-      </div>
-      <div>
-        <Select
-          defaultValue={state.ceramic.network}
-          style={{width: 120}}
-          onChange={toggleLocal}
-          disabled={globalState.currentStepIndex != 0}
-        >
-          <Option value="testnet">Testnet</Option>
-          <Option value="localnet">Localnet</Option>
-        </Select>
-      </div>
-    </div>
+    <StepMenuBar>
+      <Popover content={AppState} placement="bottom">
+        <Button type="ghost">Keychain</Button>
+      </Popover>
+      <Select
+        defaultValue={CERAMIC_NETWORKS.TESTNET}
+        style={{width: 100, textAlign: 'center'}}
+        disabled={true}
+        showArrow={false}
+      >
+        <Option value={CERAMIC_NETWORKS.TESTNET}>Testnet</Option>
+      </Select>
+    </StepMenuBar>
   );
 };
 
-const ErrorBox = ({error}: {error: ErrorT}) => {
-  return (
-    <ReactJson
-      src={error}
-      collapsed={false}
-      name={'error'}
-      displayDataTypes={false}
-      displayObjectSize={false}
-      collapseStringsAfterLength={35}
-    />
-  );
-};
-
-export {Nav, ErrorBox};
+export default Nav;
