@@ -433,11 +433,11 @@ export const CHAINS_CONFIG: ChainsType = {
       },
       {
         id: PROTOCOL_STEPS_ID.SCAFFOLD_A_SUBGRAPH,
-        title: 'Scaffold a subgraph',
+        title: 'Create a subgraph scaffold',
       },
       {
         id: PROTOCOL_STEPS_ID.HACKING_THE_MANIFEST,
-        title: 'Hacking the Manifest',
+        title: 'Tweak the Manifest',
       },
       {
         id: PROTOCOL_STEPS_ID.QUERY_THE_PUNK,

@@ -1,6 +1,6 @@
 import {
   GraphNode,
-  ScaffoldSubGraph,
+  ScaffoldSubgraph,
   HackingTheManifest,
   QueryPunk,
 } from '@the-graph/components/steps';
@@ -23,7 +23,7 @@ const TheGraph: React.FC = () => {
       {/* <Nav /> */}
       {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && <SetupWizard />}
       {stepId === PROTOCOL_STEPS_ID.RUN_A_GRAPH_NODE && <GraphNode />}
-      {stepId === PROTOCOL_STEPS_ID.SCAFFOLD_A_SUBGRAPH && <ScaffoldSubGraph />}
+      {stepId === PROTOCOL_STEPS_ID.SCAFFOLD_A_SUBGRAPH && <ScaffoldSubgraph />}
       {stepId === PROTOCOL_STEPS_ID.HACKING_THE_MANIFEST && (
         <HackingTheManifest />
       )}
