@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Alert, Space, Button, Typography} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
-import {ErrorBox} from '@the-graph/components/error';
 import type {ErrorT} from '@the-graph/types';
 import {prettyError} from '@the-graph/lib';
 import {

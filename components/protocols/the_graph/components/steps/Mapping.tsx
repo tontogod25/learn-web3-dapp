@@ -12,7 +12,7 @@ import axios from 'axios';
 
 const {Text} = Typography;
 
-const GraphNode = () => {
+const Mapping = () => {
   const {state, dispatch} = useGlobalState();
   const [isValid, setIsValid] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
@@ -34,7 +34,7 @@ const GraphNode = () => {
     setIsValid(false);
     setError(null);
     try {
-      const response = await axios.get(`/api/the-graph/scaffold`);
+      const response = await axios.get(`/api/the-graph/mapping`);
       setIsValid(response.data);
     } catch (error) {
       setError(prettyError(error));
@@ -53,18 +53,19 @@ const GraphNode = () => {
           loading={fetching}
           size="large"
         >
-          Check for a subgraph scaffold
+          Check subgraph deployment
         </Button>
         {isValid ? (
           <>
             <Alert
-              message={<Text strong>We found a subgraph scaffold! 🎉</Text>}
+              message={<Text strong>We found a deployed subgraph! 🎉</Text>}
               description={
                 <Space direction="vertical">
-                  <div>Nice. The pieces are coming together.</div>
+                  <div>The time is come to collect the fruits of our work.</div>
                   <div>
-                    Now let&apos;s tweak the subgraph to make it do something
-                    useful. Let&apos;s go do the next step!
+                    Now let&apos;s query tweak the subgraph to display some
+                    revelant information about cryptopunk. Let&apos;s go do the
+                    next step!
                   </div>
                 </Space>
               }
@@ -77,7 +78,7 @@ const GraphNode = () => {
             message={<Text strong>We couldn&apos;t find a subgraph 😢</Text>}
             description={
               <Space direction="vertical">
-                <div>Are you sure the subgraph was created?</div>
+                <div>Are you sure the subgraph was deployed?</div>
               </Space>
             }
             type="error"
@@ -90,4 +91,4 @@ const GraphNode = () => {
   );
 };
 
-export default GraphNode;
+export default Mapping;

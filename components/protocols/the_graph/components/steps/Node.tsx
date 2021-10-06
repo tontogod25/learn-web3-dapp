@@ -15,7 +15,7 @@ const {Text} = Typography;
 
 const GraphNode = () => {
   const {state, dispatch} = useGlobalState();
-  const [isValid, setIsValid] = useState<boolean>(true);
+  const [isValid, setIsValid] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
 
@@ -46,57 +46,65 @@ const GraphNode = () => {
 
   return (
     <Col>
-      <Confetti
-        numberOfPieces={500}
-        tweenDuration={1000}
-        gravity={0.05}
-        // should we use the GRT colors?
-        // colors={['#5943d0', '#151324']}
-      />
       <Space direction="vertical" size="large">
-        <Button
-          type="primary"
-          icon={<PoweroffOutlined />}
-          onClick={validStep}
-          loading={fetching}
-          size="large"
-        >
-          Check local Graph node
-        </Button>
-        {isValid ? (
-          <>
+        {isValid && (
+          <Confetti
+            numberOfPieces={500}
+            tweenDuration={1000}
+            gravity={0.05}
+            // should we use the GRT colors?
+            // colors={['#5943d0', '#151324']}
+          />
+        )}
+        <Space direction="vertical" size="large">
+          <Button
+            type="primary"
+            icon={<PoweroffOutlined />}
+            onClick={validStep}
+            loading={fetching}
+            size="large"
+          >
+            Check local Graph node
+          </Button>
+          {isValid ? (
+            <>
+              <Alert
+                message={
+                  <Text strong>Your local Graph node is running! 🎉</Text>
+                }
+                description={
+                  <Space>
+                    but... it&apos;s not doing much. Let&apos;s give it some
+                    code to run for us. Click on the button at the bottom right
+                    to go to the next step.
+                  </Space>
+                }
+                type="success"
+                showIcon
+              />
+            </>
+          ) : error ? (
             <Alert
-              message={<Text strong>Your local Graph node is running! 🎉</Text>}
+              message={
+                <Text strong>
+                  We couldn&apos;t find a running Graph node 😢
+                </Text>
+              }
               description={
-                <Space>
-                  but... it's not doing much. Let's give it some code to run for
-                  us. Click on the button at the bottom right to go to the next
-                  step.
+                <Space direction="vertical">
+                  <div>
+                    We tried to make a request to http://localhost:8020 but we
+                    got:
+                  </div>
+                  <Text code>{error.message}</Text>
                 </Space>
               }
-              type="success"
+              type="error"
               showIcon
+              closable
             />
-          </>
-        ) : error ? (
-          <Alert
-            message={
-              <Text strong>We couldn't find a running Graph node 😢</Text>
-            }
-            description={
-              <Space direction="vertical">
-                <div>
-                  We tried to make a request to http://localhost:8020 but we
-                  got:
-                </div>
-                <Text code>{error.message}</Text>
-              </Space>
-            }
-            type="error"
-            showIcon
-            closable
-          />
-        ) : null}
+          ) : null}
+        </Space>
       </Space>
     </Col>
   );

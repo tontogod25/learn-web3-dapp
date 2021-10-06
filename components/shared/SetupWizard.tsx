@@ -12,7 +12,7 @@ const SetupWizard = () => {
         <Text>
           Once you finished the setup, click here to go to the next step
         </Text>
-        <Image src={arrow} />
+        <Image src={arrow} alt={''} />
       </ArrowContainer>
     </Container>
   );

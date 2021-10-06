@@ -6,7 +6,10 @@ export default async function node(
   res: NextApiResponse<boolean | string>,
 ) {
   try {
-    const response = await axios.post(`http://127.0.0.1:8020`, {});
+    const response = await axios.get(
+      `http://localhost:8000/subgraphs/name/punks`,
+    );
+    console.log(response.data);
     res.status(200).json(true);
   } catch (error) {
     res.status(500).json(error.message);
