@@ -3,12 +3,14 @@ import {manifestT} from '@the-graph/types';
 import fs from 'fs';
 import yaml from 'js-yaml';
 
+const START_BLOCK = 3914495;
+
 export default async function manifest(
   _req: NextApiRequest,
   res: NextApiResponse<boolean | string>,
 ) {
   try {
-    let manifest = fs.readFileSync('./subgraph/punks/subgraph.yaml', 'utf8');
+    let manifest = fs.readFileSync('./subgraphs/punks/subgraph.yaml', 'utf8');
     let data = yaml.load(manifest) as manifestT;
 
     let startBlock = data.dataSources[0].source.startBlock;
@@ -19,23 +21,29 @@ export default async function manifest(
     console.log('entities', entities);
     console.log('eventHandlers', eventHandlers);
 
-    if (startBlock != 125 * 100 * 1000) {
-      throw new Error('Invalid Start Block');
+    const errors = {
+      block: '',
+      entities: '',
+      eventHandlers: '',
+    };
+
+    if (startBlock !== START_BLOCK) {
+      errors.block = 'Invalid Start Block';
     }
 
     if (!entities.includes('Punk') || !entities.includes('Account')) {
-      throw new Error('Invalid entities');
+      errors.entities = 'Invalid entities';
     }
 
-    if (eventHandlers[0].handler !== 'handleAssign') {
-      throw new Error('Invalid handler');
+    if (eventHandlers.length !== 1) {
+      errors.eventHandlers = 'Invalid eventHandlers';
     }
 
-    if (eventHandlers[0].event !== 'Assign(indexed address,uint256)') {
-      throw new Error('Invalid event');
+    if (Object.values(errors).some((el) => el !== '')) {
+      res.status(500).json(JSON.stringify(errors));
+    } else {
+      res.status(200).json(true);
     }
-
-    res.status(200).json(true);
   } catch (error) {
     res.status(500).json(error.message);
   }

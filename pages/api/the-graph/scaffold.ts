@@ -6,7 +6,7 @@ export default async function scallfold(
   res: NextApiResponse<boolean | string>,
 ) {
   try {
-    fs.readFileSync('./subgraph/punks/subgraph.yaml', 'utf8');
+    fs.readFileSync('./subgraphs/punks/subgraph.yaml', 'utf8');
     res.status(200).json(true);
   } catch (error) {
     res.status(500).json(error.message);

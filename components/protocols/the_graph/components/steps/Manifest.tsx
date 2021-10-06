@@ -69,7 +69,7 @@ const GraphNode = () => {
             message={<Text strong>The manifest file is not ready yet 🥺</Text>}
             description={
               <Space direction="vertical">
-                <div>TBD</div>
+                <div>{JSON.stringify(error.message)}</div>
               </Space>
             }
             type="error"

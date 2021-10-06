@@ -61,7 +61,7 @@ contracts/near/target/
 /archives
 
 
-subgraph/punks
+subgraphs/punks
 
 docker/data
 docker/brew

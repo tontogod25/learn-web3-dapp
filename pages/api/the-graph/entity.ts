@@ -7,7 +7,7 @@ export default async function entity(
 ) {
   try {
     let generatedSchema = fs.readFileSync(
-      './subgraph/punks/generated/schema.ts',
+      './subgraphs/punks/generated/schema.ts',
       'utf8',
     );
     // better to use a regex, need some regex expert here!
