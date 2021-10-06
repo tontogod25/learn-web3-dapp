@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Alert, Space, Button, Modal} from 'antd';
+import {Col, Alert, Space, Button, Typography} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import {ErrorBox} from '@the-graph/components/error';
 import type {ErrorT} from '@the-graph/types';
 import {prettyError} from '@the-graph/lib';
-// import Confetti from 'react-confetti';
 import {
   getCurrentChainId,
   useGlobalState,
   getCurrentStepIdForCurrentChain,
 } from 'context';
 import axios from 'axios';
+
+const {Text} = Typography;
 
 const GraphNode = () => {
   const {state, dispatch} = useGlobalState();
@@ -29,21 +30,6 @@ const GraphNode = () => {
     }
   }, [isValid, setIsValid]);
 
-  useEffect(() => {
-    if (error) {
-      errorMsg(error);
-    }
-  }, [error, setError]);
-
-  function errorMsg(error: ErrorT) {
-    Modal.error({
-      title: 'No Local node detected',
-      content: <ErrorBox error={error} />,
-      afterClose: () => setError(null),
-      width: '800px',
-    });
-  }
-
   const validStep = async () => {
     setFetching(true);
     setIsValid(false);
@@ -59,38 +45,41 @@ const GraphNode = () => {
   };
 
   return (
-    <>
-      {/* {isValid && <Confetti tweenDuration={200} run={false} />} */}
-      <Col>
-        <Space direction="vertical" size="large">
-          <Button
-            type="ghost"
-            icon={<PoweroffOutlined />}
-            onClick={validStep}
-            loading={fetching}
-            size="large"
-          >
-            {' '}
-            Test manifest{' '}
-          </Button>
-          {isValid ? (
-            <>
-              <Alert
-                message={<Space>Manifest file is looking good!</Space>}
-                type="success"
-                showIcon
-              />
-            </>
-          ) : (
+    <Col>
+      <Space direction="vertical" size="large">
+        <Button
+          type="primary"
+          icon={<PoweroffOutlined />}
+          onClick={validStep}
+          loading={fetching}
+          size="large"
+        >
+          Check the manifest
+        </Button>
+        {isValid ? (
+          <>
             <Alert
-              message="Manifest File not yet ready!"
-              type="error"
+              message={<Text strong>The manifest file looks good! 🎉</Text>}
+              description={<Space>TBD</Space>}
+              type="success"
               showIcon
             />
-          )}
-        </Space>
-      </Col>
-    </>
+          </>
+        ) : error ? (
+          <Alert
+            message={<Text strong>The manifest file is not ready yet 🥺</Text>}
+            description={
+              <Space direction="vertical">
+                <div>TBD</div>
+              </Space>
+            }
+            type="error"
+            showIcon
+            closable
+          />
+        ) : null}
+      </Space>
+    </Col>
   );
 };
 

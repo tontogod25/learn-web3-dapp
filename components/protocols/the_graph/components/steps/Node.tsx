@@ -35,7 +35,7 @@ const GraphNode = () => {
     setIsValid(false);
     setError(null);
     try {
-      const response = await axios.get(`/api/the-graph/graph-node`);
+      const response = await axios.get(`/api/the-graph/node`);
       setIsValid(response.data);
     } catch (error) {
       setError(prettyError(error));

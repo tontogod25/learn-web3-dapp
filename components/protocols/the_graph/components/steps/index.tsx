@@ -1,6 +1,6 @@
-import GraphNode from '@the-graph/components/steps/GraphNode';
-import ScaffoldSubgraph from '@the-graph/components/steps/ScaffoldSubgraph';
-import HackingTheManifest from '@the-graph/components/steps/HackingTheManifest';
-import QueryPunk from '@the-graph/components/steps/QueryPunks';
+import Node from '@the-graph/components/steps/Node';
+import Subgraph from '@the-graph/components/steps/Subgraph';
+import Manifest from '@the-graph/components/steps/Manifest';
+import Query from '@the-graph/components/steps/Query';
 
-export {GraphNode, ScaffoldSubgraph, HackingTheManifest, QueryPunk};
+export {Node, Subgraph, Manifest, Query};

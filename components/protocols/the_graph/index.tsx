@@ -1,9 +1,4 @@
-import {
-  GraphNode,
-  ScaffoldSubgraph,
-  HackingTheManifest,
-  QueryPunk,
-} from '@the-graph/components/steps';
+import {Node, Subgraph, Manifest, Query} from '@the-graph/components/steps';
 import Nav from '@the-graph/components/nav';
 import Layout from 'components/shared/Layout';
 import {useReducer} from 'react';
@@ -22,12 +17,10 @@ const TheGraph: React.FC = () => {
     <TheGraphContext.Provider value={{state, dispatch}}>
       {/* <Nav /> */}
       {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && <SetupWizard />}
-      {stepId === PROTOCOL_STEPS_ID.RUN_A_GRAPH_NODE && <GraphNode />}
-      {stepId === PROTOCOL_STEPS_ID.SCAFFOLD_A_SUBGRAPH && <ScaffoldSubgraph />}
-      {stepId === PROTOCOL_STEPS_ID.HACKING_THE_MANIFEST && (
-        <HackingTheManifest />
-      )}
-      {stepId === PROTOCOL_STEPS_ID.QUERY_THE_PUNK && <QueryPunk />}
+      {stepId === PROTOCOL_STEPS_ID.RUN_A_GRAPH_NODE && <Node />}
+      {stepId === PROTOCOL_STEPS_ID.SCAFFOLD_A_SUBGRAPH && <Subgraph />}
+      {stepId === PROTOCOL_STEPS_ID.HACKING_THE_MANIFEST && <Manifest />}
+      {stepId === PROTOCOL_STEPS_ID.QUERY_THE_PUNK && <Query />}
     </TheGraphContext.Provider>
   );
 };
