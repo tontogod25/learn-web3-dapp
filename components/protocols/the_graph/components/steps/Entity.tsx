@@ -12,7 +12,7 @@ import axios from 'axios';
 
 const {Text} = Typography;
 
-const GraphNode = () => {
+const Entity = () => {
   const {state, dispatch} = useGlobalState();
   const [isValid, setIsValid] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
@@ -34,7 +34,7 @@ const GraphNode = () => {
     setIsValid(false);
     setError(null);
     try {
-      const response = await axios.get(`/api/the-graph/scaffold`);
+      const response = await axios.get(`/api/the-graph/entity`);
       setIsValid(response.data);
     } catch (error) {
       setError(prettyError(error));
@@ -53,7 +53,7 @@ const GraphNode = () => {
           loading={fetching}
           size="large"
         >
-          Check for a subgraph scaffold
+          Check for expected entities
         </Button>
         {isValid ? (
           <>
@@ -61,10 +61,9 @@ const GraphNode = () => {
               message={<Text strong>We found a subgraph scaffold! 🎉</Text>}
               description={
                 <Space direction="vertical">
-                  <div>Nice. The pieces are coming together.</div>
+                  <div>Nice. One more step done in the right direction.</div>
                   <div>
-                    Now let&apos;s tweak the subgraph to make it do something
-                    useful. Let&apos;s go do the next step!
+                    Now let&apos;s map our entities to the smart-contract event!
                   </div>
                 </Space>
               }
@@ -74,10 +73,12 @@ const GraphNode = () => {
           </>
         ) : error ? (
           <Alert
-            message={<Text strong>We couldn&apos;t find a subgraph 😢</Text>}
+            message={
+              <Text strong>We couldn&apos;t find the expected entities 😢</Text>
+            }
             description={
               <Space direction="vertical">
-                <div>Are you sure the subgraph was created?</div>
+                <div>Are you sure the expected entities was created?</div>
               </Space>
             }
             type="error"
@@ -90,4 +91,4 @@ const GraphNode = () => {
   );
 };
 
-export default GraphNode;
+export default Entity;

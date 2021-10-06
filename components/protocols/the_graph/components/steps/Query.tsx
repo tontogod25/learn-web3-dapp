@@ -1,21 +1,29 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import {Alert, Col, Space, Typography} from 'antd';
+import {useEffect} from 'react';
+import {Alert, Button, Col, Space, Typography} from 'antd';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
+  useLazyQuery,
   gql,
 } from '@apollo/client';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 
 const {Text} = Typography;
 
+const GRAPHQL_ENDPOINTS = 'http://localhost:8000/subgraphs/name/punks';
+
 const client = new ApolloClient({
-  uri: process.env.NEXT_PUBLIC_THE_GRAPH_PUNKS,
+  // uri: process.env.NEXT_PUBLIC_THE_GRAPH_PUNKS,
+  uri: GRAPHQL_ENDPOINTS,
   cache: new InMemoryCache(),
 });
 
-const PUNK_QUERY = gql`
+const GET_ASSIGNED_PUNK = gql`
   query {
     accounts(first: 2) {
       id
@@ -26,25 +34,63 @@ const PUNK_QUERY = gql`
 `;
 
 const Punks = () => {
-  const {loading, error, data} = useQuery(PUNK_QUERY);
+  const {state, dispatch} = useGlobalState();
+  const [getAssignedPunk, {loading, error, data}] =
+    useLazyQuery(GET_ASSIGNED_PUNK);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  useEffect(() => {
+    if (data) {
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
+    }
+  }, [data, getAssignedPunk]);
 
-  // @ts-ignore
-  return data.accounts.map(({id, LastMvtAt, numberOfPunksOwned}) => (
-    <div key={id}>
-      <Text strong>acount-id: {id}</Text>
-      <ul>
-        <li>NumberofPunks {numberOfPunksOwned}</li>
-        <li>LastMvt: {LastMvtAt}</li>
-      </ul>
+  return (
+    <div>
+      <Space direction="vertical" size="large">
+        <Button
+          onClick={() => getAssignedPunk()}
+          type="primary"
+          loading={loading}
+          size="large"
+        >
+          Get Assigned Punk?
+        </Button>
+        {data ? (
+          // @ts-ignore
+          data.accounts.map(({id, LastMvtAt, numberOfPunksOwned}) => (
+            <div key={id}>
+              <Text strong>acount-id: {id}</Text>
+              <ul>
+                <li>NumberofPunks {numberOfPunksOwned}</li>
+                <li>LastMvt: {LastMvtAt}</li>
+              </ul>
+            </div>
+          ))
+        ) : error ? (
+          <Alert
+            message={<Text strong>We couldn&apos;t query the subgraph 😢</Text>}
+            description={
+              <Space direction="vertical">
+                <div>Are you sure the subgraph was deployed?</div>
+              </Space>
+            }
+            type="error"
+            showIcon
+            closable
+          />
+        ) : null}
+      </Space>
     </div>
-  ));
+  );
 };
 
 const QueryPunk = () => {
-  if (!process.env.NEXT_PUBLIC_THE_GRAPH_PUNKS) {
+  if (!GRAPHQL_ENDPOINTS) {
     return <Alert message="Please setup your env" type="error" showIcon />;
   }
 

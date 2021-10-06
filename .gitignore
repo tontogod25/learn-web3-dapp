@@ -60,27 +60,13 @@ contracts/near/target/
 /test-ledger
 /archives
 
-subgraph/CryptoPunks/generated
-subgraph/CryptoPunks/build
-subgraph/CryptoPunks/data
-subgraph/CryptoPunks/node_modules
 
-subgraph/punks/generated
-subgraph/punks/build
-subgraph/punks/data
-subgraph/punks/node_modules
-
-
-subgraph/punks01/generated
-subgraph/punks01/build
-subgraph/punks01/data
-subgraph/punks01/node_modules
-
-subgraph/punksXX/generated
-subgraph/punksXX/build
-subgraph/punksXX/data
-subgraph/punksXX/node_modules
+subgraph/punks
 
 docker/data
+docker/brew
+
 
 secrets
+
+tmp.md
