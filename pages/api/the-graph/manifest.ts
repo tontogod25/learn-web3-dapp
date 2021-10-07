@@ -14,11 +14,6 @@ const loadManifest = () => {
 
   let startBlock = data.dataSources[0].source.startBlock;
   let entities = data.dataSources[0].mapping.entities;
-  /*
-  let eventHandlers = Object(data.dataSources[0].mapping.eventHandlers[0])
-    .values()
-    .map((el: string) => el);
-    */
   let eventHandlers = Object.values(
     data.dataSources[0].mapping.eventHandlers[0],
   );

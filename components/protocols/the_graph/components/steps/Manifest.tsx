@@ -104,6 +104,7 @@ const GraphNode = () => {
             type="error"
             showIcon
             closable
+            onClose={() => setError(null)}
           />
         )}
       </Space>
