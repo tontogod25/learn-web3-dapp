@@ -354,7 +354,7 @@ export const getChainInnerState = (
   chainId: CHAINS,
   stateId: PROTOCOL_INNER_STATES_ID,
 ) => {
-  return state.protocols[chainId].innerState?.[stateId];
+  return state.protocols[chainId].innerState?.[stateId] as string | null;
 };
 
 //-------------------------------------------------

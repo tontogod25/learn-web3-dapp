@@ -12,6 +12,8 @@ import {
   useGlobalState,
   getCurrentStepIdForCurrentChain,
 } from 'context';
+import {StepButton} from 'components/shared/Button.styles';
+import {useColors} from 'hooks';
 
 const {Text} = Typography;
 
@@ -33,6 +35,7 @@ const GET_ASSIGNED_PUNK = gql`
 
 const Punks = () => {
   const {state, dispatch} = useGlobalState();
+  const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
   const [getAssignedPunk, {loading, error, data}] =
     useLazyQuery(GET_ASSIGNED_PUNK);
 
@@ -48,16 +51,19 @@ const Punks = () => {
   }, [data, getAssignedPunk]);
 
   return (
-    <div>
+    <div key={loading as unknown as React.Key}>
       <Space direction="vertical" size="large">
-        <Button
+        <StepButton
           onClick={() => getAssignedPunk()}
           type="primary"
           loading={loading}
+          secondary_color={secondaryColor}
+          primary_color={primaryColor}
           size="large"
+          autoFocus={false}
         >
           Get Assigned Punk?
-        </Button>
+        </StepButton>
         {data ? (
           <div>{JSON.stringify(data)}</div>
         ) : error ? (

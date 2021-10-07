@@ -10,6 +10,8 @@ import {
 } from 'context';
 import axios from 'axios';
 import SetupWizard from 'components/shared/SetupWizard';
+import {StepButton} from 'components/shared/Button.styles';
+import {useColors} from 'hooks';
 
 const {Text} = Typography;
 
@@ -18,6 +20,7 @@ const GraphNode = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
+  const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
 
   useEffect(() => {
     if (isValid) {
@@ -45,17 +48,20 @@ const GraphNode = () => {
   };
 
   return (
-    <Col>
+    <Col key={fetching as unknown as React.Key}>
       <Space direction="vertical" size="large">
-        <Button
-          type="primary"
+        <StepButton
+          type="ghost"
           icon={<PoweroffOutlined />}
           onClick={validStep}
           loading={fetching}
+          secondary_color={secondaryColor}
+          primary_color={primaryColor}
           size="large"
+          autoFocus={false}
         >
           Check for a subgraph scaffold
-        </Button>
+        </StepButton>
         {isValid ? (
           <>
             <Alert

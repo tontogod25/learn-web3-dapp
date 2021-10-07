@@ -4,11 +4,11 @@ import {
   getCurrentChainId,
   getCurrentStepIdForCurrentChain,
 } from 'context';
-import {getChainColors} from 'utils/colors';
 import {FOOTER_HEIGHT} from 'lib/constants';
 import styled from 'styled-components';
-import {Button, Col, Row} from 'antd';
-import {useSteps} from 'hooks';
+import {Col, Row} from 'antd';
+import {useSteps, useColors} from 'hooks';
+import {NextButton, PrevButton} from '../Button.styles';
 
 const Footer = () => {
   const {state, dispatch} = useGlobalState();
@@ -23,9 +23,7 @@ const Footer = () => {
     isCompleted,
   } = useSteps(state, dispatch);
 
-  const {primaryColor, secondaryColor} = getChainColors(
-    getCurrentChainId(state),
-  );
+  const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
 
   return (
     <Col span={24}>
@@ -60,7 +58,7 @@ const Footer = () => {
     </Col>
   );
 };
-
+/*
 const NextButton = styled(Button)<{
   primary_color: string;
   secondary_color: string;
@@ -87,7 +85,7 @@ const PrevButton = styled(Button)`
     border: solid black 1px;
   }
 `;
-
+*/
 const StepFooter = styled(Row)`
   padding: 0 40px;
   height: ${FOOTER_HEIGHT}px;

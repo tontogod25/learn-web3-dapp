@@ -51,9 +51,17 @@ export type ManifestStepStatusesT = {
   eventHandlers: ManifestStepStatusT;
 };
 
+type StatusMessageT =
+  | 'Valid startBlock'
+  | 'Valid entities'
+  | 'Valid eventHandlers'
+  | 'Invalid startBlock'
+  | 'Invalid entities'
+  | 'Invalid eventHandlers';
+
 export type ManifestStepStatusT = {
   valid: boolean;
-  message: string;
+  message: StatusMessageT;
 };
 
 export type {ErrorT, EntryT, manifestT};
