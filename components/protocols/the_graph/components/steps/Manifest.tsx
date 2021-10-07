@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Alert, Space, Button, Typography, Row} from 'antd';
+import {Col, Alert, Space, Typography} from 'antd';
 import {
   PoweroffOutlined,
   CheckOutlined,
@@ -13,31 +13,26 @@ import {
 } from 'context';
 import axios from 'axios';
 import SetupWizard from 'components/shared/SetupWizard';
+import {StepButton} from 'components/shared/Button.styles';
+import {useColors} from 'hooks';
+import {defaultStatus} from '@the-graph/lib';
 
 const {Text} = Typography;
 
 const GraphNode = () => {
   const {state, dispatch} = useGlobalState();
   const [fetching, setFetching] = useState<boolean>(false);
-  const [status, setStatus] = useState<ManifestStepStatusesT>({
-    block: {
-      valid: true,
-      message: 'Valid startBlock',
-    },
-    entities: {
-      valid: true,
-      message: 'Valid entities',
-    },
-    eventHandlers: {
-      valid: true,
-      message: 'Valid eventHandlers',
-    },
-  });
+  const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
+  const [status, setStatus] = useState<ManifestStepStatusesT>(defaultStatus);
+  const [error, setError] = useState<string | null>(null);
+
+  const isValid = () =>
+    Object.values(status).reduce((completion, statusField) => {
+      return completion && statusField.valid;
+    }, true);
 
   useEffect(() => {
-    const isValid = Object.values(status).some((el) => el.valid);
-
-    if (isValid) {
+    if (isValid()) {
       dispatch({
         type: 'SetStepIsCompleted',
         chainId: getCurrentChainId(state),
@@ -50,29 +45,31 @@ const GraphNode = () => {
   const checkStep = async () => {
     setFetching(true);
     try {
-      const response = await axios.get(`/api/the-graph/manifest`);
+      const response = await axios.post(`/api/the-graph/manifest`, {status});
       setStatus(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
       setFetching(false);
-    } catch (err) {
-      console.log(err);
     }
   };
 
-  const isValid = Object.values(status).every((el) => el.valid);
-
   return (
-    <Col>
+    <Col key={fetching as unknown as React.Key}>
       <Space direction="vertical" size="large">
-        <Button
+        <StepButton
           type="primary"
           icon={<PoweroffOutlined />}
           onClick={checkStep}
           loading={fetching}
+          secondary_color={secondaryColor}
+          primary_color={primaryColor}
           size="large"
+          autoFocus={false}
         >
           Check the manifest
-        </Button>
-        {isValid ? (
+        </StepButton>
+        {isValid() ? (
           <>
             <Alert
               message={<Text strong>The manifest file looks good! 🎉</Text>}
@@ -100,6 +97,15 @@ const GraphNode = () => {
             showIcon
           />
         )}
+        {error && (
+          <Alert
+            message={<Text strong>An unexpected error occurs 😢</Text>}
+            description={<Text code>{error}</Text>}
+            type="error"
+            showIcon
+            closable
+          />
+        )}
       </Space>
     </Col>
   );
@@ -112,23 +118,22 @@ const ManifestStatus = ({
   status: ManifestStepStatusesT;
   text: string;
 }) => {
-  console.log(status);
-
+  console.log(JSON.stringify(status, null, 2));
   return (
     <Space direction="vertical">
       <div>{text}</div>
       <Space direction="vertical">
-        {Object.keys(status).map((item) => {
+        {Object.values(status).map((status, index) => {
           return (
-            <Space direction="horizontal">
+            <Space direction="horizontal" key={index}>
               <div>
-                {status[item].valid ? (
+                {status.valid ? (
                   <CheckOutlined size={16} style={{color: 'green'}} />
                 ) : (
                   <CloseOutlined size={16} style={{color: 'red'}} />
                 )}
               </div>
-              <div>{status[item].message}</div>
+              <div>{status.message}</div>
             </Space>
           );
         })}

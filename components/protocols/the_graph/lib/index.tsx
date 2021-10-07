@@ -1,3 +1,5 @@
+import {ManifestStepStatusesT} from '@the-graph/types';
+
 const prettyError = (error: any) => {
   return {
     message: error?.response?.data ?? 'Unknown message',
@@ -9,7 +11,23 @@ const prettyError = (error: any) => {
 };
 
 const getEtherScanContract = (address: string) => {
+  1;
   return `https://etherscan.io/address/${address}`;
 };
 
-export {prettyError, getEtherScanContract};
+const defaultStatus: ManifestStepStatusesT = {
+  block: {
+    valid: false,
+    message: 'Invalid startBlock',
+  },
+  entities: {
+    valid: false,
+    message: 'Invalid entities',
+  },
+  eventHandlers: {
+    valid: false,
+    message: 'Invalid eventHandlers',
+  },
+};
+
+export {prettyError, getEtherScanContract, defaultStatus};

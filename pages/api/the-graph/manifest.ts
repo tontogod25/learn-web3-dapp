@@ -1,60 +1,66 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {ManifestStepStatusesT, manifestT} from '@the-graph/types';
+import type {ManifestStepStatusesT} from '@the-graph/types';
+import {manifestT} from '@the-graph/types';
 import fs from 'fs';
 import yaml from 'js-yaml';
 
 const START_BLOCK = 3914495;
 
+const MANIFEST_PATH = './subgraphs/punks/subgraph.yaml';
+
+const loadManifest = () => {
+  let manifest = fs.readFileSync(MANIFEST_PATH, 'utf8');
+  let data = yaml.load(manifest) as manifestT;
+
+  let startBlock = data.dataSources[0].source.startBlock;
+  let entities = data.dataSources[0].mapping.entities;
+  /*
+  let eventHandlers = Object(data.dataSources[0].mapping.eventHandlers[0])
+    .values()
+    .map((el: string) => el);
+    */
+  let eventHandlers = Object.values(
+    data.dataSources[0].mapping.eventHandlers[0],
+  );
+  return {
+    startBlock,
+    entities,
+    eventHandlers,
+  };
+};
+
 export default async function manifest(
-  _req: NextApiRequest,
-  res: NextApiResponse<boolean | string>,
+  req: NextApiRequest,
+  res: NextApiResponse<ManifestStepStatusesT | string>,
 ) {
   try {
-    let manifest = fs.readFileSync('./subgraphs/punks/subgraph.yaml', 'utf8');
-    let data = yaml.load(manifest) as manifestT;
+    const status = req.body.status as ManifestStepStatusesT;
+    const {startBlock, entities, eventHandlers} = loadManifest();
 
-    let startBlock = data.dataSources[0].source.startBlock;
-    let entities = data.dataSources[0].mapping.entities;
-    let eventHandlers = data.dataSources[0].mapping.eventHandlers;
-
-    const status: ManifestStepStatusesT = {
-      block: {
+    if (startBlock === START_BLOCK) {
+      status.block = {
         valid: true,
         message: 'Valid startBlock',
-      },
-      entities: {
+      };
+    }
+
+    if (entities.includes('Punk') && entities.includes('Account')) {
+      status.entities = {
         valid: true,
         message: 'Valid entities',
-      },
-      eventHandlers: {
+      };
+    }
+
+    if (eventHandlers.length === 2) {
+      status.eventHandlers = {
         valid: true,
         message: 'Valid eventHandlers',
-      },
-    };
-
-    if (startBlock !== START_BLOCK) {
-      status.block = {
-        valid: false,
-        message: 'invalid startBlock',
       };
     }
 
-    if (!entities.includes('Punk') || !entities.includes('Account')) {
-      status.entities = {
-        valid: false,
-        message: 'Invalid entities',
-      };
-    }
-
-    if (eventHandlers.length !== 1) {
-      status.eventHandlers = {
-        valid: false,
-        message: 'Invalid eventHandlers',
-      };
-    }
-
-    res.status(200).json(JSON.stringify(status));
+    res.status(200).json(status);
   } catch (error) {
+    console.log(error.message);
     res.status(500).json(error.message);
   }
 }

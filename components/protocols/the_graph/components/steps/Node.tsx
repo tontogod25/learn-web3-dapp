@@ -1,5 +1,5 @@
-import React, {useEffect, useState, useRef} from 'react';
-import {Col, Alert, Space, Button, Typography} from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Col, Alert, Space, Typography} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import type {ErrorT} from '@the-graph/types';
 import {prettyError} from '@the-graph/lib';
@@ -11,6 +11,8 @@ import {
 import axios from 'axios';
 import Confetti from 'react-confetti';
 import SetupWizard from 'components/shared/SetupWizard';
+import {StepButton} from 'components/shared/Button.styles';
+import {useColors} from 'hooks';
 
 const {Text} = Typography;
 
@@ -19,6 +21,7 @@ const GraphNode = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
+  const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
 
   useEffect(() => {
     if (isValid) {
@@ -46,67 +49,58 @@ const GraphNode = () => {
   };
 
   return (
-    <Col>
+    <Col key={fetching as unknown as React.Key}>
+      {isValid && (
+        <Confetti numberOfPieces={500} tweenDuration={1000} gravity={0.05} />
+      )}
       <Space direction="vertical" size="large">
-        {isValid && (
-          <Confetti
-            numberOfPieces={500}
-            tweenDuration={1000}
-            gravity={0.05}
-            // should we use the GRT colors?
-            // colors={['#5943d0', '#151324']}
-          />
-        )}
-        <Space direction="vertical" size="large">
-          <Button
-            type="primary"
-            icon={<PoweroffOutlined />}
-            onClick={validStep}
-            loading={fetching}
-            size="large"
-          >
-            Check local Graph node
-          </Button>
-          {isValid ? (
-            <>
-              <Alert
-                message={
-                  <Text strong>Your local Graph node is running! 🎉</Text>
-                }
-                description={
-                  <Space>
-                    but... it&apos;s not doing much. Let&apos;s give it some
-                    code to run for us. Click on the button at the bottom right
-                    to go to the next step.
-                  </Space>
-                }
-                type="success"
-                showIcon
-              />
-              <SetupWizard />
-            </>
-          ) : error ? (
+        <StepButton
+          type="primary"
+          icon={<PoweroffOutlined />}
+          onClick={validStep}
+          loading={fetching}
+          secondary_color={secondaryColor}
+          primary_color={primaryColor}
+          size="large"
+          autoFocus={false}
+        >
+          Check local Graph node
+        </StepButton>
+        {isValid ? (
+          <>
             <Alert
-              message={
-                <Text strong>
-                  We couldn&apos;t find a running Graph node 😢
-                </Text>
-              }
+              message={<Text strong>Your local Graph node is running! 🎉</Text>}
               description={
-                <Space direction="vertical">
-                  <div>
-                    We tried to make a request to http://localhost:8020 but we
-                    got:
-                  </div>
-                  <Text code>{error.message}</Text>
+                <Space>
+                  but... it&apos;s not doing much. Let&apos;s give it some code
+                  to run for us. Click on the button at the bottom right to go
+                  to the next step.
                 </Space>
               }
-              type="error"
+              type="success"
               showIcon
-              closable
             />
-          ) : null}
-        </Space>
+            <SetupWizard />
+          </>
+        ) : error ? (
+          <Alert
+            message={
+              <Text strong>We couldn&apos;t find a running Graph node 😢</Text>
+            }
+            description={
+              <Space direction="vertical">
+                <div>
+                  We tried to make a request to http://localhost:8020 but we
+                  got:
+                </div>
+                <Text code>{error.message}</Text>
+              </Space>
+            }
+            type="error"
+            showIcon
+            closable
+          />
+        ) : null}
       </Space>
     </Col>
   );

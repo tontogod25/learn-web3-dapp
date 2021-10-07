@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Alert, Space, Button, Typography} from 'antd';
+import {Col, Alert, Space, Typography} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import type {ErrorT} from '@the-graph/types';
 import {prettyError} from '@the-graph/lib';
@@ -10,6 +10,8 @@ import {
 } from 'context';
 import axios from 'axios';
 import SetupWizard from 'components/shared/SetupWizard';
+import {StepButton} from 'components/shared/Button.styles';
+import {useColors} from 'hooks';
 
 const {Text} = Typography;
 
@@ -18,6 +20,7 @@ const Mapping = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
+  const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
 
   useEffect(() => {
     if (isValid) {
@@ -45,17 +48,20 @@ const Mapping = () => {
   };
 
   return (
-    <Col>
+    <Col key={fetching as unknown as React.Key}>
       <Space direction="vertical" size="large">
-        <Button
+        <StepButton
           type="primary"
           icon={<PoweroffOutlined />}
           onClick={validStep}
           loading={fetching}
+          secondary_color={secondaryColor}
+          primary_color={primaryColor}
           size="large"
+          autoFocus={false}
         >
           Check subgraph deployment
-        </Button>
+        </StepButton>
         {isValid ? (
           <>
             <Alert
