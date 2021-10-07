@@ -21,7 +21,9 @@ const TheGraph: React.FC = () => {
 
   return (
     <TheGraphContext.Provider value={{state, dispatch}}>
-      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && <SetupWizard />}
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
+        <SetupWizard showText={true} />
+      )}
       {stepId === PROTOCOL_STEPS_ID.RUN_A_GRAPH_NODE && <Node />}
       {stepId === PROTOCOL_STEPS_ID.SCAFFOLD_A_SUBGRAPH && <Subgraph />}
       {stepId === PROTOCOL_STEPS_ID.HACKING_THE_MANIFEST && <Manifest />}

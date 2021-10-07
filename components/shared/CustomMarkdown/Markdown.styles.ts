@@ -24,7 +24,18 @@ export const StyledListItem = styled.li`
 `;
 
 export const StyledAlert = styled(Alert)`
-  margin: 30px 0;
+  margin: 1em 0;
+  border-radius: 5px;
+  align-items: start;
+
+  .ant-typography {
+    margin-bottom: 0;
+  }
+
+  .ant-alert-icon {
+    margin-top: 5px;
+    margin-right: 14px;
+  }
 `;
 
 export const StyledLink = styled.a`
@@ -38,31 +49,29 @@ export const StyledLink = styled.a`
 `;
 
 export const StyledH1 = styled.h1`
-  font-size: 30px;
+  margin: 1em 0;
 
   ${headingWithLinkMixin}
 `;
 
 export const StyledH2 = styled.h2`
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin: 0.75em 0;
   font-size: 24px;
 
   ${headingWithLinkMixin}
 `;
 
 export const StyledH3 = styled.h3`
-  margin-top: 0.75em;
-  margin-bottom: 0.75em;
+  margin-top: 0.75em 0;
   font-size: 17px;
 
   ${headingWithLinkMixin}
 `;
 
 export const StyledImage = styled.img`
-  width: 100%;
+  max-width: 70%;
   height: auto;
-  margin: 30px 0;
+  margin: 20px 0;
 `;
 
 export const LinkIcon = styled.div`

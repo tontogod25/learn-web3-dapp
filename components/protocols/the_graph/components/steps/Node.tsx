@@ -10,6 +10,7 @@ import {
 } from 'context';
 import axios from 'axios';
 import Confetti from 'react-confetti';
+import SetupWizard from 'components/shared/SetupWizard';
 
 const {Text} = Typography;
 
@@ -82,6 +83,7 @@ const GraphNode = () => {
                 type="success"
                 showIcon
               />
+              <SetupWizard />
             </>
           ) : error ? (
             <Alert

@@ -1,42 +1,35 @@
 import React from 'react';
 import {Col} from 'antd';
-import Image from 'next/image';
 import styled from 'styled-components';
+import {CornerRightDown} from 'react-feather';
 
-import arrow from 'public/arrow.png';
-
-const SetupWizard = () => {
+const SetupWizard = ({showText = false}: {showText?: boolean}) => {
   return (
     <Container>
-      <ArrowContainer style={{position: 'absolute', bottom: 0, right: 0}}>
+      {showText && (
         <Text>
           Once you finished the setup, click here to go to the next step
         </Text>
-        <Image src={arrow} alt={''} />
-      </ArrowContainer>
+      )}
+      <CornerRightDown size={100} />
     </Container>
   );
 };
 
 const Container = styled(Col)`
-  position: relative;
-  height: 100%;
+  position: fixed;
+  bottom: 120px;
+  right: 100px;
 `;
 
 const Text = styled.div`
-  position: absolute;
-  bottom: 120px;
-  right: 220px;
+  position: fixed;
+  bottom: 167px;
+  right: 224px;
 
   width: 200px;
   font-size: 1.4em;
   color: #999;
-`;
-
-const ArrowContainer = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
 `;
 
 export default SetupWizard;

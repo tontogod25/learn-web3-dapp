@@ -424,7 +424,7 @@ export const CHAINS_CONFIG: ChainsType = {
     steps: [
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
-        title: 'Setup the project',
+        title: 'Introduction',
         skippable: true,
       },
       {
@@ -444,17 +444,17 @@ export const CHAINS_CONFIG: ChainsType = {
       },
       {
         id: PROTOCOL_STEPS_ID.ENTITY_AND_RELATION,
-        title: 'Entity and relation',
+        title: 'Define the schema',
         skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.DEFINE_THE_MAPPING,
-        title: 'Define the mapping',
+        title: 'Implement the mappings',
         skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.QUERYING_THE_SUBGRAPH,
-        title: 'Query a custom subgraph',
+        title: 'Query the subgraph',
         skippable: true,
       },
     ],

@@ -9,6 +9,7 @@ import {
   getCurrentStepIdForCurrentChain,
 } from 'context';
 import axios from 'axios';
+import SetupWizard from 'components/shared/SetupWizard';
 
 const {Text} = Typography;
 
@@ -71,6 +72,7 @@ const GraphNode = () => {
               type="success"
               showIcon
             />
+            <SetupWizard />
           </>
         ) : error ? (
           <Alert

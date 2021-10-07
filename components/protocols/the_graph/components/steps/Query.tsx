@@ -25,10 +25,8 @@ const client = new ApolloClient({
 
 const GET_ASSIGNED_PUNK = gql`
   query {
-    accounts(first: 2) {
+    punks(first: 10) {
       id
-      numberOfPunksOwned
-      LastMvtAt
     }
   }
 `;
@@ -61,16 +59,7 @@ const Punks = () => {
           Get Assigned Punk?
         </Button>
         {data ? (
-          // @ts-ignore
-          data.accounts.map(({id, LastMvtAt, numberOfPunksOwned}) => (
-            <div key={id}>
-              <Text strong>acount-id: {id}</Text>
-              <ul>
-                <li>NumberofPunks {numberOfPunksOwned}</li>
-                <li>LastMvt: {LastMvtAt}</li>
-              </ul>
-            </div>
-          ))
+          <div>{JSON.stringify(data)}</div>
         ) : error ? (
           <Alert
             message={<Text strong>We couldn&apos;t query the subgraph 😢</Text>}
