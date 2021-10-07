@@ -2,7 +2,6 @@ import {Button, Alert, Space, Typography, Col} from 'antd';
 import {getPolygonTxExplorerURL} from '@polygon/lib';
 import {useState, useEffect} from 'react';
 import {ethers} from 'ethers';
-import {PROTOCOL_INNER_STATES_ID} from 'types';
 import {
   getCurrentChainId,
   useGlobalState,
@@ -22,15 +21,27 @@ const Transfer = () => {
   const {state, dispatch} = useGlobalState();
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
-  const [balance, setBalance] = useState('');
-  const [hash, setHash] = useState('');
+  const [balance, setBalance] = useState<string | null>(null);
+  const [hash, setHash] = useState<string | null>(null);
 
   useEffect(() => {
     checkBalance();
   }, []);
 
+  useEffect(() => {
+    if (balance) {
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
+    }
+  }, [balance, setBalance]);
+
   const checkBalance = async () => {
     setFetching(true);
+    setBalance(null);
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const selectedAddress = window.ethereum.selectedAddress;
@@ -48,6 +59,8 @@ const Transfer = () => {
 
   const transfer = async () => {
     setFetching(true);
+    setError(null);
+    setHash(null);
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const send_account = provider.getSigner().getAddress();
@@ -62,12 +75,6 @@ const Transfer = () => {
       const hash = undefined;
       const receipt = await hash.wait();
       setHash(receipt.transactionHash);
-      dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
-      });
     } catch (error) {
       setError(error.message);
     } finally {
