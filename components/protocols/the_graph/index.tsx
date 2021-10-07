@@ -24,12 +24,12 @@ const TheGraph: React.FC = () => {
       {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
         <SetupWizard showText={true} />
       )}
-      {stepId === PROTOCOL_STEPS_ID.RUN_A_GRAPH_NODE && <Node />}
-      {stepId === PROTOCOL_STEPS_ID.SCAFFOLD_A_SUBGRAPH && <Subgraph />}
-      {stepId === PROTOCOL_STEPS_ID.HACKING_THE_MANIFEST && <Manifest />}
-      {stepId === PROTOCOL_STEPS_ID.ENTITY_AND_RELATION && <Entity />}
-      {stepId === PROTOCOL_STEPS_ID.DEFINE_THE_MAPPING && <Mapping />}
-      {stepId === PROTOCOL_STEPS_ID.QUERYING_THE_SUBGRAPH && <Query />}
+      {stepId === PROTOCOL_STEPS_ID.GRAPH_NODE && <Node />}
+      {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_SCAFFOLD && <Subgraph />}
+      {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_MANIFEST && <Manifest />}
+      {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_SCHEMA && <Entity />}
+      {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_MAPPINGS && <Mapping />}
+      {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_QUERY && <Query />}
     </TheGraphContext.Provider>
   );
 };

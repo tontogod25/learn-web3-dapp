@@ -45,4 +45,15 @@ type manifestT = {
   dataSources: dataSourcesT[];
 };
 
+export type ManifestStepStatusesT = {
+  block: ManifestStepStatusT;
+  entities: ManifestStepStatusT;
+  eventHandlers: ManifestStepStatusT;
+};
+
+export type ManifestStepStatusT = {
+  valid: boolean;
+  message: string;
+};
+
 export type {ErrorT, EntryT, manifestT};

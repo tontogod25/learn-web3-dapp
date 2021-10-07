@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {manifestT} from '@the-graph/types';
+import {ManifestStepStatusesT, manifestT} from '@the-graph/types';
 import fs from 'fs';
 import yaml from 'js-yaml';
 
@@ -17,33 +17,43 @@ export default async function manifest(
     let entities = data.dataSources[0].mapping.entities;
     let eventHandlers = data.dataSources[0].mapping.eventHandlers;
 
-    console.log('startBlock', startBlock);
-    console.log('entities', entities);
-    console.log('eventHandlers', eventHandlers);
-
-    const errors = {
-      block: '',
-      entities: '',
-      eventHandlers: '',
+    const status: ManifestStepStatusesT = {
+      block: {
+        valid: true,
+        message: 'Valid startBlock',
+      },
+      entities: {
+        valid: true,
+        message: 'Valid entities',
+      },
+      eventHandlers: {
+        valid: true,
+        message: 'Valid eventHandlers',
+      },
     };
 
     if (startBlock !== START_BLOCK) {
-      errors.block = 'Invalid Start Block';
+      status.block = {
+        valid: false,
+        message: 'invalid startBlock',
+      };
     }
 
     if (!entities.includes('Punk') || !entities.includes('Account')) {
-      errors.entities = 'Invalid entities';
+      status.entities = {
+        valid: false,
+        message: 'Invalid entities',
+      };
     }
 
     if (eventHandlers.length !== 1) {
-      errors.eventHandlers = 'Invalid eventHandlers';
+      status.eventHandlers = {
+        valid: false,
+        message: 'Invalid eventHandlers',
+      };
     }
 
-    if (Object.values(errors).some((el) => el !== '')) {
-      res.status(500).json(JSON.stringify(errors));
-    } else {
-      res.status(200).json(true);
-    }
+    res.status(200).json(JSON.stringify(status));
   } catch (error) {
     res.status(500).json(error.message);
   }

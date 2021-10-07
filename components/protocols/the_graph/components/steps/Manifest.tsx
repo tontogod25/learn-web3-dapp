@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Alert, Space, Button, Typography} from 'antd';
-import {PoweroffOutlined} from '@ant-design/icons';
-import type {ErrorT} from '@the-graph/types';
-import {prettyError} from '@the-graph/lib';
+import {Col, Alert, Space, Button, Typography, Row} from 'antd';
+import {
+  PoweroffOutlined,
+  CheckOutlined,
+  CloseOutlined,
+} from '@ant-design/icons';
+import type {ManifestStepStatusesT} from '@the-graph/types';
 import {
   getCurrentChainId,
   useGlobalState,
@@ -15,11 +18,25 @@ const {Text} = Typography;
 
 const GraphNode = () => {
   const {state, dispatch} = useGlobalState();
-  const [isValid, setIsValid] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
-  const [error, setError] = useState<ErrorT | null>(null);
+  const [status, setStatus] = useState<ManifestStepStatusesT>({
+    block: {
+      valid: true,
+      message: 'Valid startBlock',
+    },
+    entities: {
+      valid: true,
+      message: 'Valid entities',
+    },
+    eventHandlers: {
+      valid: true,
+      message: 'Valid eventHandlers',
+    },
+  });
 
   useEffect(() => {
+    const isValid = Object.values(status).some((el) => el.valid);
+
     if (isValid) {
       dispatch({
         type: 'SetStepIsCompleted',
@@ -28,21 +45,20 @@ const GraphNode = () => {
         value: true,
       });
     }
-  }, [isValid, setIsValid]);
+  }, [status, setStatus]);
 
-  const validStep = async () => {
+  const checkStep = async () => {
     setFetching(true);
-    setIsValid(false);
-    setError(null);
     try {
       const response = await axios.get(`/api/the-graph/manifest`);
-      setIsValid(response.data);
-    } catch (error) {
-      setError(prettyError(error));
-    } finally {
+      setStatus(response.data);
       setFetching(false);
+    } catch (err) {
+      console.log(err);
     }
   };
+
+  const isValid = Object.values(status).every((el) => el.valid);
 
   return (
     <Col>
@@ -50,7 +66,7 @@ const GraphNode = () => {
         <Button
           type="primary"
           icon={<PoweroffOutlined />}
-          onClick={validStep}
+          onClick={checkStep}
           loading={fetching}
           size="large"
         >
@@ -60,27 +76,64 @@ const GraphNode = () => {
           <>
             <Alert
               message={<Text strong>The manifest file looks good! 🎉</Text>}
-              description={<Space>TBD</Space>}
+              description={
+                <ManifestStatus
+                  status={status}
+                  text={'Good job! all the pieces are in place.'}
+                />
+              }
               type="success"
               showIcon
             />
             <SetupWizard />
           </>
-        ) : error ? (
+        ) : (
           <Alert
             message={<Text strong>The manifest file is not ready yet 🥺</Text>}
             description={
-              <Space direction="vertical">
-                <div>{JSON.stringify(error.message)}</div>
-              </Space>
+              <ManifestStatus
+                status={status}
+                text="Make sure you've changed all the different pieces!"
+              />
             }
             type="error"
             showIcon
-            closable
           />
-        ) : null}
+        )}
       </Space>
     </Col>
+  );
+};
+
+const ManifestStatus = ({
+  status,
+  text,
+}: {
+  status: ManifestStepStatusesT;
+  text: string;
+}) => {
+  console.log(status);
+
+  return (
+    <Space direction="vertical">
+      <div>{text}</div>
+      <Space direction="vertical">
+        {Object.keys(status).map((item) => {
+          return (
+            <Space direction="horizontal">
+              <div>
+                {status[item].valid ? (
+                  <CheckOutlined size={16} style={{color: 'green'}} />
+                ) : (
+                  <CloseOutlined size={16} style={{color: 'red'}} />
+                )}
+              </div>
+              <div>{status[item].message}</div>
+            </Space>
+          );
+        })}
+      </Space>
+    </Space>
   );
 };
 

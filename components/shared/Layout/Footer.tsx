@@ -1,5 +1,9 @@
 import {ArrowLeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
-import {useGlobalState, getCurrentChainId} from 'context';
+import {
+  useGlobalState,
+  getCurrentChainId,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 import {getChainColors} from 'utils/colors';
 import {FOOTER_HEIGHT} from 'lib/constants';
 import styled from 'styled-components';
@@ -38,6 +42,7 @@ const Footer = () => {
         )}
         {!isLastStep && (
           <NextButton
+            key={getCurrentStepIdForCurrentChain(state)}
             size="large"
             type="primary"
             onClick={() => next()}

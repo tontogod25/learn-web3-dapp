@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Col, Space, Menu, Dropdown, Progress} from 'antd';
-import {OrderedListOutlined} from '@ant-design/icons';
+import {DownOutlined} from '@ant-design/icons';
 import Markdown from 'components/shared/CustomMarkdown';
 
 import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
@@ -40,16 +40,17 @@ const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
       <StepHeader size="large" align="center">
         <StepTitle>{stepTitle}</StepTitle>
         <Dropdown overlay={menu}>
-          <Progress
-            type="circle"
-            percent={(stepIndex / steps.length) * 100}
-            format={(percent) =>
-              `${(percent * steps.length) / 100}/${steps.length}`
-            }
-            width={50}
-            trailColor={'white'}
-          />
+          <DownOutlined size={20} style={{cursor: 'pointer'}} />
         </Dropdown>
+        <Progress
+          type="circle"
+          percent={(stepIndex / steps.length) * 100}
+          format={(percent) =>
+            `${(percent * steps.length) / 100}/${steps.length}`
+          }
+          width={50}
+          trailColor={'white'}
+        />
       </StepHeader>
 
       <Markdown captureMessage={() => {}}>{md}</Markdown>
