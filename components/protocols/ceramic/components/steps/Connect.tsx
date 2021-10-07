@@ -9,6 +9,7 @@ import {
 } from 'context';
 import detectEthereumProvider from '@metamask/detect-provider';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
+import SetupWizard from 'components/shared/SetupWizard';
 
 const {Text} = Typography;
 
@@ -53,7 +54,7 @@ const Connect = () => {
       const provider = await detectEthereumProvider();
 
       if (provider) {
-        // Connect to Polygon using Web3Provider and Metamask
+        // Connect to Ethereum using Web3Provider and Metamask
         // Define address and network
         const addresses = undefined;
         const address = undefined;
@@ -73,7 +74,7 @@ const Connect = () => {
         <Space direction="vertical" size="large">
           <>
             <Button
-              type="ghost"
+              type="primary"
               icon={<LinkOutlined />}
               onClick={checkConnection}
               size="large"
@@ -81,17 +82,21 @@ const Connect = () => {
               Check Metamask Connection
             </Button>
             {ethereumAddress ? (
-              <Alert
-                message={
-                  <span>
-                    Connected to MetaMask:
-                    <Text code>Address {ethereumAddress}</Text>
-                  </span>
-                }
-                type="success"
-                showIcon
-                onClick={checkConnection}
-              />
+              <>
+                <Alert
+                  message={<Text strong>Connected to MetaMask 😍</Text>}
+                  description={
+                    <Space direction="vertical">
+                      <Text>Your Ethereum Address is:</Text>
+                      <Text code>{ethereumAddress}</Text>
+                    </Space>
+                  }
+                  type="success"
+                  showIcon
+                  onClick={checkConnection}
+                />
+                <SetupWizard />
+              </>
             ) : (
               <Alert
                 message="Not connected to MetaMask"

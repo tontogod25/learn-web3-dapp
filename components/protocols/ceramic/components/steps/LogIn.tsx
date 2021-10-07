@@ -62,7 +62,7 @@ const LogIn = () => {
       <Space direction="vertical" size="large">
         {!idxDID && (
           <Button
-            type="ghost"
+            type="primary"
             icon={<PoweroffOutlined />}
             onClick={handleLogIn}
             size="large"

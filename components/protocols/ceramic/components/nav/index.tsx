@@ -5,6 +5,8 @@ import {getChainInnerState, getCurrentChainId, useGlobalState} from 'context';
 import {CERAMIC_NETWORKS, PROTOCOL_INNER_STATES_ID} from 'types';
 import {FundViewOutlined} from '@ant-design/icons';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
+import {slicedAddress} from 'utils/string-utils';
+import styled from 'styled-components';
 
 const {Option} = Select;
 
@@ -20,10 +22,11 @@ const Nav = () => {
     PROTOCOL_INNER_STATES_ID.ADDRESS,
   );
 
-  const DID = getChainInnerState(state, chainId, PROTOCOL_INNER_STATES_ID.DID);
-
-  const displayAddress = (address: string) =>
-    `${address.slice(0, 6)}...${address.slice(-4)}`;
+  const didAddress = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.DID,
+  );
 
   const Address = ({display, value}: EntryT) => {
     return (
@@ -31,9 +34,7 @@ const Nav = () => {
         <Tag color="gold">
           <Space>
             <FundViewOutlined />
-            <div>
-              <strong>{display(value)}</strong>
-            </div>
+            <strong>{display(value)}</strong>
           </Space>
         </Tag>
       </Paragraph>
@@ -63,38 +64,48 @@ const Nav = () => {
     }
   };
 
-  const AppState = () => {
+  const menu = () => {
     return (
       <>
+        {didAddress && (
+          <Address
+            msg={'Address: '}
+            value={didAddress}
+            display={slicedAddress}
+          />
+        )}
         {ceramicAddress && (
           <Address
             msg={'Address: '}
             value={ceramicAddress}
-            display={displayAddress}
+            display={slicedAddress}
           />
         )}
-        <Button danger onClick={clearKeychain} size={'small'}>
-          Clear Keychain
-        </Button>
+        <Select
+          defaultValue={CERAMIC_NETWORKS.TESTNET}
+          style={{width: 200, textAlign: 'center'}}
+          disabled={true}
+          showArrow={false}
+        >
+          <Option value={CERAMIC_NETWORKS.TESTNET}>Ceramic Testnet</Option>
+        </Select>
       </>
     );
   };
 
   return (
     <StepMenuBar>
-      <Popover content={AppState} placement="bottom">
-        <Button type="ghost">Keychain</Button>
-      </Popover>
-      <Select
-        defaultValue={CERAMIC_NETWORKS.TESTNET}
-        style={{width: 100, textAlign: 'center'}}
-        disabled={true}
-        showArrow={false}
-      >
-        <Option value={CERAMIC_NETWORKS.TESTNET}>Testnet</Option>
-      </Select>
+      {ceramicAddress && (
+        <Popover content={menu} placement="bottomLeft">
+          <DisplayAddress color="orange">
+            {slicedAddress(didAddress || ceramicAddress, 10, 5)}
+          </DisplayAddress>
+        </Popover>
+      )}
     </StepMenuBar>
   );
 };
+
+const DisplayAddress = styled(Tag)``;
 
 export default Nav;
