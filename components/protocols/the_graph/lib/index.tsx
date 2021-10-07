@@ -30,4 +30,18 @@ const defaultStatus: ManifestStepStatusesT = {
   },
 };
 
-export {prettyError, getEtherScanContract, defaultStatus};
+type WEI = string;
+type ETH = number;
+const toEther = (amountInWei: WEI) => {
+  // 1 ETH = 10**18 wei
+  const DECIMAL_OFFSET = 10 ** 18;
+  const centiEther = parseFloat(
+    ((parseFloat(amountInWei) / DECIMAL_OFFSET) * 100).toFixed(),
+  );
+  return (centiEther / 100).toFixed(2);
+};
+
+const toDate = (timeStamp: number) =>
+  new Date(timeStamp * 1000).toLocaleDateString();
+
+export {prettyError, getEtherScanContract, defaultStatus, toDate, toEther};

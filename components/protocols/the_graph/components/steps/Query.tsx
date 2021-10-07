@@ -1,5 +1,5 @@
-import {useEffect} from 'react';
-import {Alert, Button, Col, Space, Typography} from 'antd';
+import React, {useEffect} from 'react';
+import {Alert, Col, Space, Typography} from 'antd';
 import {
   ApolloClient,
   InMemoryCache,
@@ -14,6 +14,12 @@ import {
 } from 'context';
 import {StepButton} from 'components/shared/Button.styles';
 import {useColors} from 'hooks';
+// @ts-ignore
+import Identicon from 'react-identicons';
+// @ts-ignore
+import PunkImage from '@the-graph/components/punkImage';
+import {PunkdataT} from '@the-graph/types';
+import {toDate, toEther} from '@the-graph/lib';
 
 const {Text} = Typography;
 
@@ -27,11 +33,30 @@ const client = new ApolloClient({
 
 const GET_ASSIGNED_PUNK = gql`
   query {
-    punks(first: 10) {
+    punks(first: 10, orderBy: lastValue, orderDirection: desc) {
       id
+      tokenId
+      currentOwner {
+        id
+      }
+      lastValue
+      tradeDate
     }
   }
 `;
+
+const DisplayPunk = ({punkData}: {punkData: PunkdataT}) => {
+  return (
+    <>
+      <Identicon string={punkData.currentOwner?.id} size={40} />
+      <PunkImage index={parseFloat(punkData.tokenId)} />
+      <ul>
+        <li>Value: {toEther(punkData.lastValue)} ETH</li>
+        <li>Date: {toDate(parseFloat(punkData.tradeDate))}</li>
+      </ul>
+    </>
+  );
+};
 
 const Punks = () => {
   const {state, dispatch} = useGlobalState();
@@ -65,7 +90,11 @@ const Punks = () => {
           Get Assigned Punk?
         </StepButton>
         {data ? (
-          <div>{JSON.stringify(data)}</div>
+          <div>
+            {data.punks.map((punk: PunkdataT) => {
+              return <DisplayPunk punkData={punk} key={punk.id} />;
+            })}
+          </div>
         ) : error ? (
           <Alert
             message={<Text strong>We couldn&apos;t query the subgraph 😢</Text>}

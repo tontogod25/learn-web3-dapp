@@ -4,7 +4,7 @@ import {manifestT} from '@the-graph/types';
 import fs from 'fs';
 import yaml from 'js-yaml';
 
-const START_BLOCK = 3914495;
+const START_BLOCK = 13100000;
 
 const MANIFEST_PATH = './subgraphs/punks/subgraph.yaml';
 

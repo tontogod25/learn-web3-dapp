@@ -64,4 +64,12 @@ export type ManifestStepStatusT = {
   message: StatusMessageT;
 };
 
-export type {ErrorT, EntryT, manifestT};
+type PunkdataT = {
+  id: any;
+  tokenId: any;
+  currentOwner?: {id: string};
+  lastValue: any;
+  tradeDate: any;
+};
+
+export type {ErrorT, EntryT, manifestT, PunkdataT};
