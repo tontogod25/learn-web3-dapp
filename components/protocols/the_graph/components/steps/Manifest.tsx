@@ -21,8 +21,9 @@ const {Text} = Typography;
 
 const GraphNode = () => {
   const {state, dispatch} = useGlobalState();
-  const [fetching, setFetching] = useState<boolean>(false);
   const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
+
+  const [fetching, setFetching] = useState<boolean>(false);
   const [status, setStatus] = useState<ManifestStepStatusesT>(defaultStatus);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,11 +45,12 @@ const GraphNode = () => {
 
   const checkStep = async () => {
     setFetching(true);
+    setError(null);
     try {
       const response = await axios.post(`/api/the-graph/manifest`, {status});
       setStatus(response.data);
     } catch (error) {
-      console.log(error);
+      setError(error.message);
     } finally {
       setFetching(false);
     }
@@ -119,7 +121,6 @@ const ManifestStatus = ({
   status: ManifestStepStatusesT;
   text: string;
 }) => {
-  console.log(JSON.stringify(status, null, 2));
   return (
     <Space direction="vertical">
       <div>{text}</div>
