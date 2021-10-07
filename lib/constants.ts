@@ -27,10 +27,10 @@ export const CHAINS_CONFIG: ChainsType = {
   [CHAINS.AVALANCHE]: {
     id: CHAINS.AVALANCHE,
     label: 'Avalanche',
-    active: false,
+    active: true,
     logoUrl: 'https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010',
     protocol: AVALANCHE_PROTOCOLS.RPC,
-    network: AVALANCHE_NETWORKS.FUJI,
+    network: AVALANCHE_NETWORKS.DATAHUB,
     steps: [
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
