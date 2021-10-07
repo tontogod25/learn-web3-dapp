@@ -301,14 +301,12 @@ export const getPreviousStepForCurrentStepId = (state: GlobalStateT) => {
 export const getTitleForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
-  console.log('HERE', chainId, currentStepId);
   return state.protocols[chainId].steps[currentStepId].title;
 };
 
 export const getPositionForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
-  console.log('HERE', chainId, currentStepId);
   return state.protocols[chainId].steps[currentStepId].position;
 };
 

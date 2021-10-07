@@ -431,11 +431,11 @@ export const CHAINS_CONFIG: ChainsType = {
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
-        title: 'Connect using MetaMask',
+        title: 'Connect with MetaMask',
       },
       {
         id: PROTOCOL_STEPS_ID.LOGIN,
-        title: 'Log in with IDX',
+        title: 'Login with IDX',
       },
       {
         id: PROTOCOL_STEPS_ID.BASIC_PROFILE,
