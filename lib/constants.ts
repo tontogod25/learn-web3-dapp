@@ -17,6 +17,8 @@ import {
   SOLANA_PROTOCOLS,
   SOLANA_NETWORKS,
   POLKADOT_NETWORKS,
+  THE_GRAPH_NETWORKS,
+  THE_GRAPH_PROTOCOLS,
 } from 'types';
 
 export const GRID_LAYOUT = [13, 11];
@@ -419,8 +421,8 @@ export const CHAINS_CONFIG: ChainsType = {
     label: 'The Graph',
     active: true,
     logoUrl: 'https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=013',
-    protocol: TEZOS_PROTOCOLS.RPC,
-    network: TEZOS_NETWORKS.TESTNET,
+    protocol: THE_GRAPH_PROTOCOLS.GRAPHQL,
+    network: THE_GRAPH_NETWORKS.LOCALNET,
     steps: [
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
