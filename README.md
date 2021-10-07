@@ -24,7 +24,7 @@ Learn more about [Figment](https://figment.io/) and [Figment Learn](https://lear
 
 # 🧑‍💻 Get started
 
-Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/getting-started/install) installed. Then clone the repo and run the `yarn` command to install the dependencies:
+Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) (you'll need v14.17.0 or greater) and [yarn](https://yarnpkg.com/getting-started/install) installed. Then clone the repo and run the `yarn` command to install the dependencies:
 
 ```
 git clone https://github.com/figment-networks/learn-web3-dapp.git
