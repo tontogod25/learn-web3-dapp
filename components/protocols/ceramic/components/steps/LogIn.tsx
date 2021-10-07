@@ -52,6 +52,7 @@ const LogIn = () => {
     try {
       await logIn(userAddress as string);
     } catch (err) {
+      console.log(err);
       alert('Something went wrong');
     }
   };

@@ -39,7 +39,9 @@ const BasicProfileStep = () => {
   const [basicProfileSaved, setBasicProfileSaved] = useState<boolean>(false);
   const [saving, setSaving] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
-  const [basicProfile, setBasicProfile] = useState<BasicProfile | null>(null);
+  const [basicProfile, setBasicProfile] = useState<
+    BasicProfile | undefined | null
+  >(undefined);
 
   const {idx, currentUserDID} = useIdx();
 
@@ -65,7 +67,8 @@ const BasicProfileStep = () => {
     const {name} = values;
 
     try {
-      await idx.set(IdxSchema.BasicProfile, {name});
+      // Set BasicProfile (use IndexSchema.BasicProfile)
+
       setBasicProfileSaved(true);
     } catch (error) {
       alert(error.message);
@@ -74,10 +77,13 @@ const BasicProfileStep = () => {
     }
   };
 
-  const handleGetName = async () => {
+  const readBasicProfile = async () => {
     try {
       setFetching(true);
-      const resp = await idx.get<BasicProfile>(IdxSchema.BasicProfile);
+
+      // Read basic profile (use IdxSchema.BasicProfile enum)
+      const resp = undefined;
+
       setBasicProfile(resp);
     } catch (error) {
       alert(error.message);
@@ -136,7 +142,7 @@ const BasicProfileStep = () => {
           <Divider />
           <Button
             type="primary"
-            onClick={handleGetName}
+            onClick={readBasicProfile}
             disabled={fetching}
             loading={fetching}
           >

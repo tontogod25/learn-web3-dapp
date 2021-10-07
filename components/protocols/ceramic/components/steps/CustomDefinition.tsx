@@ -39,8 +39,9 @@ const CustomDefinition = () => {
   const [customDefinitionSaved, setCustomDefinitionSaved] =
     useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
-  const [customDefinitionData, setCustomDefinitionData] =
-    useState<QuoteSchemaT | null>(null);
+  const [customDefinitionData, setCustomDefinitionData] = useState<
+    QuoteSchemaT | null | undefined
+  >(null);
 
   const {idx, currentUserDID} = useIdx();
 
@@ -66,7 +67,8 @@ const CustomDefinition = () => {
     const {text, author} = values;
 
     try {
-      await idx.set(IdxSchema.Figment, {text, author});
+      // Save quote information to custom schema (use IdxSchema.Figment enum)
+
       setCustomDefinitionSaved(true);
     } catch (error) {
       alert(error.message);
@@ -75,10 +77,13 @@ const CustomDefinition = () => {
     }
   };
 
-  const handleGetQuote = async () => {
+  const readQuote = async () => {
     try {
       setFetching(true);
-      const resp = await idx.get<QuoteSchemaT>(IdxSchema.Figment);
+
+      // Read quote (use IdxSchema.Figment enum)
+      const resp = undefined;
+
       setCustomDefinitionData(resp);
     } catch (error) {
       alert(error.message);
@@ -148,7 +153,7 @@ const CustomDefinition = () => {
           <Divider />
           <Button
             type="primary"
-            onClick={handleGetQuote}
+            onClick={readQuote}
             disabled={fetching}
             loading={fetching}
           >

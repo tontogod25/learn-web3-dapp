@@ -18,7 +18,7 @@ const IdxContext = createContext<{
   idxRef?: MutableRefObject<IDX>;
   ceramicRef?: MutableRefObject<CeramicClient>;
   currentUserDID?: string | null | undefined;
-  setCurrentUserDID?: Dispatch<SetStateAction<string | null>>;
+  setCurrentUserDID?: Dispatch<SetStateAction<string | null | undefined>>;
 }>({});
 
 type Web3AuthProviderProps = {
@@ -28,7 +28,9 @@ type Web3AuthProviderProps = {
 
 const Web3AuthProvider = (props: Web3AuthProviderProps) => {
   const {children, ceramicNodeUrl} = props;
-  const [currentUserDID, setCurrentUserDID] = useState<string | null>(null);
+  const [currentUserDID, setCurrentUserDID] = useState<
+    string | null | undefined
+  >(null);
 
   const ceramicRef = useRef<CeramicClient>(new CeramicClient(ceramicNodeUrl));
   const idxRef = useRef<IDX>(new IDX({ceramic: ceramicRef.current, aliases}));
@@ -50,7 +52,7 @@ const Web3AuthProvider = (props: Web3AuthProviderProps) => {
 type UseIdxHook = {
   idx: IDX;
   ceramic: CeramicClient;
-  logIn: (address: string) => Promise<string>;
+  logIn: (address: string) => Promise<string | undefined>;
   currentUserDID: string | null | undefined;
 };
 
@@ -62,29 +64,23 @@ const useIdx = (): UseIdxHook => {
     throw new Error('Web3AuthProvider not used.');
   }
 
-  const logIn = async (address: string): Promise<string> => {
-    const threeIdConnect = new ThreeIdConnect();
+  const logIn = async (address: string): Promise<string | undefined> => {
+    // Request authentication using 3IDConnect
 
-    const provider = new EthereumAuthProvider(window.ethereum, address);
+    // Create provider instance
 
-    await threeIdConnect.connect(provider);
+    // Set DID instance on HTTP client
 
-    const didInstance = new DID({
-      provider: threeIdConnect.getDidProvider(),
-      resolver: {
-        ...ThreeIdResolver.getResolver(ceramicRef.current),
-      },
-    });
+    // Set the provider to Ceramic
 
-    await ceramicRef.current.setDID(didInstance);
-
-    const did = ceramicRef.current.did as DID;
-    const userDID = await did.authenticate();
+    // Authenticate the 3ID
+    const userDID = undefined;
 
     if (setCurrentUserDID) {
       setCurrentUserDID(userDID);
     }
 
+    // Create IDX instance
     idxRef.current = new IDX({
       ceramic: ceramicRef.current,
       aliases,

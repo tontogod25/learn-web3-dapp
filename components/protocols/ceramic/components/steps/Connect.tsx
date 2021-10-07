@@ -23,7 +23,7 @@ const Connect = () => {
   const chainId = getCurrentChainId(state);
   const stepId = getCurrentStepIdForCurrentChain(state);
 
-  const [address, setAddress] = useState<string | null>(null);
+  const [address, setAddress] = useState<string | undefined>(undefined);
 
   const ethereumAddress = getChainInnerState(
     state,
@@ -48,13 +48,15 @@ const Connect = () => {
     }
   }, [address]);
 
-  const getConnection = async () => {
+  const checkConnection = async () => {
     try {
       const provider = await detectEthereumProvider();
 
       if (provider) {
-        const addresses = await window.ethereum.enable();
-        const address = addresses[0];
+        // Connect to Polygon using Web3Provider and Metamask
+        // Define address and network
+        const addresses = undefined;
+        const address = undefined;
 
         setAddress(address);
       } else {
@@ -73,10 +75,10 @@ const Connect = () => {
             <Button
               type="ghost"
               icon={<LinkOutlined />}
-              onClick={getConnection}
+              onClick={checkConnection}
               size="large"
             >
-              Connect
+              Check Metamask Connection
             </Button>
             {ethereumAddress ? (
               <Alert
@@ -88,7 +90,7 @@ const Connect = () => {
                 }
                 type="success"
                 showIcon
-                onClick={getConnection}
+                onClick={checkConnection}
               />
             ) : (
               <Alert
