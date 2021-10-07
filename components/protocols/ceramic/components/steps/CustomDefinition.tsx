@@ -77,6 +77,7 @@ const CustomDefinition = () => {
 
   const handleGetQuote = async () => {
     try {
+      setFetching(true);
       const resp = await idx.get<QuoteSchemaT>(IdxSchema.Figment);
       setCustomDefinitionData(resp);
     } catch (error) {
@@ -151,7 +152,7 @@ const CustomDefinition = () => {
             disabled={fetching}
             loading={fetching}
           >
-            Get name
+            Get your quote
           </Button>
 
           {customDefinitionData && (

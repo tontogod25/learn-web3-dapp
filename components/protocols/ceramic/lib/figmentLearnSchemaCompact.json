@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "FigmentLearn",
+  "description": "Web3 learning with Figment Learn",
+  "type": "object",
+  "properties": {
+    "text": {"type": "string", "maxLength": 300},
+    "author": {"type": "string", "maxLength": 150}
+  }
+}
