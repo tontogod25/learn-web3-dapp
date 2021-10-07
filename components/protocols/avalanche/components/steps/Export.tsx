@@ -1,26 +1,40 @@
 import {Col, Button, Alert, Space} from 'antd';
 import {transactionUrl} from '@avalanche/lib';
-import {useState} from 'react';
-import {useGlobalState} from 'context';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
-import {setStepsStatus} from 'utils';
+import {
+  getCurrentChainId,
+  useGlobalState,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
+import {getAvalancheInnerState} from '@avalanche/lib';
 
-const Export = ({stepId}: {stepId: string}) => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.avalanche;
+const Export = () => {
+  const {state, dispatch} = useGlobalState();
+  const avalancheState = getAvalancheInnerState(state);
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   const [hash, setHash] = useState(null);
 
+  useEffect(() => {
+    if (hash) {
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
+    }
+  }, [hash, setHash]);
+
   const exportToken = async () => {
     setFetching(true);
     try {
-      const response = await axios.post(`/api/avalanche/export`, state);
+      const response = await axios.post(
+        `/api/avalanche/export`,
+        avalancheState,
+      );
       setHash(response.data);
-      dispatch({
-        type: 'SetAvalancheStepsStatus',
-        stepsStatus: setStepsStatus(state.stepsStatus, stepId, true),
-      });
     } catch (error) {
       console.log(error);
     } finally {
