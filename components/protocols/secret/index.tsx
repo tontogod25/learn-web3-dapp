@@ -1,4 +1,5 @@
 import {useEffect, useReducer} from 'react';
+import Layout from 'components/shared/Layout';
 import {
   Connect,
   Account,
@@ -11,9 +12,9 @@ import {
 import {appStateReducer, initialState, SecretContext} from '@secret/context';
 import {useLocalStorage} from '@secret/hooks';
 import Nav from '@secret/components/nav';
-import Layout from 'components/shared/Layout';
 import {PROTOCOL_STEPS_ID, ChainType} from 'types';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
+import SetupWizard from 'components/shared/SetupWizard';
 
 const Secret: React.FC = () => {
   const {state: global_state} = useGlobalState();
@@ -32,6 +33,9 @@ const Secret: React.FC = () => {
   return (
     <SecretContext.Provider value={{state, dispatch}}>
       <Nav />
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
+        <SetupWizard showText={true} />
+      )}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}

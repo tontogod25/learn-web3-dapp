@@ -18,6 +18,7 @@ import {PROTOCOL_STEPS_ID, ChainType, MarkdownForChainIdT} from 'types';
 import Nav from '@polkadot/components/nav';
 import Layout from 'components/shared/Layout';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
+import SetupWizard from 'components/shared/SetupWizard';
 
 const Polkadot: React.FC = () => {
   const {state: global_state} = useGlobalState();
@@ -37,6 +38,9 @@ const Polkadot: React.FC = () => {
   return (
     <PolkadotContext.Provider value={{state, dispatch}}>
       <Nav />
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
+        <SetupWizard showText={true} />
+      )}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}
       {stepId === PROTOCOL_STEPS_ID.RESTORE_ACCOUNT && <Restore />}

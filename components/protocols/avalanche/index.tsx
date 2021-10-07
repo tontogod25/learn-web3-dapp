@@ -11,6 +11,7 @@ import Layout from 'components/shared/Layout';
 import React from 'react';
 import {ChainType, PROTOCOL_STEPS_ID, MarkdownForChainIdT} from 'types';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
+import SetupWizard from 'components/shared/SetupWizard';
 
 const Avalanche: React.FC = () => {
   const {state} = useGlobalState();
@@ -19,6 +20,9 @@ const Avalanche: React.FC = () => {
   return (
     <>
       <Nav />
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
+        <SetupWizard showText={true} />
+      )}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_KEYPAIR && <Account />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
