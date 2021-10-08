@@ -463,6 +463,15 @@ export const CHAINS_CONFIG: ChainsType = {
       },
     ],
   },
+  [CHAINS.CERAMIC]: {
+    id: CHAINS.CERAMIC,
+    label: 'Ceramic',
+    active: false,
+    logoUrl: 'https://developers.ceramic.network/images/ceramic-no-shadow.png',
+    protocol: ARWEAVE_PROTOCOLS.RPC,
+    network: ARWEAVE_NETWORKS.MAINNET,
+    steps: [],
+  },
   [CHAINS.ARWEAVE]: {
     id: CHAINS.ARWEAVE,
     label: 'Arweave',

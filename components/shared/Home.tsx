@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import {Col, Row} from 'antd';
+import {Col, Row, Space} from 'antd';
 import styled from 'styled-components';
 
 import {CHAINS, UserActivity} from 'types';
@@ -15,7 +15,7 @@ const PROTOCOL_ICON_LENGTH = 30;
 const Home = () => {
   return (
     <Wrapper>
-      <Container span={14} offset={5}>
+      <Container span={16} offset={4}>
         <Title>
           Learn the Web 3 stack{' '}
           <Brand>
@@ -25,21 +25,38 @@ const Home = () => {
             </a>
           </Brand>
         </Title>
-        <ChainRow title={'Data Indexing'}>
-          <Protocol chain={CHAINS.THE_GRAPH} />
-        </ChainRow>
-        <ChainRow title={'Storage'}>
-          <Protocol chain={CHAINS.ARWEAVE} />
-        </ChainRow>
-        <ChainRow title={'Chains'}>
-          <Protocol chain={CHAINS.SOLANA} />
-          <Protocol chain={CHAINS.AVALANCHE} />
-          <Protocol chain={CHAINS.POLYGON} />
-          <Protocol chain={CHAINS.NEAR} />
-          <Protocol chain={CHAINS.POLKADOT} />
-          <Protocol chain={CHAINS.TEZOS} />
-          <Protocol chain={CHAINS.SECRET} />
-        </ChainRow>
+        <Row>
+          <Col span={8}>
+            <ChainRow title={'Data Indexing'}>
+              <Protocol chain={CHAINS.THE_GRAPH} />
+            </ChainRow>
+          </Col>
+
+          <Col span={8}>
+            <ChainRow title={'Identity'}>
+              <Protocol chain={CHAINS.CERAMIC} />
+            </ChainRow>
+          </Col>
+
+          <Col span={8}>
+            <ChainRow title={'Storage'}>
+              <Protocol chain={CHAINS.ARWEAVE} />
+            </ChainRow>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <ChainRow title={'Chains'}>
+              <Protocol chain={CHAINS.SOLANA} />
+              <Protocol chain={CHAINS.AVALANCHE} />
+              <Protocol chain={CHAINS.POLYGON} />
+              <Protocol chain={CHAINS.NEAR} />
+              <Protocol chain={CHAINS.POLKADOT} />
+              <Protocol chain={CHAINS.TEZOS} />
+              <Protocol chain={CHAINS.SECRET} />
+            </ChainRow>
+          </Col>
+        </Row>
       </Container>
     </Wrapper>
   );
@@ -91,13 +108,15 @@ const ChainRow = ({
   return (
     <SectionContainer>
       <SectionTitle>{title}</SectionTitle>
-      <StyledChainRow>{children}</StyledChainRow>
+      <Space size="large" wrap>
+        {children}
+      </Space>
     </SectionContainer>
   );
 };
 
 const Wrapper = styled.div`
-  background: #222;
+  background: rgb(33, 37, 41);
   width: 100vw;
   height: 100vh;
 `;
@@ -108,7 +127,7 @@ const Container = styled(Col)`
 
 const Title = styled.h1`
   font-size: 3.5em;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   color: white;
 `;
 
@@ -125,22 +144,17 @@ const Brand = styled.span`
 `;
 
 const SectionContainer = styled(Col)`
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  padding-right: 30px;
 `;
 
 const SectionTitle = styled.div`
   font-size: 1.5em;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   color: white;
   font-weight: 500;
-  color: rgb(255, 242, 155);
-`;
-
-const StyledChainRow = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  column-gap: 20px;
-  row-gap: 20px;
+  color: ${colors.figmentYellow};
+  border-bottom: solid 1px rgb(255 242 155 / 35%);
 `;
 
 const ProtocolBox = styled.div<{
@@ -151,6 +165,7 @@ const ProtocolBox = styled.div<{
   position: relative;
 
   height: ${PROTOCOL_BOX_LENGTH}px;
+  width: ${PROTOCOL_BOX_LENGTH}px;
   border: solid 1px #eee;
   background-color: #f8f8f8;
   border-radius: 5px;

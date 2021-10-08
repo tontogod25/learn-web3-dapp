@@ -22,6 +22,8 @@ We will guide you to build up a simple web client using the various blockchain's
 
 Learn more about [Figment](https://figment.io/) and [Figment Learn](https://learn.figment.io/)
 
+<img width="1431" alt="Screen Shot 2021-10-08 at 9 13 07 AM" src="https://user-images.githubusercontent.com/206753/136563367-1c51c133-c7f1-47f7-a692-acab734cec37.png">
+
 ![Screen Shot 2021-09-29 at 11 14 55 AM](https://user-images.githubusercontent.com/206753/135325747-330e9b28-14ee-4a32-9d7c-4216f82dd8c7.png)
 
 # 🧑‍💻 Get started
