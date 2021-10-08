@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
-export const PolygonSVG = styled.svg`
-  height: 50px;
-  margin-bottom: 20px;
+export const PolygonSVG = styled.svg<{size: number}>`
+  height: ${({size}) => `${size}px`};
+  margin-bottom: 10px;
 `;
 
-export const PolygonLogo = () => (
+export const PolygonLogo = ({size = 35}: {size: number}) => (
   <PolygonSVG
+    size={size}
     x="0px"
     y="0px"
     viewBox="0 0 38.4 33.5"

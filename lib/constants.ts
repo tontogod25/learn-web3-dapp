@@ -21,6 +21,8 @@ import {
   CERAMIC_NETWORKS,
   THE_GRAPH_PROTOCOLS,
   THE_GRAPH_NETWORKS,
+  ARWEAVE_PROTOCOLS,
+  ARWEAVE_NETWORKS,
 } from 'types';
 
 export const GRID_LAYOUT = [13, 11];
@@ -488,5 +490,14 @@ export const CHAINS_CONFIG: ChainsType = {
         skippable: true,
       },
     ],
+  },
+  [CHAINS.ARWEAVE]: {
+    id: CHAINS.ARWEAVE,
+    label: 'Arweave',
+    active: false,
+    logoUrl: 'https://cryptologos.cc/logos/arweave-ar-logo.svg?v=014',
+    protocol: ARWEAVE_PROTOCOLS.RPC,
+    network: ARWEAVE_NETWORKS.MAINNET,
+    steps: [],
   },
 };
