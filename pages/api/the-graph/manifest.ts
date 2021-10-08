@@ -11,7 +11,7 @@ const MANIFEST_PATH = './subgraphs/punks/subgraph.yaml';
 const EVENT =
   'PunkBought(indexed uint256,uint256,indexed address,indexed address)';
 
-const HANDLER = 'handlePunkBoughts';
+const HANDLER = 'handlePunkBought';
 
 const loadManifest = () => {
   let manifest = fs.readFileSync(MANIFEST_PATH, 'utf8');
