@@ -63,7 +63,7 @@ const Entity = () => {
         {isValid ? (
           <>
             <Alert
-              message={<Text strong>We found a subgraph scaffold! 🎉</Text>}
+              message={<Text strong>We found the expected entities! 🎉</Text>}
               description={
                 <Space direction="vertical">
                   <div>Nice. One more step done in the right direction.</div>
