@@ -2,6 +2,8 @@ import {useState, useContext} from 'react';
 import type {State} from '@polkadot/context';
 import {PolkadotContext} from '@polkadot/context';
 
+// TODO
+// Delete
 const useLocalStorage = (key: string, initialValue: State) => {
   const [storedValue, setStoredValue] = useState<State>(() => {
     try {

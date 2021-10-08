@@ -210,6 +210,15 @@ export type InnerStateT = {
   [Key in PROTOCOL_INNER_STATES_ID]?: string | null;
 };
 
+export type LocalStorageStateT = {
+  [Key in CHAINS]: LocalStorageProtocolStateT;
+};
+
+export type LocalStorageProtocolStateT = {
+  currentStepId: PROTOCOL_STEPS_ID;
+  innerState?: InnerStateT;
+};
+
 export enum PROTOCOL_INNER_STATES_ID {
   SECRET = 'SECRET',
   PRIVATE_KEY = 'PRIVATE_KEY',
