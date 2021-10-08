@@ -1,12 +1,17 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import type {ManifestStepStatusesT} from '@the-graph/types';
 import {manifestT} from '@the-graph/types';
-import fs from 'fs';
 import yaml from 'js-yaml';
+import fs from 'fs';
 
 const START_BLOCK = 13100000;
 
 const MANIFEST_PATH = './subgraphs/punks/subgraph.yaml';
+
+const EVENT =
+  'PunkBought(indexed uint256,uint256,indexed address,indexed address)';
+
+const HANDLER = 'handlePunkBoughts';
 
 const loadManifest = () => {
   let manifest = fs.readFileSync(MANIFEST_PATH, 'utf8');
@@ -14,13 +19,13 @@ const loadManifest = () => {
 
   let startBlock = data.dataSources[0].source.startBlock;
   let entities = data.dataSources[0].mapping.entities;
-  let eventHandlers = Object.values(
+  let eventHandler = Object.values(
     data.dataSources[0].mapping.eventHandlers[0],
   );
   return {
     startBlock,
     entities,
-    eventHandlers,
+    eventHandler,
   };
 };
 
@@ -30,8 +35,8 @@ export default async function manifest(
 ) {
   try {
     const status = req.body.status as ManifestStepStatusesT;
-    const {startBlock, entities, eventHandlers} = loadManifest();
-
+    const {startBlock, entities, eventHandler} = loadManifest();
+    console.log(eventHandler);
     if (startBlock === START_BLOCK) {
       status.block = {
         valid: true,
@@ -46,7 +51,7 @@ export default async function manifest(
       };
     }
 
-    if (eventHandlers.length === 2) {
+    if (eventHandler[0] === EVENT && eventHandler[1] === HANDLER) {
       status.eventHandlers = {
         valid: true,
         message: 'Valid eventHandlers',
