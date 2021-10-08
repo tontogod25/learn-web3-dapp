@@ -23,8 +23,8 @@ const GraphNode = () => {
   const {state, dispatch} = useGlobalState();
   const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
 
-  const [fetching, setFetching] = useState<boolean>(false);
   const [status, setStatus] = useState<ManifestStepStatusesT>(defaultStatus);
+  const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const isValid = () =>
@@ -46,6 +46,7 @@ const GraphNode = () => {
   const checkStep = async () => {
     setFetching(true);
     setError(null);
+    setStatus(defaultStatus);
     try {
       const response = await axios.post(`/api/the-graph/manifest`, {status});
       setStatus(response.data);

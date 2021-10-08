@@ -419,7 +419,7 @@ export const CHAINS_CONFIG: ChainsType = {
   [CHAINS.THE_GRAPH]: {
     id: CHAINS.THE_GRAPH,
     label: 'The Graph',
-    active: false,
+    active: true,
     logoUrl: 'https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=013',
     protocol: THE_GRAPH_PROTOCOLS.GRAPHQL,
     network: THE_GRAPH_NETWORKS.LOCALNET,
