@@ -1,10 +1,14 @@
 import {ArrowLeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
-import {useGlobalState, getCurrentChainId} from 'context';
-import {getChainColors} from 'utils/colors';
+import {
+  useGlobalState,
+  getCurrentChainId,
+  getCurrentStepIdForCurrentChain,
+} from 'context';
 import {FOOTER_HEIGHT} from 'lib/constants';
 import styled from 'styled-components';
-import {Button, Col, Row} from 'antd';
-import {useSteps} from 'hooks';
+import {Col, Row} from 'antd';
+import {useSteps, useColors} from 'hooks';
+import {NextButton, PrevButton} from '../Button.styles';
 
 const Footer = () => {
   const {state, dispatch} = useGlobalState();
@@ -19,9 +23,7 @@ const Footer = () => {
     isCompleted,
   } = useSteps(state, dispatch);
 
-  const {primaryColor, secondaryColor} = getChainColors(
-    getCurrentChainId(state),
-  );
+  const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
 
   return (
     <Col span={24}>
@@ -38,6 +40,7 @@ const Footer = () => {
         )}
         {!isLastStep && (
           <NextButton
+            key={getCurrentStepIdForCurrentChain(state)}
             size="large"
             type="primary"
             onClick={() => next()}
@@ -55,33 +58,6 @@ const Footer = () => {
     </Col>
   );
 };
-
-const NextButton = styled(Button)<{
-  primary_color: string;
-  secondary_color: string;
-}>`
-  border: none;
-  color: ${({secondary_color}) => secondary_color};
-  background: ${({primary_color}) => primary_color};
-
-  &:hover {
-    background: ${({primary_color}) => primary_color};
-    color: ${({secondary_color}) => secondary_color};
-    border: none;
-    box-shadow: black 2px 2px 1px;
-  }
-`;
-
-const PrevButton = styled(Button)`
-  background: white;
-  border: solid #777 1px;
-  color: #777;
-
-  &:hover {
-    color: black;
-    border: solid black 1px;
-  }
-`;
 
 const StepFooter = styled(Row)`
   padding: 0 40px;

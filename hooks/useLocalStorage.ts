@@ -1,20 +1,16 @@
-import {useState, useContext} from 'react';
-import type {State} from '@polkadot/context';
-import {PolkadotContext} from '@polkadot/context';
+import {useState} from 'react';
 
-// TODO
-// Delete
-const useLocalStorage = (key: string, initialValue: State) => {
-  const [storedValue, setStoredValue] = useState<State>(() => {
+const useLocalStorage = <StateT>(key: string, initialValue?: StateT) => {
+  const [storedValue, setStoredValue] = useState<StateT>(() => {
     try {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.log(error);
       return initialValue;
     }
   });
-  const setValue = (value: State | ((val: State) => State)) => {
+
+  const setValue = (value: StateT | ((val: StateT) => StateT)) => {
     try {
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;
@@ -24,9 +20,8 @@ const useLocalStorage = (key: string, initialValue: State) => {
       console.log(error);
     }
   };
+
   return [storedValue, setValue] as const;
 };
 
-const useAppState = () => useContext(PolkadotContext);
-
-export {useLocalStorage, useAppState};
+export default useLocalStorage;

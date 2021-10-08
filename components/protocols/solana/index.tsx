@@ -20,7 +20,7 @@ const Solana: React.FC = () => {
   const stepId = getCurrentStepIdForCurrentChain(state);
 
   return (
-    <div key={stepId}>
+    <div>
       <Nav />
       {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
         <SetupWizard showText={true} />

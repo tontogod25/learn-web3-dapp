@@ -19,6 +19,8 @@ import {
   POLKADOT_NETWORKS,
   CERAMIC_PROTOCOLS,
   CERAMIC_NETWORKS,
+  THE_GRAPH_PROTOCOLS,
+  THE_GRAPH_NETWORKS,
 } from 'types';
 
 export const GRID_LAYOUT = [13, 11];
@@ -425,11 +427,6 @@ export const CHAINS_CONFIG: ChainsType = {
     network: CERAMIC_NETWORKS.TESTNET,
     steps: [
       {
-        id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
-        title: 'Introduction',
-        skippable: true,
-      },
-      {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
         title: 'Connect with MetaMask',
       },
@@ -444,6 +441,51 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.CUSTOM_DEFINITION,
         title: 'Deploy and use custom definition',
+      },
+    ],
+  },
+  [CHAINS.THE_GRAPH]: {
+    id: CHAINS.THE_GRAPH,
+    label: 'The Graph',
+    active: false,
+    logoUrl: 'https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=013',
+    protocol: THE_GRAPH_PROTOCOLS.GRAPHQL,
+    network: THE_GRAPH_NETWORKS.LOCALNET,
+    steps: [
+      {
+        id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
+        title: 'Introduction',
+        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.GRAPH_NODE,
+        title: 'Run a local Graph node',
+        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.SUBGRAPH_SCAFFOLD,
+        title: 'Create a subgraph scaffold',
+        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.SUBGRAPH_MANIFEST,
+        title: 'Tweak the Manifest',
+        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.SUBGRAPH_SCHEMA,
+        title: 'Define the schema',
+        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.SUBGRAPH_MAPPINGS,
+        title: 'Implement the mappings',
+        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.SUBGRAPH_QUERY,
+        title: 'Query the subgraph',
+        skippable: true,
       },
     ],
   },

@@ -8,6 +8,7 @@ export enum CHAINS {
   SOLANA = 'solana',
   TEZOS = 'tezos',
   CERAMIC = 'ceramic',
+  THE_GRAPH = 'the_graph',
 }
 
 // Protocol's Enum
@@ -20,7 +21,12 @@ export type PROTOCOLS =
   | NEAR_PROTOCOLS
   | CELO_PROTOCOLS
   | TEZOS_PROTOCOLS
-  | CERAMIC_PROTOCOLS;
+  | CERAMIC_PROTOCOLS
+  | THE_GRAPH_PROTOCOLS;
+
+export enum THE_GRAPH_PROTOCOLS {
+  GRAPHQL = 'GRAPHQL',
+}
 
 export enum AVALANCHE_PROTOCOLS {
   RPC = 'RPC',
@@ -112,7 +118,6 @@ export enum SOLANA_NETWORKS {
   LOCALNET = 'localnet',
 }
 
-// -----------------------------  Ceramic
 export enum CERAMIC_NETWORKS {
   TESTNET = 'TESTNET',
 }
@@ -120,6 +125,12 @@ export enum CERAMIC_NETWORKS {
 export enum CERAMIC_PROTOCOLS {
   HTTP = 'HTTP',
 }
+
+export enum THE_GRAPH_NETWORKS {
+  LOCALNET = 'localnet',
+  STUDIO = 'studio',
+}
+
 // -----------------------------
 
 export type NETWORKS =
@@ -131,6 +142,7 @@ export type NETWORKS =
   | SECRET_NETWORKS
   | CELO_NETWORKS
   | TEZOS_NETWORKS
+  | THE_GRAPH_NETWORKS
   | CERAMIC_NETWORKS;
 
 // ---------------------------------------------------
@@ -210,6 +222,15 @@ export type InnerStateT = {
   [Key in PROTOCOL_INNER_STATES_ID]?: string | null;
 };
 
+export type LocalStorageStateT = {
+  [Key in CHAINS]: LocalStorageProtocolStateT;
+};
+
+export type LocalStorageProtocolStateT = {
+  currentStepId: PROTOCOL_STEPS_ID;
+  innerState?: InnerStateT;
+};
+
 export enum PROTOCOL_INNER_STATES_ID {
   SECRET = 'SECRET',
   PRIVATE_KEY = 'PRIVATE_KEY',
@@ -249,4 +270,10 @@ export enum PROTOCOL_STEPS_ID {
   LOGIN = 'LOGIN',
   BASIC_PROFILE = 'BASIC_PROFILE',
   CUSTOM_DEFINITION = 'CUSTOM_DEFINITION',
+  GRAPH_NODE = 'GRAPH_NODE',
+  SUBGRAPH_SCAFFOLD = 'SUBGRAPH_SCAFFOLD',
+  SUBGRAPH_MANIFEST = 'SUBGRAPH_MANIFEST',
+  SUBGRAPH_QUERY = 'SUBGRAPH_QUERY',
+  SUBGRAPH_SCHEMA = 'SUBGRAPH_SCHEMA',
+  SUBGRAPH_MAPPINGS = 'SUBGRAPH_MAPPINGS',
 }
