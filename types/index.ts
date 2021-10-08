@@ -7,6 +7,7 @@ export enum CHAINS {
   SECRET = 'secret',
   SOLANA = 'solana',
   TEZOS = 'tezos',
+  THE_GRAPH = 'the_graph',
 }
 
 // Protocol's Enum
@@ -18,7 +19,12 @@ export type PROTOCOLS =
   | SECRET_PROTOCOLS
   | NEAR_PROTOCOLS
   | CELO_PROTOCOLS
-  | TEZOS_PROTOCOLS;
+  | TEZOS_PROTOCOLS
+  | THE_GRAPH_PROTOCOLS;
+
+export enum THE_GRAPH_PROTOCOLS {
+  GRAPHQL = 'GRAPHQL',
+}
 
 export enum AVALANCHE_PROTOCOLS {
   RPC = 'RPC',
@@ -110,6 +116,11 @@ export enum SOLANA_NETWORKS {
   LOCALNET = 'localnet',
 }
 
+export enum THE_GRAPH_NETWORKS {
+  LOCALNET = 'localnet',
+  STUDIO = 'studio',
+}
+
 // -----------------------------
 export type NETWORKS =
   | POLYGON_NETWORKS
@@ -119,6 +130,7 @@ export type NETWORKS =
   | NEAR_NETWORKS
   | SECRET_NETWORKS
   | CELO_NETWORKS
+  | THE_GRAPH_NETWORKS
   | TEZOS_NETWORKS;
 
 // ---------------------------------------------------
@@ -198,6 +210,15 @@ export type InnerStateT = {
   [Key in PROTOCOL_INNER_STATES_ID]?: string | null;
 };
 
+export type LocalStorageStateT = {
+  [Key in CHAINS]: LocalStorageProtocolStateT;
+};
+
+export type LocalStorageProtocolStateT = {
+  currentStepId: PROTOCOL_STEPS_ID;
+  innerState?: InnerStateT;
+};
+
 export enum PROTOCOL_INNER_STATES_ID {
   SECRET = 'SECRET',
   PRIVATE_KEY = 'PRIVATE_KEY',
@@ -232,4 +253,10 @@ export enum PROTOCOL_STEPS_ID {
   DEPLOY_CONTRACT = 'DEPLOY_CONTRACT',
   GET_CONTRACT_VALUE = 'GET_CONTRACT_VALUE',
   SET_CONTRACT_VALUE = 'SET_CONTRACT_VALUE',
+  GRAPH_NODE = 'GRAPH_NODE',
+  SUBGRAPH_SCAFFOLD = 'SUBGRAPH_SCAFFOLD',
+  SUBGRAPH_MANIFEST = 'SUBGRAPH_MANIFEST',
+  SUBGRAPH_QUERY = 'SUBGRAPH_QUERY',
+  SUBGRAPH_SCHEMA = 'SUBGRAPH_SCHEMA',
+  SUBGRAPH_MAPPINGS = 'SUBGRAPH_MAPPINGS',
 }

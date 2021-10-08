@@ -59,8 +59,10 @@ contracts/near/target/
 /solana-wallet
 /test-ledger
 /archives
-/secrets
 
-/docker
+# subgraphs
+subgraphs/punks
 
-/pages/api/solana/*
+# docker
+docker/data
+docker/brew

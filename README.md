@@ -5,18 +5,20 @@ We made this decentralized application (dApp) to help developers learn about Web
 We will guide you to build up a simple web client using the various blockchain's JavaScript SDKs to interact with their networks. Each protocol is slightly different, but we have attempted to standardize the workflow so that you can quickly get up to speed on networks like Solana, NEAR, Polygon and more!
 
 **Supported** ✅
-- Solana  
-- Polygon  
-- Avalanche  
-- NEAR  
-- Tezos  
-- Secret  
-- Polkadot  
+
+- Solana
+- Polygon
+- Avalanche
+- NEAR
+- Tezos
+- Secret
+- Polkadot
 
 **Coming soon!** 🔜
-- The Graph  
-- Ceramic  
-- Arweave  
+
+- The Graph
+- Ceramic
+- Arweave
 
 Learn more about [Figment](https://figment.io/) and [Figment Learn](https://learn.figment.io/)
 
