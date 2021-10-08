@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Alert, Space, Button, Typography} from 'antd';
+import {Col, Alert, Space, Typography} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
-import type {ErrorT} from '@the-graph/types';
-import {prettyError} from '@the-graph/lib';
 import {
   getCurrentChainId,
   useGlobalState,
@@ -19,7 +17,7 @@ const GraphNode = () => {
   const {state, dispatch} = useGlobalState();
   const [isValid, setIsValid] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
-  const [error, setError] = useState<ErrorT | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
 
   useEffect(() => {
@@ -41,7 +39,7 @@ const GraphNode = () => {
       const response = await axios.get(`/api/the-graph/scaffold`);
       setIsValid(response.data);
     } catch (error) {
-      setError(prettyError(error));
+      setError(error.message);
     } finally {
       setFetching(false);
     }

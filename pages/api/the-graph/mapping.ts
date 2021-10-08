@@ -9,7 +9,6 @@ export default async function node(
     const response = await axios.get(
       `http://localhost:8000/subgraphs/name/punks`,
     );
-    console.log(response.data);
     res.status(200).json(true);
   } catch (error) {
     res.status(500).json(error.message);

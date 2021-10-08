@@ -47,9 +47,9 @@ const Layout = (
         <Nav />
         <BelowNav>
           <Sidebar markdown={markdown} />
-          <Col span={GRID_LAYOUT[1]} style={{padding: '120px 60px 20px 60px'}}>
+          <RightPanel span={GRID_LAYOUT[1]}>
             <Protocol />
-          </Col>
+          </RightPanel>
         </BelowNav>
         <Footer />
       </Col>
@@ -61,6 +61,12 @@ const BelowNav = styled(Row)`
   margin-top: ${HEADER_HEIGHT}px;
   position: fixed;
   width: 100vw;
+`;
+
+const RightPanel = styled(Col)`
+  overflow: scroll;
+  height: calc(100vh - 170px);
+  padding: 120px 60px 20px 60px;
 `;
 
 export default Layout;

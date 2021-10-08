@@ -442,7 +442,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.SUBGRAPH_MANIFEST,
         title: 'Tweak the Manifest',
-        // skippable: true,
+        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.SUBGRAPH_SCHEMA,

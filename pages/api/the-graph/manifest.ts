@@ -55,7 +55,6 @@ export default async function manifest(
 
     res.status(200).json(status);
   } catch (error) {
-    console.log(error.message);
     res.status(500).json(error.message);
   }
 }

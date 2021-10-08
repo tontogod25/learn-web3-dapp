@@ -60,13 +60,9 @@ contracts/near/target/
 /test-ledger
 /archives
 
-
+# subgraphs
 subgraphs/punks
 
+# docker
 docker/data
 docker/brew
-
-
-secrets
-
-tmp.md

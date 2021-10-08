@@ -7,20 +7,16 @@ import {
   Entity,
 } from '@the-graph/components/steps';
 import Layout from 'components/shared/Layout';
-import {useReducer} from 'react';
 import {ChainType, MarkdownForChainIdT, PROTOCOL_STEPS_ID} from 'types';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
-import {appReducer, initialState, TheGraphContext} from '@the-graph/context';
 import SetupWizard from 'components/shared/SetupWizard';
 
 const TheGraph: React.FC = () => {
   const {state: globalState} = useGlobalState();
   const stepId = getCurrentStepIdForCurrentChain(globalState);
 
-  const [state, dispatch] = useReducer(appReducer, initialState);
-
   return (
-    <TheGraphContext.Provider value={{state, dispatch}}>
+    <>
       {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
         <SetupWizard showText={true} />
       )}
@@ -30,7 +26,7 @@ const TheGraph: React.FC = () => {
       {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_SCHEMA && <Entity />}
       {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_MAPPINGS && <Mapping />}
       {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_QUERY && <Query />}
-    </TheGraphContext.Provider>
+    </>
   );
 };
 
