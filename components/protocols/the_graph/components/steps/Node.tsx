@@ -91,7 +91,7 @@ const GraphNode = () => {
                   We tried to make a request to http://localhost:8020 but we
                   got:
                 </div>
-                <Text code>{error.message}</Text>
+                <Text code>{error}</Text>
               </Space>
             }
             type="error"

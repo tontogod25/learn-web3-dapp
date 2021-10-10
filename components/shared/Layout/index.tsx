@@ -1,10 +1,5 @@
 import {GlobalContext, globalStateReducer, initialGlobalState} from 'context';
-import {
-  ChainType,
-  MarkdownForChainIdT,
-  GlobalStateT,
-  LocalStorageStateT,
-} from 'types';
+import {ChainType, MarkdownForChainIdT, LocalStorageStateT} from 'types';
 import {GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
 import React, {useEffect, useReducer} from 'react';
 import styled from 'styled-components';
@@ -14,6 +9,8 @@ import {Row, Col} from 'antd';
 import Footer from './Footer';
 import Nav from './Nav';
 import {prepareGlobalState, prepareGlobalStateForStorage} from 'utils/context';
+import {Spinner} from './Spinner';
+import {colors} from 'utils/colors';
 
 const Layout = (
   Protocol: React.FC,
@@ -36,9 +33,8 @@ const Layout = (
     setStorageState(prepareGlobalStateForStorage(state));
   }, [state, dispatch]);
 
-  // Add spinner
   if (!state.currentChainId) {
-    return <div> Loading </div>;
+    return <Spinner color={colors.figmentYellow} />;
   }
 
   return (

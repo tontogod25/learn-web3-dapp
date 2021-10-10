@@ -2,6 +2,7 @@ import {CHAINS} from 'types';
 
 export const colors = {
   figmentYellow: '#FFF29B',
+  darkBackground: 'rgb(33, 37, 41)',
 };
 
 type ChainColorsType = {

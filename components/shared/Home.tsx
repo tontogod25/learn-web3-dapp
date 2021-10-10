@@ -116,7 +116,7 @@ const ChainRow = ({
 };
 
 const Wrapper = styled.div`
-  background: #222;
+  background: ${colors.darkBackground};
   width: 100vw;
   height: 100vh;
 `;

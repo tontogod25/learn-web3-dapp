@@ -2,6 +2,7 @@ export enum CHAINS {
   ARWEAVE = 'arweave',
   AVALANCHE = 'avalanche',
   CELO = 'celo',
+  CERAMIC = 'ceramic',
   NEAR = 'near',
   POLYGON = 'polygon',
   POLKADOT = 'polkadot',
