@@ -65,15 +65,24 @@ const useIdx = (): UseIdxHook => {
   }
 
   const logIn = async (address: string): Promise<string | undefined> => {
-    // Request authentication using 3IDConnect
+    // Request authentication using 3IDConnect.
+    // Find more information here: https://developers.ceramic.network/authentication/3id-did/3id-connect/#4-request-authentication
 
-    // Create provider instance
+    // Create provider instance.
+    // Find more information here: https://developers.ceramic.network/authentication/3id-did/3id-connect/#5-create-provider-instance
+
+    // Create a DID instance.
+    // Find more information here: https://developers.ceramic.network/build/javascript/http/
+    // NOTE: We want to use only ThreeIdResolver here
 
     // Set DID instance on HTTP client
+    // Find more information here: https://developers.ceramic.network/build/javascript/http/#7-set-did-instance-on-http-client
 
     // Set the provider to Ceramic
+    // Find more information here: https://developers.ceramic.network/authentication/3id-did/3id-connect/#6-set-the-provider-to-ceramic
 
     // Authenticate the 3ID
+    // Find more information here: https://developers.ceramic.network/authentication/3id-did/3id-connect/#7-authenticate-the-3id
     const userDID = undefined;
 
     if (setCurrentUserDID) {
