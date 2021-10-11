@@ -57,7 +57,7 @@ const QueryPunks = () => {
           size="large"
           autoFocus={false}
         >
-          Fetch the most valuable CryptoPunks!
+          Display the 10 most valuable CryptoPunks
         </StepButton>
         {data ? (
           <Punks data={data.punks} />
