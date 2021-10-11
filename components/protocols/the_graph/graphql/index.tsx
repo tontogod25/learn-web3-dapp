@@ -8,8 +8,6 @@ const TEN_MOST_EXPENSIVE_PUNKS = gql`
       owner {
         id
       }
-      value
-      date
     }
   }
 `;

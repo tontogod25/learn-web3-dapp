@@ -1,6 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import type {ManifestStepStatusesT} from '@the-graph/types';
 import {manifestT} from '@the-graph/types';
+import {defaultStatus} from '@the-graph/lib';
 import yaml from 'js-yaml';
 import fs from 'fs';
 
@@ -34,7 +35,7 @@ export default async function manifest(
   res: NextApiResponse<ManifestStepStatusesT | string>,
 ) {
   try {
-    const status = req.body.status as ManifestStepStatusesT;
+    const status = defaultStatus;
     const {startBlock, entities, eventHandler} = loadManifest();
 
     if (startBlock === START_BLOCK) {
@@ -44,7 +45,11 @@ export default async function manifest(
       };
     }
 
-    if (entities.includes('Punk') && entities.includes('Account')) {
+    if (
+      entities.includes('Punk') &&
+      entities.includes('Account') &&
+      entities.length == 2
+    ) {
       status.entities = {
         valid: true,
         message: 'Valid entities',
