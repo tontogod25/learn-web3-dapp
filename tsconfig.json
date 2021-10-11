@@ -23,6 +23,7 @@
       "@avalanche/*": ["components/protocols/avalanche/*"],
       "@secret/*": ["components/protocols/secret/*"],
       "@polygon/*": ["components/protocols/polygon/*"],
+      "@ceramic/*": ["components/protocols/ceramic/*"],
       "@the-graph/*": ["components/protocols/the_graph/*"],
       "@funnel/*": ["utils/*"]
     }

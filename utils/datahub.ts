@@ -40,6 +40,8 @@ const getTestnetNodeURL = (chain: CHAINS): string => {
       return 'https://api.avax-test.network';
     case CHAINS.NEAR:
       return 'https://rpc.testnet.near.org';
+    case CHAINS.CERAMIC:
+      return 'https://ceramic-clay.3boxlabs.com';
     default:
       return '';
   }

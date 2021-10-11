@@ -212,6 +212,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
           },
         },
       };
+
     default:
       return state;
   }

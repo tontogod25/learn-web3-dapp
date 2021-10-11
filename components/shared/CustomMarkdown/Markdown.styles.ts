@@ -69,9 +69,13 @@ export const StyledH3 = styled.h3`
 `;
 
 export const StyledImage = styled.img`
-  max-width: 70%;
-  height: auto;
-  margin: 20px 0;
+  width: auto;
+  max-width: 95%;
+  max-height: 600px;
+  margin: 30px auto;
+  border-radius: 5px;
+  box-shadow: rgb(150 150 150) 0 4px 10px;
+  display: block;
 `;
 
 export const LinkIcon = styled.div`

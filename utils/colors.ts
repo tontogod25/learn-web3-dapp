@@ -36,6 +36,8 @@ const getPrimaryColor = (chainId: CHAINS) => {
     return 'linear-gradient(253deg, #00c1de, #00c08b)';
   } else if (chainId === CHAINS.SECRET) {
     return 'black';
+  } else if (chainId === CHAINS.CERAMIC) {
+    return '#f87236';
   }
   return 'rgb(255, 242, 155)';
 };
@@ -56,6 +58,8 @@ const getSecondaryColor = (chainId: CHAINS) => {
   } else if (chainId === CHAINS.SECRET) {
     return 'white';
   } else if (chainId === CHAINS.NEAR) {
+    return 'white';
+  } else if (chainId === CHAINS.CERAMIC) {
     return 'white';
   }
   return 'black';
