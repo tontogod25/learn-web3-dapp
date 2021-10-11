@@ -26,7 +26,7 @@ const Connect = () => {
 
   const [address, setAddress] = useState<string | undefined>(undefined);
 
-  const ethereumAddress = getChainInnerState(
+  const userAddress = getChainInnerState(
     state,
     chainId,
     PROTOCOL_INNER_STATES_ID.ADDRESS,
@@ -58,8 +58,10 @@ const Connect = () => {
         // Find more information at: https://docs.metamask.io/guide/rpc-api.html.
         // NOTE: Be careful not to use deprecated method!
         // Define address and network
-        const addresses = undefined;
-        const address = undefined;
+        const addresses = await provider.request({
+          method: 'eth_requestAccounts',
+        });
+        const address = addresses[0];
 
         setAddress(address);
       } else {
@@ -83,14 +85,14 @@ const Connect = () => {
             >
               Check Metamask Connection
             </Button>
-            {ethereumAddress ? (
+            {userAddress ? (
               <>
                 <Alert
                   message={<Text strong>Connected to MetaMask 😍</Text>}
                   description={
                     <Space direction="vertical">
                       <Text>Your Ethereum Address is:</Text>
-                      <Text code>{ethereumAddress}</Text>
+                      <Text code>{userAddress}</Text>
                     </Space>
                   }
                   type="success"

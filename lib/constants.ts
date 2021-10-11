@@ -429,6 +429,11 @@ export const CHAINS_CONFIG: ChainsType = {
     network: CERAMIC_NETWORKS.TESTNET,
     steps: [
       {
+        id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
+        title: 'Introduction',
+        skippable: true,
+      },
+      {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
         title: 'Connect with MetaMask',
       },
@@ -490,15 +495,6 @@ export const CHAINS_CONFIG: ChainsType = {
         skippable: true,
       },
     ],
-  },
-  [CHAINS.CERAMIC]: {
-    id: CHAINS.CERAMIC,
-    label: 'Ceramic',
-    active: false,
-    logoUrl: 'https://developers.ceramic.network/images/ceramic-no-shadow.png',
-    protocol: ARWEAVE_PROTOCOLS.RPC,
-    network: ARWEAVE_NETWORKS.MAINNET,
-    steps: [],
   },
   [CHAINS.ARWEAVE]: {
     id: CHAINS.ARWEAVE,

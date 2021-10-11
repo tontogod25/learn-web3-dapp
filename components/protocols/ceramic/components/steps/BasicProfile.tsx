@@ -7,6 +7,7 @@ import {
   Typography,
   Col,
   Divider,
+  Card,
 } from 'antd';
 import {useEffect, useState} from 'react';
 import {
@@ -19,6 +20,7 @@ import {useIdx} from '@ceramic/context/idx';
 import {BasicProfile} from '@ceramicstudio/idx-constants';
 import {IdxSchema} from '@ceramic/types';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
+import Auth from '@ceramic/components/auth';
 
 const layout = {
   labelCol: {span: 4},
@@ -36,14 +38,14 @@ const BasicProfileStep = () => {
   const chainId = getCurrentChainId(state);
   const stepId = getCurrentStepIdForCurrentChain(state);
 
-  const [basicProfileSaved, setBasicProfileSaved] = useState<boolean>(false);
   const [saving, setSaving] = useState<boolean>(false);
+  const [name, setName] = useState<string | undefined>(undefined);
   const [fetching, setFetching] = useState<boolean>(false);
   const [basicProfile, setBasicProfile] = useState<
     BasicProfile | undefined | null
   >(undefined);
 
-  const {idx, currentUserDID} = useIdx();
+  const {idx, isAuthenticated} = useIdx();
 
   const idxDID = getChainInnerState(
     state,
@@ -52,7 +54,18 @@ const BasicProfileStep = () => {
   );
 
   useEffect(() => {
-    if (basicProfileSaved && basicProfile) {
+    if (name) {
+      dispatch({
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.USER_NAME,
+        value: name as string,
+      });
+    }
+  }, [name]);
+
+  useEffect(() => {
+    if (basicProfile) {
       dispatch({
         type: 'SetStepIsCompleted',
         chainId,
@@ -60,16 +73,19 @@ const BasicProfileStep = () => {
         value: true,
       });
     }
-  }, [basicProfileSaved, basicProfile]);
+  }, [basicProfile]);
 
   const saveBasicProfile = async (values: BasicProfile) => {
     setSaving(true);
+    setBasicProfile(null);
+
     const {name} = values;
 
     try {
       // Set BasicProfile (use IndexSchema.BasicProfile)
+      await idx.set(IdxSchema.BasicProfile, {name});
 
-      setBasicProfileSaved(true);
+      setName(name);
     } catch (error) {
       alert(error.message);
     } finally {
@@ -82,7 +98,7 @@ const BasicProfileStep = () => {
       setFetching(true);
 
       // Read basic profile (use IdxSchema.BasicProfile enum)
-      const resp = undefined;
+      const resp = await idx.get<BasicProfile>(IdxSchema.BasicProfile);
 
       setBasicProfile(resp);
     } catch (error) {
@@ -95,61 +111,74 @@ const BasicProfileStep = () => {
   return (
     <Col style={{minHeight: '350px', maxWidth: '700px'}}>
       <div style={{marginBottom: '20px'}}>
-        {currentUserDID ? (
-          <Alert message="You are logged in" type="success" showIcon />
-        ) : (
-          <Alert message="You are not logged in" type="error" showIcon />
-        )}
+        <Auth />
       </div>
-      <Form
-        {...layout}
-        name="transfer"
-        layout="horizontal"
-        onFinish={saveBasicProfile}
-        initialValues={{
-          from: idxDID,
-        }}
-      >
-        <Form.Item label="DID" name="from" required>
-          <Text code>{idxDID}</Text>
-        </Form.Item>
 
-        <Form.Item
-          label="Name"
-          name="name"
-          required
-          tooltip="Your name associated with DID"
-        >
-          <Space direction="vertical">
-            <Input style={{width: '200px'}} />
-          </Space>
-        </Form.Item>
-
-        <Form.Item {...tailLayout}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={saving}
-            loading={saving}
-          >
-            Save
-          </Button>
-        </Form.Item>
-      </Form>
-
-      {basicProfileSaved && (
+      {isAuthenticated && (
         <>
-          <Divider />
-          <Button
-            type="primary"
-            onClick={readBasicProfile}
-            disabled={fetching}
-            loading={fetching}
-          >
-            Get name
-          </Button>
+          <Card title="Challenge #1">
+            <Form
+              {...layout}
+              name="transfer"
+              layout="horizontal"
+              onFinish={saveBasicProfile}
+              initialValues={{
+                from: idxDID,
+              }}
+            >
+              <Form.Item label="DID" name="from" required>
+                <Text code>{idxDID}</Text>
+              </Form.Item>
 
-          {basicProfile && <Text code>Your name: {basicProfile.name}</Text>}
+              <Form.Item
+                label="Name"
+                name="name"
+                required
+                tooltip="Your name associated with DID"
+              >
+                <Space direction="vertical">
+                  <Input style={{width: '200px'}} />
+                </Space>
+              </Form.Item>
+
+              <Form.Item {...tailLayout}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  disabled={saving}
+                  loading={saving}
+                >
+                  Save
+                </Button>
+              </Form.Item>
+            </Form>
+          </Card>
+
+          {name && (
+            <div>
+              <Divider />
+              <Card title="Challenge #2">
+                <Space direction="vertical">
+                  <Button
+                    type="primary"
+                    onClick={readBasicProfile}
+                    disabled={fetching}
+                    loading={fetching}
+                  >
+                    Get name
+                  </Button>
+
+                  {basicProfile && (
+                    <div>
+                      <Text>
+                        Your name is <Text code>{basicProfile.name}</Text>
+                      </Text>
+                    </div>
+                  )}
+                </Space>
+              </Card>
+            </div>
+          )}
         </>
       )}
     </Col>

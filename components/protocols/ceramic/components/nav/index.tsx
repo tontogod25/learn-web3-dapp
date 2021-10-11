@@ -1,6 +1,6 @@
 import {trackStorageCleared} from 'utils/tracking-utils';
 import {Typography, Popover, Button, Select, Tag, Space} from 'antd';
-import type {EntryT} from '@solana/types';
+import type {EntryT} from '@ceramic/types';
 import {getChainInnerState, getCurrentChainId, useGlobalState} from 'context';
 import {CERAMIC_NETWORKS, PROTOCOL_INNER_STATES_ID} from 'types';
 import {FundViewOutlined} from '@ant-design/icons';
@@ -28,13 +28,19 @@ const Nav = () => {
     PROTOCOL_INNER_STATES_ID.DID,
   );
 
-  const Address = ({display, value}: EntryT) => {
+  const name = getChainInnerState(
+    state,
+    chainId,
+    PROTOCOL_INNER_STATES_ID.USER_NAME,
+  );
+
+  const UserInfo = ({display, value}: EntryT) => {
     return (
       <Paragraph copyable={{text: value, tooltips: `Click to copy!`}}>
         <Tag color="gold">
           <Space>
             <FundViewOutlined />
-            <strong>{display(value)}</strong>
+            <strong>{display ? display(value) : value}</strong>
           </Space>
         </Tag>
       </Paragraph>
@@ -57,6 +63,12 @@ const Nav = () => {
         value: null,
       });
       dispatch({
+        type: 'SetStepInnerState',
+        chainId,
+        innerStateId: PROTOCOL_INNER_STATES_ID.USER_NAME,
+        value: null,
+      });
+      dispatch({
         type: 'ClearStepProgression',
         chainId,
       });
@@ -67,15 +79,16 @@ const Nav = () => {
   const menu = () => {
     return (
       <>
+        {name && <UserInfo msg={'Name: '} value={name} />}
         {didAddress && (
-          <Address
+          <UserInfo
             msg={'Address: '}
             value={didAddress}
             display={slicedAddress}
           />
         )}
         {ceramicAddress && (
-          <Address
+          <UserInfo
             msg={'Address: '}
             value={ceramicAddress}
             display={slicedAddress}
@@ -97,9 +110,13 @@ const Nav = () => {
     <StepMenuBar>
       {ceramicAddress && (
         <Popover content={menu} placement="bottomLeft">
-          <DisplayAddress color="orange">
-            {slicedAddress(didAddress || ceramicAddress, 10, 5)}
-          </DisplayAddress>
+          {name ? (
+            <DisplayAddress color="orange">{name}</DisplayAddress>
+          ) : (
+            <DisplayAddress color="orange">
+              {slicedAddress(didAddress || ceramicAddress, 10, 5)}
+            </DisplayAddress>
+          )}
         </Popover>
       )}
     </StepMenuBar>
