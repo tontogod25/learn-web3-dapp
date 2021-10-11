@@ -9,7 +9,6 @@ export enum CHAINS {
   SECRET = 'secret',
   SOLANA = 'solana',
   TEZOS = 'tezos',
-  CERAMIC = 'ceramic',
   THE_GRAPH = 'the_graph',
 }
 

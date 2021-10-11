@@ -74,7 +74,6 @@ const CustomDefinition = () => {
 
     try {
       // Save quote information to custom schema (use IdxSchema.Figment enum)
-      await idx.set(IdxSchema.Figment, {text, author});
 
       setMyQuote({
         text,
@@ -92,7 +91,7 @@ const CustomDefinition = () => {
       setFetching(true);
 
       // Read quote (use IdxSchema.Figment enum)
-      const resp = await idx.get<QuoteSchemaT>(IdxSchema.Figment);
+      const resp = undefined;
 
       setCustomDefinitionData(resp);
     } catch (error) {
