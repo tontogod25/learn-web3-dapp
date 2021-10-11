@@ -84,7 +84,8 @@ const Entity = () => {
             }
             description={
               <Space direction="vertical">
-                <div>Are you sure the expected entities was created?</div>
+                <Text>Are you sure the expected entities was created?</Text>
+                <Text code>{error}</Text>
               </Space>
             }
             type="error"

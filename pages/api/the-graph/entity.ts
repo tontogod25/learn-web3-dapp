@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import fs from 'fs';
 
-const GENERATED_PATH = './subgraphs/punks/subgraph.yaml';
+const GENERATED_PATH = './subgraphs/punks/generated/schema.ts';
 
 export default async function entity(
   _req: NextApiRequest,
@@ -32,6 +32,7 @@ export default async function entity(
     }
     res.status(200).json(true);
   } catch (error) {
-    res.status(500).json(error.message);
+    console.log(error);
+    res.status(500).json(error);
   }
 }

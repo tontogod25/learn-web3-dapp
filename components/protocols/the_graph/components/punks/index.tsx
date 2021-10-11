@@ -14,7 +14,7 @@ import {LoadingOutlined} from '@ant-design/icons';
 import Identicon from 'react-identicons';
 
 const PUNK_CONTRACT_ADDRESS = process.env
-  .NEXT_PUBLIC_PUNK_CONTRACT_ADDRESS as string;
+  .NEXT_PUBLIC_PUNK_DATA_CONTRACT_ADDRESS as string;
 
 const {Text} = Typography;
 

@@ -36,7 +36,7 @@ export default async function manifest(
   try {
     const status = req.body.status as ManifestStepStatusesT;
     const {startBlock, entities, eventHandler} = loadManifest();
-    console.log(eventHandler);
+
     if (startBlock === START_BLOCK) {
       status.block = {
         valid: true,
