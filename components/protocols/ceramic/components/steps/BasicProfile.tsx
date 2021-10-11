@@ -97,6 +97,7 @@ const BasicProfileStep = () => {
       setFetching(true);
 
       // Read basic profile (use IdxSchema.BasicProfile enum)
+      const resp = undefined;
 
       setBasicProfile(resp);
     } catch (error) {
