@@ -470,27 +470,27 @@ export const CHAINS_CONFIG: ChainsType = {
         skippable: true,
       },
       {
-        id: PROTOCOL_STEPS_ID.SCAFFOLD,
+        id: PROTOCOL_STEPS_ID.SUBGRAPH_SCAFFOLD,
         title: 'Create a subgraph scaffold',
         skippable: true,
       },
       {
-        id: PROTOCOL_STEPS_ID.MANIFEST,
+        id: PROTOCOL_STEPS_ID.SUBGRAPH_MANIFEST,
         title: 'Tweak the Manifest',
         skippable: true,
       },
       {
-        id: PROTOCOL_STEPS_ID.ENTITIES,
+        id: PROTOCOL_STEPS_ID.SUBGRAPH_SCHEMA,
         title: 'Define the schema',
         skippable: true,
       },
       {
-        id: PROTOCOL_STEPS_ID.MAPPINGS,
+        id: PROTOCOL_STEPS_ID.SUBGRAPH_MAPPINGS,
         title: 'Implement the mappings',
         skippable: true,
       },
       {
-        id: PROTOCOL_STEPS_ID.QUERY,
+        id: PROTOCOL_STEPS_ID.SUBGRAPH_QUERY,
         title: 'Query the subgraph',
         skippable: true,
       },

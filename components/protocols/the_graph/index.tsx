@@ -21,11 +21,11 @@ const TheGraph: React.FC = () => {
         <SetupWizard showText={true} />
       )}
       {stepId === PROTOCOL_STEPS_ID.GRAPH_NODE && <Node />}
-      {stepId === PROTOCOL_STEPS_ID.SCAFFOLD && <Subgraph />}
-      {stepId === PROTOCOL_STEPS_ID.MANIFEST && <Manifest />}
-      {stepId === PROTOCOL_STEPS_ID.ENTITIES && <Entity />}
-      {stepId === PROTOCOL_STEPS_ID.MAPPINGS && <Mapping />}
-      {stepId === PROTOCOL_STEPS_ID.QUERY && <Query />}
+      {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_SCAFFOLD && <Subgraph />}
+      {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_MANIFEST && <Manifest />}
+      {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_SCHEMA && <Entity />}
+      {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_MAPPINGS && <Mapping />}
+      {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_QUERY && <Query />}
     </>
   );
 };
