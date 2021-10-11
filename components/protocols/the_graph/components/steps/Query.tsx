@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Alert, Col, Space, Typography} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import {

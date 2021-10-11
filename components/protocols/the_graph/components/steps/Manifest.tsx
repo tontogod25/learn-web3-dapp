@@ -46,9 +46,8 @@ const GraphNode = () => {
   const checkStep = async () => {
     setFetching(true);
     setError(null);
-    setStatus(defaultStatus);
     try {
-      const response = await axios.post(`/api/the-graph/manifest`, {status});
+      const response = await axios.get(`/api/the-graph/manifest`);
       setStatus(response.data);
     } catch (error) {
       setError(error.message);

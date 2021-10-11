@@ -18,10 +18,10 @@ const PUNK_CONTRACT_ADDRESS = process.env
 
 const {Text} = Typography;
 
+type providerT = ethers.providers.ExternalProvider;
+
 declare let window: {
-  ethereum:
-    | ethers.providers.ExternalProvider
-    | ethers.providers.JsonRpcFetchFunc;
+  ethereum: providerT;
 };
 
 const {Meta} = Card;
@@ -99,9 +99,13 @@ const Punks = ({data}: {data: PunkdataT[]}) => {
       setPunksData(undefined);
       setLoading(true);
       try {
-        const provider = await detectEthereumProvider();
+        const provider = (await detectEthereumProvider()) as providerT;
 
         if (provider) {
+          await provider.request?.({
+            method: 'eth_requestAccounts',
+          });
+
           const web3provider = new ethers.providers.Web3Provider(
             window.ethereum,
           );
