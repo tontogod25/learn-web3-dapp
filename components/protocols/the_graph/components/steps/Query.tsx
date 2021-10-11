@@ -19,7 +19,7 @@ import Punks from '@the-graph/components/punks';
 
 const {Text} = Typography;
 
-const GRAPHQL_ENDPOINTS = process.env.NEXT_PUBLIC_LOCAL_SUBGRAPH;
+const GRAPHQL_ENDPOINTS = process.env.NEXT_PUBLIC_PUNK_DATA_CONTRACT_ADDRESS;
 
 const client = new ApolloClient({
   uri: GRAPHQL_ENDPOINTS,

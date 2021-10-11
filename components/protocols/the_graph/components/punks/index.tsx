@@ -8,7 +8,8 @@ import {PunkdataT} from '@the-graph/types';
 import styled from 'styled-components';
 import {ethers} from 'ethers';
 import {Card, Space, Typography} from 'antd';
-
+import {LoadingOutlined} from '@ant-design/icons';
+// No type definition available for the following package
 // @ts-ignore
 import Identicon from 'react-identicons';
 
@@ -47,7 +48,6 @@ const DisplayedPunk = ({
       hoverable
       style={{
         width: 165,
-        display: 'block',
         height: 165,
         margin: '10px',
         background: 'gainsboro',
@@ -128,10 +128,15 @@ const Punks = ({data}: {data: PunkdataT[]}) => {
 
   return (
     <CardsContainer>
-      {punksData &&
+      {punksData ? (
         punksData.map((punk: PunkdataT) => {
           return <DisplayedPunk data={punk} key={punk.id} loading={loading} />;
-        })}
+        })
+      ) : loading ? (
+        <LoadingOutlinedStyle>
+          <LoadingOutlined style={{fontSize: '64px'}} spin />
+        </LoadingOutlinedStyle>
+      ) : null}
     </CardsContainer>
   );
 };
@@ -143,6 +148,14 @@ const CardsContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   min-height: 350px;
+`;
+
+const LoadingOutlinedStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  min-width: 100%;
 `;
 
 export default Punks;
