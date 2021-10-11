@@ -57,7 +57,7 @@ const QueryPunks = () => {
           size="large"
           autoFocus={false}
         >
-          Get Ten most expensive punks?
+          Fetch the most valuable CryptoPunks!
         </StepButton>
         {data ? (
           <Punks data={data.punks} />
@@ -81,7 +81,14 @@ const QueryPunks = () => {
 
 const Query = () => {
   if (!GRAPHQL_ENDPOINTS) {
-    return <Alert message="Please setup your env" type="error" showIcon />;
+    return (
+      <Alert
+        message="Make sure you have `NEXT_PUBLIC_LOCAL_SUBGRAPH` in your .env.local file."
+        description="If you make a change to that file retsrat the server!"
+        type="error"
+        showIcon
+      />
+    );
   }
 
   return (

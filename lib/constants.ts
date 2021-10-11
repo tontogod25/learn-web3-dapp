@@ -467,26 +467,32 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.GRAPH_NODE,
         title: 'Run a local Graph node',
+        skippable: true,
       },
       {
-        id: PROTOCOL_STEPS_ID.SUBGRAPH_SCAFFOLD,
+        id: PROTOCOL_STEPS_ID.SCAFFOLD,
         title: 'Create a subgraph scaffold',
+        skippable: true,
       },
       {
-        id: PROTOCOL_STEPS_ID.SUBGRAPH_MANIFEST,
+        id: PROTOCOL_STEPS_ID.MANIFEST,
         title: 'Tweak the Manifest',
+        skippable: true,
       },
       {
-        id: PROTOCOL_STEPS_ID.SUBGRAPH_SCHEMA,
+        id: PROTOCOL_STEPS_ID.ENTITIES,
         title: 'Define the schema',
+        skippable: true,
       },
       {
-        id: PROTOCOL_STEPS_ID.SUBGRAPH_MAPPINGS,
+        id: PROTOCOL_STEPS_ID.MAPPINGS,
         title: 'Implement the mappings',
+        skippable: true,
       },
       {
-        id: PROTOCOL_STEPS_ID.SUBGRAPH_QUERY,
+        id: PROTOCOL_STEPS_ID.QUERY,
         title: 'Query the subgraph',
+        skippable: true,
       },
     ],
   },
