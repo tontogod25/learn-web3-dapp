@@ -73,12 +73,24 @@ const Auth = (props: AuthProps): JSX.Element => {
       value: null,
     });
 
+    dispatch({
+      type: 'SetStepInnerState',
+      chainId,
+      innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
+      value: null,
+    });
+
+    dispatch({
+      type: 'SetStepInnerState',
+      chainId,
+      innerStateId: PROTOCOL_INNER_STATES_ID.USER_NAME,
+      value: null,
+    });
+
     if (onLoggedOut) {
       onLoggedOut();
     }
   };
-
-  console.log('AUTH', userDID, isAuthenticated);
 
   if (userDID && isAuthenticated) {
     return (
@@ -92,16 +104,11 @@ const Auth = (props: AuthProps): JSX.Element => {
         >
           Log Out
         </Button>
-        <Alert
-          message="You are logged in! Click Log Out to clear Local Storage."
-          type="warning"
-          showIcon
-        />
       </Space>
     );
   } else {
     return (
-      <Space>
+      <Space direction="vertical" size="large">
         <Button
           type="primary"
           icon={<PoweroffOutlined />}

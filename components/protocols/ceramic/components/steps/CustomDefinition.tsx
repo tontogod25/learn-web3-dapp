@@ -20,6 +20,7 @@ import {useIdx} from '@ceramic/context/idx';
 import {IdxSchema, QuoteSchemaT} from '@ceramic/types';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
 import Auth from '@ceramic/components/auth';
+import {aliases} from '@ceramic/lib';
 
 const layout = {
   labelCol: {span: 4},
@@ -72,6 +73,8 @@ const CustomDefinition = () => {
     setSaving(true);
     const {text, author} = values;
 
+    setAlias();
+
     try {
       // Save quote information to custom schema (use IdxSchema.Figment enum)
 
@@ -109,10 +112,7 @@ const CustomDefinition = () => {
 
       {isAuthenticated && (
         <>
-          <Card
-            title="Challenge #1"
-            extra={<Button onClick={setAlias}>Set alias</Button>}
-          >
+          <Card title="#1 - Set your favourite quote">
             <Form
               {...layout}
               name="transfer"
@@ -164,7 +164,7 @@ const CustomDefinition = () => {
           {myQuote && (
             <div>
               <Divider />
-              <Card title="Challenge #2">
+              <Card title="#2 - Get your favourite quote">
                 <Button
                   type="primary"
                   onClick={readQuote}

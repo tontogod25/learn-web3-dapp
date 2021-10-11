@@ -97,7 +97,6 @@ const BasicProfileStep = () => {
       setFetching(true);
 
       // Read basic profile (use IdxSchema.BasicProfile enum)
-      const resp = undefined;
 
       setBasicProfile(resp);
     } catch (error) {
@@ -115,7 +114,7 @@ const BasicProfileStep = () => {
 
       {isAuthenticated && (
         <>
-          <Card title="Challenge #1">
+          <Card title="#1 - Set the name">
             <Form
               {...layout}
               name="transfer"
@@ -156,7 +155,7 @@ const BasicProfileStep = () => {
           {name && (
             <div>
               <Divider />
-              <Card title="Challenge #2">
+              <Card title="#2 - Get the name">
                 <Space direction="vertical">
                   <Button
                     type="primary"
