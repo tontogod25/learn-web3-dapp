@@ -1,7 +1,6 @@
 import {ManifestStepStatusesT} from '@the-graph/types';
 
 const getEtherScanContract = (address: string) => {
-  1;
   return `https://etherscan.io/address/${address}`;
 };
 

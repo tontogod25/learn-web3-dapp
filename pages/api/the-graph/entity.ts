@@ -1,15 +1,14 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import fs from 'fs';
 
+const GENERATED_PATH = './subgraphs/punks/subgraph.yaml';
+
 export default async function entity(
   _req: NextApiRequest,
   res: NextApiResponse<boolean | string>,
 ) {
   try {
-    let generatedSchema = fs.readFileSync(
-      './subgraphs/punks/generated/schema.ts',
-      'utf8',
-    );
+    let generatedSchema = fs.readFileSync(GENERATED_PATH, 'utf8');
     // better to use a regex, need some regex expert here!
     // to make the code more robust, but it's working as is.
     let entities = generatedSchema
@@ -31,8 +30,6 @@ export default async function entity(
     if (!(entities[1] === 'Punk')) {
       throw new Error('Punk entity is missing');
     }
-
-    console.log(entities);
     res.status(200).json(true);
   } catch (error) {
     res.status(500).json(error.message);
