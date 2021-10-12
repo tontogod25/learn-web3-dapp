@@ -15,7 +15,7 @@ import axios from 'axios';
 import SetupWizard from 'components/shared/SetupWizard';
 import {StepButton} from 'components/shared/Button.styles';
 import {useColors} from 'hooks';
-import {defaultStatus} from '@the-graph/lib';
+import {defaultManifestStatus} from '@the-graph/lib';
 
 const {Text} = Typography;
 
@@ -23,7 +23,9 @@ const GraphNode = () => {
   const {state, dispatch} = useGlobalState();
   const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
 
-  const [status, setStatus] = useState<ManifestStepStatusesT>(defaultStatus);
+  const [status, setStatus] = useState<ManifestStepStatusesT>(
+    defaultManifestStatus,
+  );
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -46,6 +48,7 @@ const GraphNode = () => {
   const checkStep = async () => {
     setFetching(true);
     setError(null);
+
     try {
       const response = await axios.get(`/api/the-graph/manifest`);
       setStatus(response.data);
