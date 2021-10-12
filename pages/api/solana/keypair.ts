@@ -18,6 +18,7 @@ export default function keypair(
       address,
     });
   } catch (error) {
-    res.status(500).json(error.message);
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }
