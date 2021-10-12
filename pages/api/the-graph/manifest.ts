@@ -37,7 +37,7 @@ export default async function manifest(
 
     if (startBlock === START_BLOCK) {
       status.block = {
-        valid: true,
+        isValid: true,
         message: 'startBlock is 13100000',
       };
     }
@@ -48,14 +48,14 @@ export default async function manifest(
       entities.length == 2
     ) {
       status.entities = {
-        valid: true,
+        isValid: true,
         message: 'Punk and Account entities',
       };
     }
 
     if (eventHandler[0] === EVENT && eventHandler[1] === HANDLER) {
       status.eventHandlers = {
-        valid: true,
+        isValid: true,
         message: 'PunkBought event with handlePunkBought handler',
       };
     }
