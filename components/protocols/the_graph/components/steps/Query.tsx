@@ -84,7 +84,7 @@ const Query = () => {
     return (
       <Alert
         message="Make sure you have `NEXT_PUBLIC_LOCAL_SUBGRAPH` in your .env.local file."
-        description="If you make a change to that file retsrat the server!"
+        description="If you make a change to .env.local, you'll need to restart the server!"
         type="error"
         showIcon
       />
