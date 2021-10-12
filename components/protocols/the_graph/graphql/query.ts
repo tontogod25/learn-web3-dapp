@@ -2,12 +2,8 @@ import {gql} from '@apollo/client';
 
 const TEN_MOST_EXPENSIVE_PUNKS = gql`
   query {
-    punks(first: 1) {
+    punks {
       id
-      index
-      owner {
-        id
-      }
     }
   }
 `;

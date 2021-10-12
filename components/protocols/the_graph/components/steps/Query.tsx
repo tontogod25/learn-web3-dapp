@@ -7,7 +7,7 @@ import {
   ApolloProvider,
   useLazyQuery,
 } from '@apollo/client';
-import TEN_MOST_EXPENSIVE_PUNKS from '@the-graph/graphql';
+import TEN_MOST_EXPENSIVE_PUNKS from '@the-graph/graphql/query';
 import {
   getCurrentChainId,
   useGlobalState,
