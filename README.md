@@ -1,26 +1,24 @@
 # 👋🏼 What is `learn-web3-dapp`?
 
-We made this decentralized application (dApp) to help developers learn about Web 3 protocols. It's a Next.js app that used React, TypeScript and various smart contract languages (mostly Solidity and Rust).
+We made this decentralized application (dApp) to help developers learn about Web 3 protocols.
+
+It's a Next.js app that used React, TypeScript and various smart contract languages (mostly Solidity and Rust).
 
 We will guide you to build up a simple web client using the various blockchain's JavaScript SDKs to interact with their networks. Each protocol is slightly different, but we have attempted to standardize the workflow so that you can quickly get up to speed on networks like Solana, NEAR, Polygon and more!
 
-**Supported** ✅
-
-- Solana
-- Polygon
-- Avalanche
-- NEAR
-- Tezos
-- Secret
-- Polkadot
-
-**Coming soon!** 🔜
-
-- The Graph
-- Ceramic
-- Arweave
-
-Learn more about [Figment](https://figment.io/) and [Figment Learn](https://learn.figment.io/)
+- ✅ Solana
+- ✅ Polygon
+- ✅ Avalanche
+- ✅ NEAR
+- ✅ Tezos
+- ✅ Secret
+- ✅ Polkadot
+- ✅ Ceramic
+- 🔜 The Graph
+- 🔜 Arweave
+- 🔜 Chainlink
+- 🔜 Pyth
+- [Let us know which one you'd like us to cover](https://github.com/figment-networks/learn-web3-dapp/issues)
 
 <img width="1431" alt="Screen Shot 2021-10-08 at 9 13 07 AM" src="https://user-images.githubusercontent.com/206753/136563367-1c51c133-c7f1-47f7-a692-acab734cec37.png">
 
