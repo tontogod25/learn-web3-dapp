@@ -36,6 +36,7 @@ export const defaultEntityStatus: EntityStepStatusesT = {
 
 type WEI = string;
 type ETH = string;
+
 export const toEther = (amountInWei: WEI): ETH => {
   // 1 ETH = 10**18 wei
   const DECIMAL_OFFSET = 10 ** 18;
@@ -44,6 +45,3 @@ export const toEther = (amountInWei: WEI): ETH => {
   );
   return (centiEther / 100).toFixed(2);
 };
-
-export const toDate = (timeStamp: number) =>
-  new Date(timeStamp * 1000).toLocaleDateString();
