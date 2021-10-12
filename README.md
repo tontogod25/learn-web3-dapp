@@ -36,15 +36,7 @@ cd learn-web3-dapp
 yarn
 ```
 
-If you encounter any errors during this process, please join our [Discord](https://discord.gg/fszyM7K) for help.
-
-# 🧩 DataHub API keys
-
-To make use of the Pathway content, you will require a DataHub account and a valid API key for the protocol you wish to access via DataHub's infrastructure.
-[Sign up for a DataHub account](https://auth.figment.io/sign_up) and verify your email address, then visit the [DataHub Services Dashboard](https://datahub.figment.io/) and select the protocol you want to access. You will then be able to copy your personal API key.
-
-You will need to create a new file in the project root directory `~/learn-web3-dapp/.env.local`, copying the contents of the existing `.env.example` file.
-Your API key needs to be pasted into `.env.local` so that you can authenticate your connections with DataHub.
+If you encounter any errors during this process, please join our [Discord](https://figment.io/devchat) for help.
 
 # 💻 Running the development server
 
