@@ -1,11 +1,11 @@
 import {gql} from '@apollo/client';
 
-const TEN_MOST_EXPENSIVE_PUNKS = gql`
+const MOST_VALUABLE_PUNKS_QUERY = gql`
   query {
-    punks {
+    punks(first: 1) {
       id
     }
   }
 `;
 
-export default TEN_MOST_EXPENSIVE_PUNKS;
+export default MOST_VALUABLE_PUNKS_QUERY;

@@ -14,13 +14,13 @@ const PUNK_CONTRACT_ADDRESS = process.env
 
 const {Text} = Typography;
 
+const {Meta} = Card;
+
 type providerT = ethers.providers.ExternalProvider;
 
 declare let window: {
   ethereum: providerT;
 };
-
-const {Meta} = Card;
 
 const PunkSvg = ({
   svgString,
