@@ -17,23 +17,21 @@ const loadManifest = () => {
 
   let startBlock = data.dataSources[0].source.startBlock;
   let entities = data.dataSources[0].mapping.entities;
-  let eventHandler = Object.values(
-    data.dataSources[0].mapping.eventHandlers[0],
-  );
+  let eventHandlers = data.dataSources[0].mapping.eventHandlers;
   return {
     startBlock,
     entities,
-    eventHandler,
+    eventHandlers,
   };
 };
 
 export default async function manifest(
-  req: NextApiRequest,
+  _req: NextApiRequest,
   res: NextApiResponse<ManifestStepStatusesT | string>,
 ) {
   try {
     const status = defaultManifestStatus;
-    const {startBlock, entities, eventHandler} = loadManifest();
+    const {startBlock, entities, eventHandlers} = loadManifest();
 
     if (startBlock === START_BLOCK) {
       status.block = {
@@ -53,7 +51,11 @@ export default async function manifest(
       };
     }
 
-    if (eventHandler[0] === EVENT && eventHandler[1] === HANDLER) {
+    if (
+      eventHandlers.length === 1 &&
+      eventHandlers[0]['event'] === EVENT &&
+      eventHandlers[0]['handler'] === HANDLER
+    ) {
       status.eventHandlers = {
         isValid: true,
         message: 'PunkBought event with handlePunkBought handler',

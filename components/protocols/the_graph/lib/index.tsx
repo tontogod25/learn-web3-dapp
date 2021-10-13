@@ -22,7 +22,7 @@ export const defaultManifestStatus: ManifestStepStatusesT = {
 export const defaultEntityStatus: EntityStepStatusesT = {
   entities: {
     isValid: false,
-    message: 'Too many entities',
+    message: 'Numbers of entities mismatch',
   },
   account: {
     isValid: false,

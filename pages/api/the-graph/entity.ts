@@ -30,14 +30,14 @@ export default async function entity(
       };
     }
 
-    if (entities[0] === 'Account') {
+    if (entities.includes('Account')) {
       status.account = {
         isValid: true,
         message: 'Account entity defined',
       };
     }
 
-    if (entities[1] === 'Punk') {
+    if (entities.includes('Punk')) {
       status.punk = {
         isValid: true,
         message: 'Punk entity defined',

@@ -7,7 +7,7 @@ import {
   ApolloProvider,
   useLazyQuery,
 } from '@apollo/client';
-import TEN_MOST_EXPENSIVE_PUNKS from '@the-graph/graphql/query';
+import MOST_VALUABLE_PUNKS_QUERY from '@the-graph/graphql/query';
 import {
   getCurrentChainId,
   useGlobalState,
@@ -30,7 +30,7 @@ const QueryPunks = () => {
   const {state, dispatch} = useGlobalState();
   const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
   const [getAssignedPunk, {loading, error, data}] = useLazyQuery(
-    TEN_MOST_EXPENSIVE_PUNKS,
+    MOST_VALUABLE_PUNKS_QUERY,
   );
 
   useEffect(() => {

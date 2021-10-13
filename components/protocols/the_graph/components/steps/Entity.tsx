@@ -82,7 +82,8 @@ const Entity = () => {
                 <Space direction="vertical">
                   <EntityStatus status={status} />
                   <div>
-                    Now let's map our entities to the smart contract events.
+                    Now let&apos;s map our entities to the smart contract
+                    events.
                   </div>
                 </Space>
               }
@@ -91,25 +92,31 @@ const Entity = () => {
             />
             <SetupWizard />
           </>
-        ) : error ? (
+        ) : (
           <Alert
             message={
               <Text strong>We couldn&apos;t find the expected entities 😢</Text>
             }
             description={
-              <Space direction="vertical">
-                <Text>This is the error we're getting:</Text>
-                <Text code>{error}</Text>
-                {error.indexOf('ENOENT') > -1 && (
-                  <Text>{`Are you sure you ran 'yarn codegen'?`}</Text>
-                )}
-              </Space>
+              <EntityStatus
+                status={status}
+                text="Make sure you ran 'yarn codegen'!"
+              />
             }
             type="error"
             showIcon
-            closable
           />
-        ) : null}
+        )}
+        {error && (
+          <Alert
+            message={<Text strong>An unexpected error occurs 😢</Text>}
+            description={<Text code>{error}</Text>}
+            type="error"
+            showIcon
+            closable
+            onClose={() => setError(null)}
+          />
+        )}
       </Space>
     </Col>
   );
@@ -146,3 +153,12 @@ const EntityStatus = ({
 };
 
 export default Entity;
+
+/*
+NB: It's very unlikely this error could occurs: 'yarn codegen' is automatically ran 
+when we scallfold the subgraph then the file 'generated/schema.ts' is already there.
+
+  {error.indexOf('ENOENT') > -1 && (
+    <Text>{`Are you sure you ran 'yarn codegen'?`}</Text>
+  )}
+*/
