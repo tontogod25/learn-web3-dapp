@@ -109,12 +109,11 @@ const Entity = () => {
         )}
         {error && (
           <Alert
-            message={<Text strong>An unexpected error occurs 😢</Text>}
+            message={<Text strong>An unexpected error occured 😢</Text>}
             description={<Text code>{error}</Text>}
             type="error"
             showIcon
             closable
-            onClose={() => setError(null)}
           />
         )}
       </Space>
