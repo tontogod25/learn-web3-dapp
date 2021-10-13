@@ -45,9 +45,7 @@ const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
         <Progress
           type="circle"
           percent={(stepIndex / steps.length) * 100}
-          format={(percent) =>
-            `${(percent * steps.length) / 100}/${steps.length}`
-          }
+          format={() => `${stepIndex}/${steps.length}`}
           width={50}
           trailColor={'white'}
         />
