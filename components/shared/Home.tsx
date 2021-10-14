@@ -20,7 +20,11 @@ const Home = () => {
           Learn the Web 3 stack{' '}
           <Brand>
             by{' '}
-            <a href="https://learn.figment.io/" target="_blank" rel="">
+            <a
+              href="https://learn.figment.io/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Figment
             </a>
           </Brand>
@@ -54,6 +58,7 @@ const Home = () => {
               <Protocol chain={CHAINS.POLKADOT} />
               <Protocol chain={CHAINS.TEZOS} />
               <Protocol chain={CHAINS.SECRET} />
+              <Protocol chain={CHAINS.CELO} />
             </ChainRow>
           </Col>
         </Row>
