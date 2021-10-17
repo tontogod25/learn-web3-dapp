@@ -32,7 +32,10 @@ export default async function transfer(
     // Maybe adding something to a Transaction could be interesting ?
     const transaction = new Transaction();
 
-    const hash = res.status(200).json(hash); // You should know what is expected here.
+    // We can send and confirm a transaction in one row.
+    const hash = undefined;
+
+    res.status(200).json(hash);
   } catch (error) {
     let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
     res.status(500).json(errorMessage);
