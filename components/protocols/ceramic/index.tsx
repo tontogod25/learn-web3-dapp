@@ -19,7 +19,7 @@ import {
   getCurrentStepIdForCurrentChain,
   useGlobalState,
 } from 'context';
-import {getNodeURL} from '@funnel/datahub';
+import {getNodeURL} from 'utils/datahub';
 import SetupWizard from 'components/shared/SetupWizard';
 
 const Ceramic: React.FC = () => {

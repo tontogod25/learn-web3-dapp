@@ -1,7 +1,7 @@
 import {getPolygonAddressExplorerURL} from '@polygon/lib';
 import {Typography, Popover, Button, Tag, Space, Select} from 'antd';
 import type {EntryT} from '@polygon/types';
-import {trackStorageCleared} from '@funnel/tracking-utils';
+import {trackStorageCleared} from 'utils/tracking-utils';
 import {FundViewOutlined} from '@ant-design/icons';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 import {getCurrentChainId, useGlobalState, getChainInnerState} from 'context';

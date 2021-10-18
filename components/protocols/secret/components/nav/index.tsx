@@ -2,7 +2,7 @@ import {Typography, Popover, Button} from 'antd';
 import {useAppState} from 'components/protocols/secret/hooks';
 import type {EntryT} from 'components/protocols/secret/types';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
-import {trackStorageCleared} from '../../../../../utils/tracking-utils';
+import {trackStorageCleared} from 'utils/tracking-utils';
 
 const {Text, Paragraph} = Typography;
 

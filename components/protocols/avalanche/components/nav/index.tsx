@@ -4,7 +4,7 @@ import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 import {getCurrentChainId, useGlobalState} from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
 import {getAvalancheInnerState} from '@avalanche/lib';
-import {trackStorageCleared} from '@funnel/tracking-utils';
+import {trackStorageCleared} from 'utils/tracking-utils';
 
 const {Option} = Select;
 
