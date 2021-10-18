@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Alert, Button, Col, Space, Typography, Input} from 'antd';
-import {useAppState} from '@tezos/hooks';
-import {accountUrl} from '@tezos/lib';
+import {useAppState} from '@figment-tezos/hooks';
+import {accountUrl} from '@figment-tezos/lib';
 import axios from 'axios';
 
 const {Text} = Typography;

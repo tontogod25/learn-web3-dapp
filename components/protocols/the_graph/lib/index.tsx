@@ -1,4 +1,7 @@
-import {ManifestStepStatusesT, EntityStepStatusesT} from '@the-graph/types';
+import {
+  ManifestStepStatusesT,
+  EntityStepStatusesT,
+} from '@figment-the-graph/types';
 
 export const getEtherScanContract = (address: string) => {
   return `https://etherscan.io/address/${address}`;

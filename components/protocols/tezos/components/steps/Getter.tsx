@@ -1,5 +1,5 @@
 import {Alert, Col, Button, Space, Typography} from 'antd';
-import {useAppState} from '@tezos/hooks';
+import {useAppState} from '@figment-tezos/hooks';
 import {useState} from 'react';
 import axios from 'axios';
 

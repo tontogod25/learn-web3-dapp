@@ -2,8 +2,8 @@ import {useEffect, useState} from 'react';
 import {Alert, Col, Input, Button, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import axios from 'axios';
-import {useAppState} from '@secret/hooks';
-import {transactionUrl} from '@secret/lib';
+import {useAppState} from '@figment-secret/hooks';
+import {transactionUrl} from '@figment-secret/lib';
 
 const {Text} = Typography;
 

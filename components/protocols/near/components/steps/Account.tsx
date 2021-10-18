@@ -1,10 +1,10 @@
 import {Alert, Button, Col, Space, Typography, Input} from 'antd';
-import {getPublicKey, getAccountUrl} from '@near/lib';
+import {getPublicKey, getAccountUrl} from '@figment-near/lib';
 import {useGlobalState} from 'context';
 import {useState} from 'react';
 import axios from 'axios';
 
-import type {CheckAccountIdT, AlertT} from '@near/types';
+import type {CheckAccountIdT, AlertT} from '@figment-near/types';
 
 const {Text} = Typography;
 

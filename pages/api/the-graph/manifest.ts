@@ -1,9 +1,9 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import type {ManifestStepStatusesT} from '@the-graph/types';
-import {manifestT} from '@the-graph/types';
+import type {ManifestStepStatusesT} from '@figment-the-graph/types';
+import {manifestT} from '@figment-the-graph/types';
 import yaml from 'js-yaml';
 import fs from 'fs';
-import {defaultManifestStatus} from '@the-graph/lib';
+import {defaultManifestStatus} from '@figment-the-graph/lib';
 
 const START_BLOCK = 13100000;
 const MANIFEST_PATH = './subgraphs/punks/subgraph.yaml';

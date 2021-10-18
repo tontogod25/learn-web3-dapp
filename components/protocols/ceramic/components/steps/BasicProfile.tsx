@@ -16,11 +16,11 @@ import {
   getCurrentStepIdForCurrentChain,
   useGlobalState,
 } from 'context';
-import {useIdx} from '@ceramic/context/idx';
+import {useIdx} from '@figment-ceramic/context/idx';
 import {BasicProfile} from '@ceramicstudio/idx-constants';
-import {IdxSchema} from '@ceramic/types';
+import {IdxSchema} from '@figment-ceramic/types';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
-import Auth from '@ceramic/components/auth';
+import Auth from '@figment-ceramic/components/auth';
 
 const layout = {
   labelCol: {span: 4},

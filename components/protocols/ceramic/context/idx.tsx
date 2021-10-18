@@ -13,7 +13,7 @@ import CeramicClient from '@ceramicnetwork/http-client';
 import {EthereumAuthProvider, ThreeIdConnect} from '@3id/connect';
 import {DID} from 'dids';
 import ThreeIdResolver from '@ceramicnetwork/3id-did-resolver';
-import {aliases} from '@ceramic/lib';
+import {aliases} from '@figment-ceramic/lib';
 import detectEthereumProvider from '@metamask/detect-provider';
 
 const IdxContext = createContext<{

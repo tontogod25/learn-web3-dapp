@@ -7,7 +7,7 @@ import {
   useGlobalState,
   getCurrentStepIdForCurrentChain,
 } from 'context';
-import {getAvalancheInnerState} from '@avalanche/lib';
+import {getAvalancheInnerState} from '@figment-avalanche/lib';
 
 const {Text} = Typography;
 

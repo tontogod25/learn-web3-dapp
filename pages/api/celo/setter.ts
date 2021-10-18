@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getSafeUrl} from '@celo/lib';
+import {getSafeUrl} from '@figment-celo/lib';
 import {newKit} from '@celo/contractkit';
 import HelloWorld from 'contracts/celo/HelloWorld.json';
 

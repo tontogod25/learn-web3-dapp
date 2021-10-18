@@ -7,8 +7,8 @@ import {
   Deploy,
   Getter,
   Setter,
-} from '@near/components/steps';
-// import Nav from '@near/components/nav';
+} from '@figment-near/components/steps';
+// import Nav from '@figment-near/components/nav';
 import {ChainType, PROTOCOL_STEPS_ID, MarkdownForChainIdT} from 'types';
 import Layout from 'components/shared/Layout';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';

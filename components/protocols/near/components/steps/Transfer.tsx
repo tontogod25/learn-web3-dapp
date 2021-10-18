@@ -1,6 +1,6 @@
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {getTransactionUrl} from '@near/lib';
+import {getTransactionUrl} from '@figment-near/lib';
 import {useGlobalState} from 'context';
 import {useState} from 'react';
 import axios from 'axios';

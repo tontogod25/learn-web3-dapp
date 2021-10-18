@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {Alert, Button, Space} from 'antd';
 import {LinkOutlined, PoweroffOutlined} from '@ant-design/icons';
-import {useIdx} from '@ceramic/context/idx';
+import {useIdx} from '@figment-ceramic/context/idx';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
 import {getChainInnerState, getCurrentChainId, useGlobalState} from 'context';
 

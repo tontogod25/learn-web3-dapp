@@ -1,10 +1,9 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {PolkadotAccountResponse} from '@polkadot/types';
-import {Keyring} from '@polkadot/api';
+import {PolkadotAccountResponse} from '@figment-polkadot/types';
+import {Keyring, ApiPromise} from '@polkadot/api';
 import {mnemonicGenerate, mnemonicValidate} from '@polkadot/util-crypto';
-import {ApiPromise} from '@polkadot/api';
 import {WsProvider} from '@polkadot/rpc-provider';
-import {getSafeUrl} from '@polkadot/lib';
+import {getSafeUrl} from '@figment-polkadot/lib';
 
 const DECIMAL_OFFSET = 10 ** 12;
 

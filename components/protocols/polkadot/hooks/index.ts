@@ -1,6 +1,6 @@
 import {useState, useContext} from 'react';
-import type {State} from '@polkadot/context';
-import {PolkadotContext} from '@polkadot/context';
+import type {State} from '@figment-polkadot/context';
+import {PolkadotContext} from '@figment-polkadot/context';
 
 // TODO
 // Delete

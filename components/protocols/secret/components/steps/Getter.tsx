@@ -1,5 +1,5 @@
 import {Alert, Col, Button, Space, Typography} from 'antd';
-import {useAppState} from '@secret/hooks';
+import {useAppState} from '@figment-secret/hooks';
 import {useState} from 'react';
 import axios from 'axios';
 

@@ -1,8 +1,8 @@
 import CryptopunksData from 'contracts/the_graph/CryptopunksData.abi.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import React, {useEffect, useState} from 'react';
-import {toEther} from '@the-graph/lib';
-import {PunkdataT} from '@the-graph/types';
+import {toEther} from '@figment-the-graph/lib';
+import {PunkdataT} from '@figment-the-graph/types';
 import styled from 'styled-components';
 import {ethers} from 'ethers';
 import {Card, Row, Space, Typography} from 'antd';

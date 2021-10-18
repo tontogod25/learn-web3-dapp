@@ -1,6 +1,6 @@
 import {Connection, PublicKey, LAMPORTS_PER_SOL} from '@solana/web3.js';
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getNodeURL} from '@solana/lib';
+import {getNodeURL} from '@figment-solana/lib';
 
 export default async function fund(
   req: NextApiRequest,

@@ -8,10 +8,14 @@ import {
   Deploy,
   Getter,
   Setter,
-} from '@secret/components/steps';
-import {appStateReducer, initialState, SecretContext} from '@secret/context';
-import {useLocalStorage} from '@secret/hooks';
-import Nav from '@secret/components/nav';
+} from '@figment-secret/components/steps';
+import {
+  appStateReducer,
+  initialState,
+  SecretContext,
+} from '@figment-secret/context';
+import {useLocalStorage} from '@figment-secret/hooks';
+import Nav from '@figment-secret/components/nav';
 import {PROTOCOL_STEPS_ID, ChainType} from 'types';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 import SetupWizard from 'components/shared/SetupWizard';

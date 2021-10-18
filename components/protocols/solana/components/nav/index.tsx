@@ -1,6 +1,6 @@
 import {trackStorageCleared} from 'utils/tracking-utils';
 import {Typography, Popover, Button, Select} from 'antd';
-import type {EntryT, ErrorT} from '@solana/types';
+import type {EntryT, ErrorT} from '@figment-solana/types';
 import ReactJson from 'react-json-view';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 import {
@@ -11,7 +11,7 @@ import {
   getFirstStepIdForCurrentChain,
 } from 'context';
 import {PROTOCOL_INNER_STATES_ID, SOLANA_NETWORKS} from 'types';
-import {getSolanaInnerState} from '@solana/lib';
+import {getSolanaInnerState} from '@figment-solana/lib';
 
 const {Option} = Select;
 
