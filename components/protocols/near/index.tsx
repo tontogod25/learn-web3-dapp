@@ -7,8 +7,8 @@ import {
   Deploy,
   Getter,
   Setter,
-} from '@near/components/steps';
-// import Nav from '@near/components/nav';
+} from '@figment-near/components/steps';
+import Nav from '@figment-near/components/nav';
 import {ChainType, PROTOCOL_STEPS_ID, MarkdownForChainIdT} from 'types';
 import Layout from 'components/shared/Layout';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
@@ -20,13 +20,13 @@ const Near: React.FC = () => {
 
   return (
     <>
-      {/* <Nav /> */}
+      <Nav />
       {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
         <SetupWizard showText={true} />
       )}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_KEYPAIR && <Keys />}
-      {stepId === PROTOCOL_STEPS_ID.CREATE_KEYPAIR && <Account />}
+      {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
       {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
       {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}

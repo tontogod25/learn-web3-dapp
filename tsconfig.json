@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@near/*": ["components/protocols/near/*"],
+      "@figment-near/*": ["components/protocols/near/*"],
       "@polkadot/*": ["components/protocols/polkadot/*"],
       "@solana/*": ["components/protocols/solana/*"],
       "@celo/*": ["components/protocols/celo/*"],
