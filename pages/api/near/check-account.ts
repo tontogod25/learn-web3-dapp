@@ -7,7 +7,7 @@ export default async function (
   res: NextApiResponse<boolean | string>,
 ) {
   try {
-    const {NETWORK, ACCOUNT_ID} = req.body;
+    const {freeAccountId, NETWORK} = req.body;
     const config = configFromNetwork(NETWORK);
     const near = await connect(config);
     // try to query the account info of the
