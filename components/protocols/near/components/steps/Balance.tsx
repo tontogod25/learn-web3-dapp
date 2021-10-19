@@ -3,7 +3,7 @@ import {Alert, Col, Input, Button, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import axios from 'axios';
 import {useGlobalState} from 'context';
-import {getAccountUrl} from '@near/lib';
+import {getAccountUrl} from '@figment-near/lib';
 
 const {Text} = Typography;
 

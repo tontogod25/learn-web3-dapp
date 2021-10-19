@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Alert, Button, Col, Space, Typography} from 'antd';
-import {getPolygonAddressExplorerURL} from '@polygon/lib';
+import {getPolygonAddressExplorerURL} from '@figment-polygon/lib';
 import {useState, useEffect} from 'react';
-import {getPolygonInnerState} from '@polygon/lib';
+import {getPolygonInnerState} from '@figment-polygon/lib';
 import {ethers} from 'ethers';
 import {
   getCurrentChainId,

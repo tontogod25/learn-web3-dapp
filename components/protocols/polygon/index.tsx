@@ -1,4 +1,4 @@
-import Nav from '@polygon/components/nav';
+import Nav from '@figment-polygon/components/nav';
 import Layout from 'components/shared/Layout';
 import {ChainType, MarkdownForChainIdT, PROTOCOL_STEPS_ID} from 'types';
 import {
@@ -10,7 +10,7 @@ import {
   Setter,
   Getter,
   Transfer,
-} from '@polygon/components/steps';
+} from '@figment-polygon/components/steps';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 import SetupWizard from 'components/shared/SetupWizard';
 

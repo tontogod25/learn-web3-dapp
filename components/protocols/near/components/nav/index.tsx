@@ -1,7 +1,7 @@
 import {Select, Typography, Popover, Button} from 'antd';
 import {useGlobalState} from 'context';
-import {getPrettyPublicKey} from '@near/lib';
-import type {EntryT} from '@near/types';
+import {getPrettyPublicKey} from '@figment-near/lib';
+import type {EntryT} from '@figment-near/types';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 import {trackStorageCleared} from 'utils/tracking-utils';
 

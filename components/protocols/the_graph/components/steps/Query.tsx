@@ -7,7 +7,7 @@ import {
   ApolloProvider,
   useLazyQuery,
 } from '@apollo/client';
-import MOST_VALUABLE_PUNKS_QUERY from '@the-graph/graphql/query';
+import MOST_VALUABLE_PUNKS_QUERY from '@figment-the-graph/graphql/query';
 import {
   getCurrentChainId,
   useGlobalState,
@@ -15,7 +15,7 @@ import {
 } from 'context';
 import {useColors} from 'hooks';
 import {StepButton} from 'components/shared/Button.styles';
-import Punks from '@the-graph/components/punks';
+import Punks from '@figment-the-graph/components/punks';
 
 const {Text} = Typography;
 

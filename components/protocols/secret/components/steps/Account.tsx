@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Alert, Button, Col, Space, Typography} from 'antd';
-import {useAppState} from '@secret/hooks';
+import {useAppState} from '@figment-secret/hooks';
 import axios from 'axios';
 import {mnemonic} from 'avalanche/dist/utils';
 

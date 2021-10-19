@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getAvalancheClient} from '@avalanche/lib';
-import {BalanceT} from '@avalanche/types';
+import {getAvalancheClient} from '@figment-avalanche/lib';
+import {BalanceT} from '@figment-avalanche/types';
 
 export default async function balance(
   req: NextApiRequest,

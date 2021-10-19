@@ -1,6 +1,6 @@
 import {Typography, Popover, Button} from 'antd';
-import {useAppState} from '@polkadot/hooks';
-import type {EntryT} from '@polkadot/types';
+import {useAppState} from '@figment-polkadot/hooks';
+import type {EntryT} from '@figment-polkadot/types';
 import {trackStorageCleared} from 'utils/tracking-utils';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 

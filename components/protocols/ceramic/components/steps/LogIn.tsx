@@ -7,7 +7,7 @@ import {
   useGlobalState,
 } from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
-import Auth from '@ceramic/components/auth';
+import Auth from '@figment-ceramic/components/auth';
 
 const {Text} = Typography;
 

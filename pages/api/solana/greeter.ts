@@ -7,7 +7,7 @@ import {
   sendAndConfirmTransaction,
 } from '@solana/web3.js';
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getNodeURL} from '@solana/lib';
+import {getNodeURL} from '@figment-solana/lib';
 import * as borsh from 'borsh';
 
 // The state of a greeting account managed by the hello world program

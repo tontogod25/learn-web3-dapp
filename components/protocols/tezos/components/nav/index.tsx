@@ -1,6 +1,6 @@
 import {Typography, Popover, Button} from 'antd';
-import {useAppState} from '@tezos/hooks';
-import type {EntryT} from '@tezos/types';
+import {useAppState} from '@figment-tezos/hooks';
+import type {EntryT} from '@figment-tezos/types';
 import {trackStorageCleared} from 'utils/tracking-utils';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 

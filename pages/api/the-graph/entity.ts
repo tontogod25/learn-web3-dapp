@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import fs from 'fs';
-import {defaultEntityStatus} from '@the-graph/lib';
-import {EntityStepStatusesT} from '@the-graph/types';
+import {defaultEntityStatus} from '@figment-the-graph/lib';
+import {EntityStepStatusesT} from '@figment-the-graph/types';
 
 const GENERATED_PATH = './subgraphs/punks/generated/schema.ts';
 

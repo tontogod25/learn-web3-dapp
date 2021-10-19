@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {Connection, PublicKey} from '@solana/web3.js';
-import {getNodeURL} from '@solana/lib';
+import {getNodeURL} from '@figment-solana/lib';
 import path from 'path';
 import fs from 'mz/fs';
 

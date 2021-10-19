@@ -7,10 +7,14 @@ import {
   Account,
   Deploy,
   Transfer,
-} from '@tezos/components/steps';
-import {appStateReducer, initialState, TezosContext} from '@tezos/context';
-import {useLocalStorage} from '@tezos/hooks';
-import Nav from '@tezos/components/nav';
+} from '@figment-tezos/components/steps';
+import {
+  appStateReducer,
+  initialState,
+  TezosContext,
+} from '@figment-tezos/context';
+import {useLocalStorage} from '@figment-tezos/hooks';
+import Nav from '@figment-tezos/components/nav';
 import {PROTOCOL_STEPS_ID, ChainType, MarkdownForChainIdT} from 'types';
 import Layout from 'components/shared/Layout';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';

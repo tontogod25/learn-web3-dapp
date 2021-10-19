@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@tezos/hooks';
-import {transactionUrl} from '@tezos/lib';
+import {useAppState} from '@figment-tezos/hooks';
+import {transactionUrl} from '@figment-tezos/lib';
 import axios from 'axios';
 
 const layout = {

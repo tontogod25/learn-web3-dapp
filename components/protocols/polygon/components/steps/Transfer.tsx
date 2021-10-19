@@ -1,5 +1,5 @@
 import {Button, Alert, Space, Typography, Col} from 'antd';
-import {getPolygonTxExplorerURL} from '@polygon/lib';
+import {getPolygonTxExplorerURL} from '@figment-polygon/lib';
 import {useState, useEffect} from 'react';
 import {ethers} from 'ethers';
 import {

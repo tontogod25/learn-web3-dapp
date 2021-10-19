@@ -1,10 +1,10 @@
 import {Alert, Col, Button, Space, Typography, Modal} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {transactionExplorer} from '@solana/lib';
-import {ErrorBox} from '@solana/components/nav';
+import {transactionExplorer} from '@figment-solana/lib';
+import {ErrorBox} from '@figment-solana/components/nav';
 import {useEffect, useState} from 'react';
-import type {ErrorT} from '@solana/types';
-import {prettyError} from '@solana/lib';
+import type {ErrorT} from '@figment-solana/types';
+import {prettyError} from '@figment-solana/lib';
 import {
   getCurrentChainId,
   useGlobalState,

@@ -1,6 +1,6 @@
 import {trackStorageCleared} from 'utils/tracking-utils';
 import {Typography, Popover, Button, Select, Tag, Space} from 'antd';
-import type {EntryT} from '@ceramic/types';
+import type {EntryT} from '@figment-ceramic/types';
 import {getChainInnerState, getCurrentChainId, useGlobalState} from 'context';
 import {CERAMIC_NETWORKS, PROTOCOL_INNER_STATES_ID} from 'types';
 import {FundViewOutlined} from '@ant-design/icons';

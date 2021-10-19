@@ -5,8 +5,8 @@ import {
   Transfer,
   Import,
   Export,
-} from '@avalanche/components/steps';
-import Nav from '@avalanche/components/nav';
+} from '@figment-avalanche/components/steps';
+import Nav from '@figment-avalanche/components/nav';
 import Layout from 'components/shared/Layout';
 import React from 'react';
 import {ChainType, PROTOCOL_STEPS_ID, MarkdownForChainIdT} from 'types';

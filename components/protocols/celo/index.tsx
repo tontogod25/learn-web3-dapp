@@ -8,9 +8,13 @@ import {
   Deploy,
   Getter,
   Setter,
-} from '@celo/components/steps';
-import {appStateReducer, initialState, CeloContext} from '@celo/context';
-import {useLocalStorage} from '@celo/hooks';
+} from '@figment-celo/components/steps';
+import {
+  appStateReducer,
+  initialState,
+  CeloContext,
+} from '@figment-celo/context';
+import {useLocalStorage} from '@figment-celo/hooks';
 import {PROTOCOL_STEPS_ID, ChainType} from 'types';
 import Layout from 'components/shared/Layout';
 import Nav from './components/nav';

@@ -1,6 +1,6 @@
 import Layout from 'components/shared/Layout';
 import {ChainType, PROTOCOL_STEPS_ID, MarkdownForChainIdT} from 'types';
-import Nav from '@solana/components/nav';
+import Nav from '@figment-solana/components/nav';
 import {
   Connect,
   Keypair,
@@ -11,7 +11,7 @@ import {
   Greeter,
   Getter,
   Setter,
-} from '@solana/components/steps';
+} from '@figment-solana/components/steps';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 import SetupWizard from 'components/shared/SetupWizard';
 
