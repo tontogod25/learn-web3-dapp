@@ -7,15 +7,15 @@ export default async function (
   res: NextApiResponse<string>,
 ) {
   try {
-    const {network, accountId} = req.body;
-    const config = configFromNetwork(network);
+    const {NETWORK, ACCOUNT_ID} = req.body;
+    const config = configFromNetwork(NETWORK);
     const near = await connect(config);
-    const account = await near.account(accountId);
+    const account = await near.account(ACCOUNT_ID);
     // Using ViewFunction try to call the contract
     const response = undefined;
     return res.status(200).json(response);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json('Reading Message of Contract failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    return res.status(500).json(errorMessage);
   }
 }
