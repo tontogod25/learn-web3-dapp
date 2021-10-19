@@ -14,17 +14,17 @@ We will guide you to build up a simple web client using the various blockchain's
 - ✅ Secret
 - ✅ Polkadot
 - ✅ Ceramic
-- 🔜 The Graph
+- ✅ The Graph
 - 🔜 Arweave
 - 🔜 Chainlink
 - 🔜 Pyth
 - [Let us know which one you'd like us to cover](https://github.com/figment-networks/learn-web3-dapp/issues)
 
-<img width="1431" alt="Screen Shot 2021-10-08 at 9 13 07 AM" src="https://user-images.githubusercontent.com/206753/136563367-1c51c133-c7f1-47f7-a692-acab734cec37.png">
+<img width="1431" alt="Screen Shot 2021-10-08 at 9 13 07 AM" src="https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-01.png">
 
-![Screen Shot 2021-09-29 at 11 14 55 AM](https://user-images.githubusercontent.com/206753/135325747-330e9b28-14ee-4a32-9d7c-4216f82dd8c7.png)
+![Screen Shot 2021-09-29 at 11 14 55 AM](https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-02.png)
 
-<img width="1611" alt="Screen Shot 2021-10-12 at 9 08 23 AM" src="https://user-images.githubusercontent.com/206753/136962097-0be3a2cd-dc2e-44c5-ab5f-69baceff003e.png">
+<img width="1611" alt="Screen Shot 2021-10-12 at 9 08 23 AM" src="https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-03.png">
 
 # 🧑‍💻 Get started
 
