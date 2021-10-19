@@ -7,8 +7,8 @@ export default async function (
   res: NextApiResponse<boolean | string>,
 ) {
   try {
-    const {freeAccountId, network} = req.body;
-    const config = configFromNetwork(network);
+    const {NETWORK, ACCOUNT_ID} = req.body;
+    const config = configFromNetwork(NETWORK);
     const near = await connect(config);
     // try to query the account info of the
     const accountInfo = undefined;
@@ -19,7 +19,7 @@ export default async function (
       return res.status(200).json(true);
     }
   } catch (error) {
-    console.error(error);
-    return res.status(500).json('Checking availability failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    return res.status(500).json(errorMessage);
   }
 }
