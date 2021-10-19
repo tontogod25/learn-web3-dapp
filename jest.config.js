@@ -20,7 +20,7 @@ module.exports = {
     '^@figment-polkadot/(.*)$': 'components/protocols/polka/$1',
     '^@figment-near/(.*)$': 'components/protocols/near/$1',
     '^@figment-celo/(.*)$': 'components/protocols/celo/$1',
-    '^@figment-celo/(.*)$': 'components/protocols/tezos/$1',
+    '^@figment-tezos/(.*)$': 'components/protocols/tezos/$1',
     '^@figment-secret/(.*)$': 'components/protocols/secret/$1',
     '^@figment-avalanche/(.*)$': 'components/protocols/avalanche/$1',
     '^@figment-polygon/(.*)$': 'components/protocols/polygon/$1',
