@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {TezosToolkit} from '@taquito/taquito';
-import {getTezosUrl} from '@tezos/lib';
+import {getTezosUrl} from '@figment-tezos/lib';
 
 export default async function balance(
   req: NextApiRequest,

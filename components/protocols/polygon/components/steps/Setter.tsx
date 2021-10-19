@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import SimpleStorageJson from 'contracts/polygon/SimpleStorage/build/contracts/SimpleStorage.json';
 import {Alert, Button, Col, InputNumber, Space, Typography} from 'antd';
-import {getPolygonTxExplorerURL} from '@polygon/lib';
+import {getPolygonTxExplorerURL} from '@figment-polygon/lib';
 import {LoadingOutlined} from '@ant-design/icons';
 import {useState, useEffect} from 'react';
 import {ethers} from 'ethers';

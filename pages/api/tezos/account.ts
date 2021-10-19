@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {TezosToolkit} from '@taquito/taquito';
 import {importKey} from '@taquito/signer';
-import {getTezosUrl} from '@tezos/lib';
+import {getTezosUrl} from '@figment-tezos/lib';
 
 export default async function account(
   req: NextApiRequest,

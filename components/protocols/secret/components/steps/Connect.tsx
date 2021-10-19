@@ -1,7 +1,7 @@
 import {LoadingOutlined} from '@ant-design/icons';
 import {Alert, Col, Typography} from 'antd';
 import {useEffect, useState} from 'react';
-import {useAppState} from '@secret/hooks';
+import {useAppState} from '@figment-secret/hooks';
 import axios from 'axios';
 
 const {Text} = Typography;

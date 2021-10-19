@@ -1,6 +1,6 @@
 import {Alert, Col, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@celo/hooks';
+import {useAppState} from '@figment-celo/hooks';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 

@@ -7,7 +7,7 @@ import {
   getCurrentStepIdForCurrentChain,
 } from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
-import {getAvalancheInnerState} from '@avalanche/lib';
+import {getAvalancheInnerState} from '@figment-avalanche/lib';
 
 const {Text} = Typography;
 

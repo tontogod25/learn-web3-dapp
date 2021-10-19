@@ -1,12 +1,12 @@
-import Transfer from '@solana/components/steps/Transfer';
-import Keypair from '@solana/components/steps/Keypair';
-import Balance from '@solana/components/steps/Balance';
-import Connect from '@solana/components/steps/Connect';
-import Greeter from '@solana/components/steps/Greeter';
-import Getter from '@solana/components/steps/Getter';
-import Deploy from '@solana/components/steps/Deploy';
-import Setter from '@solana/components/steps/Setter';
-import Fund from '@solana/components/steps/Fund';
+import Transfer from '@figment-solana/components/steps/Transfer';
+import Keypair from '@figment-solana/components/steps/Keypair';
+import Balance from '@figment-solana/components/steps/Balance';
+import Connect from '@figment-solana/components/steps/Connect';
+import Greeter from '@figment-solana/components/steps/Greeter';
+import Getter from '@figment-solana/components/steps/Getter';
+import Deploy from '@figment-solana/components/steps/Deploy';
+import Setter from '@figment-solana/components/steps/Setter';
+import Fund from '@figment-solana/components/steps/Fund';
 
 export {
   Keypair,

@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getNodeURL} from '@solana/lib';
+import {getNodeURL} from '@figment-solana/lib';
 import {Connection} from '@solana/web3.js';
 
 export default async function connect(

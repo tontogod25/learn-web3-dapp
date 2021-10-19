@@ -1,6 +1,6 @@
 import {useState, useContext} from 'react';
-import type {State} from '@tezos/context';
-import {TezosContext} from '@tezos/context';
+import type {State} from '@figment-tezos/context';
+import {TezosContext} from '@figment-tezos/context';
 
 const useLocalStorage = (key: string, initialValue: State) => {
   const [storedValue, setStoredValue] = useState<State>(() => {

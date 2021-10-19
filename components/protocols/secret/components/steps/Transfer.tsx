@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@secret/hooks';
-import {transactionUrl} from '@secret/lib';
+import {useAppState} from '@figment-secret/hooks';
+import {transactionUrl} from '@figment-secret/lib';
 import axios from 'axios';
 
 const layout = {

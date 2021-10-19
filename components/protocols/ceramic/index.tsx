@@ -1,4 +1,4 @@
-import {Web3AuthProvider} from '@ceramic/context/idx';
+import {Web3AuthProvider} from '@figment-ceramic/context/idx';
 import Layout from 'components/shared/Layout';
 import React from 'react';
 import {
@@ -7,13 +7,13 @@ import {
   ChainType,
   PROTOCOL_STEPS_ID,
 } from 'types';
-import Nav from '@ceramic/components/nav';
+import Nav from '@figment-ceramic/components/nav';
 import {
   BasicProfile,
   Connect,
   CustomDefinition,
   LogIn,
-} from '@ceramic/components/steps';
+} from '@figment-ceramic/components/steps';
 import {
   getCurrentChainId,
   getCurrentStepIdForCurrentChain,

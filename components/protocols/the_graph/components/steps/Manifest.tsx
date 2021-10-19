@@ -5,7 +5,7 @@ import {
   CheckOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
-import type {ManifestStepStatusesT} from '@the-graph/types';
+import type {ManifestStepStatusesT} from '@figment-the-graph/types';
 import {
   getCurrentChainId,
   useGlobalState,
@@ -15,7 +15,7 @@ import axios from 'axios';
 import SetupWizard from 'components/shared/SetupWizard';
 import {StepButton} from 'components/shared/Button.styles';
 import {useColors} from 'hooks';
-import {defaultManifestStatus} from '@the-graph/lib';
+import {defaultManifestStatus} from '@figment-the-graph/lib';
 
 const {Text} = Typography;
 

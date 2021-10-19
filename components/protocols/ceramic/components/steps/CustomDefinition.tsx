@@ -16,11 +16,11 @@ import {
   getCurrentStepIdForCurrentChain,
   useGlobalState,
 } from 'context';
-import {useIdx} from '@ceramic/context/idx';
-import {IdxSchema, QuoteSchemaT} from '@ceramic/types';
+import {useIdx} from '@figment-ceramic/context/idx';
+import {IdxSchema, QuoteSchemaT} from '@figment-ceramic/types';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
-import Auth from '@ceramic/components/auth';
-import {aliases} from '@ceramic/lib';
+import Auth from '@figment-ceramic/components/auth';
+import {aliases} from '@figment-ceramic/lib';
 
 const layout = {
   labelCol: {span: 4},
@@ -65,7 +65,7 @@ const CustomDefinition = () => {
   }, [myQuote, customDefinitionData]);
 
   const setAlias = () => {
-    const {aliases} = require('@ceramic/lib');
+    const {aliases} = require('@figment-ceramic/lib');
     idx._aliases = aliases;
   };
 

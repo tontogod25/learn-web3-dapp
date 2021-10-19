@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getNodeURL} from '@solana/lib';
+import {getNodeURL} from '@figment-solana/lib';
 import {
   Connection,
   PublicKey,
@@ -22,7 +22,7 @@ export default async function transfer(
     // The secret key is stored in our state as a stringified array
     const secretKey = Uint8Array.from(JSON.parse(secret as string));
 
-    //... let's snip the beginning as it should be familiar for you by now!
+    //... let's skip the beginning as it should be familiar for you by now!
     // Find the parameter to pass
     const instructions = SystemProgram.transfer;
 

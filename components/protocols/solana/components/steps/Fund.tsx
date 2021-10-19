@@ -1,7 +1,7 @@
 import {Alert, Button, Space, Col, Input, Typography, Modal} from 'antd';
-import {transactionExplorer, prettyError} from '@solana/lib';
-import {ErrorBox} from '@solana/components/nav';
-import type {ErrorT} from '@solana/types';
+import {transactionExplorer, prettyError} from '@figment-solana/lib';
+import {ErrorBox} from '@figment-solana/components/nav';
+import type {ErrorT} from '@figment-solana/types';
 import {useEffect, useState} from 'react';
 import {
   getCurrentChainId,

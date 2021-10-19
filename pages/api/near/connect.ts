@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {configFromNetwork} from '@near/lib';
+import {configFromNetwork} from '@figment-near/lib';
 import {connect} from 'near-api-js';
 
 export default async function connection(

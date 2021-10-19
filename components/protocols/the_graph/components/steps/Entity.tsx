@@ -14,8 +14,8 @@ import axios from 'axios';
 import SetupWizard from 'components/shared/SetupWizard';
 import {StepButton} from 'components/shared/Button.styles';
 import {useColors} from 'hooks';
-import {EntityStepStatusesT} from '@the-graph/types';
-import {defaultEntityStatus} from '@the-graph/lib';
+import {EntityStepStatusesT} from '@figment-the-graph/types';
+import {defaultEntityStatus} from '@figment-the-graph/lib';
 
 const {Text} = Typography;
 

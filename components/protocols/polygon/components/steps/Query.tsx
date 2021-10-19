@@ -1,4 +1,4 @@
-import {PolygonQueryResponse} from '@polygon/types';
+import {PolygonQueryResponse} from '@figment-polygon/types';
 import {LoadingOutlined} from '@ant-design/icons';
 import {Alert, Button, Col, Space} from 'antd';
 import {useState} from 'react';

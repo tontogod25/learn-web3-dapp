@@ -1,9 +1,9 @@
 import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
-import {accountExplorer, transactionExplorer} from '@solana/lib';
-import {ErrorBox} from '@solana/components/nav';
+import {accountExplorer, transactionExplorer} from '@figment-solana/lib';
+import {ErrorBox} from '@figment-solana/components/nav';
 import {useState, useEffect} from 'react';
-import type {ErrorT} from '@solana/types';
-import {prettyError} from '@solana/lib';
+import type {ErrorT} from '@figment-solana/types';
+import {prettyError} from '@figment-solana/lib';
 import axios from 'axios';
 import {
   getCurrentChainId,

@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {TezosToolkit} from '@taquito/taquito';
-import {getTezosUrl} from '@tezos/lib';
+import {getTezosUrl} from '@figment-tezos/lib';
 import {importKey} from '@taquito/signer';
 import {CONTRACT_JSON} from 'contracts/tezos/counter.js';
 

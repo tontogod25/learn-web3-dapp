@@ -1,6 +1,6 @@
-import {getPolygonAddressExplorerURL} from '@polygon/lib';
+import {getPolygonAddressExplorerURL} from '@figment-polygon/lib';
 import {Typography, Popover, Button, Tag, Space, Select} from 'antd';
-import type {EntryT} from '@polygon/types';
+import type {EntryT} from '@figment-polygon/types';
 import {trackStorageCleared} from 'utils/tracking-utils';
 import {FundViewOutlined} from '@ant-design/icons';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';

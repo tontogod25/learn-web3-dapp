@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {Connection, PublicKey} from '@solana/web3.js';
-import {getNodeURL} from '@solana/lib';
+import {getNodeURL} from '@figment-solana/lib';
 
 export default async function balance(
   req: NextApiRequest,

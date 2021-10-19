@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Alert, Button, Col, Space, Typography} from 'antd';
-import {useAppState} from '@polkadot/hooks';
+import {useAppState} from '@figment-polkadot/hooks';
 import axios from 'axios';
 
 const {Text} = Typography;

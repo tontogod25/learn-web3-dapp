@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {Alert, Col, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@polkadot/hooks';
+import {useAppState} from '@figment-polkadot/hooks';
 
 const {Text} = Typography;
 

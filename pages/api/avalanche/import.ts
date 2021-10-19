@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getAvalancheClient} from '@avalanche/lib';
+import {getAvalancheClient} from '@figment-avalanche/lib';
 import {BinTools} from 'avalanche';
 import {Address} from 'ethereumjs-util';
 
