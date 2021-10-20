@@ -1,46 +1,55 @@
 import {Alert, Button, Col, Space, Typography, Input} from 'antd';
 import {getPublicKey, getAccountUrl} from '@figment-near/lib';
-import {useGlobalState} from 'context';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
+import {
+  getCurrentStepIdForCurrentChain,
+  useGlobalState,
+  getCurrentChainId,
+} from 'context';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
+import {getNearState} from '@figment-near/lib';
 
 import type {CheckAccountIdT, AlertT} from '@figment-near/types';
 
 const {Text} = Typography;
 
-const Notify = ({msg, status}: {msg: string; status: AlertT}) => (
-  <Alert
-    message={
-      <Space>
-        <Text strong>{msg}</Text>
-      </Space>
-    }
-    type={status}
-    showIcon
-  />
-);
-
 const Account = () => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.near;
+  const {state, dispatch} = useGlobalState();
+  const {NETWORK, SECRET, ACCOUNT_ID} = getNearState(state);
+
   const [freeAccountId, setFreeAccountId] = useState<string>('');
+  const [accountId, setAccountId] = useState<string>('');
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [isFreeAccountId, setIsFreeAccountId] = useState<boolean>(false);
-  const {network, accountId} = state;
+
+  useEffect(() => {
+    if (accountId) {
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
+      dispatch({
+        type: 'SetStepInnerState',
+        chainId: getCurrentChainId(state),
+        innerStateId: PROTOCOL_INNER_STATES_ID.ACCOUNT_ID,
+        value: accountId,
+      });
+    }
+  }, [accountId, setAccountId]);
 
   const createAccountWithId = async () => {
-    const publicKey = state?.secret && getPublicKey(state.secret);
+    const publicKey = SECRET && getPublicKey(SECRET);
     setIsFetching(true);
     try {
       const response = await axios.post(`/api/near/create-account`, {
         freeAccountId,
         publicKey,
-        network,
+        NETWORK,
       });
-      dispatch({
-        type: 'SetNearAccountId',
-        accountId: response.data,
-      });
+      setAccountId(response.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -52,7 +61,7 @@ const Account = () => {
     freeAccountId,
     setFreeAccountId,
     setIsFreeAccountId,
-    network,
+    NETWORK,
   };
 
   return (
@@ -69,7 +78,7 @@ const Account = () => {
           >
             Create Account
           </Button>
-          {accountId && (
+          {ACCOUNT_ID && (
             <Col>
               <Space direction="vertical">
                 <Alert
@@ -80,7 +89,7 @@ const Account = () => {
                   }
                   description={
                     <a
-                      href={getAccountUrl(accountId ?? '')}
+                      href={getAccountUrl(ACCOUNT_ID)}
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -100,7 +109,7 @@ const Account = () => {
 };
 
 const CheckAccountId: React.FC<CheckAccountIdT> = ({
-  network,
+  NETWORK,
   freeAccountId,
   setFreeAccountId,
   setIsFreeAccountId,
@@ -116,7 +125,7 @@ const CheckAccountId: React.FC<CheckAccountIdT> = ({
     try {
       const response = await axios.post(`/api/near/check-account`, {
         freeAccountId,
-        network,
+        NETWORK,
       });
       if (response.data) {
         setIsFreeAccountId(response.data);
@@ -128,7 +137,6 @@ const CheckAccountId: React.FC<CheckAccountIdT> = ({
         setAlertMsg(`Account ${freeAccountId} is not available`);
       }
     } catch (error) {
-      console.error(error);
       setAlertStatus('error');
       setAlertMsg(`NEAR connection failed`);
       setIsFreeAccountId(true);
@@ -168,7 +176,15 @@ const CheckAccountId: React.FC<CheckAccountIdT> = ({
           Check it!
         </Button>
       </Space>
-      <Notify msg={alertMsg} status={alertStatus} />
+      <Alert
+        message={
+          <Space>
+            <Text strong>{alertMsg}</Text>
+          </Space>
+        }
+        type={alertStatus}
+        showIcon
+      />
     </Space>
   );
 };
