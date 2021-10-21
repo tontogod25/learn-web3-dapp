@@ -2,9 +2,9 @@
 
 We made this decentralized application (dApp) to help developers learn about Web 3 protocols.
 
-It's a Next.js app that used React, TypeScript and various smart contract languages (mostly Solidity and Rust).
+It's a Next.js app that uses React, TypeScript and various smart contract languages (mostly Solidity and Rust).
 
-We will guide you to build up a simple web client using the various blockchain's JavaScript SDKs to interact with their networks. Each protocol is slightly different, but we have attempted to standardize the workflow so that you can quickly get up to speed on networks like Solana, NEAR, Polygon and more!
+We will guide you through using the various blockchain JavaScript SDKs to interact with their networks. Each protocol is slightly different, but we have attempted to standardize the workflow so that you can quickly get up to speed on networks like Solana, NEAR, Polygon and more!
 
 - ✅ Solana
 - ✅ Polygon
@@ -20,17 +20,30 @@ We will guide you to build up a simple web client using the various blockchain's
 - 🔜 Pyth
 - [Let us know which one you'd like us to cover](https://github.com/figment-networks/learn-web3-dapp/issues)
 
-<img width="1431" alt="Screen Shot 2021-10-08 at 9 13 07 AM" src="https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-01.png">
+<img width="1024" alt="Screen Shot 1" src="https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-01.png">
 
-![Screen Shot 2021-09-29 at 11 14 55 AM](https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-02.png)
+<img width="1024" alt="Screen Shot 2" src="https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-02.png">
 
-<img width="1611" alt="Screen Shot 2021-10-12 at 9 08 23 AM" src="https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-03.png">
+<img width="1024" alt="Screen Shot 3" src="https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-03.png">
 
 # 🧑‍💻 Get started
 
-Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) (you'll need `v14.17.0` or greater) and [yarn](https://yarnpkg.com/getting-started/install) installed. Then clone the repo and run the `yarn` command to install the dependencies:
+## 🤖 Using Gitpod
 
-```
+Go to [gitpod.io](https://gitpod.io/login) and sign in with your GitHub account.
+
+Now all you need to do is add `https://gitpod.io/#` in front of the repo URL to open a new workspace:
+
+<https://gitpod.io/#https://github.com/figment-networks/learn-web3-dapp>. 
+
+You can jump right in to the Pathways with a fully functional code editor, no setup or installation required!
+
+
+## 🐑 Clone locally
+
+Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) (you'll need `v14.17.0` or greater) and [yarn](https://yarnpkg.com/getting-started/install) installed. Then clone the repo and run `yarn` in the project directory to install the dependencies:
+
+```text
 git clone https://github.com/figment-networks/learn-web3-dapp.git
 cd learn-web3-dapp
 yarn
@@ -38,7 +51,7 @@ yarn
 
 Start the Next.js development server on the default port 3000 with:
 
-```
+```text
 yarn dev
 ```
 
