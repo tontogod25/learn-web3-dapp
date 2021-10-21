@@ -1,31 +1,20 @@
-import {Alert, Col, Space, Typography} from 'antd';
-import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@figment-celo/hooks';
 import {useEffect, useState} from 'react';
+import {Alert, Col, Space, Typography, Button} from 'antd';
+import {PoweroffOutlined} from '@ant-design/icons';
+import Confetti from 'react-confetti';
 import axios from 'axios';
+
+import {useAppState} from '@figment-celo/hooks';
 
 const {Text} = Typography;
 
 const Connect = () => {
-  const [version, setVersion] = useState<string | null>(null);
-  const [fetchingVersion, setFetchingVersion] = useState<boolean>(false);
   const {state, dispatch} = useAppState();
-  useEffect(() => {
-    const getConnection = () => {
-      setFetchingVersion(true);
-      axios
-        .post(`/api/celo/connect`, state)
-        .then((res) => {
-          setVersion(res.data);
-          setFetchingVersion(false);
-        })
-        .catch((err) => {
-          console.error(err);
-          setFetchingVersion(false);
-        });
-    };
-    getConnection();
-  }, [state]);
+  const chainId = 'celo';
+
+  const [version, setVersion] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [fetching, setFetching] = useState<boolean>(false);
 
   useEffect(() => {
     if (version) {
@@ -36,24 +25,57 @@ const Connect = () => {
     }
   }, [version, setVersion]);
 
+  const getConnection = async () => {
+    setFetching(true);
+    setError(null);
+    setVersion(null);
+    try {
+      const response = await axios.post(`/api/celo/connect`, state);
+      setVersion(response.data);
+    } catch (error) {
+      setError(error.response.data);
+    } finally {
+      setFetching(false);
+    }
+  };
+
   return (
     <Col>
-      {fetchingVersion ? (
-        <LoadingOutlined style={{fontSize: 24}} spin />
-      ) : version ? (
-        <Alert
-          message={
-            <Space>
-              Connected to Celo!
-              <Text code>{version}</Text>
-            </Space>
-          }
-          type="success"
-          showIcon
-        />
-      ) : (
-        <Alert message="Not connected to Celo" type="error" showIcon />
+      {version && (
+        <Confetti numberOfPieces={500} tweenDuration={1000} gravity={0.05} />
       )}
+      <Space direction="vertical" size="large">
+        <Space direction="horizontal" size="large">
+          <Button
+            type="primary"
+            icon={<PoweroffOutlined />}
+            onClick={getConnection}
+            loading={fetching}
+            size="large"
+          />
+          {version ? (
+            <Alert
+              message={
+                <Space>
+                  Connected to {chainId}:<Text code>version {version}</Text>
+                </Space>
+              }
+              type="success"
+              showIcon
+            />
+          ) : (
+            <Alert
+              message={
+                <Space>
+                  Connected to {chainId}:<Text code>error: {error}</Text>
+                </Space>
+              }
+              type="error"
+              showIcon
+            />
+          )}
+        </Space>
+      </Space>
     </Col>
   );
 };

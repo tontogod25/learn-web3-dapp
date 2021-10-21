@@ -1,28 +1,39 @@
-import {LoadingOutlined} from '@ant-design/icons';
-import {Alert, Col, Typography} from 'antd';
 import {useEffect, useState} from 'react';
-import {useAppState} from '@figment-secret/hooks';
+import {Alert, Col, Space, Typography, Button} from 'antd';
+import {PoweroffOutlined} from '@ant-design/icons';
+import Confetti from 'react-confetti';
 import axios from 'axios';
+
+import {useAppState} from '@figment-secret/hooks';
 
 const {Text} = Typography;
 
 const Connect = () => {
+  const {state, dispatch} = useAppState();
+  const chainId = 'Secret';
+
   const [version, setVersion] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
-  const {state} = useAppState();
 
   useEffect(() => {
-    getConnection();
-  }, []);
+    if (version) {
+      dispatch({
+        type: 'SetNetwork',
+        network: version,
+      });
+    }
+  }, [version, setVersion]);
 
   const getConnection = async () => {
     setFetching(true);
+    setError(null);
+    setVersion(null);
     try {
       const response = await axios.post(`/api/secret/connect`, state);
-      const version = response.data;
-      setVersion(version);
+      setVersion(response.data);
     } catch (error) {
-      console.error(error);
+      setError(error.response.data);
     } finally {
       setFetching(false);
     }
@@ -30,21 +41,41 @@ const Connect = () => {
 
   return (
     <Col>
-      <LoadingOutlined style={{fontSize: 24}} spin hidden={!fetching} />
-      {version ? (
-        <Alert
-          message={
-            <Text strong>
-              connected to Secret version
-              <Text code>{version.slice(0, 5)}</Text>
-            </Text>
-          }
-          type="success"
-          showIcon
-        />
-      ) : (
-        <Alert message={`Not connected to Secret`} type="error" showIcon />
+      {version && (
+        <Confetti numberOfPieces={500} tweenDuration={1000} gravity={0.05} />
       )}
+      <Space direction="vertical" size="large">
+        <Space direction="horizontal" size="large">
+          <Button
+            type="primary"
+            icon={<PoweroffOutlined />}
+            onClick={getConnection}
+            loading={fetching}
+            size="large"
+          />
+          {version ? (
+            <Alert
+              message={
+                <Space>
+                  Connected to {chainId}:<Text code>version {version}</Text>
+                </Space>
+              }
+              type="success"
+              showIcon
+            />
+          ) : (
+            <Alert
+              message={
+                <Space>
+                  Connected to {chainId}:<Text code>error: {error}</Text>
+                </Space>
+              }
+              type="error"
+              showIcon
+            />
+          )}
+        </Space>
+      </Space>
     </Col>
   );
 };
