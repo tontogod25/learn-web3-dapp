@@ -11,7 +11,7 @@ Your personal API key can be found on the [**DataHub Services Dashboard**](https
 
 You can then paste your personal API key into `.env.local`, as the value for the environment variable `DATAHUB_NEAR_API_KEY`. This will authenticate you and enable you to make JSON-RPC requests to NEAR via DataHub:
 
-![API keys](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/near-setup.png)
+![API keys](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/near/near-setup.png)
 
 ---
 

@@ -7,11 +7,11 @@ To use your API key you must create a new file named `.env.local` in the project
 
 Your personal API key can be found on the [**DataHub Services Dashboard**](https://datahub.figment.io/). Click on the **Avalanche** icon in the list of available protocols and then copy your key as shown below:
 
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/avalanche-setup.gif)
+![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/avalanche/avalanche-setup.gif)
 
 You can then paste your personal API key into `.env.local`, as the value for the environment variable `DATAHUB_AVALANCHE_API_KEY`. This will authenticate you and enable you to make JSON-RPC requests to Avalanche via DataHub:
 
-![API keys](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/avalanche-setup.png)
+![API keys](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/avalanche/avalanche-setup.png)
 
 ---
 

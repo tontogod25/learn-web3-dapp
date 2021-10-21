@@ -11,7 +11,7 @@ Your personal API key can be found on the [**DataHub Services Dashboard**](https
 
 You can then paste your personal API key into `.env.local`, as the value for the environment variable `DATAHUB_POLKADOT_API_KEY`. This will authenticate you and enable you to make RPC requests to Polkadot via DataHub:
 
-![API keys](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polkadot-setup.png)
+![API keys](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polkadot/polkadot-setup.png)
 
 ---
 
