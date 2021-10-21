@@ -20,11 +20,11 @@ We will guide you through using the various blockchain JavaScript SDKs to intera
 - 🔜 Pyth
 - [Let us know which one you'd like us to cover](https://github.com/figment-networks/learn-web3-dapp/issues)
 
-<img width="1024" alt="Screen Shot 1" src="https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-01.png">
+<img width="1024" alt="Screen Shot 1" src="https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/readme-01.png">
 
-<img width="1024" alt="Screen Shot 2" src="https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-02.png">
+<img width="1024" alt="Screen Shot 2" src="https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/readme-02.png">
 
-<img width="1024" alt="Screen Shot 3" src="https://raw.githubusercontent.com/figment-networks/datahub-learn/master/.gitbook/assets/pathways/readme-03.png">
+<img width="1024" alt="Screen Shot 3" src="https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/readme-03.png">
 
 # 🧑‍💻 Get started
 
