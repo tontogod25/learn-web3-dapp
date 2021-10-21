@@ -2,16 +2,15 @@ import {
   Form,
   Input,
   Button,
-  Alert,
   Space,
   Typography,
   Col,
   Divider,
   Card,
+  Alert,
 } from 'antd';
 import {useEffect, useState} from 'react';
 import {
-  getChainInnerState,
   getCurrentChainId,
   getCurrentStepIdForCurrentChain,
   useGlobalState,
@@ -20,7 +19,6 @@ import {useIdx} from '@ceramic/context/idx';
 import {BasicProfile} from '@ceramicstudio/idx-constants';
 import {IdxSchema} from '@ceramic/types';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
-import Auth from '@ceramic/components/auth';
 
 const layout = {
   labelCol: {span: 4},
@@ -45,27 +43,10 @@ const BasicProfileStep = () => {
     BasicProfile | undefined | null
   >(undefined);
 
-  const {idx, isAuthenticated} = useIdx();
-
-  const idxDID = getChainInnerState(
-    state,
-    chainId,
-    PROTOCOL_INNER_STATES_ID.DID,
-  );
+  const {idx, isAuthenticated, currentUserDID, setCurrentUserData} = useIdx();
 
   useEffect(() => {
-    if (name) {
-      dispatch({
-        type: 'SetStepInnerState',
-        chainId,
-        innerStateId: PROTOCOL_INNER_STATES_ID.USER_NAME,
-        value: name as string,
-      });
-    }
-  }, [name]);
-
-  useEffect(() => {
-    if (basicProfile) {
+    if (name && basicProfile) {
       dispatch({
         type: 'SetStepIsCompleted',
         chainId,
@@ -73,7 +54,7 @@ const BasicProfileStep = () => {
         value: true,
       });
     }
-  }, [basicProfile]);
+  }, [name, basicProfile]);
 
   const saveBasicProfile = async (values: BasicProfile) => {
     setSaving(true);
@@ -82,7 +63,10 @@ const BasicProfileStep = () => {
     const {name} = values;
 
     try {
-      // Set BasicProfile (use IndexSchema.BasicProfile)
+      // Set BasicProfile (use IdxSchema.BasicProfile)
+      await idx.set(IdxSchema.BasicProfile, {name});
+
+      setCurrentUserData(IdxSchema.BasicProfile, {name});
 
       setName(name);
     } catch (error) {
@@ -97,7 +81,9 @@ const BasicProfileStep = () => {
       setFetching(true);
 
       // Read basic profile (use IdxSchema.BasicProfile enum)
-      const resp = undefined;
+      const resp = await idx.get<BasicProfile>(IdxSchema.BasicProfile);
+
+      setCurrentUserData(IdxSchema.BasicProfile, resp as BasicProfile);
 
       setBasicProfile(resp);
     } catch (error) {
@@ -109,11 +95,7 @@ const BasicProfileStep = () => {
 
   return (
     <Col style={{minHeight: '350px', maxWidth: '700px'}}>
-      <div style={{marginBottom: '20px'}}>
-        <Auth />
-      </div>
-
-      {isAuthenticated && (
+      {isAuthenticated && currentUserDID ? (
         <>
           <Card title="#1 - Set the name">
             <Form
@@ -122,11 +104,11 @@ const BasicProfileStep = () => {
               layout="horizontal"
               onFinish={saveBasicProfile}
               initialValues={{
-                from: idxDID,
+                from: currentUserDID,
               }}
             >
               <Form.Item label="DID" name="from" required>
-                <Text code>{idxDID}</Text>
+                <Text code>{currentUserDID}</Text>
               </Form.Item>
 
               <Form.Item
@@ -179,6 +161,12 @@ const BasicProfileStep = () => {
             </div>
           )}
         </>
+      ) : (
+        <Alert
+          message="Please log in to submit transactions to Ceramic"
+          type="error"
+          showIcon
+        />
       )}
     </Col>
   );
