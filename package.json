@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/fetchPathways && next dev",
-    "dev:figment": "node scripts/fetchPathways && APP_ENV=development next dev",
+    "dev": "next dev",
+    "dev:figment": "APP_ENV=development next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
