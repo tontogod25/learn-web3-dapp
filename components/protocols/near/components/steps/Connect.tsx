@@ -8,14 +8,17 @@ import {
   getCurrentChainId,
 } from 'context';
 import {getNearState} from '@figment-near/lib';
+import Confetti from 'react-confetti';
 
 const {Text} = Typography;
 
 const Connect = () => {
   const {state, dispatch} = useGlobalState();
   const nearState = getNearState(state);
+  const chainId = getCurrentChainId(state);
 
   const [version, setVersion] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
 
   useEffect(() => {
@@ -31,6 +34,8 @@ const Connect = () => {
 
   const getConnection = async () => {
     setFetching(true);
+    setError(null);
+    setVersion(null);
     try {
       const response = await axios.post(`/api/near/connect`, nearState);
       setVersion(response.data);
@@ -43,6 +48,9 @@ const Connect = () => {
 
   return (
     <Col>
+      {version && (
+        <Confetti numberOfPieces={500} tweenDuration={1000} gravity={0.05} />
+      )}
       <Space direction="vertical" size="large">
         <Space direction="horizontal" size="large">
           <Button
@@ -56,17 +64,19 @@ const Connect = () => {
             <Alert
               message={
                 <Space>
-                  Connected to {getCurrentChainId(state)}:
-                  <Text code>version {version}</Text>
+                  Connected to {chainId}:<Text code>version {version}</Text>
                 </Space>
               }
               type="success"
               showIcon
-              onClick={getConnection}
             />
           ) : (
             <Alert
-              message={`Not connected to ${getCurrentChainId(state)}`}
+              message={
+                <Space>
+                  Connected to {chainId}:<Text code>error: {error}</Text>
+                </Space>
+              }
               type="error"
               showIcon
             />
