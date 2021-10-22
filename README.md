@@ -13,6 +13,7 @@ We will guide you through using the various blockchain JavaScript SDKs to intera
 - ✅ Tezos
 - ✅ Secret
 - ✅ Polkadot
+- ✅ Celo
 - ✅ Ceramic
 - ✅ The Graph
 - 🔜 Arweave
