@@ -10,7 +10,7 @@ export default function connection(
     const secret = undefined;
     return res.status(200).json(secret);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json('Keypair generation failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    return res.status(500).json(errorMessage);
   }
 }

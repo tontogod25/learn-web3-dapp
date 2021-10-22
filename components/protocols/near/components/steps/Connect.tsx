@@ -1,21 +1,38 @@
 import {Alert, Col, Space, Typography, Button} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
-import {useGlobalState} from 'context';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
+import {
+  getCurrentStepIdForCurrentChain,
+  useGlobalState,
+  getCurrentChainId,
+} from 'context';
+import {getNearState} from '@figment-near/lib';
 
 const {Text} = Typography;
 
 const Connect = () => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.near;
+  const {state, dispatch} = useGlobalState();
+  const nearState = getNearState(state);
+
   const [version, setVersion] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (version) {
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
+    }
+  }, [version, setVersion]);
 
   const getConnection = async () => {
     setFetching(true);
     try {
-      const response = await axios.post(`/api/near/connect`, state);
+      const response = await axios.post(`/api/near/connect`, nearState);
       setVersion(response.data);
     } catch (error) {
       setVersion(null);
@@ -39,7 +56,7 @@ const Connect = () => {
             <Alert
               message={
                 <Space>
-                  Connected to {globalState.chainId}:
+                  Connected to {getCurrentChainId(state)}:
                   <Text code>version {version}</Text>
                 </Space>
               }
@@ -49,7 +66,7 @@ const Connect = () => {
             />
           ) : (
             <Alert
-              message={`Not connected to ${globalState.chainId}`}
+              message={`Not connected to ${getCurrentChainId(state)}`}
               type="error"
               showIcon
             />

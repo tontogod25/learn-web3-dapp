@@ -1,38 +1,55 @@
 import {Alert, Button, Col, Space, Typography} from 'antd';
 import {useEffect, useState} from 'react';
-import {useGlobalState} from 'context';
 import axios from 'axios';
-import {KeyPair} from 'near-api-js';
+import {
+  getCurrentStepIdForCurrentChain,
+  useGlobalState,
+  getCurrentChainId,
+} from 'context';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
+import {getNearState, getPrettyPublicKey} from '@figment-near/lib';
 
 const {Text} = Typography;
 
 const Keys = () => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.near;
+  const {state, dispatch} = useGlobalState();
+  const {SECRET} = getNearState(state);
+
   const [fetching, setFetching] = useState<boolean>(false);
-  const [address, setAddress] = useState<string | null>(null);
+  const [secret, setSecret] = useState<string | null>(null);
 
   useEffect(() => {
-    if (state?.secret) {
-      const publicKeyStr = KeyPair.fromString(state.secret)
-        .getPublicKey()
-        .toString()
-        .slice(8);
-      setAddress(publicKeyStr as string);
+    if (secret) {
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
+      dispatch({
+        type: 'SetStepInnerState',
+        chainId: getCurrentChainId(state),
+        innerStateId: PROTOCOL_INNER_STATES_ID.SECRET,
+        value: secret,
+      });
     }
-  }, [state, dispatch]);
+  }, [secret, setSecret]);
+
+  useEffect(() => {
+    if (SECRET) {
+      setSecret(SECRET);
+    }
+  }, []);
 
   const generateKeypair = async () => {
     try {
       setFetching(true);
       const response = await axios.get(`/api/near/keypair`);
-      dispatch({
-        type: 'SetNearSecret',
-        secret: response.data,
-      });
       setFetching(false);
+      setSecret(response.data);
     } catch (error) {
       console.error(error);
+    } finally {
       setFetching(false);
     }
   };
@@ -47,7 +64,7 @@ const Keys = () => {
       >
         Generate a Keypair
       </Button>
-      {address && (
+      {secret && (
         <Col>
           <Space direction="vertical">
             <Alert
@@ -60,7 +77,7 @@ const Keys = () => {
                 <div>
                   <div>
                     This is the string representation of the public key <br />
-                    <Text code>{address}</Text>.
+                    <Text code>{getPrettyPublicKey(secret)}</Text>.
                   </div>
                   <Text>
                     Accessible (and copyable) at the top right of this page.
