@@ -41,7 +41,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -135,7 +135,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -232,7 +232,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -330,7 +330,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -431,7 +431,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Introduction',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -462,7 +462,7 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Introduction',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GRAPH_NODE,
