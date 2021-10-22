@@ -16,9 +16,10 @@ In `pages/api/polkadot/deposit.ts`, implement the function and try to determine 
 //...
   try {
     const url = getSafeUrl();
-    const provider = new WsProvider(url);
+    provider = new WsProvider(url);
     const api = await ApiPromise.create({ provider: provider });
     const deposit = undefined;
+    await provider.disconnect();
     res.status(200).json(deposit);
   }
 //...

@@ -24,6 +24,7 @@ In `pages/api/polkadot/transfer.ts`, implement the function and try to transfer 
     const transfer = undefined;
     const hash = await transfer.signAndSend(account);
 
+    await provider.disconnect();
     res.status(200).json(hash.toString())
   }
 //...
