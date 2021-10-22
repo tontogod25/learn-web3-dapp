@@ -1,17 +1,17 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {ApiPromise} from '@polkadot/api';
-import {WsProvider} from '@polkadot/rpc-provider';
+import {ApiPromise, WsProvider} from '@polkadot/api';
 import {getSafeUrl} from '@figment-polkadot/lib';
 
 export default async function estimate(
   req: NextApiRequest,
   res: NextApiResponse<number | string>,
 ) {
+  let provider;
   try {
     const {address} = req.body;
 
     const url = getSafeUrl();
-    const provider = new WsProvider(url);
+    provider = new WsProvider(url);
     const api = await ApiPromise.create({provider: provider});
 
     // A generic address for recipient (//Alice) and amount to send
@@ -23,9 +23,13 @@ export default async function estimate(
     const info = undefined;
     const fees = undefined;
 
+    await provider.disconnect();
     res.status(200).json(fees);
   } catch (error) {
-    console.log(error);
-    res.status(500).json('Connection to network failed');
+    if (provider) {
+      await provider.disconnect();
+    }
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }
