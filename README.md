@@ -29,17 +29,6 @@ We will guide you through using the various blockchain JavaScript SDKs to intera
 
 # 🧑‍💻 Get started
 
-## 🤖 Using Gitpod
-
-Go to [gitpod.io](https://gitpod.io/login) and sign in with your GitHub account.
-
-Now all you need to do is add `https://gitpod.io/#` in front of the repo URL to open a new workspace:
-
-<https://gitpod.io/#https://github.com/figment-networks/learn-web3-dapp>. 
-
-You can jump right in to the Pathways with a fully functional code editor, no setup or installation required!
-
-
 ## 🐑 Clone locally
 
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) (you'll need `v14.17.0` or greater) and [yarn](https://yarnpkg.com/getting-started/install) installed. Then clone the repo and run `yarn` in the project directory to install the dependencies:
