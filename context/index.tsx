@@ -60,7 +60,7 @@ const protocolsReducerHelper = (
   );
   const stepsIds = Object.keys(steps.data) as PROTOCOL_STEPS_ID[];
   const numberOfStep = stepsIds.length;
-  const firstStepId = stepsIds[0];
+  const firstStepId = PROTOCOL_STEPS_ID.PREFACE;
   const lastStepId = stepsIds[numberOfStep - 1];
 
   protocolsData[chainId] = {
@@ -70,7 +70,7 @@ const protocolsReducerHelper = (
     network: CHAINS_CONFIG[chainId].network,
     isActive: CHAINS_CONFIG[chainId].active,
     protocol: CHAINS_CONFIG[chainId].protocol,
-    currentStepId: PROTOCOL_STEPS_ID.PREFACE,
+    currentStepId: firstStepId,
     steps: steps.data,
     firstStepId,
     lastStepId,
