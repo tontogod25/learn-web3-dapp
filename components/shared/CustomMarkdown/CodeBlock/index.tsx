@@ -24,7 +24,7 @@ const CodeBlock = ({
         <SyntaxHighlighter
           language={language}
           PreTag="div"
-          customStyle={{margin: '1.5em 0'}}
+          customStyle={{margin: '0.5em 0'}}
           style={dracula}
         >
           {codeStr}
