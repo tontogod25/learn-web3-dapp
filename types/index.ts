@@ -177,6 +177,7 @@ export type StepType = {
   id: PROTOCOL_STEPS_ID;
   title: string;
   skippable?: boolean;
+  isOneColumn?: boolean;
 };
 
 export enum UserActivity {
@@ -221,6 +222,7 @@ export type ProtocolStepT = {
   title: string;
   isVisited: boolean;
   isSkippable: boolean;
+  isOneColumn: boolean;
   isCompleted: boolean;
   previousStepId: PROTOCOL_STEPS_ID | null;
   nextStepId: PROTOCOL_STEPS_ID | null;

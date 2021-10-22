@@ -20,6 +20,7 @@ In `pages/api/polkadot/connect.ts`, implement the function and try to establish 
     const api = undefined;
     const rawVersion = undefined;
     const version = rawVersion.toHuman();
+    await provider.disconnect();
     res.status(200).json(version);
   }
 //...
