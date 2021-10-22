@@ -11,7 +11,7 @@ import {
   getStepsForCurrentChain,
   getPositionForCurrentStepId,
   getCurrentStepIdForCurrentChain,
-  getIsSkippableForCurrentStepId,
+  getIsOneColumn,
 } from 'context';
 
 const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
@@ -23,7 +23,7 @@ const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
     const title = step.title as string;
     return {index, title};
   });
-  const isStepSkippable = getIsSkippableForCurrentStepId(state);
+  const isStepOneColumn = getIsOneColumn(state);
 
   const md = markdown[currentStepId];
   const stepIndex = getPositionForCurrentStepId(state);
@@ -37,7 +37,7 @@ const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
   );
 
   return (
-    <Container single_column={isStepSkippable}>
+    <Container single_column={isStepOneColumn}>
       <StepHeader size="large" align="center">
         <StepTitle>{stepTitle}</StepTitle>
         <Dropdown overlay={menu}>

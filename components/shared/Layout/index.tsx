@@ -1,6 +1,6 @@
 import {
   getCurrentStepIdForCurrentChain,
-  getIsSkippableForCurrentStepId,
+  getIsOneColumn,
   GlobalContext,
   globalStateReducer,
   initialGlobalState,
@@ -43,7 +43,7 @@ const Layout = (
     return <Spinner color={colors.figmentYellow} />;
   }
 
-  const isStepSkippable = getIsSkippableForCurrentStepId(state);
+  const isStepOneColumn = getIsOneColumn(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
 
   return (
@@ -52,12 +52,12 @@ const Layout = (
         <Nav />
         <BelowNav>
           <LeftPanel
-            span={isStepSkippable ? 24 : GRID_LAYOUT[0]}
+            span={isStepOneColumn ? 24 : GRID_LAYOUT[0]}
             key={currentStepId}
           >
             <Sidebar markdown={markdown} />
           </LeftPanel>
-          {!isStepSkippable && (
+          {!isStepOneColumn && (
             <RightPanel span={GRID_LAYOUT[1]}>
               <Protocol />
             </RightPanel>
