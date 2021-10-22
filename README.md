@@ -53,4 +53,4 @@ Feel free to also open an Issue or a Pull Request on the repo itself.
 
 We hope you enjoy our Web 3 education dApps 🚀
 
--- The Figment Learn Team
+-- ❤️ The Figment Learn Team
