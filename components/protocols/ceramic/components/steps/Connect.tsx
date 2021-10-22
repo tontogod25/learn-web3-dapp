@@ -59,8 +59,10 @@ const Connect = () => {
         // Find more information at: https://docs.metamask.io/guide/rpc-api.html.
         // NOTE: Be careful not to use deprecated method!
         // Define address and network
-        const addresses = undefined;
-        const address = undefined;
+        const addresses = await provider.request({
+          method: 'eth_requestAccounts',
+        });
+        const address = addresses[0];
 
         setAddress(address);
       } else {

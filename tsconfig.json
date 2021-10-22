@@ -12,7 +12,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "useUnknownInCatchVariables": false,
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {

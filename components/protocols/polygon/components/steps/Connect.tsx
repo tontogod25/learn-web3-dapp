@@ -63,11 +63,17 @@ const Connect = () => {
 
       if (provider) {
         // Connect to Polygon using Web3Provider and Metamask
+        // @ts-ignore
+        await provider.request({method: 'eth_requestAccounts'});
+        const web3provider = new ethers.providers.Web3Provider(
+          window.ethereum,
+          'any',
+        );
+        const signer = web3provider.getSigner();
+
         // Define address and network
-        const web3provider = undefined;
-        const signer = undefined;
-        const address = null;
-        const network = undefined;
+        const address = await signer.getAddress();
+        const network = ethers.providers.getNetwork(await signer.getChainId());
 
         if (!network) {
           throw new Error('Please complete the code');
@@ -86,7 +92,7 @@ const Connect = () => {
 
   return (
     <Col>
-      {ADDRESS && METAMASK_NETWORK_NAME && (
+      {address && network && (
         <Confetti numberOfPieces={500} tweenDuration={1000} gravity={0.05} />
       )}
       <Space direction="vertical" size="large">
@@ -98,7 +104,7 @@ const Connect = () => {
             loading={fetching}
             size="large"
           />
-          {ADDRESS && METAMASK_NETWORK_NAME ? (
+          {address && network ? (
             <Alert
               message={
                 <Space>
@@ -108,13 +114,19 @@ const Connect = () => {
               type="success"
               showIcon
             />
-          ) : (
+          ) : error ? (
             <Alert
               message={
                 <Space>
-                  Connected to {chainId}:<Text code>error: {error}</Text>
+                  <Text code>Error: {error}</Text>
                 </Space>
               }
+              type="error"
+              showIcon
+            />
+          ) : (
+            <Alert
+              message={<Space>Not Connected to {chainId}</Space>}
               type="error"
               showIcon
             />

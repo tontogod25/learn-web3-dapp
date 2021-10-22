@@ -70,13 +70,19 @@ const Connect = () => {
               type="success"
               showIcon
             />
-          ) : (
+          ) : error ? (
             <Alert
               message={
                 <Space>
-                  Connected to {chainId}:<Text code>error: {error}</Text>
+                  <Text code>Error: {error}</Text>
                 </Space>
               }
+              type="error"
+              showIcon
+            />
+          ) : (
+            <Alert
+              message={<Space>Not Connected to {chainId}</Space>}
               type="error"
               showIcon
             />
