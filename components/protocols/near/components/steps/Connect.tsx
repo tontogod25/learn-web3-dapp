@@ -11,7 +11,6 @@ const Connect = () => {
   const state = globalState.near;
   const [version, setVersion] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
-  console.log(state);
 
   const getConnection = async () => {
     setFetching(true);

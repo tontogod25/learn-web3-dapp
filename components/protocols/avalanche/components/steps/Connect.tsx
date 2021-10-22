@@ -18,8 +18,8 @@ const Connect = () => {
   const chainId = getCurrentChainId(state);
 
   const [version, setVersion] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (version) {
