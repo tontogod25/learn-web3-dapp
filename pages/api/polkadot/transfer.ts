@@ -1,18 +1,18 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 
-import {ApiPromise, Keyring} from '@polkadot/api';
-import {WsProvider} from '@polkadot/rpc-provider';
+import {ApiPromise, WsProvider} from '@polkadot/api';
 import {getSafeUrl} from '@figment-polkadot/lib';
 
 export default async function transfer(
   req: NextApiRequest,
   res: NextApiResponse<number | string>,
 ) {
+  let provider;
   try {
     const {mnemonic, txAmount} = req.body;
 
     const url = getSafeUrl();
-    const provider = new WsProvider(url);
+    provider = new WsProvider(url);
     const api = await ApiPromise.create({provider: provider});
 
     // Initialize account from the mnemonic
@@ -27,9 +27,13 @@ export default async function transfer(
     const transfer = undefined;
     const hash = await transfer.signAndSend(account);
 
+    await provider.disconnect();
     res.status(200).json(hash.toString());
   } catch (error) {
-    console.log(error);
-    res.status(500).json('Connection to network failed');
+    if (provider) {
+      await provider.disconnect();
+    }
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }
