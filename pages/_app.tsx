@@ -3,7 +3,9 @@ import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import NextNprogress from 'nextjs-progressbar';
 import SimpleReactLightbox from 'simple-react-lightbox';
 import 'antd/dist/antd.css';
+
 import {colors} from 'utils/colors';
+import theme from 'theme';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -14,12 +16,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Inter';
   }
 `;
-
-const theme = {
-  colors: {
-    primary: '#0070f3',
-  },
-};
 
 function MyApp({Component, pageProps}: AppProps) {
   return (
