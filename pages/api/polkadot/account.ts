@@ -29,6 +29,7 @@ export default async function account(
       jsonWallet,
     });
   } catch (error) {
-    res.status(500).json('Account creation failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

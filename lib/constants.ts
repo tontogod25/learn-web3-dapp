@@ -39,9 +39,14 @@ export const CHAINS_CONFIG: ChainsType = {
     network: AVALANCHE_NETWORKS.DATAHUB,
     steps: [
       {
+        id: PROTOCOL_STEPS_ID.PREFACE,
+        title: 'Welcome to the Avalanche Pathway',
+        isOneColumn: true,
+      },
+      {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -77,6 +82,11 @@ export const CHAINS_CONFIG: ChainsType = {
     protocol: CELO_PROTOCOLS.RPC,
     network: CELO_NETWORKS.ALFAJORES,
     steps: [
+      {
+        id: PROTOCOL_STEPS_ID.PREFACE,
+        title: 'Welcome to the Celo Pathway',
+        isOneColumn: true,
+      },
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
@@ -133,9 +143,14 @@ export const CHAINS_CONFIG: ChainsType = {
     network: NEAR_NETWORKS.DATAHUB,
     steps: [
       {
+        id: PROTOCOL_STEPS_ID.PREFACE,
+        title: 'Welcome to the NEAR Pathway',
+        isOneColumn: true,
+      },
+      {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -179,6 +194,11 @@ export const CHAINS_CONFIG: ChainsType = {
     protocol: POLYGON_PROTOCOLS.WS,
     network: POLKADOT_NETWORKS.WESTEND,
     steps: [
+      {
+        id: PROTOCOL_STEPS_ID.PREFACE,
+        title: 'Welcome to the Polkadot Pathway',
+        isOneColumn: true,
+      },
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
@@ -230,9 +250,14 @@ export const CHAINS_CONFIG: ChainsType = {
     network: POLYGON_NETWORKS.TESTNET,
     steps: [
       {
+        id: PROTOCOL_STEPS_ID.PREFACE,
+        title: 'Welcome to the Polygon Pathway',
+        isOneColumn: true,
+      },
+      {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -277,6 +302,11 @@ export const CHAINS_CONFIG: ChainsType = {
     protocol: SECRET_PROTOCOLS.RPC,
     network: SECRET_NETWORKS.TESTNET,
     steps: [
+      {
+        id: PROTOCOL_STEPS_ID.PREFACE,
+        title: 'Welcome to the Secret Pathway',
+        isOneColumn: true,
+      },
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
@@ -328,9 +358,14 @@ export const CHAINS_CONFIG: ChainsType = {
     active: true,
     steps: [
       {
+        id: PROTOCOL_STEPS_ID.PREFACE,
+        title: 'Welcome to the Solana Pathway',
+        isOneColumn: true,
+      },
+      {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -378,6 +413,11 @@ export const CHAINS_CONFIG: ChainsType = {
     protocol: TEZOS_PROTOCOLS.RPC,
     network: TEZOS_NETWORKS.TESTNET,
     steps: [
+      {
+        id: PROTOCOL_STEPS_ID.PREFACE,
+        title: 'Welcome to the Tezos Pathway',
+        isOneColumn: true,
+      },
       {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Setup the project',
@@ -429,9 +469,14 @@ export const CHAINS_CONFIG: ChainsType = {
     network: CERAMIC_NETWORKS.TESTNET,
     steps: [
       {
+        id: PROTOCOL_STEPS_ID.PREFACE,
+        title: 'Welcome to the Ceramic Pathway',
+        isOneColumn: true,
+      },
+      {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Introduction',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
@@ -460,9 +505,14 @@ export const CHAINS_CONFIG: ChainsType = {
     network: THE_GRAPH_NETWORKS.LOCALNET,
     steps: [
       {
+        id: PROTOCOL_STEPS_ID.PREFACE,
+        title: 'Welcome to the The Graph Pathway',
+        isOneColumn: true,
+      },
+      {
         id: PROTOCOL_STEPS_ID.PROJECT_SETUP,
         title: 'Introduction',
-        skippable: true,
+        isOneColumn: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GRAPH_NODE,

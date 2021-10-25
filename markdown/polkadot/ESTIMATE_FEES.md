@@ -18,7 +18,7 @@ In `pages/api/polkadot/estimate.ts`, implement the function and try to estimate 
     const { address } = req.body;
 
     const url = getSafeUrl();
-    const provider = new WsProvider(url);
+    provider = new WsProvider(url);
     const api = await ApiPromise.create({ provider: provider });
 
     // A generic address for recipient (//Alice) and an amount to send
@@ -30,6 +30,7 @@ In `pages/api/polkadot/estimate.ts`, implement the function and try to estimate 
     const info = undefined;
     const fees = undefined;
 
+    await provider.disconnect();
     res.status(200).json(fees);
   }
 //...

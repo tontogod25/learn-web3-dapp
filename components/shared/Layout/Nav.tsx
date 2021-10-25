@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
-import {ArrowLeft} from 'react-feather';
+import {ChevronRight} from 'react-feather';
 
 import {colors, getChainColors} from 'utils/colors';
 import {CHAINS} from 'types';
@@ -28,15 +28,14 @@ const Nav = () => {
       align="middle"
       justify="space-between"
     >
-      <Left align="middle">
-        <Link href="/">
-          <ArrowLeft style={{cursor: 'pointer'}} color={secondaryColor} />
-        </Link>
+      <Row align="middle">
         <Image src={logoSVG} alt="Figment Learn" height={47} width={100} />
-        <ChainTitle
-          secondary_color={secondaryColor}
-        >{`${chainLabel} Pathway`}</ChainTitle>
-      </Left>
+        <ChainTitle direction="horizontal" secondary_color={secondaryColor}>
+          <Link href="/">Pathways</Link>
+          <ChevronRight style={{marginTop: '14px'}} />
+          {chainLabel}
+        </ChainTitle>
+      </Row>
 
       <a
         href="https://discord.com/invite/fszyM7K"
@@ -66,18 +65,21 @@ const StyledNav = styled(Row)<{primary_color: string}>`
   border-bottom: solid 2px black;
 `;
 
-const Left = styled(Row)`
-  > svg,
-  div {
-    margin-right: 24px;
-  }
-`;
-
-const ChainTitle = styled.div<{secondary_color: string}>`
+const ChainTitle = styled(Space)<{secondary_color: string}>`
   color: ${({secondary_color}) => secondary_color};
   font-size: 24px;
   font-weight: 600;
   margin-left: 24px;
+
+  a {
+    color: ${({secondary_color}) => secondary_color};
+    opacity: 0.6;
+
+    &:hover {
+      text-decoration: underline;
+      opacity: 1;
+    }
+  }
 `;
 
 const Discord = styled.div`

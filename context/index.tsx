@@ -24,7 +24,8 @@ const stepsReducerHelper = (
 ): StepsReducerHelperT => {
   const id = step.id;
   const title = step.title;
-  const isSkippable = !!step.skippable;
+  const isOneColumn = !!step.isOneColumn;
+  const isSkippable = !!step.skippable || isOneColumn;
   const isCompleted = isSkippable ? true : false;
   const isVisited = isSkippable ? true : false;
   const position = index + 1;
@@ -38,6 +39,7 @@ const stepsReducerHelper = (
     isSkippable,
     position,
     previousStepId,
+    isOneColumn,
     nextStepId: null,
   };
 
@@ -58,7 +60,7 @@ const protocolsReducerHelper = (
   );
   const stepsIds = Object.keys(steps.data) as PROTOCOL_STEPS_ID[];
   const numberOfStep = stepsIds.length;
-  const firstStepId = stepsIds[0];
+  const firstStepId = PROTOCOL_STEPS_ID.PREFACE;
   const lastStepId = stepsIds[numberOfStep - 1];
 
   protocolsData[chainId] = {
@@ -68,7 +70,7 @@ const protocolsReducerHelper = (
     network: CHAINS_CONFIG[chainId].network,
     isActive: CHAINS_CONFIG[chainId].active,
     protocol: CHAINS_CONFIG[chainId].protocol,
-    currentStepId: PROTOCOL_STEPS_ID.PROJECT_SETUP,
+    currentStepId: firstStepId,
     steps: steps.data,
     firstStepId,
     lastStepId,
@@ -323,6 +325,12 @@ export const getIsSkippableForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
   return state.protocols[chainId].steps[currentStepId].isSkippable;
+};
+
+export const getIsOneColumn = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  return state.protocols[chainId].steps[currentStepId].isOneColumn;
 };
 
 export const getIsVisitedForCurrentStepId = (state: GlobalStateT) => {

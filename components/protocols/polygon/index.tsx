@@ -6,7 +6,6 @@ import {
   Balance,
   Query,
   Restore,
-  Deploy,
   Setter,
   Getter,
   Transfer,
@@ -28,7 +27,7 @@ const Polygon: React.FC = () => {
       {stepId === PROTOCOL_STEPS_ID.QUERY_CHAIN && <Query />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
       {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
-      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}
+      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT}
       {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Getter />}
       {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Setter />}
       {stepId === PROTOCOL_STEPS_ID.RESTORE_ACCOUNT && <Restore />}

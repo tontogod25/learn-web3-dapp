@@ -1,6 +1,12 @@
-import {GlobalContext, globalStateReducer, initialGlobalState} from 'context';
+import {
+  getCurrentStepIdForCurrentChain,
+  getIsOneColumn,
+  GlobalContext,
+  globalStateReducer,
+  initialGlobalState,
+} from 'context';
 import {ChainType, MarkdownForChainIdT, LocalStorageStateT} from 'types';
-import {GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
+import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
 import React, {useEffect, useReducer} from 'react';
 import styled from 'styled-components';
 import {useLocalStorage} from 'hooks';
@@ -37,15 +43,25 @@ const Layout = (
     return <Spinner color={colors.figmentYellow} />;
   }
 
+  const isStepOneColumn = getIsOneColumn(state);
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+
   return (
     <GlobalContext.Provider value={{state, dispatch}}>
       <Col>
         <Nav />
         <BelowNav>
-          <Sidebar markdown={markdown} />
-          <RightPanel span={GRID_LAYOUT[1]}>
-            <Protocol />
-          </RightPanel>
+          <LeftPanel
+            span={isStepOneColumn ? 24 : GRID_LAYOUT[0]}
+            key={currentStepId}
+          >
+            <Sidebar markdown={markdown} />
+          </LeftPanel>
+          {!isStepOneColumn && (
+            <RightPanel span={GRID_LAYOUT[1]}>
+              <Protocol />
+            </RightPanel>
+          )}
         </BelowNav>
         <Footer />
       </Col>
@@ -53,10 +69,20 @@ const Layout = (
   );
 };
 
+const heightOffset = `${FOOTER_HEIGHT + HEADER_HEIGHT}px`;
+
 const BelowNav = styled(Row)`
   margin-top: ${HEADER_HEIGHT}px;
   position: fixed;
   width: 100vw;
+`;
+
+const LeftPanel = styled(Col)`
+  position: relative;
+  padding: 40px;
+  background: #f5f5f5;
+  overflow: scroll;
+  height: calc(100vh - ${heightOffset});
 `;
 
 const RightPanel = styled(Col)`
