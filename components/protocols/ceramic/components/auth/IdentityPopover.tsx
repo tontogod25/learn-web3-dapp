@@ -27,7 +27,7 @@ const IdentityPopover = (props: IdentityPopoverProps): JSX.Element => {
   return (
     <Popover
       content={PopoverContent}
-      placement="left"
+      placement="bottomLeft"
       overlayInnerStyle={{width: 300}}
     >
       {children}

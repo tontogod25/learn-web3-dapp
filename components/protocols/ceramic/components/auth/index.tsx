@@ -32,10 +32,10 @@ type AuthProps = {
   onLoggedIn?: (did: string) => void;
   onLoggedOut?: () => void;
   onlyConnect?: boolean;
-  connectText?: string;
-  disconnectText?: string;
-  logInText?: string;
-  logOutText?: string;
+  connectBtnText?: string;
+  disconnectBtnText?: string;
+  logInBtnText?: string;
+  logOutBtnText?: string;
 };
 
 const Auth = (props: AuthProps): JSX.Element => {
@@ -44,10 +44,10 @@ const Auth = (props: AuthProps): JSX.Element => {
     onConnected,
     onLoggedIn,
     onLoggedOut,
-    logInText = 'Log In',
-    logOutText = 'Log Out',
-    connectText = 'Connect',
-    disconnectText = 'Disconnect',
+    logInBtnText = 'Log In',
+    logOutBtnText = 'Log Out',
+    connectBtnText = 'Connect',
+    disconnectBtnText = 'Disconnect',
   } = props;
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
@@ -204,7 +204,7 @@ const Auth = (props: AuthProps): JSX.Element => {
               block
               danger
             >
-              {disconnectText}
+              {disconnectBtnText}
             </Button>,
           ]}
         >
@@ -222,7 +222,7 @@ const Auth = (props: AuthProps): JSX.Element => {
           size="large"
           shape="round"
         >
-          {connectText}
+          {connectBtnText}
         </Button>
       );
     }
@@ -247,7 +247,7 @@ const Auth = (props: AuthProps): JSX.Element => {
             block
             danger
           >
-            {logOutText}
+            {logOutBtnText}
           </Button>,
         ]}
       >
@@ -268,7 +268,7 @@ const Auth = (props: AuthProps): JSX.Element => {
           disabled={loading}
           loading={loading}
         >
-          {logInText}
+          {logInBtnText}
         </Button>
       </Space>
     );
