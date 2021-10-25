@@ -12,7 +12,7 @@ export default async function restore(
     const address = undefined;
     res.status(200).json(address);
   } catch (error) {
-    console.log(error);
-    res.status(500).json('Unable to restore account');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

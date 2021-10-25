@@ -1,7 +1,7 @@
 import React from 'react';
 import {Divider, Popover, Typography} from 'antd';
-import IdentityItem from '@ceramic/components/auth/IdentityItem';
-import {useIdx} from '@ceramic/context/idx';
+import IdentityItem from '@figment-ceramic/components/auth/IdentityItem';
+import {useIdx} from '@figment-ceramic/context/idx';
 
 type IdentityPopoverProps = {
   children: JSX.Element;

@@ -1,4 +1,4 @@
-import Nav from '@polygon/components/nav';
+import Nav from '@figment-polygon/components/nav';
 import Layout from 'components/shared/Layout';
 import {ChainType, MarkdownForChainIdT, PROTOCOL_STEPS_ID} from 'types';
 import {
@@ -6,11 +6,10 @@ import {
   Balance,
   Query,
   Restore,
-  Deploy,
   Setter,
   Getter,
   Transfer,
-} from '@polygon/components/steps';
+} from '@figment-polygon/components/steps';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 import SetupWizard from 'components/shared/SetupWizard';
 
@@ -28,7 +27,7 @@ const Polygon: React.FC = () => {
       {stepId === PROTOCOL_STEPS_ID.QUERY_CHAIN && <Query />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
       {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
-      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}
+      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT}
       {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Getter />}
       {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Setter />}
       {stepId === PROTOCOL_STEPS_ID.RESTORE_ACCOUNT && <Restore />}

@@ -1,16 +1,14 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import type {ManifestStepStatusesT} from '@the-graph/types';
-import {manifestT} from '@the-graph/types';
+import type {ManifestStepStatusesT} from '@figment-the-graph/types';
+import {manifestT} from '@figment-the-graph/types';
 import yaml from 'js-yaml';
 import fs from 'fs';
+import {defaultManifestStatus} from '@figment-the-graph/lib';
 
 const START_BLOCK = 13100000;
-
 const MANIFEST_PATH = './subgraphs/punks/subgraph.yaml';
-
 const EVENT =
   'PunkBought(indexed uint256,uint256,indexed address,indexed address)';
-
 const HANDLER = 'handlePunkBought';
 
 const loadManifest = () => {
@@ -19,42 +17,56 @@ const loadManifest = () => {
 
   let startBlock = data.dataSources[0].source.startBlock;
   let entities = data.dataSources[0].mapping.entities;
-  let eventHandler = Object.values(
-    data.dataSources[0].mapping.eventHandlers[0],
-  );
+  let eventHandlers = data.dataSources[0].mapping.eventHandlers;
   return {
     startBlock,
     entities,
-    eventHandler,
+    eventHandlers,
   };
 };
-
 export default async function manifest(
-  req: NextApiRequest,
+  _req: NextApiRequest,
   res: NextApiResponse<ManifestStepStatusesT | string>,
 ) {
   try {
-    const status = req.body.status as ManifestStepStatusesT;
-    const {startBlock, entities, eventHandler} = loadManifest();
+    let status = defaultManifestStatus;
+    const {startBlock, entities, eventHandlers} = loadManifest();
 
     if (startBlock === START_BLOCK) {
-      status.block = {
-        valid: true,
-        message: 'Valid startBlock',
+      status = {
+        ...status,
+        block: {
+          isValid: true,
+          message: 'startBlock is 13100000',
+        },
       };
     }
 
-    if (entities.includes('Punk') && entities.includes('Account')) {
-      status.entities = {
-        valid: true,
-        message: 'Valid entities',
+    if (
+      entities.includes('Punk') &&
+      entities.includes('Account') &&
+      entities.length == 2
+    ) {
+      status = {
+        ...status,
+        entities: {
+          isValid: true,
+          message: 'Punk and Account entities',
+        },
       };
     }
 
-    if (eventHandler[0] === EVENT && eventHandler[1] === HANDLER) {
-      status.eventHandlers = {
-        valid: true,
-        message: 'Valid eventHandlers',
+    if (
+      eventHandlers.length === 1 &&
+      eventHandlers[0]['event'] === EVENT &&
+      eventHandlers[0]['handler'] === HANDLER
+    ) {
+      status = {
+        ...status,
+        eventHandlers: {
+          isValid: true,
+          message: 'PunkBought event with handlePunkBought handler',
+        },
       };
     }
 

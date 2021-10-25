@@ -1,25 +1,42 @@
 import {Alert, Col, Button, Space, Typography} from 'antd';
-import {useGlobalState} from 'context';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
+import {
+  getCurrentStepIdForCurrentChain,
+  useGlobalState,
+  getCurrentChainId,
+} from 'context';
+import {getNearState} from '@figment-near/lib';
 
 const {Text} = Typography;
 
 const Getter = () => {
-  const {state: globalState, dispatch} = useGlobalState();
-  const state = globalState.near;
+  const {state, dispatch} = useGlobalState();
+  const nearState = getNearState(state);
+
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [greeting, setGreeting] = useState<number | null>(null);
+  const [value, setValue] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (value) {
+      dispatch({
+        type: 'SetStepIsCompleted',
+        chainId: getCurrentChainId(state),
+        stepId: getCurrentStepIdForCurrentChain(state),
+        value: true,
+      });
+    }
+  }, [value, setValue]);
 
   const getGreeting = async () => {
     setError(null);
-    setGreeting(null);
+    setValue(null);
     setFetching(true);
     try {
-      const response = await axios.post(`/api/near/getter`, state);
-      setGreeting(response.data);
-    } catch (error) {
+      const response = await axios.post(`/api/near/getter`, nearState);
+      setValue(response.data);
+    } catch (error: any) {
       setError(error.response.data);
     } finally {
       setFetching(false);
@@ -43,11 +60,11 @@ const Getter = () => {
             onClose={() => setError(null)}
           />
         )}
-        {greeting && (
+        {value && (
           <Alert
             message={
               <Text strong>
-                This is the stored message: <Text code>{greeting}</Text>
+                This is the stored message: <Text code>{value}</Text>
               </Text>
             }
             type="success"

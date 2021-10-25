@@ -4,7 +4,7 @@ import {Alert, Button, Col, Space, Typography} from 'antd';
 import {Network} from '@ethersproject/networks';
 import {useState, useEffect} from 'react';
 import {ethers} from 'ethers';
-import {getPolygonInnerState} from '@polygon/lib';
+import {getPolygonInnerState} from '@figment-polygon/lib';
 import {
   getCurrentChainId,
   useGlobalState,

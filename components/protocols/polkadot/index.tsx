@@ -7,15 +7,15 @@ import {
   Estimate,
   Restore,
   Deposit,
-} from '@polkadot/components/steps';
+} from '@figment-polkadot/components/steps';
 import {
   appStateReducer,
   initialState,
   PolkadotContext,
-} from '@polkadot/context';
-import {useLocalStorage} from '@polkadot/hooks';
+} from '@figment-polkadot/context';
+import {useLocalStorage} from '@figment-polkadot/hooks';
 import {PROTOCOL_STEPS_ID, ChainType, MarkdownForChainIdT} from 'types';
-import Nav from '@polkadot/components/nav';
+import Nav from '@figment-polkadot/components/nav';
 import Layout from 'components/shared/Layout';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 import SetupWizard from 'components/shared/SetupWizard';

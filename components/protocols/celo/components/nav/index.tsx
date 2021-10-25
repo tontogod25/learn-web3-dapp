@@ -1,7 +1,7 @@
 import {Typography, Popover, Button} from 'antd';
-import {useAppState} from '@celo/hooks';
-import type {EntryT} from '@celo/types';
-import {trackStorageCleared} from '../../../../../utils/tracking-utils';
+import {useAppState} from '@figment-celo/hooks';
+import type {EntryT} from '@figment-celo/types';
+import {trackStorageCleared} from 'utils/tracking-utils';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 
 const {Text, Paragraph} = Typography;

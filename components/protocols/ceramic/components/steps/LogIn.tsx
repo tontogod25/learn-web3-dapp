@@ -5,7 +5,7 @@ import {
   getCurrentStepIdForCurrentChain,
   useGlobalState,
 } from 'context';
-import {useIdx} from '@ceramic/context/idx';
+import {useIdx} from '@figment-ceramic/context/idx';
 
 const {Text} = Typography;
 

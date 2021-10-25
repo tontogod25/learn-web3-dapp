@@ -3,10 +3,12 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import {ChevronRight} from 'react-feather';
 
-import {getChainColors} from 'utils/colors';
+import {colors, getChainColors} from 'utils/colors';
 import {CHAINS} from 'types';
 import logoSVG from 'public/figment-learn-compact.svg';
+import discordSVG from 'public/discord.svg';
 import {HEADER_HEIGHT} from 'lib/constants';
 import {
   getLabelForCurrentChain,
@@ -23,23 +25,35 @@ const Nav = () => {
   return (
     <StyledNav
       primary_color={primaryColor}
-      secondary_color={secondaryColor}
       align="middle"
       justify="space-between"
     >
-      <Space size="large" direction="horizontal" align="center">
-        <Image src={logoSVG} alt="Figment Learn" height={41} width={100} />
-        <ChainTitle
-          secondary_color={secondaryColor}
-        >{`${chainLabel} Pathway`}</ChainTitle>
-      </Space>
+      <Row align="middle">
+        <Image src={logoSVG} alt="Figment Learn" height={47} width={100} />
+        <ChainTitle direction="horizontal" secondary_color={secondaryColor}>
+          <Link href="/">Pathways</Link>
+          <ChevronRight style={{marginTop: '14px'}} />
+          {chainLabel}
+        </ChainTitle>
+      </Row>
 
-      <Link href="/">See All Pathways</Link>
+      <a
+        href="https://discord.com/invite/fszyM7K"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Discord>
+          <Row align="middle">
+            <div>Need help? Find us on</div>
+            <Image src={discordSVG} alt="Discord" height={22} width={100} />
+          </Row>
+        </Discord>
+      </a>
     </StyledNav>
   );
 };
 
-const StyledNav = styled(Row)<{primary_color: string; secondary_color: string}>`
+const StyledNav = styled(Row)<{primary_color: string}>`
   position: fixed;
   left: 0;
   right: 0;
@@ -49,18 +63,32 @@ const StyledNav = styled(Row)<{primary_color: string; secondary_color: string}>`
   padding: 0 40px;
   background: ${({primary_color}) => primary_color};
   border-bottom: solid 2px black;
-
-  a {
-    color: ${({secondary_color}) => secondary_color};
-    font-size: 15px;
-    font-weight: 600;
-  }
 `;
 
-const ChainTitle = styled.div<{secondary_color: string}>`
+const ChainTitle = styled(Space)<{secondary_color: string}>`
   color: ${({secondary_color}) => secondary_color};
   font-size: 24px;
   font-weight: 600;
+  margin-left: 24px;
+
+  a {
+    color: ${({secondary_color}) => secondary_color};
+    opacity: 0.6;
+
+    &:hover {
+      text-decoration: underline;
+      opacity: 1;
+    }
+  }
+`;
+
+const Discord = styled.div`
+  font-weight: 600;
+  padding: 8px 15px;
+  border-radius: 3px;
+  background: ${colors.figmentYellow};
+  color: black !important;
+  box-shadow: #9b9b9b 0px 0px 5px 1px;
 `;
 
 export default Nav;

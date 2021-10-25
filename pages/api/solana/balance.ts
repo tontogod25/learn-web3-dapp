@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {Connection, PublicKey} from '@solana/web3.js';
-import {getNodeURL} from '@solana/lib';
+import {getNodeURL} from '@figment-solana/lib';
 
 export default async function balance(
   req: NextApiRequest,
@@ -17,6 +17,7 @@ export default async function balance(
     }
     res.status(200).json(balance);
   } catch (error) {
-    res.status(500).json(error.message);
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

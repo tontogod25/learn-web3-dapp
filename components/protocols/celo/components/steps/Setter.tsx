@@ -2,8 +2,8 @@ import {useEffect, useState} from 'react';
 import {Alert, Col, Input, Button, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import axios from 'axios';
-import {useAppState} from '@celo/hooks';
-import {transactionUrl} from '@celo/lib';
+import {useAppState} from '@figment-celo/hooks';
+import {transactionUrl} from '@figment-celo/lib';
 
 const {Text} = Typography;
 

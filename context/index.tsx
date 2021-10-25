@@ -10,6 +10,7 @@ import {
   PROTOCOL_INNER_STATES_ID,
   NETWORKS,
   PROTOCOLS,
+  InnerStateT,
 } from 'types';
 
 type StepsReducerHelperT = {
@@ -23,7 +24,8 @@ const stepsReducerHelper = (
 ): StepsReducerHelperT => {
   const id = step.id;
   const title = step.title;
-  const isSkippable = !!step.skippable;
+  const isOneColumn = !!step.isOneColumn;
+  const isSkippable = !!step.skippable || isOneColumn;
   const isCompleted = isSkippable ? true : false;
   const isVisited = isSkippable ? true : false;
   const position = index + 1;
@@ -37,6 +39,7 @@ const stepsReducerHelper = (
     isSkippable,
     position,
     previousStepId,
+    isOneColumn,
     nextStepId: null,
   };
 
@@ -57,7 +60,7 @@ const protocolsReducerHelper = (
   );
   const stepsIds = Object.keys(steps.data) as PROTOCOL_STEPS_ID[];
   const numberOfStep = stepsIds.length;
-  const firstStepId = stepsIds[0];
+  const firstStepId = PROTOCOL_STEPS_ID.PREFACE;
   const lastStepId = stepsIds[numberOfStep - 1];
 
   protocolsData[chainId] = {
@@ -67,7 +70,7 @@ const protocolsReducerHelper = (
     network: CHAINS_CONFIG[chainId].network,
     isActive: CHAINS_CONFIG[chainId].active,
     protocol: CHAINS_CONFIG[chainId].protocol,
-    currentStepId: PROTOCOL_STEPS_ID.PROJECT_SETUP,
+    currentStepId: firstStepId,
     steps: steps.data,
     firstStepId,
     lastStepId,
@@ -186,6 +189,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
 
     case 'ClearStepProgression': {
       const newSteps = clearStepProgression(getStepsForCurrentChain(state));
+      const firstStepId = getFirstStepIdForCurrentChain(state);
       return {
         ...state,
         protocols: {
@@ -193,6 +197,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
           [action.chainId]: {
             ...state.protocols[action.chainId],
             steps: newSteps,
+            currentStepId: firstStepId,
           },
         },
       };
@@ -322,6 +327,12 @@ export const getIsSkippableForCurrentStepId = (state: GlobalStateT) => {
   return state.protocols[chainId].steps[currentStepId].isSkippable;
 };
 
+export const getIsOneColumn = (state: GlobalStateT) => {
+  const chainId = getCurrentChainId(state);
+  const currentStepId = getCurrentStepIdForCurrentChain(state);
+  return state.protocols[chainId].steps[currentStepId].isOneColumn;
+};
+
 export const getIsVisitedForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
@@ -356,6 +367,11 @@ export const getChainInnerState = (
   stateId: PROTOCOL_INNER_STATES_ID,
 ) => {
   return state.protocols[chainId].innerState?.[stateId] as string | null;
+};
+
+export const getChainInnerStates = (state: GlobalStateT): InnerStateT => {
+  const chainId = getCurrentChainId(state);
+  return state.protocols[chainId].innerState ?? ({} as InnerStateT);
 };
 
 //-------------------------------------------------

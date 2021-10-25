@@ -1,10 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
-import {Col, Space, Menu, Dropdown, Progress} from 'antd';
+import styled, {withTheme} from 'styled-components';
+import {Space, Menu, Dropdown, Progress} from 'antd';
 import {DownOutlined} from '@ant-design/icons';
 import Markdown from 'components/shared/CustomMarkdown';
 
-import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
 import {MarkdownForChainIdT} from 'types';
 import {
   useGlobalState,
@@ -12,6 +11,7 @@ import {
   getStepsForCurrentChain,
   getPositionForCurrentStepId,
   getCurrentStepIdForCurrentChain,
+  getIsOneColumn,
 } from 'context';
 
 const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
@@ -23,6 +23,7 @@ const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
     const title = step.title as string;
     return {index, title};
   });
+  const isStepOneColumn = getIsOneColumn(state);
 
   const md = markdown[currentStepId];
   const stepIndex = getPositionForCurrentStepId(state);
@@ -36,37 +37,32 @@ const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
   );
 
   return (
-    <Left span={GRID_LAYOUT[0]} key={currentStepId}>
+    <Container single_column={isStepOneColumn}>
       <StepHeader size="large" align="center">
         <StepTitle>{stepTitle}</StepTitle>
         <Dropdown overlay={menu}>
-          <DownOutlined size={20} style={{cursor: 'pointer'}} />
+          <Progress
+            type="circle"
+            percent={(stepIndex / steps.length) * 100}
+            format={() => `${stepIndex}/${steps.length}`}
+            width={50}
+            trailColor={'white'}
+          />
         </Dropdown>
-        <Progress
-          type="circle"
-          percent={(stepIndex / steps.length) * 100}
-          format={(percent) =>
-            `${(percent * steps.length) / 100}/${steps.length}`
-          }
-          width={50}
-          trailColor={'white'}
-        />
       </StepHeader>
 
       <Markdown captureMessage={() => {}}>{md}</Markdown>
-    </Left>
+    </Container>
   );
 };
 
-const heightOffset = `${FOOTER_HEIGHT + HEADER_HEIGHT}px`;
-
-const Left = styled(Col)`
-  position: relative;
-  padding: 40px;
-  background: #f5f5f5;
-  border-right: solid 2px black;
-  overflow: scroll;
-  height: calc(100vh - ${heightOffset});
+const Container = styled.div<{single_column: boolean}>`
+  ${({theme, single_column}) =>
+    single_column &&
+    theme.media.xl`
+    width: 680px;
+    margin: 0 auto;
+  `}
 `;
 
 const StepHeader = styled(Space)`
@@ -74,7 +70,7 @@ const StepHeader = styled(Space)`
 `;
 
 const StepTitle = styled.div`
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 600;
 `;
 
@@ -86,4 +82,5 @@ const MenuItem = styled.div`
   padding: 4px 12px;
 `;
 
-export default Sidebar;
+// @ts-ignore
+export default withTheme(Sidebar);

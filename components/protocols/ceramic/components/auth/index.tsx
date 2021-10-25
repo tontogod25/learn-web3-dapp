@@ -1,31 +1,18 @@
 import React, {useState} from 'react';
-import {
-  Button,
-  Space,
-  Menu,
-  Dropdown,
-  Tag,
-  Popover,
-  Typography,
-  Divider,
-  Form,
-  Row,
-  Col,
-  Avatar,
-} from 'antd';
+import {Button, Space, Tag, Typography} from 'antd';
 import {
   FundViewOutlined,
   LinkOutlined,
   PoweroffOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import {useIdx} from '@ceramic/context/idx';
+import {useIdx} from '@figment-ceramic/context/idx';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
 import {getCurrentChainId, useGlobalState} from 'context';
-import {slicedAddress} from '@funnel/string-utils';
-import {EntryT} from '@ceramic/types';
-import IdentityItem from '@ceramic/components/auth/IdentityItem';
-import IdentityPopover from '@ceramic/components/auth/IdentityPopover';
+import {slicedAddress} from 'utils/string-utils';
+import {EntryT} from '@figment-ceramic/types';
+import IdentityItem from '@figment-ceramic/components/auth/IdentityItem';
+import IdentityPopover from '@figment-ceramic/components/auth/IdentityPopover';
 
 type AuthProps = {
   onConnected?: (address: string) => void;

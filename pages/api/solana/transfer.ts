@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getNodeURL} from '@solana/lib';
+import {getNodeURL} from '@figment-solana/lib';
 import {
   Connection,
   PublicKey,
@@ -22,7 +22,7 @@ export default async function transfer(
     // The secret key is stored in our state as a stringified array
     const secretKey = Uint8Array.from(JSON.parse(secret as string));
 
-    //... let's snip the beginning as it should be familiar for you by now!
+    //... let's skip the beginning as it should be familiar for you by now!
     // Find the parameter to pass
     const instructions = SystemProgram.transfer;
 
@@ -32,9 +32,12 @@ export default async function transfer(
     // Maybe adding something to a Transaction could be interesting ?
     const transaction = new Transaction();
 
-    const hash = res.status(200).json(hash); // You should know what is expected here.
+    // We can send and confirm a transaction in one row.
+    const hash = undefined;
+
+    res.status(200).json(hash);
   } catch (error) {
-    console.log(error);
-    res.status(500).json(error.message);
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

@@ -1,7 +1,8 @@
 import {keyStores, ConnectConfig, KeyPair} from 'near-api-js';
-import {CHAINS, NEAR_NETWORKS, NEAR_PROTOCOLS} from 'types';
+import {CHAINS, NEAR_NETWORKS, NEAR_PROTOCOLS, GlobalStateT} from 'types';
 import {InMemoryKeyStore} from 'near-api-js/lib/key_stores';
 import {getNodeURL} from 'utils/datahub';
+import {getNetworkForCurrentChain, getChainInnerStates} from 'context';
 
 export const configFromNetwork = (network: string): ConnectConfig => {
   const nodeUrl: string = getNodeURL(
@@ -35,3 +36,10 @@ export const getPrettyPublicKey = (secretKey: string) =>
 
 export const getPublicKey = (secretKey: string) =>
   KeyPair.fromString(secretKey).getPublicKey().toString();
+
+export const getNearState = (state: GlobalStateT) => {
+  const innerState = getChainInnerStates(state);
+  const NETWORK = getNetworkForCurrentChain(state);
+
+  return {...innerState, NETWORK};
+};

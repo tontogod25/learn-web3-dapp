@@ -1,10 +1,10 @@
 import {Typography, Popover, Button, Select} from 'antd';
-import type {EntryT} from '@avalanche/types';
+import type {EntryT} from '@figment-avalanche/types';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 import {getCurrentChainId, useGlobalState} from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
-import {getAvalancheInnerState} from '@avalanche/lib';
-import {trackStorageCleared} from '@funnel/tracking-utils';
+import {getAvalancheInnerState} from '@figment-avalanche/lib';
+import {trackStorageCleared} from 'utils/tracking-utils';
 
 const {Option} = Select;
 

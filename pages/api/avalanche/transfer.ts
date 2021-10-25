@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getAvalancheClient} from '@avalanche/lib';
+import {getAvalancheClient} from '@figment-avalanche/lib';
 import {BinTools, BN} from 'avalanche';
 
 export default async function transfer(

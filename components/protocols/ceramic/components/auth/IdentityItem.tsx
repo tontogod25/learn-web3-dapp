@@ -1,7 +1,7 @@
 import React from 'react';
 import {Col, Row, Space, Tag, Typography} from 'antd';
 import {FundViewOutlined} from '@ant-design/icons';
-import {slicedAddress} from '@funnel/string-utils';
+import {slicedAddress} from 'utils/string-utils';
 
 type IdentityItemProps = {
   label: string;

@@ -1,6 +1,6 @@
 import {Connection, PublicKey, LAMPORTS_PER_SOL} from '@solana/web3.js';
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getNodeURL} from '@solana/lib';
+import {getNodeURL} from '@figment-solana/lib';
 
 export default async function fund(
   req: NextApiRequest,
@@ -15,6 +15,7 @@ export default async function fund(
     await undefined;
     res.status(200).json(hash);
   } catch (error) {
-    res.status(500).json(error.message);
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

@@ -14,11 +14,11 @@ import CeramicClient from '@ceramicnetwork/http-client';
 import {EthereumAuthProvider, ThreeIdConnect} from '@3id/connect';
 import {DID} from 'dids';
 import ThreeIdResolver from '@ceramicnetwork/3id-did-resolver';
-import {aliases} from '@ceramic/lib';
+import {aliases} from '@figment-ceramic/lib';
 import detectEthereumProvider from '@metamask/detect-provider';
 import {BasicProfile} from '@ceramicstudio/idx-constants';
-import {IdxSchema, QuoteSchemaT} from '@ceramic/types';
-import {IdentityKey, IdentityStore} from '@ceramic/lib/identityStore';
+import {IdxSchema, QuoteSchemaT} from '@figment-ceramic/types';
+import {IdentityKey, IdentityStore} from '@figment-ceramic/lib/identityStore';
 
 type UserData = {
   basicProfile?: BasicProfile;

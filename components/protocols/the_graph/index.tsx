@@ -5,7 +5,7 @@ import {
   Query,
   Mapping,
   Entity,
-} from '@the-graph/components/steps';
+} from '@figment-the-graph/components/steps';
 import Layout from 'components/shared/Layout';
 import {ChainType, MarkdownForChainIdT, PROTOCOL_STEPS_ID} from 'types';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';

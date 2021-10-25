@@ -15,17 +15,16 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@near/*": ["components/protocols/near/*"],
-      "@polkadot/*": ["components/protocols/polkadot/*"],
-      "@solana/*": ["components/protocols/solana/*"],
-      "@celo/*": ["components/protocols/celo/*"],
-      "@tezos/*": ["components/protocols/tezos/*"],
-      "@avalanche/*": ["components/protocols/avalanche/*"],
-      "@secret/*": ["components/protocols/secret/*"],
-      "@polygon/*": ["components/protocols/polygon/*"],
-      "@ceramic/*": ["components/protocols/ceramic/*"],
-      "@the-graph/*": ["components/protocols/the_graph/*"],
-      "@funnel/*": ["utils/*"]
+      "@figment-near/*": ["components/protocols/near/*"],
+      "@figment-polkadot/*": ["components/protocols/polkadot/*"],
+      "@figment-solana/*": ["components/protocols/solana/*"],
+      "@figment-celo/*": ["components/protocols/celo/*"],
+      "@figment-tezos/*": ["components/protocols/tezos/*"],
+      "@figment-avalanche/*": ["components/protocols/avalanche/*"],
+      "@figment-secret/*": ["components/protocols/secret/*"],
+      "@figment-polygon/*": ["components/protocols/polygon/*"],
+      "@figment-ceramic/*": ["components/protocols/ceramic/*"],
+      "@figment-the-graph/*": ["components/protocols/the_graph/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jest.config.js"],

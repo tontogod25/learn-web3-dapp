@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Alert, Col, Space, Typography} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import {
@@ -7,7 +7,7 @@ import {
   ApolloProvider,
   useLazyQuery,
 } from '@apollo/client';
-import TEN_MOST_EXPENSIVE_PUNKS from '@the-graph/graphql';
+import MOST_VALUABLE_PUNKS_QUERY from '@figment-the-graph/graphql/query';
 import {
   getCurrentChainId,
   useGlobalState,
@@ -15,7 +15,7 @@ import {
 } from 'context';
 import {useColors} from 'hooks';
 import {StepButton} from 'components/shared/Button.styles';
-import Punks from '@the-graph/components/punks';
+import Punks from '@figment-the-graph/components/punks';
 
 const {Text} = Typography;
 
@@ -30,7 +30,7 @@ const QueryPunks = () => {
   const {state, dispatch} = useGlobalState();
   const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
   const [getAssignedPunk, {loading, error, data}] = useLazyQuery(
-    TEN_MOST_EXPENSIVE_PUNKS,
+    MOST_VALUABLE_PUNKS_QUERY,
   );
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const QueryPunks = () => {
           size="large"
           autoFocus={false}
         >
-          Get Ten most expensive punks?
+          Display the 10 most valuable CryptoPunks
         </StepButton>
         {data ? (
           <Punks data={data.punks} />
@@ -81,7 +81,14 @@ const QueryPunks = () => {
 
 const Query = () => {
   if (!GRAPHQL_ENDPOINTS) {
-    return <Alert message="Please setup your env" type="error" showIcon />;
+    return (
+      <Alert
+        message="Make sure you have `NEXT_PUBLIC_LOCAL_SUBGRAPH` in your .env.local file."
+        description="If you make a change to .env.local, you'll need to restart the server!"
+        type="error"
+        showIcon
+      />
+    );
   }
 
   return (

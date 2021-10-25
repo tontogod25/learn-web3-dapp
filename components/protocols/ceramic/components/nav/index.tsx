@@ -1,7 +1,7 @@
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
 import {PROTOCOL_STEPS_ID} from 'types';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
-import Auth from '@ceramic/components/auth';
+import Auth from '@figment-ceramic/components/auth';
 
 const Nav = () => {
   const {state} = useGlobalState();

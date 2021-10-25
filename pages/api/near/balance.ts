@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {configFromNetwork} from '@near/lib';
+import {configFromNetwork} from '@figment-near/lib';
 import {connect} from 'near-api-js';
 
 export default async function (
@@ -7,15 +7,15 @@ export default async function (
   res: NextApiResponse<string>,
 ) {
   try {
-    const {network, accountId} = req.body;
-    const config = configFromNetwork(network);
+    const {NETWORK, ACCOUNT_ID} = req.body;
+    const config = configFromNetwork(NETWORK);
     const client = await connect(config);
     const account = undefined;
     const balance = undefined;
     console.log(balance);
     return res.status(200).json(balance);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json('Balance querying failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    return res.status(500).json(errorMessage);
   }
 }

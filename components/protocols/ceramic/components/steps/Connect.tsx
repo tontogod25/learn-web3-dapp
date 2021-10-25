@@ -5,9 +5,8 @@ import {
   getCurrentStepIdForCurrentChain,
   useGlobalState,
 } from 'context';
-import {PROTOCOL_INNER_STATES_ID} from 'types';
 import SetupWizard from 'components/shared/SetupWizard';
-import {useIdx} from '@ceramic/context/idx';
+import {useIdx} from '@figment-ceramic/context/idx';
 
 const {Text} = Typography;
 

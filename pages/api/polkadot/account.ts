@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {PolkadotAccountResponse} from '@polkadot/types';
+import {PolkadotAccountResponse} from '@figment-polkadot/types';
 
 import {Keyring} from '@polkadot/api';
 import {mnemonicGenerate, mnemonicValidate} from '@polkadot/util-crypto';
@@ -29,6 +29,7 @@ export default async function account(
       jsonWallet,
     });
   } catch (error) {
-    res.status(500).json('Account creation failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

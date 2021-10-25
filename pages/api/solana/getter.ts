@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {Connection, PublicKey} from '@solana/web3.js';
-import {getNodeURL} from '@solana/lib';
+import {getNodeURL} from '@figment-solana/lib';
 import * as borsh from 'borsh';
 
 // The state of a greeting account managed by the hello world program
@@ -43,7 +43,8 @@ export default async function getter(
     // Pass the counter to the client-side as JSON
     res.status(200).json(undefined);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json(error.message);
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    console.log(errorMessage);
+    res.status(500).json(errorMessage);
   }
 }

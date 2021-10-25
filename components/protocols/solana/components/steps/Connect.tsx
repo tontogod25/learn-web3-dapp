@@ -1,9 +1,9 @@
 import {Col, Alert, Space, Typography, Button, Modal} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
-import {ErrorBox} from '@solana/components/nav';
+import {ErrorBox} from '@figment-solana/components/nav';
 import {useEffect, useState} from 'react';
-import type {ErrorT} from '@solana/types';
-import {prettyError} from '@solana/lib';
+import type {ErrorT} from '@figment-solana/types';
+import {prettyError} from '@figment-solana/lib';
 import {
   getCurrentChainId,
   useGlobalState,

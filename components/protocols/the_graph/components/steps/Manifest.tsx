@@ -5,7 +5,7 @@ import {
   CheckOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
-import type {ManifestStepStatusesT} from '@the-graph/types';
+import type {ManifestStepStatusesT} from '@figment-the-graph/types';
 import {
   getCurrentChainId,
   useGlobalState,
@@ -15,7 +15,7 @@ import axios from 'axios';
 import SetupWizard from 'components/shared/SetupWizard';
 import {StepButton} from 'components/shared/Button.styles';
 import {useColors} from 'hooks';
-import {defaultStatus} from '@the-graph/lib';
+import {defaultManifestStatus} from '@figment-the-graph/lib';
 
 const {Text} = Typography;
 
@@ -23,13 +23,15 @@ const GraphNode = () => {
   const {state, dispatch} = useGlobalState();
   const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
 
-  const [status, setStatus] = useState<ManifestStepStatusesT>(defaultStatus);
+  const [status, setStatus] = useState<ManifestStepStatusesT>(
+    defaultManifestStatus,
+  );
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const isValid = () =>
     Object.values(status).reduce((completion, statusField) => {
-      return completion && statusField.valid;
+      return completion && statusField.isValid;
     }, true);
 
   useEffect(() => {
@@ -46,9 +48,9 @@ const GraphNode = () => {
   const checkStep = async () => {
     setFetching(true);
     setError(null);
-    setStatus(defaultStatus);
+
     try {
-      const response = await axios.post(`/api/the-graph/manifest`, {status});
+      const response = await axios.get(`/api/the-graph/manifest`);
       setStatus(response.data);
     } catch (error) {
       setError(error.message);
@@ -130,7 +132,7 @@ const ManifestStatus = ({
           return (
             <Space direction="horizontal" key={index}>
               <div>
-                {status.valid ? (
+                {status.isValid ? (
                   <CheckOutlined size={16} style={{color: 'green'}} />
                 ) : (
                   <CloseOutlined size={16} style={{color: 'red'}} />

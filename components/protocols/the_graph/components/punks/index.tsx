@@ -1,72 +1,73 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
 import CryptopunksData from 'contracts/the_graph/CryptopunksData.abi.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import React, {useEffect, useState} from 'react';
-import {toDate, toEther} from '@the-graph/lib';
-import {PunkdataT} from '@the-graph/types';
+import {toEther} from '@figment-the-graph/lib';
+import {PunkdataT} from '@figment-the-graph/types';
 import styled from 'styled-components';
 import {ethers} from 'ethers';
-import {Card, Space, Typography} from 'antd';
+import {Card, Row, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-// No type definition available for the following package
-// @ts-ignore
-import Identicon from 'react-identicons';
+import * as dayjs from 'dayjs';
 
 const PUNK_CONTRACT_ADDRESS = process.env
   .NEXT_PUBLIC_PUNK_DATA_CONTRACT_ADDRESS as string;
 
 const {Text} = Typography;
 
-declare let window: {
-  ethereum:
-    | ethers.providers.ExternalProvider
-    | ethers.providers.JsonRpcFetchFunc;
-};
-
 const {Meta} = Card;
 
-const PunkSvg = ({svgString, size}: {svgString?: string; size: number}) => {
+type providerT = ethers.providers.ExternalProvider;
+
+declare let window: {
+  ethereum: providerT;
+};
+
+const PunkSvg = ({
+  svgString,
+  index,
+  size = 100,
+}: {
+  svgString: string;
+  index: number;
+  size?: number;
+}) => {
   return (
-    <img
-      src={`data:image/svg+xml;utf8,${encodeURIComponent(svgString ?? '')}`}
-      width={size}
-      height={size}
-    />
+    <PunkImageWrapper>
+      <PunkIndex>{index + 1}</PunkIndex>
+      <PunkImg
+        src={`data:image/svg+xml;utf8,${encodeURIComponent(svgString ?? '')}`}
+        width={size}
+        height={size}
+      />
+    </PunkImageWrapper>
   );
 };
 
 const DisplayedPunk = ({
+  index,
   data,
   loading,
 }: {
+  index: number;
   data: PunkdataT;
   loading: boolean;
 }) => {
   return (
-    <Card
-      hoverable
-      style={{
-        width: 165,
-        height: 165,
-        margin: '10px',
-        background: 'gainsboro',
-      }}
+    <StyledCard
       loading={loading}
-      cover={<PunkSvg svgString={data?.svgString} size={50} />}
+      cover={<PunkSvg index={index} svgString={data?.svgString || ''} />}
     >
       <Meta
-        style={{fontSize: '12px'}}
-        title={data.traits?.split(',')[1]}
+        title={`#${data.index}`}
         description={
           <Space direction="vertical">
             <Text>{toEther(data.value)} Ξ</Text>
-            <Text>{toDate(parseFloat(data.date))}</Text>
+            <Traits>{data.traits}</Traits>
+            <Date>{dayjs.unix(data.date).format('MMM D, YYYY')}</Date>
           </Space>
         }
-        avatar={<Identicon string={data.owner?.id} size={24} />}
       />
-    </Card>
+    </StyledCard>
   );
 };
 
@@ -99,9 +100,13 @@ const Punks = ({data}: {data: PunkdataT[]}) => {
       setPunksData(undefined);
       setLoading(true);
       try {
-        const provider = await detectEthereumProvider();
+        const provider = (await detectEthereumProvider()) as providerT;
 
         if (provider) {
+          await provider.request?.({
+            method: 'eth_requestAccounts',
+          });
+
           const web3provider = new ethers.providers.Web3Provider(
             window.ethereum,
           );
@@ -126,36 +131,71 @@ const Punks = ({data}: {data: PunkdataT[]}) => {
     fetchAllData().then((data) => setPunksData(data));
   }, []);
 
+  console.log(punksData);
+
   return (
-    <CardsContainer>
+    <Row>
       {punksData ? (
-        punksData.map((punk: PunkdataT) => {
-          return <DisplayedPunk data={punk} key={punk.id} loading={loading} />;
-        })
+        <Space direction="vertical">
+          <ResultsTitle>
+            Most valuable CryptoPunks since Block #13100000 (Aug-26-2021)
+          </ResultsTitle>
+          <Row>
+            {punksData.map((punk: PunkdataT, index: number) => {
+              return (
+                <DisplayedPunk
+                  data={punk}
+                  key={punk.id}
+                  loading={loading}
+                  index={index}
+                />
+              );
+            })}
+          </Row>
+        </Space>
       ) : loading ? (
-        <LoadingOutlinedStyle>
-          <LoadingOutlined style={{fontSize: '64px'}} spin />
-        </LoadingOutlinedStyle>
+        <LoadingOutlined style={{fontSize: '64px'}} spin />
       ) : null}
-    </CardsContainer>
+    </Row>
   );
 };
 
-const CardsContainer = styled.div`
-  display: flex;
-  max-width: 700px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 350px;
+const ResultsTitle = styled.div`
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
 `;
 
-const LoadingOutlinedStyle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-  min-width: 100%;
+const Traits = styled.div`
+  font-size: 12px;
+`;
+
+const Date = styled.div`
+  font-size: 12px;
+  color: #aaa;
+`;
+
+const PunkImageWrapper = styled.div`
+  position: relative;
+`;
+
+const PunkIndex = styled.div`
+  position: absolute;
+  top: 10;
+  left: 10;
+  font-size: 20px;
+  font-weight: 600;
+  color: #5943d0;
+`;
+
+const PunkImg = styled.img`
+  background: #dbdbdb;
+  width: 100%;
+`;
+
+const StyledCard = styled(Card)`
+  width: 200px;
+  margin: 0 20px 20px 0;
 `;
 
 export default Punks;

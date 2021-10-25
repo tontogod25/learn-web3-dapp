@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {Alert, Col, Input, Button, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import axios from 'axios';
-import {useAppState} from '@secret/hooks';
+import {useAppState} from '@figment-secret/hooks';
 
 const {Text} = Typography;
 
