@@ -63,7 +63,6 @@ const BasicProfileStep = () => {
 
     try {
       // Set BasicProfile (use IdxSchema.BasicProfile)
-      await idx.set(IdxSchema.BasicProfile, {name});
 
       setCurrentUserData(IdxSchema.BasicProfile, {name});
 
@@ -80,7 +79,7 @@ const BasicProfileStep = () => {
       setFetching(true);
 
       // Read basic profile (use IdxSchema.BasicProfile enum)
-      const resp = await idx.get<BasicProfile>(IdxSchema.BasicProfile);
+      const resp = undefined;
 
       setCurrentUserData(IdxSchema.BasicProfile, resp as BasicProfile);
 

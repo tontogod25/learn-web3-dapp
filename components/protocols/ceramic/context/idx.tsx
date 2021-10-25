@@ -192,40 +192,25 @@ const useIdx = (): UseIdxHook => {
 
     // Request authentication using 3IDConnect.
     // Find more information here: https://developers.ceramic.network/authentication/3id-did/3id-connect/#4-request-authentication
-    const threeIdConnect = new ThreeIdConnect();
-    const authProvider = new EthereumAuthProvider(window.ethereum, address);
-    await threeIdConnect.connect(authProvider);
 
     // Create provider instance.
     // Find more information here: https://developers.ceramic.network/authentication/3id-did/3id-connect/#5-create-provider-instance
-    const provider = await threeIdConnect.getDidProvider();
 
     // Create a DID instance.
     // Find more information here: https://developers.ceramic.network/build/javascript/http/
     // NOTE: We want to use only ThreeIdResolver here
-    const didInstance = new DID({
-      resolver: {
-        ...ThreeIdResolver.getResolver(ceramicRef.current),
-      },
-    });
 
     // Set DID instance on HTTP client
     // Find more information here: https://developers.ceramic.network/build/javascript/http/#7-set-did-instance-on-http-client
-    ceramicRef.current.did = didInstance;
 
     // Set the provider to Ceramic
     // Find more information here: https://developers.ceramic.network/authentication/3id-did/3id-connect/#6-set-the-provider-to-ceramic
-    ceramicRef.current.did.setProvider(provider);
 
     // Authenticate the 3ID
     // Find more information here: https://developers.ceramic.network/authentication/3id-did/3id-connect/#7-authenticate-the-3id
-    const userDID = await ceramicRef.current.did.authenticate();
+    const userDID = undefined;
 
     // Create IDX instance
-    idxRef.current = new IDX({
-      ceramic: ceramicRef.current,
-      aliases,
-    });
 
     // Get current user's basic profile
     const basicProfile = await getBasicProfile(userDID);
