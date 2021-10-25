@@ -9,7 +9,6 @@ import {
 import Layout from 'components/shared/Layout';
 import {ChainType, MarkdownForChainIdT, PROTOCOL_STEPS_ID} from 'types';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
-import SetupWizard from 'components/shared/SetupWizard';
 
 const TheGraph: React.FC = () => {
   const {state: globalState} = useGlobalState();
@@ -17,9 +16,7 @@ const TheGraph: React.FC = () => {
 
   return (
     <>
-      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
-        <SetupWizard showText={true} />
-      )}
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
       {stepId === PROTOCOL_STEPS_ID.GRAPH_NODE && <Node />}
       {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_SCAFFOLD && <Subgraph />}
       {stepId === PROTOCOL_STEPS_ID.SUBGRAPH_MANIFEST && <Manifest />}

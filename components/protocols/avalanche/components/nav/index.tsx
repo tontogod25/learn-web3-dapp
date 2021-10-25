@@ -13,7 +13,7 @@ const {Text, Paragraph} = Typography;
 const Nav = () => {
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
-  const {ADDRESS, SECRET} = getAvalancheInnerState(state);
+  const {address, secret} = getAvalancheInnerState(state);
 
   const displayAddress = (address: string) =>
     `${address.slice(0, 5)}...${address.slice(-5)}`;
@@ -30,11 +30,11 @@ const Nav = () => {
   const AppState = () => {
     return (
       <>
-        {ADDRESS && (
-          <Entry msg={'Address: '} value={ADDRESS} display={displayAddress} />
+        {address && (
+          <Entry msg={'Address: '} value={address} display={displayAddress} />
         )}
-        {SECRET && (
-          <Entry msg={'Secret: '} value={SECRET} display={displayAddress} />
+        {secret && (
+          <Entry msg={'Secret: '} value={secret} display={displayAddress} />
         )}
         <Button danger onClick={clearKeychain} size={'small'}>
           Clear Keychain

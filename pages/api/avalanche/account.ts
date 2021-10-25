@@ -5,23 +5,25 @@ type ReponseT = {
   secret: string;
   address: string;
 };
+
 export default function account(
   req: NextApiRequest,
-  res: NextApiResponse<ReponseT>,
+  res: NextApiResponse<ReponseT | string>,
 ) {
   try {
     const {network} = req.body;
     const client = getAvalancheClient(network);
     const chain = client.XChain();
     const keyChain = chain.keyChain();
-    const keypair = keyChain.undefined; // There is a useful method to use here
-    const secret = undefined;
-    const address = undefined;
+    const keypair = keyChain.makeKey();
+    const secret = keypair.getPrivateKeyString();
+    const address = keypair.getAddressString();
     res.status(200).json({
       secret,
       address,
     });
   } catch (error) {
-    res.status(500).json(error.message);
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

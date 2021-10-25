@@ -14,11 +14,25 @@ const {Text} = Typography;
 const Account = () => {
   const {state, dispatch} = useGlobalState();
   const avalancheState = getAvalancheInnerState(state);
+
   const [address, setAddress] = useState<string | null>(null);
+  const [secret, setSecret] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
 
   useEffect(() => {
     if (address) {
+      dispatch({
+        type: 'SetStepInnerState',
+        chainId: getCurrentChainId(state),
+        innerStateId: PROTOCOL_INNER_STATES_ID.SECRET,
+        value: secret,
+      });
+      dispatch({
+        type: 'SetStepInnerState',
+        chainId: getCurrentChainId(state),
+        innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
+        value: address,
+      });
       dispatch({
         type: 'SetStepIsCompleted',
         chainId: getCurrentChainId(state),
@@ -39,25 +53,8 @@ const Account = () => {
       setFetching(true);
       const response = await axios.get(`/api/avalanche/account`);
       setAddress(response.data.address);
+      setSecret(response.data.secret);
       setFetching(false);
-      dispatch({
-        type: 'SetStepInnerState',
-        chainId: getCurrentChainId(state),
-        innerStateId: PROTOCOL_INNER_STATES_ID.SECRET,
-        value: response.data.secret,
-      });
-      dispatch({
-        type: 'SetStepInnerState',
-        chainId: getCurrentChainId(state),
-        innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
-        value: response.data.address,
-      });
-      dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
-      });
     } catch (error) {
       console.error(error);
       setFetching(false);
