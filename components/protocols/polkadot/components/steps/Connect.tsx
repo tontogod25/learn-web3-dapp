@@ -4,13 +4,16 @@ import {PoweroffOutlined} from '@ant-design/icons';
 import Confetti from 'react-confetti';
 import axios from 'axios';
 
+import {CHAINS} from 'types';
+import {CHAINS_CONFIG} from 'lib/constants';
+
 import {useAppState} from '@figment-polkadot/hooks';
 
 const {Text} = Typography;
 
 const Connect = () => {
   const {state, dispatch} = useAppState();
-  const chainId = 'Polkadot';
+  const chainId = CHAINS_CONFIG[CHAINS.POLKADOT].label;
 
   const [version, setVersion] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);

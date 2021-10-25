@@ -1,13 +1,16 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {Alert, Col, Space, Typography, Button} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import Confetti from 'react-confetti';
 import axios from 'axios';
 
+import {CHAINS} from 'types';
+import {CHAINS_CONFIG} from 'lib/constants';
+
 const {Text} = Typography;
 
 const Connect = () => {
-  const chainId = 'tezos';
+  const chainId = CHAINS_CONFIG[CHAINS.TEZOS].label;
 
   const [version, setVersion] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
