@@ -156,8 +156,8 @@ const useIdx = (): UseIdxHook => {
       // Find more information at: https://docs.metamask.io/guide/rpc-api.html.
       // NOTE: Be careful not to use deprecated method!
       // Define address and network
-      const addresses = await provider.request({method: 'eth_requestAccounts'});
-      const address = addresses[0];
+      const addresses = undefined;
+      const address = undefined;
 
       if (setIsConnected) {
         setIsConnected(true);
