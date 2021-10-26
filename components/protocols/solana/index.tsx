@@ -13,7 +13,6 @@ import {
   Setter,
 } from '@figment-solana/components/steps';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
-import SetupWizard from 'components/shared/SetupWizard';
 
 const Solana: React.FC = () => {
   const {state} = useGlobalState();
@@ -22,9 +21,7 @@ const Solana: React.FC = () => {
   return (
     <div>
       <Nav />
-      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
-        <SetupWizard showText={true} />
-      )}
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Keypair />}
       {stepId === PROTOCOL_STEPS_ID.FUND_ACCOUNT && <Fund />}
