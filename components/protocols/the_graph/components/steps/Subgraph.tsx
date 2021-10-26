@@ -7,7 +7,6 @@ import {
   getCurrentStepIdForCurrentChain,
 } from 'context';
 import axios from 'axios';
-import SetupWizard from 'components/shared/SetupWizard';
 import {StepButton} from 'components/shared/Button.styles';
 import {useColors} from 'hooks';
 
@@ -78,7 +77,6 @@ const GraphNode = () => {
               type="success"
               showIcon
             />
-            <SetupWizard />
           </>
         ) : error ? (
           <Alert
