@@ -36,12 +36,6 @@ const Connect = () => {
         avalancheState,
       );
       setVersion(response.data);
-      dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
-      });
     } catch (error) {
       setVersion(null);
     } finally {

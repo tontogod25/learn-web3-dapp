@@ -12,6 +12,7 @@ import {getAvalancheInnerState} from '@figment-avalanche/lib';
 const Export = () => {
   const {state, dispatch} = useGlobalState();
   const avalancheState = getAvalancheInnerState(state);
+
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   const [hash, setHash] = useState(null);
@@ -55,7 +56,7 @@ const Export = () => {
             showIcon
             message={
               <a
-                href={transactionUrl(hash ?? '')}
+                href={transactionUrl(hash as string)}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -69,7 +70,6 @@ const Export = () => {
             style={{maxWidth: '350px'}}
             type="error"
             showIcon
-            closable
             message={error}
             onClose={() => setError('')}
           />

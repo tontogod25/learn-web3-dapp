@@ -26,6 +26,7 @@ const {Text} = Typography;
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();
   const avalancheState = getAvalancheInnerState(state);
+
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   const [hash, setHash] = useState(null);
@@ -137,13 +138,7 @@ const Transfer = () => {
 
         {error && (
           <Form.Item {...tailLayout}>
-            <Alert
-              type="error"
-              showIcon
-              closable
-              message={error}
-              onClose={() => setError(null)}
-            />
+            <Alert type="error" showIcon message={error} />
           </Form.Item>
         )}
       </Form>
