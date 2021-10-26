@@ -35,6 +35,10 @@ const balanceToDisplay = ethers.utils.formatUnits(balanceOfAddress, 18);
 
 When you have completed the code, make sure it works by interacting with the UI on the right side of the page. The button at the bottom right of the screen will be enabled and allow you to move on to the next step!
 
+## 💬 Connect with us on Discord
+
+If you experience any difficulty in using the Pathway or want to talk about Web 3, please join our Developer community on Discord - <https://figment.io/devchat>
+
 ## 👣 Next Steps
 
-Click on the “Next:” button below on the right to move to the next step, which explains how to setup for the Pathway!
+Click on the “Next: Setup the project” button below to continue with the Pathway.
