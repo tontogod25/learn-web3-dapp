@@ -44,8 +44,8 @@ const Polkadot: React.FC = () => {
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}
       {stepId === PROTOCOL_STEPS_ID.RESTORE_ACCOUNT && <Restore />}
-      {stepId === PROTOCOL_STEPS_ID.ESTIMATE_FEES && <Balance />}
-      {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Estimate />}
+      {stepId === PROTOCOL_STEPS_ID.ESTIMATE_FEES && <Estimate />}
+      {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
       {stepId === PROTOCOL_STEPS_ID.ESTIMATE_DEPOSIT && <Deposit />}
       {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
     </PolkadotContext.Provider>
