@@ -4,7 +4,6 @@ import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 import {getCurrentChainId, useGlobalState} from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
 import {getAvalancheInnerState} from '@figment-avalanche/lib';
-import {trackStorageCleared} from 'utils/tracking-utils';
 
 const {Option} = Select;
 
@@ -62,7 +61,6 @@ const Nav = () => {
         type: 'ClearStepProgression',
         chainId,
       });
-      trackStorageCleared(chainId);
     }
   };
 
