@@ -6,7 +6,7 @@ The native token on the **Secret Network** is **SCRT**
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/secret/balance.ts`, implement the default function. You must replace the instances of `undefined` with working code to accomplish this.
@@ -29,15 +29,11 @@ In `pages/api/secret/balance.ts`, implement the default function. You must repla
   }
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [**Query example**](https://github.com/enigmampc/SecretJS-Templates/blob/master/3_query_node/query.js)
 - [**Check out the CosmWasmClient source to understand the `Account` interface**](https://github.com/enigmampc/SecretNetwork/blob/master/cosmwasm-js/packages/sdk/src/cosmwasmclient.ts)
 - [**Also, look at `getAccount()` and what it returns**](https://github.com/enigmampc/SecretNetwork/blob/7adccb9a09579a564fc90173cc9509d88c46d114/cosmwasm-js/packages/sdk/src/cosmwasmclient.ts#L231)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
@@ -47,7 +43,7 @@ You could experience some issues with the availability of the network. [**Click 
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -79,7 +75,7 @@ The amount returned by is denominated in **μSCRT**, so to convert it to **SCRT*
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file is saved, Next.js will rebuild the API route. Click on **Check Balance** and you should see the balance displayed on the page:
 
@@ -87,6 +83,6 @@ Once the code is complete and the file is saved, Next.js will rebuild the API ro
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 100 **SCRT** available, hmmm ... seems it's more than enough to do our first transfer. In the next step, we're going to buy an imaginary pizza which means making a transfer of tokens!

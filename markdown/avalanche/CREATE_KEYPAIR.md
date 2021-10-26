@@ -1,4 +1,4 @@
-In this tutorial we will be creating an Avalanche account on the X-Chain using the Avalanche JavaScript API and DataHub.
+In this tutorial, we will be creating an Avalanche account on the X-Chain using the Avalanche JavaScript API and DataHub.
 
 Unlike other popular blockchains, Avalanche comes with a set of different chains, each with its own purpose:
 
@@ -22,7 +22,7 @@ The C-Chain allows for the creation of smart contracts using the C-Chain’s API
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/avalanche/account.ts`, implement the function to create our private key. A private key is used to sign transactions on any Avalanche chain (X/P/C), and for educational purposes we'll use a single private key during the Pathway. To manage the keys we first configure the Keychain, a component for managing private/public key pairs and addresses. You must replace any instances of `undefined` with working code to accomplish this.
@@ -53,15 +53,11 @@ In `pages/api/avalanche/account.ts`, implement the function to create our privat
 - On the keypair instance, call a method to retrieve the `Address` in string format.
 - [**`AvalancheJS` create keypair example**](https://github.com/ava-labs/avalanchejs/blob/master/examples/evm/createKeypair.ts)
 
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
-
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -94,7 +90,7 @@ Do not forget to fund the newly created wallet using the [Avalanche testnet fauc
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file is saved, Next.js will rebuild the API route. Now click on **Generate a Keypair** and you should see:
 
@@ -102,7 +98,7 @@ Once the code is complete and the file is saved, Next.js will rebuild the API ro
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Nice! Now that you have an identity, it's time to interact with the blockchain.
 You want to know the amount of tokens your account holds? Good, this is exactly what the next challenge is - querying Avalanche for an account balance.

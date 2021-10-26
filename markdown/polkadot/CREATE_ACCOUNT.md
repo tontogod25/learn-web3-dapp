@@ -10,7 +10,7 @@ We will be creating an account programmatically using the API, however you might
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/polkadot/account.ts`, implement the function and try to create your first account on the polkadot network. You must replace the instances of `undefined` with working code to accomplish this.
@@ -44,20 +44,16 @@ In `pages/api/polkadot/account.ts`, implement the function and try to create you
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [**Keyring Basics**](https://polkadot.js.org/docs/keyring/start/basics)
 - [**Using address or publicKey**](https://polkadot.js.org/docs/keyring/start/sign-verify#verify-using-address-or-publickey)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -101,7 +97,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file is saved, Next.js will rebuild the API route. Now click on **Generate a Keypair** and you should see:
 
@@ -109,6 +105,6 @@ Once the code is complete and the file is saved, Next.js will rebuild the API ro
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we have created a Polkadot account and funded it with **WND** testnet tokens, let’s move on to querying a Polkadot node to check the current balance of our account!

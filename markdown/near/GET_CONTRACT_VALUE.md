@@ -6,7 +6,7 @@ If you want to learn more about NEAR smart contracts, you can follow the tutoria
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In`pages/api/near/getter.ts`, implement the default function. You must replace any instances of `undefined` with working code to accomplish this.
@@ -28,19 +28,15 @@ In`pages/api/near/getter.ts`, implement the default function. You must replace a
 //...
 ```
 
-**Need some help?** Check out this link!
+**Need some help?** Check out this link 👇
 
 - [Learn about `viewFunction`](https://near.github.io/near-api-js/classes/account.account-1.html#viewfunction)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```tsx
 // solution
@@ -70,7 +66,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once you have the code above saved, click the button and watch the magic happen:
 
@@ -78,6 +74,6 @@ Once you have the code above saved, click the button and watch the magic happen:
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now, time for the last challenge! Time to modify the state of the contract and thus the state of the blockchain. Let's go!

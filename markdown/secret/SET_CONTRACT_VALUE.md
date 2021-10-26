@@ -23,7 +23,7 @@ const customFees = {
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/secret/setter.ts`, implement the default function. You must replace the instances of `undefined` with working code to accomplish this.
@@ -39,20 +39,16 @@ const response = undefined;
 //...
 ```
 
-**Need some help?** Check out this link!
+**Need some help?** Check out these links 👇
 
 - [**Contract example**](https://github.com/enigmampc/SecretJS-Templates/tree/master/5_contracts)
 - [**`execute()`**](https://github.com/enigmampc/SecretNetwork/blob/7adccb9a09579a564fc90173cc9509d88c46d114/cosmwasm-js/packages/sdk/src/signingcosmwasmclient.ts#L409)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```tsx
 // solution
@@ -71,7 +67,7 @@ const response = await client.execute(contract, handleMsg);
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once you have the code above saved, click the button and watch the magic happen:
 
@@ -79,7 +75,7 @@ Once you have the code above saved, click the button and watch the magic happen:
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Congratulations, you have completed the Secret Pathway! You have successfully deployed and interacted with a smart contract on the Secret Network testnet using DataHub.
 

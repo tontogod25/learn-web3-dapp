@@ -99,7 +99,7 @@ export function handlePunkBought(event: PunkBoughtEvent): void {
 }
 ```
 
-## 👉 The solution
+## 😅 Solution
 
 Your `src/mapping.ts` should look like this:
 

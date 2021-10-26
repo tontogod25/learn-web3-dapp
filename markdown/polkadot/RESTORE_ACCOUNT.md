@@ -4,7 +4,7 @@ Ready? Let's go!
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/polkadot/restore.ts`, implement the function and try to restore your account using your mnemonic. You must replace the instances of `undefined` with working code to accomplish this.
@@ -24,20 +24,16 @@ In `pages/api/polkadot/restore.ts`, implement the function and try to restore yo
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [**Keyring Basics**](https://polkadot.js.org/docs/keyring/start/basics)
 - [**Using address or publicKey**](https://polkadot.js.org/docs/keyring/start/sign-verify#verify-using-address-or-publickey)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -61,7 +57,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 When you have completed the code, click on **Restore Account**
 
@@ -69,6 +65,6 @@ When you have completed the code, click on **Restore Account**
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 The ability to restore an account without requiring a third party is a great feature of **Polkadot**. Now, we're ready to go further and prepare our first transaction. In the next tutorial, we're going to learn how to estimate the fees required to submit a simple transfer.

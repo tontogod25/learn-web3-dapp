@@ -2,7 +2,7 @@ We must check our account balance to make sure we have sufficient **SOL** to per
 
 ---
 
-# 👨‍💻 Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/solana/balance.ts`, implement `publicKey` & `balance`.
@@ -26,20 +26,16 @@ In `pages/api/solana/balance.ts`, implement `publicKey` & `balance`.
 //...
 ```
 
-**Need some help?** Here are a few hints
+**Need some help?** Check out these links 👇
 
 - [Read about getBalance](https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getbalance)
 - [Create a publicKey from a string](https://solana-labs.github.io/solana-web3.js/classes/PublicKey.html#constructor)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# 👉 Solution
+# 😅 Solution
 
 ```typescript
 // solution

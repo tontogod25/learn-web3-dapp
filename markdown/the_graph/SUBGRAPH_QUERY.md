@@ -8,7 +8,7 @@ We can follow the progression of the sync looking at the logged output by the ru
 
 Our Graph node come up with a GraphQL endpoint, available at [http://localhost:8000/subgraphs/name/punks](http://localhost:8000/subgraphs/name/punks/graphql). Open this in another tab and you will see a GraphiQL UI. Consider this a sandboz in which to experiment with queries. Open the right sidebar to explore your schema.
 
-## 👨‍💻Your turn! Write the GraphQL query
+## 👨‍💻 Your turn! Write the GraphQL query
 
 In `components/protocols/the_graph/graphql/index.ts`, write a GraphQL query to return the 10 most expensive CryptoPunks.
 
@@ -20,7 +20,7 @@ Some hints to help you:
 
 Remember to use **GraphiQL IDE** at [http://localhost:8000/subgraphs/name/punks](http://localhost:8000/subgraphs/name/punks) to play around
 
-## 👉 The solution
+## 😅 Solution
 
 In `components/protocols/the_graph/graphql/index.ts` replace the GraphQL query with:
 

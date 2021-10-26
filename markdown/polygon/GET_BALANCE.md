@@ -14,7 +14,7 @@ Once this transaction is confirmed, you will have 1 **MATIC** on the Mumbai test
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 **Imagine this scenario:** You know you have a big balance. You need to show that balance so you can brag about it to all your awesome Web 3 developer friends! In `components/protocols/polygon/components/steps/Balance.tsx`, implement the`checkBalance` function :
@@ -44,19 +44,15 @@ const checkBalance = async () => {
 };
 ```
 
-**Need some help?** Check out these two links  
+**Need some help?** Check out these links 👇
 Get an [**account balance**](https://docs.ethers.io/v5/api/providers/provider/#Provider-getBalance) using ethers  
 Format the balance using [**ethers.utils.formatEther**](https://docs.ethers.io/v5/api/utils/display-logic/#unit-conversion)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -91,7 +87,7 @@ const checkBalance = async () => {
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 When you have completed the code, the **Check Balance** button will function. Click it to view the balance of the connected account:
 
@@ -99,6 +95,6 @@ When you have completed the code, the **Check Balance** button will function. Cl
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we have an account that has been funded with **MATIC** tokens, we are ready to make a transfer to another account!

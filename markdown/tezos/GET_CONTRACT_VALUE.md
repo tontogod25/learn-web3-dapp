@@ -6,7 +6,7 @@ If you want to learn more about Tezos smart contracts, follow [**The Taco Shop S
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/tezos/getter.ts`, implement the function and try to read the value of the counter stored in the smart contract. You must replace the instances of `undefined` with working code to accomplish this.
@@ -38,19 +38,15 @@ In `pages/api/tezos/getter.ts`, implement the function and try to read the value
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out this link 👇
 
 - [**Interface ContractProvider method `getStorage`**](https://tezostaquito.io/typedoc/interfaces/_taquito_taquito.contractprovider.html#getstorage)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -85,7 +81,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once you have the code above saved, click the button and watch the magic happen:
 
@@ -93,6 +89,6 @@ Once you have the code above saved, click the button and watch the magic happen:
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Nicely done! You learned how to get a value from a smart contract's storage on the Tezos blockchain. Now it is time for the final challenge: Modify the state of the contract and thus the state of the blockchain. Let's go!

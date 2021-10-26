@@ -2,7 +2,7 @@ Now that you have created an account on the Avalanche **Fuji** testnet and funde
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/avalanche/balance.ts`, implement the default function. You must replace any instances of `undefined` with working code to accomplish this.
@@ -25,15 +25,11 @@ In `pages/api/avalanche/balance.ts`, implement the default function. You must re
 - The `getBalance` method of the `AVMAPI` module looks like a good candidate!
 - [**Code examples**](https://github.com/ava-labs/avalanchejs/tree/master/examples/avm)
 
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
-
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -58,7 +54,7 @@ The amount returned by is denominated in **nAVAX**, so to convert it to **AVAX**
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file is saved, Next.js will rebuild the API route. Click on **Check Balance** and you should see the balance displayed on the page:
 
@@ -66,6 +62,6 @@ Once the code is complete and the file is saved, Next.js will rebuild the API ro
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Querying the balance information is fun, but being able to submit transactions and change the state of a blockchain is even better! In the next step, we will dive deeper and submit our first transactions on Avalanche.

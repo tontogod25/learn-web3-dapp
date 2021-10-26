@@ -11,7 +11,7 @@ If you want to learn more about Celo smart contracts, follow the [**Deploy and I
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/celo/deploy.ts`, implement the default function. Upload your first smart contract on the **Celo** network. You must replace any instances of `undefined` with working code to accomplish this.
@@ -40,19 +40,15 @@ In `pages/api/celo/deploy.ts`, implement the default function. Upload your first
 //...
 ```
 
-**Need some help?**
+**Need some help?** Check out this link 👇
 
 - [**Deploy a contract with ContractKit**](https://docs.celo.org/developer-guide/contractkit/usage#deploy-a-contract)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```tsx
 // solution
@@ -86,7 +82,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once you have the code above saved, click on **Deploy Contract**:
 
@@ -94,6 +90,6 @@ Once you have the code above saved, click on **Deploy Contract**:
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we have deployed a smart contract, let's learn how to interact with it. In the following tutorials, we will look at how to use both view and change functions.

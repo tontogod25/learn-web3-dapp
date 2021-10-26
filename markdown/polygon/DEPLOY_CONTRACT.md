@@ -4,7 +4,7 @@ We can use [HardHat](https://hardhat.org) or [Truffle](https://trufflesuite.com)
 
 Run the following commands to get started:
 
-```bash
+```text
 npm install -g truffle
 cd contracts/polygon/SimpleStorage
 yarn
@@ -14,12 +14,12 @@ yarn
 Also be sure to rename the file **`contracts/polygon/SimpleStorage/.secret.example`** to **`.secret`** before continuing. This file is where we will store the secret recovery phrase used later in this step to deploy the smart contract. You will need to replace the text "your recovery phrase goes here" with your Metamask secret recovery phrase.
 {% endhint %}
 
-# The SimpleStorage Solidity contract
+# 📦 The SimpleStorage Solidity contract
 
 One of the most basic, non-trivial, types of smart contract is a **simple storage contract**.  
 This example was adapted from the [Solidity documentation](https://solidity.readthedocs.io/en/develop/introduction-to-smart-contracts.html).
 
-```javascript
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -52,13 +52,13 @@ Next we declare a function signature for the `set()` function, which has a [visi
 
 The `get()` function signature is slightly different, in that there is no argument being passed. It also has a visibility of public, is a [view](https://docs.soliditylang.org/en/v0.8.6/types.html?highlight=view#function-types) type of function, and specifies a return type of `uint`. Its function body will simply return the current value of `storedData`.
 
-# Test the smart contract
+# 🔧 Test the smart contract
 
 This test uses the Truffle-provided `Assert` and `DeployedAddresses` contracts. These are built in to Truffle and the development blockchain. It is also important that we import the Solidity file we want to test!
 
 Because deployed bytecode is immutable, it is best to work with security and best practices in mind. Prevent accidentally deploying code with errors by always _testing prior to deployment_. We will test our SimpleStorage contract with Truffle.
 
-```javascript
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -123,7 +123,7 @@ Compiling your contracts...
 If there is an error : `Error: Cannot find module '@truffle/hdwallet-provider'`. You need to install the dependencies in this sub-module with `yarn` as mentioned at the beginning of the tutorial.
 {% endhint %}
 
-# Deploy the smart contract
+# ⛓ Deploy the smart contract
 
 {% hint style="tip" %}
 Before we deploy, there is one last thing to prepare. Put the secret recovery phrase \(also known as a mnemonic seed phrase\) of the active Metamask account into the file **`contracts/polygon/SimpleStorage/.secret`**.  
@@ -157,7 +157,7 @@ For this step to work, we will also need to make sure there is a valid secret re
 
 ---
 
-# Using the Application Binary Interface (ABI):
+# 🧩 Using the Application Binary Interface (ABI):
 
 [The Solidity Contract ABI Specification](https://docs.soliditylang.org/en/v0.8.6/abi-spec.html) explains that an ABI is a standard way to interact with contracts in the Ethereum ecosystem, both from outside the blockchain and for contract-to-contract interaction. Data is encoded according to its type, as described in the specification. The encoding is not self describing and thus requires a schema in order to decode.
 
@@ -165,6 +165,6 @@ The ABI is considered an "[artifact](https://trufflesuite.github.io/artifact-upd
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Truffle is only one of several different ways to deploy smart contracts on Polygon. It is also possible to use the Ethereum [Remix IDE](https://remix.ethereum.org), or another smart contract development tool called [HardHat](https://hardhat.org). Now that we have a deployed and functioning smart contract on Polygon, let's interact with it!

@@ -40,6 +40,6 @@ The same way that a local web server usually listens for connections on `localho
 
 Click on the button **Test local Graph node** to make sure it's running!
 
-## 👣 Next Step
+## 👣 Next Steps
 
 A Graph node is now running on your computer but it's not doing much at the moment. Let's give it some code to run...

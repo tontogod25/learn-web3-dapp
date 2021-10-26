@@ -1,4 +1,4 @@
-# Ethers API Queries
+# 🧩 Ethers API Queries
 
 In order to gather information from the blockchain, we will use ethers again. For basic interaction with Polygon, the [provider](https://docs.ethers.io/v5/api/providers/provider/) methods are often most useful.
 
@@ -6,7 +6,7 @@ In the file `components/protocols/polygon/components/steps/Query.tsx` we have al
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 **Imagine this scenario:** As the lead developer of a cool new dApp, you need to create a way to query information from the blockchain and then display it on the UI. You know that Next.js has some nice features for creating custom API routes, and that by using TypeScript it is easy to pass complex data types as JSON. Now you just need to wire it up to Polygon to take advantage of the impressive transaction throughput! In **`pages/api/polygon/query.ts`**, assign values to the following variables : `chainId` , `blockHeight` , `gasPriceAsGwei` , `blockInfo`.
@@ -40,21 +40,17 @@ In the file `components/protocols/polygon/components/steps/Query.tsx` we have al
 //...
 ```
 
-**Need some help?** Check out these links  
+**Need some help?** Check out these links 👇
 [Getting the network's chainId](https://ethereum.stackexchange.com/questions/82365/how-get-network-id-with-ethers-js).
 How to get a [block number (or block height) from ethers](https://docs.ethers.io/v5/api/providers/provider/#Provider-getBlockNumber).  
 What is [gas price and gwei](https://gwei.io/)? And how to [get it from ethers](https://docs.ethers.io/v5/api/providers/provider/#Provider-getGasPrice).  
 [Formatting units](https://docs.ethers.io/v5/api/utils/display-logic/#utils-formatUnits) from BigNumber to gwei.
 
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
-
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -97,14 +93,14 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
-Once the code above save you can click on **Query Polygon** and let's the magic happen.
+Once the code above is saved, you can click on **Query Polygon** and watch the magic happen.
 
 ![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polygon/polygon-query.gif)
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we have queried Polygon and retrieved information from the blockchain, we will want to get **MATIC** tokens into our wallet so we can pay the fees to deploy a smart contract. In the next tutorial, we will cover how to fund an account with **MATIC** through the official faucet.
