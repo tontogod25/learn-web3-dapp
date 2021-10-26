@@ -37,9 +37,7 @@ const Secret: React.FC = () => {
   return (
     <SecretContext.Provider value={{state, dispatch}}>
       <Nav />
-      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
-        <SetupWizard showText={true} />
-      )}
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
