@@ -71,13 +71,13 @@ const Transfer = () => {
         layout="horizontal"
         onFinish={transfer}
         initialValues={{
-          from: avalancheState.ADDRESS,
+          from: avalancheState.address,
           amount: 1,
           to: recipient,
         }}
       >
         <Form.Item label="Sender" name="from" required>
-          <Text code>{avalancheState.ADDRESS}</Text>
+          <Text code>{avalancheState.address}</Text>
         </Form.Item>
 
         <Form.Item
@@ -125,7 +125,7 @@ const Transfer = () => {
               message={<Text strong>Transfer confirmed!</Text>}
               description={
                 <a
-                  href={transactionUrl(hash ?? '')}
+                  href={transactionUrl(hash as string)}
                   target="_blank"
                   rel="noreferrer"
                 >

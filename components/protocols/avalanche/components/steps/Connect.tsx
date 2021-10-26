@@ -2,12 +2,12 @@ import {Alert, Col, Space, Typography, Button} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import {getAvalancheInnerState} from '@figment-avalanche/lib';
 import {
   getCurrentChainId,
   useGlobalState,
   getCurrentStepIdForCurrentChain,
 } from 'context';
-import {getAvalancheInnerState} from '@figment-avalanche/lib';
 import Confetti from 'react-confetti';
 
 const {Text} = Typography;

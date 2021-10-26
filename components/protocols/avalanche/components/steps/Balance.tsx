@@ -35,6 +35,7 @@ const Balance = () => {
   const getBalance = async () => {
     setError(null);
     setFetching(true);
+    setBalance(0);
     try {
       const response = await axios.post(
         `/api/avalanche/balance`,
@@ -45,7 +46,6 @@ const Balance = () => {
       );
     } catch (error) {
       const data = error.data;
-      setBalance(0);
       setError(data);
     } finally {
       setFetching(false);

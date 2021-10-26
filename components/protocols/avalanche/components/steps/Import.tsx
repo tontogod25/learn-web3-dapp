@@ -12,6 +12,7 @@ import {getAvalancheInnerState} from '@figment-avalanche/lib';
 const Import = () => {
   const {state, dispatch} = useGlobalState();
   const avalancheState = getAvalancheInnerState(state);
+
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   const [hash, setHash] = useState(null);
@@ -36,7 +37,7 @@ const Import = () => {
       );
       setHash(response.data);
     } catch (error) {
-      console.log(error);
+      setError(error.data.message);
     } finally {
       setFetching(false);
     }
@@ -70,7 +71,6 @@ const Import = () => {
             type="error"
             showIcon
             message={error}
-            onClose={() => setError('')}
           />
         )}
       </Space>

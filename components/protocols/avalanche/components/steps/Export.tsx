@@ -37,7 +37,7 @@ const Export = () => {
       );
       setHash(response.data);
     } catch (error) {
-      console.log(error);
+      setError(error.data.message);
     } finally {
       setFetching(false);
     }
@@ -71,7 +71,6 @@ const Export = () => {
             type="error"
             showIcon
             message={error}
-            onClose={() => setError('')}
           />
         )}
       </Space>

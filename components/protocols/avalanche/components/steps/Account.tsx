@@ -18,9 +18,10 @@ const Account = () => {
   const [address, setAddress] = useState<string | null>(null);
   const [secret, setSecret] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    if (address) {
+    if (address && secret) {
       dispatch({
         type: 'SetStepInnerState',
         chainId: getCurrentChainId(state),
@@ -40,7 +41,7 @@ const Account = () => {
         value: true,
       });
     }
-  }, [address, setAddress]);
+  }, [address, secret]);
 
   useEffect(() => {
     if (avalancheState.address) {
@@ -51,29 +52,32 @@ const Account = () => {
   const generateKeypair = async () => {
     try {
       setFetching(true);
+      setAddress(null);
+      setSecret(null);
+      setError(undefined);
       const response = await axios.get(`/api/avalanche/account`);
       setAddress(response.data.address);
       setSecret(response.data.secret);
-      setFetching(false);
     } catch (error) {
-      console.error(error);
+      setError(error.response.data);
+    } finally {
       setFetching(false);
     }
   };
 
   return (
     <Col>
-      <Button
-        type="primary"
-        onClick={generateKeypair}
-        style={{marginBottom: '20px'}}
-        loading={fetching}
-      >
-        Generate a Keypair
-      </Button>
-      {address && (
-        <Col>
-          <Space direction="vertical">
+      <Space direction="vertical">
+        <Button
+          type="primary"
+          onClick={generateKeypair}
+          style={{marginBottom: '20px'}}
+          loading={fetching}
+        >
+          Generate a Keypair
+        </Button>
+        {address && (
+          <>
             <Alert
               message={
                 <Space>
@@ -112,9 +116,20 @@ const Account = () => {
               type="warning"
               showIcon
             />
-          </Space>
-        </Col>
-      )}
+          </>
+        )}
+        {error && (
+          <Alert
+            message={
+              <Space>
+                <Text code>Error: {error}</Text>
+              </Space>
+            }
+            type="error"
+            showIcon
+          />
+        )}
+      </Space>
     </Col>
   );
 };
