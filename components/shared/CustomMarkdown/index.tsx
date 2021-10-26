@@ -109,11 +109,17 @@ const Markdown = ({
                   );
                 }
 
-                children[0] = textMatches[1] as string;
-
+                const firstNode = textMatches[1] as string;
+                const renderedChildren = children.map((child, index) => {
+                  if (index === 0) {
+                    return firstNode;
+                  } else {
+                    return child;
+                  }
+                });
                 return (
                   <StyledAlert
-                    message={<Text>{children}</Text>}
+                    message={<Text>{renderedChildren}</Text>}
                     type={style}
                     showIcon
                   />
