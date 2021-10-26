@@ -11,7 +11,6 @@ import {
   Transfer,
 } from '@figment-polygon/components/steps';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
-import SetupWizard from 'components/shared/SetupWizard';
 
 const Polygon: React.FC = () => {
   const {state: global_state} = useGlobalState();
@@ -20,9 +19,7 @@ const Polygon: React.FC = () => {
   return (
     <>
       <Nav />
-      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
-        <SetupWizard showText={true} />
-      )}
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.QUERY_CHAIN && <Query />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}

@@ -18,7 +18,6 @@ import {useLocalStorage} from '@figment-secret/hooks';
 import Nav from '@figment-secret/components/nav';
 import {PROTOCOL_STEPS_ID, ChainType} from 'types';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
-import SetupWizard from 'components/shared/SetupWizard';
 
 const Secret: React.FC = () => {
   const {state: global_state} = useGlobalState();

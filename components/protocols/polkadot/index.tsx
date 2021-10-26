@@ -18,7 +18,6 @@ import {PROTOCOL_STEPS_ID, ChainType, MarkdownForChainIdT} from 'types';
 import Nav from '@figment-polkadot/components/nav';
 import Layout from 'components/shared/Layout';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
-import SetupWizard from 'components/shared/SetupWizard';
 
 const Polkadot: React.FC = () => {
   const {state: global_state} = useGlobalState();

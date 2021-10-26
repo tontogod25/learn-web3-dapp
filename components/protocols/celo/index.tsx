@@ -19,7 +19,6 @@ import {PROTOCOL_STEPS_ID, ChainType} from 'types';
 import Layout from 'components/shared/Layout';
 import Nav from './components/nav';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
-import SetupWizard from 'components/shared/SetupWizard';
 
 const Celo: React.FC = () => {
   const {state: global_state} = useGlobalState();
