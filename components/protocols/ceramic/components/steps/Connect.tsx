@@ -1,4 +1,4 @@
-import {Col, Alert, Space, Typography, Button, Modal} from 'antd';
+import {Col, Alert, Space, Typography, Button} from 'antd';
 import {LinkOutlined} from '@ant-design/icons';
 import {useEffect, useState} from 'react';
 import {
@@ -9,6 +9,7 @@ import {
 } from 'context';
 import detectEthereumProvider from '@metamask/detect-provider';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
+import Confetti from 'react-confetti';
 
 const {Text} = Typography;
 
@@ -47,7 +48,6 @@ const Connect = () => {
       });
     }
   }, [address]);
-
   const checkConnection = async () => {
     try {
       const provider = await detectEthereumProvider();
@@ -71,6 +71,9 @@ const Connect = () => {
 
   return (
     <Col style={{minHeight: '350px', maxWidth: '600px'}}>
+      {address && (
+        <Confetti numberOfPieces={500} tweenDuration={1000} gravity={0.05} />
+      )}
       <Space direction="vertical" size="large">
         <Space direction="vertical" size="large">
           <>
