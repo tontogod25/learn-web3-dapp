@@ -2,7 +2,7 @@ In this tutorial, we will learn how to query an account balance on Polkadot. Acc
 
 ---
 
-# Challenge
+# 😅 Challenge
 
 {% hint style="tip" %}
 In `pages/api/polkadot/balance.ts`, implement the function and try to query the balance of your account. You must replace the instances of `undefined` with working code to accomplish this.
@@ -25,19 +25,15 @@ In `pages/api/polkadot/balance.ts`, implement the function and try to query the 
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out this link 👇
 
 - [**Basic queries**](https://polkadot.js.org/docs/api/start/api.query#basic-queries)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -63,7 +59,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file is saved, Next.js will rebuild the API route. Click on **Check Balance** and you should see the balance displayed on the page:
 
@@ -71,6 +67,6 @@ Once the code is complete and the file is saved, Next.js will rebuild the API ro
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Querying the balance information is fun, but being able to submit transactions and change the state of a blockchain is even better! Soon, we will dive deeper and submit our first transactions on Polkadot. But first, we need to understand the **existential deposit** feature of Polkadot accounts.

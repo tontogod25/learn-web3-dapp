@@ -4,7 +4,7 @@ Polkadot has built a [JavaScript library](https://github.com/polkadot-js/api) to
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/polkadot/connect.ts`, implement the function and try to establish your first connection to the Polkadot network. You must replace the instances of `undefined` with working code to accomplish this.  
@@ -26,20 +26,16 @@ In `pages/api/polkadot/connect.ts`, implement the function and try to establish 
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [**Basics & Metadata**](https://polkadot.js.org/docs/api/start/basics)
 - [**Providers**](https://polkadot.js.org/docs/api/start/create#providers)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -66,7 +62,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file has been saved, refresh the page to see it update & display the current version.
 
@@ -74,6 +70,6 @@ Once the code is complete and the file has been saved, refresh the page to see i
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 In this tutorial you’ve learned how to use the [Polkadot.js](https://polkadot.js.org/docs/) package and DataHub to connect to a Polkadot node. You also learned how to run a simple query to test that connection.

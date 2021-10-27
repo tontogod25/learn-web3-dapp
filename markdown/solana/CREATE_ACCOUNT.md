@@ -2,7 +2,7 @@ Like with most Web 3 protocols, transactions on Solana happen between **accounts
 
 ---
 
-# 👨‍💻 Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/solana/keypair.ts`, implement `keypair` and parse the keypair to extract the address as a string. You must replace the instances of `undefined` with working code to accomplish this.
@@ -18,20 +18,16 @@ const secret = JSON.stringify(Array.from(keypair.secretKey));
 //...
 ```
 
-**Need some help?** Check out these links:
+**Need some help?** Check out these links 👇
 
 - [Generate a `Keypair`](https://solana-labs.github.io/solana-web3.js/classes/Keypair.html#constructor)
 - [Convert a `PublicKey` to a string](https://solana-labs.github.io/solana-web3.js/classes/PublicKey.html#tostring)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# 👉 Solution
+# 😅 Solution
 
 ```tsx
 // solution

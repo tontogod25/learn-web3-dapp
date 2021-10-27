@@ -11,7 +11,7 @@ If you want to learn more about NEAR smart contracts, you can follow the tutoria
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In`pages/api/near/deploy.ts`, implement the default function. Deploy your first smart contract on the **NEAR** testnet. You must replace any instances of `undefined` with working code to accomplish this.
@@ -39,19 +39,15 @@ In`pages/api/near/deploy.ts`, implement the default function. Deploy your first 
 //...
 ```
 
-**Need some help?**
+**Need some help?** Check out this link 👇
 
 - [Learn more about `deployContract`](https://near.github.io/near-api-js/classes/account.account-1.html#deploycontract)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```tsx
 // solution
@@ -77,7 +73,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once you have the code above saved, click on **Deploy Contract**
 
@@ -85,6 +81,6 @@ Once you have the code above saved, click on **Deploy Contract**
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we have deployed a smart contract, let's interact with it. In the following tutorials, we will look at how to use both view and change functions.

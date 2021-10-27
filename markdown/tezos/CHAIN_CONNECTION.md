@@ -2,7 +2,7 @@ In this tutorial we will learn how to connect to a Tezos node via DataHub, using
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/tezos/connect.ts`, implement the function and try to establish your first connection to the Tezos network. To verify that the connection has been made, try to return the chainId. You must replace the instances of `undefined` with working code to accomplish this.
@@ -22,20 +22,16 @@ In `pages/api/tezos/connect.ts`, implement the function and try to establish you
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [**Class `TezosToolkit`**](https://tezostaquito.io/typedoc/classes/_taquito_taquito.tezostoolkit.html)
 - [**Taquito**](https://tezostaquito.io/typedoc/modules.html)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -58,7 +54,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file has been saved, refresh the page to see it update & display the Chain ID.
 
@@ -66,6 +62,6 @@ Once the code is complete and the file has been saved, refresh the page to see i
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Congratulations! You have connected to the Tezos blockchain and queried the chain ID with a few lines of JavaScript code. In the next tutorial, we will create an account for use on Florence, the Tezos testnet.

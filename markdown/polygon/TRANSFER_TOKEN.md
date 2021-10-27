@@ -2,7 +2,7 @@ Transferring some token is one of the major feature of Web 3. In this challenge,
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 **Imagine this scenario:** You know you have a big balance and you want to eat some pizza. Then, you need to transfer **0.1** MATIC to buy one! In `components/protocols/polygon/components/steps/Transfer.tsx`, implement the `transfer` function.
@@ -37,20 +37,16 @@ const transfer = async () => {
 };
 ```
 
-**Need some help?** Check out these two links
+**Need some help?** Check out these links 👇
 
 - [**A short tutorial**](https://ethereum.org/en/developers/tutorials/send-token-etherjs/) on using ethers
 - [**send and sign a transaction**](https://docs.ethers.io/v5/api/signer/#Signer-sendTransaction)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -99,7 +95,7 @@ const transfer = async () => {
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code above has been saved, enter an amount to transfer and click **Transfer**:
 
@@ -107,6 +103,6 @@ Once the code above has been saved, enter an amount to transfer and click **Tran
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we have a funded Polygon account, we can use our MATIC tokens to deploy a smart contract. In the next tutorial we will cover writing, testing and deploying the Solidity code using Truffle which is a smart contract development suite.
