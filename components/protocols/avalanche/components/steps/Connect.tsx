@@ -44,7 +44,8 @@ const Connect = () => {
       );
       setVersion(response.data);
     } catch (error) {
-      setError(error.response.data);
+      const errorMsg = error.data ? error.data.message : 'Unknow error';
+      setError(errorMsg);
     } finally {
       setFetching(false);
     }

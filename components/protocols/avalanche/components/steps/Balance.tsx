@@ -45,8 +45,8 @@ const Balance = () => {
         parseFloat((parseFloat(response.data) / DECIMAL_OFFSET).toFixed()),
       );
     } catch (error) {
-      const data = error.data;
-      setError(data);
+      const errorMsg = error.data ? error.data.message : 'Unknow error';
+      setError(errorMsg);
     } finally {
       setFetching(false);
     }

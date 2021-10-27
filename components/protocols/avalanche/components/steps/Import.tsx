@@ -37,7 +37,8 @@ const Import = () => {
       );
       setHash(response.data);
     } catch (error) {
-      setError(error.data.message);
+      const errorMsg = error.data ? error.data.message : 'Unknow error';
+      setError(errorMsg);
     } finally {
       setFetching(false);
     }

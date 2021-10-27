@@ -57,7 +57,8 @@ const Transfer = () => {
       });
       setHash(response.data);
     } catch (error) {
-      setError(error.message);
+      const errorMsg = error.data ? error.data.message : 'Unknow error';
+      setError(errorMsg);
     } finally {
       setFetching(false);
     }
