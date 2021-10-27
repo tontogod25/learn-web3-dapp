@@ -9,7 +9,6 @@ import {
 } from 'context';
 import detectEthereumProvider from '@metamask/detect-provider';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
-import SetupWizard from 'components/shared/SetupWizard';
 import Confetti from 'react-confetti';
 
 const {Text} = Typography;
@@ -100,7 +99,6 @@ const Connect = () => {
                   showIcon
                   onClick={checkConnection}
                 />
-                <SetupWizard />
               </>
             ) : (
               <Alert

@@ -11,7 +11,6 @@ import {
   getCurrentStepIdForCurrentChain,
 } from 'context';
 import axios from 'axios';
-import SetupWizard from 'components/shared/SetupWizard';
 import {StepButton} from 'components/shared/Button.styles';
 import {useColors} from 'hooks';
 import {EntityStepStatusesT} from '@figment-the-graph/types';
@@ -90,7 +89,6 @@ const Entity = () => {
               type="success"
               showIcon
             />
-            <SetupWizard />
           </>
         ) : (
           <Alert
@@ -152,12 +150,3 @@ const EntityStatus = ({
 };
 
 export default Entity;
-
-/*
-NB: It's very unlikely this error could occurs: 'yarn codegen' is automatically ran 
-when we scallfold the subgraph then the file 'generated/schema.ts' is already there.
-
-  {error.indexOf('ENOENT') > -1 && (
-    <Text>{`Are you sure you ran 'yarn codegen'?`}</Text>
-  )}
-*/
