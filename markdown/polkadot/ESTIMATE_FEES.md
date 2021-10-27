@@ -4,7 +4,7 @@ We'll explore how to estimate fees in this challenge.
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/polkadot/estimate.ts`, implement the function and try to estimate the fees required for a simple transfer. You must replace the instances of `undefined` with working code to accomplish this.
@@ -36,19 +36,15 @@ In `pages/api/polkadot/estimate.ts`, implement the function and try to estimate 
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out this link 👇
 
 - [**How do I estimate the transaction fees?**](https://polkadot.js.org/docs/api/cookbook/tx#how-do-i-estimate-the-transaction-fees)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -83,7 +79,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file has been saved, click on **Estimate Fees**.
 
@@ -91,6 +87,6 @@ Once the code is complete and the file has been saved, click on **Estimate Fees*
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we understand how to estimate the fees required to pay for a transaction on Polkadot, let’s move on to querying a Polkadot node to get the current balance of our account!

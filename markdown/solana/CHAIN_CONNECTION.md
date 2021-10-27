@@ -6,7 +6,7 @@ You can choose which Cluster to connect to using the dropdown located in the top
 
 ---
 
-# 👨‍💻 Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/solana/connect.ts`, implement `connect` by creating a `Connection` instance and getting the API version. You must replace the instances of `undefined` with working code to accomplish this.
@@ -26,20 +26,16 @@ In `pages/api/solana/connect.ts`, implement `connect` by creating a `Connection`
  //...
 ```
 
-**Need some help?** Check out those two links
+**Need some help?** Check out these links 👇
 
 - [Creating a `Connection` instance](https://solana-labs.github.io/solana-web3.js/classes/Connection.html#constructor)
 - [Getting the API `version`](https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getversion)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# 👉 Solution
+# 😅 Solution
 
 ```typescript
 // solution

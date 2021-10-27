@@ -4,7 +4,7 @@ In simple terms: We will be sending some AVAX tokens from address A to address B
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/avalanche/transfer.ts`, implement the function and try to make your first transfer on the Avalanche network. You must replace any instances of `undefined` with working code to accomplish this.
@@ -47,15 +47,11 @@ In `pages/api/avalanche/transfer.ts`, implement the function and try to make you
 - [**Manage X-Chain Keys**](https://docs.avax.network/build/tools/avalanchejs/manage-x-chain-keys)
 - [**What The Heck is UTXO**](https://medium.com/bitbees/what-the-heck-is-utxo-ca68f2651819)
 
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
-
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -119,7 +115,7 @@ Remember, the **AVAX** asset is using a 9-digit denomination and **AVAX** is the
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file is saved, Next.js will rebuild the API route.
 
@@ -130,6 +126,6 @@ Once the code is complete and the file is saved, Next.js will rebuild the API ro
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 We've learned how to prepare, sign and broadcast a simple transaction on Avalanche. With only a few lines of code, you can transfer funds on the network. AvalancheJS provides a range of examples on how to construct a transaction with more complex properties, for different use cases. In the next tutorial, we will examine the topic of cross-chain transfers.

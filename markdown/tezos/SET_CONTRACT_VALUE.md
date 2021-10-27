@@ -6,7 +6,7 @@ If you want to learn more about Tezos smart contracts, follow [**The Taco Shop S
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/tezos/setter.ts`, implement the function and try to increment the value stored in the smart contract by one. You must replace the instances of `undefined` with working code to accomplish this.
@@ -41,21 +41,17 @@ In `pages/api/tezos/setter.ts`, implement the function and try to increment the 
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [**Interact with a smart contract**](https://tezostaquito.io/docs/quick_start/#interact-with-a-smart-contract)
 - [**Interface ContractProvider method `at`**](https://tezostaquito.io/typedoc/interfaces/_taquito_taquito.contractprovider.html#at)
 - [**Class ContractAbstraction `methods`**](https://tezostaquito.io/typedoc/classes/_taquito_taquito.contractabstraction.html#methods)
 
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
-
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -96,7 +92,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once you have the code above saved, click the button and watch the magic happen:
 
@@ -104,7 +100,7 @@ Once you have the code above saved, click the button and watch the magic happen:
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Congratulations! You have completed the Tezos Pathway, all the way from connecting to Tezos to being able to deploy smart contracts! You are now empowered to learn and build on Tezos, using the dedicated infrastructure of DataHub.
 

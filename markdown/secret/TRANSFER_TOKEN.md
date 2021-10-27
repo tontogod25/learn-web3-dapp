@@ -8,7 +8,7 @@ You could experience some issues with the availability of the network [**Click h
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/secret/transfer.ts`, implement the default function. There is a lot to fill here, so be careful!
@@ -42,20 +42,16 @@ const transaction = await client.searchTx(query);
 //..
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [**Transaction example**](https://github.com/enigmampc/SecretJS-Templates/blob/master/4_transactions/send.js)
 - [**Documentation of `secrectjs`**](https://github.com/enigmampc/SecretNetwork/tree/master/cosmwasm-js/packages/sdk)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```tsx
 // solution
@@ -99,7 +95,7 @@ const sent = await client.sendTokens(
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once you have the code above saved:
 
@@ -110,6 +106,6 @@ Once you have the code above saved:
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we have funded our account and made a transfer, let's move on to deploying some code (known as a "smart contract") to the **Secret** blockchain! Ready to take the plunge? Let's go...

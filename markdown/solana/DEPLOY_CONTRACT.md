@@ -172,7 +172,7 @@ solana account $(solana-keygen pubkey solana-wallet/keypair.json)
 The program we're going to deploy is an easy but pretty complete program. This program keeps track of the number of times an account has sent a greeting instruction to it.
 {% endhint %}
 
-## Building the program
+## 🧱 Building the program
 
 The first thing we're going to do is compile the Rust program to prepare it for the CLI. To do this we're going to use a custom script that's defined in `package.json`. Let's run the script and build the program by running the following command in the terminal (from the project root directory):
 
@@ -198,7 +198,7 @@ The `.so` extension does not stand for Solana! It stands for "shared object". Yo
 
 ---
 
-## Deploying the program
+## ⛓ Deploying the program
 
 Now we're going to deploy the program to the devnet cluster. The CLI provides a simple interface for this, `solana deploy`:
 
@@ -223,7 +223,7 @@ Program Id: 7KwpCaaYXRsjfCTvf85eCVuZDW894zZNN38UMxMpQoaQ
 
 ---
 
-# 👨‍💻 Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 Before moving to the next step, we need to check that our program has been correctly deployed! For this, we'll need the `programId` of the program. Copy & paste it into the text input, then try to figure out how to complete the code for `pages/api/solana/deploy.ts`.
@@ -258,20 +258,16 @@ Before moving to the next step, we need to check that our program has been corre
 //...
 ```
 
-**Need some help?** Check out those two links
+**Need some help?** Check out these links 👇
 
 - [How to get account Info ?](https://solana-labs.github.io/solana-web3.js/classes/Connection.html#getAccountInfo)
 - [Is an account executable ?](https://solana-labs.github.io/solana-web3.js/modules.html#AccountInfo)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# 👉 Solution
+# 😅 Solution
 
 ```tsx
 // solution

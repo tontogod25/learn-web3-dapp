@@ -1,4 +1,4 @@
-# Ethers.js
+# 🤔 Ethers.js
 
 To manage our connection with Polygon and interact with smart contracts, we can use a popular and [well-tested](https://docs.ethers.io/v5/testing/) JavaScript library called [**ethers.js**](https://docs.ethers.io/v5/api/). We can connect to and perform operations with Polygon using ethers' API with only a few lines of code.
 
@@ -12,7 +12,7 @@ _It is important to note that throughout the Pathway, we will refer to the_ ethe
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 **Imagine this scenario:** You're a fresh Web3 developer who just landed a sweet role at a promising new startup, eager to show off your skills. You've been asked to show users of our dApp which network they are connected to (to avoid any confusion) and store the account currently selected address in Metamask (so that we can reference it later). In **`components/protocols/polygon/components/steps/Connect.tsx`**, implement the`checkConnection` function.
@@ -50,21 +50,19 @@ const connect = async () => {
 };
 ```
 
+**Need some help?** Check out these links 👇
+
 - **Connect to Polygon** using ethers' Web3Provider and the Metamask wallet
   - [Ethers' docs for creating a Web3Provider instance](https://docs.ethers.io/v5/api/providers/other/#Web3Provider)
   - [StackOverflow post about connecting Metamask to Ethers](https://stackoverflow.com/questions/60785630/how-to-connect-ethers-js-with-metamask)
 - **Display the connected network**
   - [Get the Network from a Ethers provider](https://docs.ethers.io/v5/api/providers/)
 
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
-
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -114,7 +112,7 @@ const connect = async () => {
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code above save you can click on **Check Metamask Connection** and let's the magic happen.
 
@@ -122,7 +120,7 @@ Once the code above save you can click on **Check Metamask Connection** and let'
 
 ---
 
-# Addresses, Wallets, and Mnemonics
+# 🔐 Addresses, Wallets, and Mnemonics
 
 Every account on Polygon or Ethereum has a private key, a public key, and a mnemonic associated with it (referred to as a "[Secret Recovery Phrase](https://community.metamask.io/t/what-is-a-secret-recovery-phrase-and-how-to-keep-your-crypto-wallet-secure/3440)" by Metamask as of Q2 2021 - you will likely encounter a lot of documentation which still refers to "mnemonic seed phrase").
 
@@ -139,7 +137,7 @@ This is an important topic to be comfortable with as both a user and blockchain 
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we have a connected to Polygon, we can use ethers to query information from the blockchain.  
 In the next tutorial, we will cover how to query Polygon and display the information.

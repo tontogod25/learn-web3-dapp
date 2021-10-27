@@ -4,7 +4,7 @@ As simple as it sounds, what's happening in the background is actually very powe
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In the file `components/protocols/polygon/components/steps/Setter.tsx`, implement the `setValue` function.  
@@ -41,22 +41,18 @@ const setValue = async () => {
 };
 ```
 
-Need some help? Check out these two tips/links
+Need some help? Check out these links 👇
 
 - [**Create a Contract using ethers**](https://docs.ethers.io/v5/api/contract/contract/#Contract--creating)
   - You can **console.log `SimpleStorageJson`** to find the contract's `abi` and `address` (through the property `networks`)
 - [**How to call a contract's methods on a ethers Contract object**](https://docs.ethers.io/v5/api/contract/contract/#Contract-functionsCall)
 - To read from the blockchain you don't need to spend any tokens so you can just use a provider to create a Contract instance. But to write you will need to create and sign a transaction through Metamask. Use a `signer` to create the Contract object!
 
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
-
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -95,7 +91,7 @@ const setValue = async () => {
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code above has been saved, you can click and this is what the UI should look like!
 
@@ -103,6 +99,6 @@ Once the code above has been saved, you can click and this is what the UI should
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we've set the storage of our contract, we can read it. We're going to learn how to do this in the final tutorial of the pathway.

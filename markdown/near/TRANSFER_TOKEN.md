@@ -4,7 +4,7 @@ In this tutorial you are going to learn how to set your keystore in order to sig
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In`pages/api/near/transfer.ts`, implement the function. You must replace any instances of `undefined` with working code to accomplish this. There is a lot to fill here, so be careful!
@@ -44,20 +44,16 @@ In`pages/api/near/transfer.ts`, implement the function. You must replace any ins
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [Manage a `KeyStore` in memory](https://near.github.io/near-api-js/classes/key_stores_in_memory_key_store.inmemorykeystore.html)
 - [Check out the `sendMoney()` method](https://near.github.io/near-api-js/classes/account.account-1.html#sendmoney)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```tsx
 // solution
@@ -94,7 +90,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once you have the code above saved:
 
@@ -105,6 +101,6 @@ Once you have the code above saved:
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we have funded our account and made a transfer, let's move on to deploying some code (known as a "smart contract") to the NEAR blockchain! Ready to take the plunge? Let's go...

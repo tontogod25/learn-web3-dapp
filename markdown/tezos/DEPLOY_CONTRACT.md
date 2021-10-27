@@ -17,7 +17,7 @@ If you want to learn more about Tezos smart contracts, follow [**The Taco Shop S
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/tezos/deploy.ts`, implement the function and try to deploy the compiled smart contract. You must replace the instances of `undefined` with working code to accomplish this.
@@ -52,7 +52,7 @@ In `pages/api/tezos/deploy.ts`, implement the function and try to deploy the com
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [**Interface ContractProvider method `originate`**](https://tezostaquito.io/typedoc/interfaces/_taquito_taquito.contractprovider.html#originate)
 - [**Class OriginateOperation method `contract`**](https://tezostaquito.io/typedoc/classes/_taquito_taquito.originationoperation.html#contract)
