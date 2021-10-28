@@ -1,14 +1,14 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {getAvalancheClient} from '@figment-avalanche/lib';
 
-type ReponseT = {
+type ResponseT = {
   secret: string;
   address: string;
 };
 
 export default function account(
   req: NextApiRequest,
-  res: NextApiResponse<ReponseT | string>,
+  res: NextApiResponse<ResponseT | string>,
 ) {
   try {
     const {network} = req.body;
