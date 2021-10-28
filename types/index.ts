@@ -143,7 +143,6 @@ export enum ARWEAVE_NETWORKS {
 }
 
 // -----------------------------
-
 export type NETWORKS =
   | POLYGON_NETWORKS
   | AVALANCHE_NETWORKS

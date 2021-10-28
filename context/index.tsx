@@ -12,6 +12,7 @@ import {
   PROTOCOLS,
   InnerStateT,
 } from 'types';
+import {defaultsDeep, difference, keys, omit} from 'lodash';
 
 type StepsReducerHelperT = {
   index: number;
@@ -102,6 +103,26 @@ const initialGlobalState = {
   protocols: buildInitialState(),
 };
 
+const mergeState = (
+  chainId: CHAINS,
+  storedState: GlobalStateT,
+  initialState: GlobalStateT,
+): GlobalStateT => {
+  const storageProtocols = storedState ? {...storedState.protocols} : {};
+  const initProtocols = {...initialState.protocols};
+  const removedKeys = difference(keys(storageProtocols), keys(initProtocols));
+
+  return storedState
+    ? ({
+        currentChainId: chainId,
+        protocols: omit<any>(
+          defaultsDeep(storageProtocols, initProtocols),
+          removedKeys,
+        ),
+      } as GlobalStateT)
+    : initialState;
+};
+
 export type Action =
   | {type: 'SetCurrentChainId'; currentChainId: CHAINS}
   | {type: 'SetChainNetwork'; chainId: CHAINS; network: NETWORKS}
@@ -122,16 +143,99 @@ export type Action =
       chainId: CHAINS;
     }
   | {
+      type: 'SetInnerState';
+      values: Field[];
+      isCompleted?: boolean;
+    }
+  | {
+      type: 'SetSharedState';
+      values: String[][];
+      isCompleted?: boolean;
+    }
+  | {
       type: 'SetStepInnerState';
       chainId: CHAINS;
       innerStateId: PROTOCOL_INNER_STATES_ID;
       value: string | null;
     };
 
+type Field = {
+  PROTOCOL_INNER_STATES_ID?: string;
+};
+
+const getKey = (field: Field) => Object.keys(field)[0];
+
+const getValue = (field: Field) => Object.values(field)[0];
+
 function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
   switch (action.type) {
     case 'SetCurrentChainId':
       return {...state, currentChainId: action.currentChainId};
+
+    case 'SetInnerState': {
+      const chainId = getCurrentChainId(state);
+      const stepId = getCurrentStepIdForCurrentChain(state);
+      const innerState = getChainInnerStates(state);
+      let newInnerState = {...innerState} as InnerStateT;
+      action.values.forEach((field: Field) => {
+        const key = getKey(field);
+        const value = getValue(field);
+        newInnerState = {
+          ...newInnerState,
+          [key]: value,
+        };
+      });
+
+      return {
+        ...state,
+        protocols: {
+          ...state.protocols,
+          [chainId]: {
+            ...state.protocols[chainId],
+            steps: {
+              ...state.protocols[chainId].steps,
+              [stepId]: {
+                ...state.protocols[chainId].steps[stepId],
+                isCompleted: !!action.isCompleted,
+              },
+            },
+            innerState: newInnerState,
+          },
+        },
+      };
+    }
+
+    case 'SetSharedState': {
+      const chainId = getCurrentChainId(state);
+      const stepId = getCurrentStepIdForCurrentChain(state);
+      let protocolState = {...state.protocols[chainId]};
+      action.values.forEach((field: Field) => {
+        const key = getKey(field);
+        const value = getValue(field);
+        protocolState = {
+          ...protocolState,
+          [key]: value,
+        };
+      });
+
+      return {
+        ...state,
+        protocols: {
+          ...state.protocols,
+          [chainId]: {
+            ...state.protocols[chainId],
+            steps: {
+              ...state.protocols[chainId].steps,
+              [stepId]: {
+                ...state.protocols[chainId].steps[stepId],
+                isCompleted: !!action.isCompleted,
+              },
+            },
+            innerState: newInnerState,
+          },
+        },
+      };
+    }
 
     case 'SetChainCurrentStepId':
       return {
