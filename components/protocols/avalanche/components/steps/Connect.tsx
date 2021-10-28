@@ -2,12 +2,12 @@ import {Alert, Col, Space, Typography, Button} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import {getAvalancheInnerState} from '@figment-avalanche/lib';
 import {
   getCurrentChainId,
   useGlobalState,
   getCurrentStepIdForCurrentChain,
 } from 'context';
-import {getAvalancheInnerState} from '@figment-avalanche/lib';
 import Confetti from 'react-confetti';
 
 const {Text} = Typography;
@@ -15,6 +15,7 @@ const {Text} = Typography;
 const Connect = () => {
   const {state, dispatch} = useGlobalState();
   const avalancheState = getAvalancheInnerState(state);
+
   const chainId = getCurrentChainId(state);
 
   const [version, setVersion] = useState<string | null>(null);
@@ -43,7 +44,8 @@ const Connect = () => {
       );
       setVersion(response.data);
     } catch (error) {
-      setError(error.response.data);
+      const errorMsg = error.data ? error.data.message : 'Unknown error';
+      setError(errorMsg);
     } finally {
       setFetching(false);
     }

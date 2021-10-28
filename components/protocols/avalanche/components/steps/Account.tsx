@@ -14,11 +14,26 @@ const {Text} = Typography;
 const Account = () => {
   const {state, dispatch} = useGlobalState();
   const avalancheState = getAvalancheInnerState(state);
+
   const [address, setAddress] = useState<string | null>(null);
+  const [secret, setSecret] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    if (address) {
+    if (address && secret) {
+      dispatch({
+        type: 'SetStepInnerState',
+        chainId: getCurrentChainId(state),
+        innerStateId: PROTOCOL_INNER_STATES_ID.SECRET,
+        value: secret,
+      });
+      dispatch({
+        type: 'SetStepInnerState',
+        chainId: getCurrentChainId(state),
+        innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
+        value: address,
+      });
       dispatch({
         type: 'SetStepIsCompleted',
         chainId: getCurrentChainId(state),
@@ -26,7 +41,7 @@ const Account = () => {
         value: true,
       });
     }
-  }, [address, setAddress]);
+  }, [address, secret]);
 
   useEffect(() => {
     if (avalancheState.address) {
@@ -37,46 +52,33 @@ const Account = () => {
   const generateKeypair = async () => {
     try {
       setFetching(true);
+      setAddress(null);
+      setSecret(null);
+      setError(undefined);
       const response = await axios.get(`/api/avalanche/account`);
       setAddress(response.data.address);
-      setFetching(false);
-      dispatch({
-        type: 'SetStepInnerState',
-        chainId: getCurrentChainId(state),
-        innerStateId: PROTOCOL_INNER_STATES_ID.SECRET,
-        value: response.data.secret,
-      });
-      dispatch({
-        type: 'SetStepInnerState',
-        chainId: getCurrentChainId(state),
-        innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
-        value: response.data.address,
-      });
-      dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
-      });
+      setSecret(response.data.secret);
     } catch (error) {
-      console.error(error);
+      const errorMsg = error.data ? error.data.message : 'Unknown error';
+      setError(errorMsg);
+    } finally {
       setFetching(false);
     }
   };
 
   return (
     <Col>
-      <Button
-        type="primary"
-        onClick={generateKeypair}
-        style={{marginBottom: '20px'}}
-        loading={fetching}
-      >
-        Generate a Keypair
-      </Button>
-      {address && (
-        <Col>
-          <Space direction="vertical">
+      <Space direction="vertical">
+        <Button
+          type="primary"
+          onClick={generateKeypair}
+          style={{marginBottom: '20px'}}
+          loading={fetching}
+        >
+          Generate a Keypair
+        </Button>
+        {address && (
+          <>
             <Alert
               message={
                 <Space>
@@ -115,9 +117,20 @@ const Account = () => {
               type="warning"
               showIcon
             />
-          </Space>
-        </Col>
-      )}
+          </>
+        )}
+        {error && (
+          <Alert
+            message={
+              <Space>
+                <Text code>Error: {error}</Text>
+              </Space>
+            }
+            type="error"
+            showIcon
+          />
+        )}
+      </Space>
     </Col>
   );
 };
