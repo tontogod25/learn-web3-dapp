@@ -5,8 +5,8 @@ import {
   getCurrentStepIdForCurrentChain,
   useGlobalState,
 } from 'context';
-import SetupWizard from 'components/shared/SetupWizard';
 import {useIdx} from '@figment-ceramic/context/idx';
+import Confetti from 'react-confetti';
 
 const {Text} = Typography;
 
@@ -43,6 +43,11 @@ const Connect = () => {
           <>
             {isConnected && currentUserAddress ? (
               <>
+                <Confetti
+                  numberOfPieces={500}
+                  tweenDuration={1000}
+                  gravity={0.05}
+                />
                 <Alert
                   message={<Text strong>Connected to MetaMask 😍</Text>}
                   description={
@@ -55,7 +60,6 @@ const Connect = () => {
                   showIcon
                   onClick={checkConnection}
                 />
-                <SetupWizard />
               </>
             ) : (
               <Alert

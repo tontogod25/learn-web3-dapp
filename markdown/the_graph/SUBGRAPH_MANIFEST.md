@@ -22,7 +22,7 @@ Edit the manifest file to accomplish the 3 following things:
 2. **Define only two entities "Punk" and "Account"** under the dataSources mappings.
 3. **Only handle the `PunkBought` event** and name its handler `handlePunkBought`
 
-## 👉 The solution
+## 😅 Solution
 
 Replace the existing contents of `subgraph.yaml` with the following code snippet:
 

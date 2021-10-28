@@ -19,7 +19,6 @@ import {PROTOCOL_STEPS_ID, ChainType} from 'types';
 import Layout from 'components/shared/Layout';
 import Nav from './components/nav';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
-import SetupWizard from 'components/shared/SetupWizard';
 
 const Celo: React.FC = () => {
   const {state: global_state} = useGlobalState();
@@ -34,9 +33,7 @@ const Celo: React.FC = () => {
 
   return (
     <CeloContext.Provider value={{state, dispatch}}>
-      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
-        <SetupWizard showText={true} />
-      )}
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}

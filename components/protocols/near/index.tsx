@@ -12,7 +12,6 @@ import Nav from '@figment-near/components/nav';
 import {ChainType, PROTOCOL_STEPS_ID, MarkdownForChainIdT} from 'types';
 import Layout from 'components/shared/Layout';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
-import SetupWizard from 'components/shared/SetupWizard';
 
 const Near: React.FC = () => {
   const {state} = useGlobalState();
@@ -21,9 +20,7 @@ const Near: React.FC = () => {
   return (
     <>
       <Nav />
-      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
-        <SetupWizard showText={true} />
-      )}
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_KEYPAIR && <Keys />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}

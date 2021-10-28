@@ -2,7 +2,7 @@ It’s time to submit your first transaction on Polkadot! In this tutorial, we w
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/polkadot/transfer.ts`, implement the function and try to transfer an amount of tokens. You must replace the instances of `undefined` with working code to accomplish this.
@@ -30,20 +30,16 @@ In `pages/api/polkadot/transfer.ts`, implement the function and try to transfer 
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [**Polkadot.js documentation**](https://polkadot.js.org/docs/)
 - [**Code examples**](https://polkadot.js.org/docs/api/examples/promise/)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -75,7 +71,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file is saved, Next.js will rebuild the API route.
 
@@ -86,7 +82,7 @@ Once the code is complete and the file is saved, Next.js will rebuild the API ro
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Congratulations! You have now completed the Polkadot Pathway!
 

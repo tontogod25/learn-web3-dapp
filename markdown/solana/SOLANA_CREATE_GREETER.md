@@ -8,7 +8,7 @@ Solana programs are stateless. To store values we must use a separate account.
 
 ---
 
-# 👨‍💻 Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/solana/greeter.ts`, implement `greeter`. First, derive the **greeter** address from some values. Then create a transaction which instructs the blockchain to create the **greeter** account. You must replace the instances of `undefined` with working code to accomplish this.
@@ -37,20 +37,16 @@ const hash = await sendAndConfirmTransaction(undefined);
 //...
 ```
 
-**Need some help?** Here are a few hints
+**Need some help?** Check out these links 👇
 
 - [Create a publicKey from a seed](https://solana-labs.github.io/solana-web3.js/classes/PublicKey.html#createWithSeed)
 - [Create an account from a seed](https://solana-labs.github.io/solana-web3.js/classes/SystemProgram.html#createAccountWithSeed)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# 👉 Solution
+# 😅 Solution
 
 ```typescript
 // solution

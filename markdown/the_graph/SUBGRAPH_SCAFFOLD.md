@@ -54,7 +54,7 @@ Using the `graph init` command, generate a subgraph scaffold with the following 
 
 When you're done, run the command in your terminal to generate a subgraph scaffold. And if you need to start over, simply delete the content of the `subgraphs` folder and run the `graph init ...` command again!
 
-## 👉 The solution
+## 😅 The solution
 
 ```text
 // solution

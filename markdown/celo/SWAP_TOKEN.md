@@ -3,7 +3,7 @@ Celo has a number of core smart contracts that are deployed to the network. In t
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/celo/swap.ts`, implement the **swap** function. You must replace any instances of `undefined` with working code to accomplish this.
@@ -28,20 +28,16 @@ const sellTx = undefined;
 //...
 ```
 
-**Need some help?**
+**Need some help?** Check out these links 👇
 
 - [**We can access the cUSD contract with kit.contracts.getStableToken()**](https://docs.celo.org/developer-guide/contractkit/contracts-wrappers-registry#interacting-with-celo-and-cusd)
 - [**Code example**](https://docs.celo.org/developer-guide/contractkit/usage#buying-all-the-celo-i-can-with-the-cusd-in-my-account)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```tsx
 // solution
@@ -77,7 +73,7 @@ const hash = await sellReceipt.getHash();
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once you have the code above saved, click on **Swap 1 cUSD**:
 

@@ -4,7 +4,7 @@ In this tutorial, we'll learn how to query the system in order to retrieve the e
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/polkadot/deposit.ts`, implement the function and try to determine the existential deposit an account needs to have in order to remain active. You must replace the instances of `undefined` with working code to accomplish this.
@@ -25,20 +25,16 @@ In `pages/api/polkadot/deposit.ts`, implement the function and try to determine 
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [**Polkadot.js documentation**](https://polkadot.js.org/docs/)
 - [**Code examples**](https://polkadot.js.org/docs/api/examples/promise/)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -61,7 +57,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file has been saved, Next.js will rebuild the API route. Click the button to display the existential deposit amount.
 
@@ -69,6 +65,6 @@ Once the code is complete and the file has been saved, Next.js will rebuild the 
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Now that we've learned about fees, balances and the existential deposit on Polkadot - we can move on to making a token transfer! In the next tutorial, we will learn how to send tokens to other accounts. Ready? Let's go!

@@ -11,7 +11,7 @@ Here we will focus on the first part, the **X-Chain export transaction**.
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/avalanche/export.ts`, implement the function and try to create an export transaction from X-Chain to C-Chain. You must replace any instances of `undefined` with working code to accomplish this.
@@ -51,20 +51,16 @@ In `pages/api/avalanche/export.ts`, implement the function and try to create an 
 //...
 ```
 
-**Need some help?** Check out these links
+**Need some help?** Check out these links 👇
 
 - [**Code examples**](https://github.com/ava-labs/avalanchejs/tree/master/examples/avm)
 - [**Manage X-Chain Keys**](https://docs.avax.network/build/tools/avalanchejs/manage-x-chain-keys)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -116,7 +112,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file is saved, Next.js will rebuild the API route. Click on **Export 0.05 AVAX** and you should see the balance displayed on the page:
 
@@ -124,6 +120,6 @@ Once the code is complete and the file is saved, Next.js will rebuild the API ro
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Our next topic is to process the import of the cross-chain transfer. Time to import the AVAX we just sent to C-Chain. Let's go!

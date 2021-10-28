@@ -20,7 +20,6 @@ import {
   useGlobalState,
 } from 'context';
 import {getNodeURL} from 'utils/datahub';
-import SetupWizard from 'components/shared/SetupWizard';
 import LocalStorageIdentityStore from '@figment-ceramic/lib/identityStore/LocalStorage';
 
 const Ceramic: React.FC = () => {
@@ -41,7 +40,7 @@ const Ceramic: React.FC = () => {
     <Web3AuthProvider ceramicNodeUrl={nodeUrl} identityStore={identityStore}>
       <div key={stepId}>
         <Nav />
-        {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && <SetupWizard showText />}
+        {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
         {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
         {stepId === PROTOCOL_STEPS_ID.LOGIN && <LogIn />}
         {stepId === PROTOCOL_STEPS_ID.BASIC_PROFILE && <BasicProfile />}

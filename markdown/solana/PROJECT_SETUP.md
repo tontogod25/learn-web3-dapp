@@ -62,7 +62,7 @@ Make sure you've installed the [Solana CLI](https://docs.solana.com/cli/install-
 
 > 🪟 **Windows Users:** There are known compatibility issues with the Solana BPF toolchain. You will need to use the Windows Subsystem for Linux or Gitpod to compile Solana programs. Please refer to the [installation guide](https://docs.figment.io/network-documentation/extra-guides/solana-setup-for-windows) we have provided.
 >
-> 🍎 **macOS Users:** If you are using any Apple Silicon products (M1 processor), you may need to build the Solana CLI from source. [Refer to this GitHub PR for more information](https://github.com/solana-labs/solana/pull/16346/).
+> 🍎 **macOS Users:** If you are using any Apple Silicon products (M1 processor), you may need to build the Solana CLI from source. [Refer to this article for more information](https://dev.to/codenjobs/how-to-make-solana-test-validator-work-with-a-macbook-with-m1-chip-5emd).
 
 ---
 

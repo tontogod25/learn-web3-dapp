@@ -9,7 +9,7 @@ The main difference here is in the protocol. To connect to NEAR, we'll be using 
 
 ---
 
-# Challenge
+# 🏋️ Challenge
 
 {% hint style="tip" %}
 In `pages/api/near/connect.ts`, implement `connection` by creating a `Connection` instance and getting the API version. You must replace any instances of `undefined` with working code to accomplish this.
@@ -29,21 +29,17 @@ try {
 }
 ```
 
-**Need some help?** Check out those two links
+**Need some help?** Check out these links 👇
 
 - [Creating a `Connection` instance](https://near.github.io/near-api-js/modules/connect.html)
 - [Provider property of `Connection` Class](https://near.github.io/near-api-js/classes/connection.connection-1.html#provider)
 - [Status method of `Provider` class](https://near.github.io/near-api-js/classes/providers_json_rpc_provider.jsonrpcprovider.html#status)
 
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
-
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
 
-# Solution
+# 😅 Solution
 
 ```typescript
 // solution
@@ -66,7 +62,7 @@ try {
 
 ---
 
-# Make sure it works
+# ✅ Make sure it works
 
 Once the code is complete and the file has been saved, refresh the page to see it update & display the current version.
 
@@ -74,6 +70,6 @@ Once the code is complete and the file has been saved, refresh the page to see i
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
 Well done! Your fluency in the NEAR dialect of Web 3 is growing. As a newcomer, building an identity is important so you can distinguish yourself from other users on the NEAR network. Ready to take the next step forward?

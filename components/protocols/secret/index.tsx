@@ -18,7 +18,6 @@ import {useLocalStorage} from '@figment-secret/hooks';
 import Nav from '@figment-secret/components/nav';
 import {PROTOCOL_STEPS_ID, ChainType} from 'types';
 import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
-import SetupWizard from 'components/shared/SetupWizard';
 
 const Secret: React.FC = () => {
   const {state: global_state} = useGlobalState();
@@ -37,9 +36,7 @@ const Secret: React.FC = () => {
   return (
     <SecretContext.Provider value={{state, dispatch}}>
       <Nav />
-      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP && (
-        <SetupWizard showText={true} />
-      )}
+      {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Account />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
