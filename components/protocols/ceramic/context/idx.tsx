@@ -148,7 +148,7 @@ const useIdx = (): UseIdxHook => {
   }
 
   // Connect to Metamask
-  const connect = async (): Promise<string> => {
+  const connect = async (): Promise<string | boolean> => {
     const provider = await detectEthereumProvider();
 
     if (provider) {
@@ -159,19 +159,23 @@ const useIdx = (): UseIdxHook => {
       const addresses = undefined;
       const address = undefined;
 
-      if (setIsConnected) {
-        setIsConnected(true);
+      if (address) {
+        if (setIsConnected) {
+          setIsConnected(true);
+        }
+
+        if (setCurrentUserAddress) {
+          setCurrentUserAddress(address);
+        }
+
+        if (identityStore) {
+          await identityStore.setAddress(address);
+        }
+
+        return address;
       }
 
-      if (setCurrentUserAddress) {
-        setCurrentUserAddress(address);
-      }
-
-      if (identityStore) {
-        await identityStore.setAddress(address);
-      }
-
-      return address;
+      return false;
     } else {
       throw new Error('Please install Metamask at https://metamask.io');
     }
