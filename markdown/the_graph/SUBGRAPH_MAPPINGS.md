@@ -150,23 +150,17 @@ yarn create-local
 yarn deploy-local
 ```
 
-<<<<<<< Updated upstream
-What does those two commands do?
-
-- # `yarn create-local` will create an endpoints for our subgraph: here `http://localhost:8000/subgraphs/name/punks
-
-  What do those two commands do?
+What do those two commands do?
 
 - `yarn create-local` will create an endpoint for our subgraph (see the environment variable **NEXT_PUBLIC_LOCAL_SUBGRAPH** in your `.env.local`):
   - On `http://localhost:8000/subgraphs/name/punks` if running `learn-web3-dapp` locally
-  - On Gitpod, the port number goes in front of the URL like this example: `https://8000-apricot-piranha-iub1loby.ws-us18.gitpod.io/`. Your URL will be different, so you need to copy and paste it, then add the port number and hyphen in front of the URL (`8000-`) into `.env.local` as the value of **NEXT_PUBLIC_LOCAL_SUBGRAPH**.
-    > > > > > > > Stashed changes
-- `yarn deploy-local` will deploy the subgraph to those endpoints
+  - On Gitpod, the port number goes in front of the URL like this example: `https://8000-apricot-piranha-iub1loby.ws-us18.gitpod.io/`. Your URL will be different, so you need to copy and paste it from your address bar, then add the port number and hyphen in front of the URL (`8000-`) into `.env.local` as the value of **NEXT_PUBLIC_LOCAL_SUBGRAPH**.
+- `yarn deploy-local` will deploy the subgraph to the endpoint specified by **NEXT_PUBLIC_LOCAL_SUBGRAPH**.
 
-As soon as you run `yarn deploy-local` you will see Docker starting to scan the Ethereum mainnet for punks!
+As soon as you run `yarn deploy-local`, you will see Docker starting to scan the Ethereum mainnet for CryptoPunks!
 
 ![terminal](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/the-graph/mapping-01.gif)
 
 ## ✅ Make sure it works
 
-Now it's time for you to verify that you have followed the instructions carefully. Click on the **Check mappings** button on the right to check that your mappings are correctly implemented.
+Now it's time for you to verify that you have followed the instructions carefully. Click on the **Check subgraph deployment** button on the right to check that your mappings are correctly implemented.

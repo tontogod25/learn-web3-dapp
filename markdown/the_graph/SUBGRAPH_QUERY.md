@@ -4,19 +4,11 @@ After deploying the subgraph, we need to wait a little in order for it to sync w
 
 We can follow the progression of the sync looking at the logged output by the running docker instance of our local graph node.
 
-<<<<<<< Updated upstream
+> Before running the query, you'll need to make sure you have the [Metamask](https://metamask.io/) extension installed in your browser and that you're connected to the mainnet of Ethereum. Why? We'll decorate the data returned by the GraphQL query with data coming from the [CryptoPunks Data on Etherscan](https://etherscan.io/address/0x16F5A35647D6F03D5D3da7b35409D65ba03aF3B2#readContract) to be able to render the images and other CryptoPunk metadata.
 
-> Before, running the query you'll need to check you have a [metamask](https://metamask.io/) extension installed with your browser and you're connected to the mainnet of Ethereum. Why? We'll decorate the date returned by the GraphQL query with data coming from the [CryptoPunks Data](https://etherscan.io/address/0x16F5A35647D6F03D5D3da7b35409D65ba03aF3B2#readContract) to be able to render the images and other punk metadata.
+Our Graph node comes with a GraphQL endpoint, available at [http://localhost:8000/subgraphs/name/punks](http://localhost:8000/subgraphs/name/punks/graphql) (Or at your Gitpod Workspace URL). Open this in another tab, and you will see a GraphiQL UI. Consider this a sandbox in which to experiment with GraphQL queries. Open the right sidebar to explore your schema.
 
-# Our Graph node come up with a GraphQL endpoint, available at [http://localhost:8000/subgraphs/name/punks](http://localhost:8000/subgraphs/name/punks/graphql). Open this in another tab and you will see a GraphiQL UI. Consider this a sandboz in which to experiment with queries. Open the right sidebar to explore your schema.
-
-> Before, running the query you'll need to check you have a [metamask](https://metamask.io/) extension installed with your browser and you're connected to the mainnet of Ethereum. Why? We'll decorate the data returned by the GraphQL query with data coming from the [CryptoPunks Data](https://etherscan.io/address/0x16F5A35647D6F03D5D3da7b35409D65ba03aF3B2#readContract) to be able to render the images and other punk metadata.
-
-Our Graph node comes with a GraphQL endpoint, available at [http://localhost:8000/subgraphs/name/punks](http://localhost:8000/subgraphs/name/punks/graphql). Open this in another tab and you will see a GraphiQL UI. Consider this a sandbox in which to experiment with queries. Open the right sidebar to explore your schema.
-
-If you're running the Pathway using Gitpod, you will need to add the Gitpod Workspace URL to `.env.local` instead of localhost. The port number must also be added to the beginning of the URL, rather than at the end. For example: `https://8000-olive-meerkat-mapxxnyp.ws-us18.gitpod.io/`.
-
-> > > > > > > Stashed changes
+If you're running the Pathway using Gitpod, you will need to add the Gitpod Workspace URL to `.env.local` instead of localhost, as mentioned in the previous step. The port number must also be added to the beginning of the URL, rather than at the end. For example: `https://8000-olive-meerkat-mapxxnyp.ws-us18.gitpod.io/`.
 
 ## 👨‍💻 Your turn! Write the GraphQL query
 
@@ -28,12 +20,7 @@ Some hints to help you:
 - You will want `id`, `index`, `value` and `date`
 - Then use `first`, `orderBy` and `orderDirection` to get 10 of highest value
 
-<<<<<<< Updated upstream
-Remember to use **GraphiQL IDE** at [http://localhost:8000/subgraphs/name/punks](http://localhost:8000/subgraphs/name/punks) to play around
-=======
 Remember to use **GraphiQL IDE** at [http://localhost:8000/subgraphs/name/punks](http://localhost:8000/subgraphs/name/punks) (or at your Gitpod URL) to play around
-
-> > > > > > > Stashed changes
 
 ## 😅 Solution
 
@@ -64,11 +51,6 @@ Now, it's time to enjoy the result of your work! Click on the button on the righ
 
 Nice, you made it! What did you think?
 
-<<<<<<< Updated upstream
-If you have any feedback, reach out on [Discord](https://discord.com/invite/fszyM7K)!
-=======
 If you have any feedback, reach out on [Discord](https://figment.io/devchat)!
 
-> > > > > > > Stashed changes
-
-If you want to keep learning about The Graph, we have more advanced tutorial on [Figment Learn](https://learn.figment.io/protocols/thegraph).
+If you want to keep learning about The Graph, we have more advanced tutorials on [Figment Learn](https://learn.figment.io/protocols/thegraph).
