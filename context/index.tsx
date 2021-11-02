@@ -360,6 +360,13 @@ export const isCompletedForCurrentStepId = (state: GlobalStateT) => {
   return isCompleted;
 };
 
+export const isConnectionStep = (state: GlobalStateT) => {
+  return (
+    getCurrentStepIdForCurrentChain(state) ===
+    PROTOCOL_STEPS_ID.CHAIN_CONNECTION
+  );
+};
+
 // Inner state functions
 export const getChainInnerState = (
   state: GlobalStateT,
