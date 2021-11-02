@@ -13,7 +13,7 @@ export default async function balance(
     const balance = undefined;
     res.status(200).json(balance.toString());
   } catch (error) {
-    console.log(error);
-    res.status(500).json('Balance retrieving failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

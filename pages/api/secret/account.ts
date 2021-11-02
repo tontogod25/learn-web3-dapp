@@ -17,7 +17,7 @@ export default async function connect(
     const address = undefined;
     res.status(200).json({mnemonic, address});
   } catch (error) {
-    console.log(error);
-    res.status(500).json('Failed to connect to Secret');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

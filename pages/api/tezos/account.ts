@@ -17,7 +17,7 @@ export default async function account(
 
     res.status(200).json('Activation of the account ok');
   } catch (error) {
-    console.log('error', error);
-    res.status(500).json('Activation of the account failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

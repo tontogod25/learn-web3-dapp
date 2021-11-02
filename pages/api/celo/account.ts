@@ -22,7 +22,7 @@ export default async function connect(
       secret,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json('Account creation failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

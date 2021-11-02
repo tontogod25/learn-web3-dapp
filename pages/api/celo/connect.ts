@@ -14,7 +14,7 @@ export default async function connect(
     const version = await kit.web3.eth.getNodeInfo();
     res.status(200).json(version.slice(5, 11));
   } catch (error) {
-    console.error(error);
-    res.status(500).json('connection to Celo failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

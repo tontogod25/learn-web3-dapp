@@ -25,7 +25,7 @@ export default async function setter(
 
     res.status(200).json(transaction.hash);
   } catch (error) {
-    console.log(error);
-    res.status(500).json("Setting of contract's storage failed");
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

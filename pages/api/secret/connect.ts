@@ -13,7 +13,7 @@ export default async function connect(
     const version = undefined;
     res.status(200).json(version);
   } catch (error) {
-    console.log(error);
-    res.status(500).json('Failed to connect to secret');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }
