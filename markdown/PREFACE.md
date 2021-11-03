@@ -1,19 +1,19 @@
 ## 🧑‍🏫 Instructions on the left, 🤝 interaction on the right
 
-Each step in a Pathway covers a different aspect of using a particular blockchain or protocol. The format is easy to follow, with instructions on the left side and the right side for you to interact with your code.
+Each step in a Pathway covers a different aspect of using a particular blockchain or protocol. The format is easy to follow, with instructions on the left side and the right side for you to interact with your code. Remember that the left side can be scrolled down to show the rest of the content.
 
 ## 🏋️ Challenges & hints
 
 After some explanation of each topic, there is a coding challenge for you to complete before you can proceed to the next step, for example:
 
 ```js
-// path/to/the/file/to/edit.ts
+// path/to/the/file/to/edit.ts - this is only an example!
 const provider = undefined; // Create an Ethereum provider using ethers
 const selectedAddress = undefined; // then get the address
 const balanceToDisplay = undefined; // and format its balance
 ```
 
-For every challenge, we will give you hints and tips to help you get started. They usually point to the relevant documentation page:
+For every challenge, we will give you hints and tips to help you get started. They usually point to the relevant documentation page, for example:
 
 **Need some help?** Check out these links 👇
 
@@ -26,7 +26,7 @@ Don't worry if you can't find the answer, we provide the solution to every chall
 
 ```js
 // solution
-// path/to/the/file/to/edit.ts
+// path/to/the/file/to/edit.ts - this is only an example!
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const selectedAddress = provider.selectedAddress;
 const balanceOfAddress = await provider.getBalance(selectedAddress);
