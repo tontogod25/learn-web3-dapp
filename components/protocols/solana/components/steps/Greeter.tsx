@@ -1,42 +1,21 @@
 import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
-import {accountExplorer, transactionExplorer} from '@figment-solana/lib';
+import {transactionExplorer} from '@figment-solana/lib';
 import {ErrorBox} from '@figment-solana/components/nav';
 import {useState, useEffect} from 'react';
 import type {ErrorT} from '@figment-solana/types';
-import {prettyError} from '@figment-solana/lib';
+import {prettyError, getSolanaState} from '@figment-solana/lib';
 import axios from 'axios';
-import {
-  getCurrentChainId,
-  useGlobalState,
-  getNetworkForCurrentChain,
-  getChainInnerState,
-  getCurrentStepIdForCurrentChain,
-} from 'context';
+import {useGlobalState} from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
 const Greeter = () => {
   const {state, dispatch} = useGlobalState();
-  const chainId = getCurrentChainId(state);
-  const network = getNetworkForCurrentChain(state);
-  const secret = getChainInnerState(
-    state,
-    chainId,
-    PROTOCOL_INNER_STATES_ID.SECRET,
-  );
-  const programId = getChainInnerState(
-    state,
-    chainId,
-    PROTOCOL_INNER_STATES_ID.CONTRACT_ID,
-  );
-  const greeter = getChainInnerState(
-    state,
-    chainId,
-    PROTOCOL_INNER_STATES_ID.GREETER,
-  );
+  const {network, secret, greeter, programId} = getSolanaState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
+  const [address, setAddress] = useState<string | null>(null);
   const [error, setError] = useState<ErrorT | null>(null);
   const [hash, setHash] = useState<string | null>(null);
 
@@ -56,15 +35,18 @@ const Greeter = () => {
   }
 
   useEffect(() => {
-    if (greeter) {
+    if (address) {
       dispatch({
-        type: 'SetStepIsCompleted',
-        chainId,
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
+        type: 'SetInnerState',
+        values: [
+          {
+            [PROTOCOL_INNER_STATES_ID.GREETER]: address,
+          },
+        ],
+        isCompleted: true,
       });
     }
-  }, []);
+  }, [address]);
 
   const setGreeterAccount = async () => {
     setError(null);
@@ -77,18 +59,7 @@ const Greeter = () => {
         programId,
       });
       setHash(response.data.hash);
-      dispatch({
-        type: 'SetStepInnerState',
-        chainId,
-        innerStateId: PROTOCOL_INNER_STATES_ID.GREETER,
-        value: response.data.greeter,
-      });
-      dispatch({
-        type: 'SetStepIsCompleted',
-        chainId,
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
-      });
+      setAddress(response.data.greeter);
     } catch (error) {
       setError(prettyError(error));
     } finally {
@@ -129,7 +100,7 @@ const Greeter = () => {
                   </a>
                 </Text>
               }
-              type="warning"
+              type="success"
               showIcon
             />
           )}

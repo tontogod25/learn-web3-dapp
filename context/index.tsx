@@ -139,17 +139,27 @@ export type Action =
       value: boolean;
     }
   | {
+      type: 'SetIsCompleted';
+    }
+  | {
       type: 'ClearStepProgression';
       chainId: CHAINS;
     }
   | {
+      type: 'Clear';
+    }
+  | {
+      type: 'SetNetwork';
+      network: NETWORKS;
+    }
+  | {
       type: 'SetInnerState';
-      values: Field[];
+      values: InnerStateT[];
       isCompleted?: boolean;
     }
   | {
       type: 'SetSharedState';
-      values: String[][];
+      values: any[];
       isCompleted?: boolean;
     }
   | {
@@ -159,13 +169,9 @@ export type Action =
       value: string | null;
     };
 
-type Field = {
-  PROTOCOL_INNER_STATES_ID?: string;
-};
+const getKey = (field: InnerStateT) => Object.keys(field)[0];
 
-const getKey = (field: Field) => Object.keys(field)[0];
-
-const getValue = (field: Field) => Object.values(field)[0];
+const getValue = (field: InnerStateT) => Object.values(field)[0];
 
 function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
   switch (action.type) {
@@ -177,7 +183,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
       const stepId = getCurrentStepIdForCurrentChain(state);
       const innerState = getChainInnerStates(state);
       let newInnerState = {...innerState} as InnerStateT;
-      action.values.forEach((field: Field) => {
+      action.values.forEach((field: InnerStateT) => {
         const key = getKey(field);
         const value = getValue(field);
         newInnerState = {
@@ -199,7 +205,25 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
                 isCompleted: !!action.isCompleted,
               },
             },
-            innerState: newInnerState,
+            innerState: {...newInnerState},
+          },
+        },
+      };
+    }
+
+    case 'Clear': {
+      const newSteps = clearStepProgression(getStepsForCurrentChain(state));
+      const chainId = getCurrentChainId(state);
+      const firstStepId = getFirstStepIdForCurrentChain(state);
+      return {
+        ...state,
+        protocols: {
+          ...state.protocols,
+          [chainId]: {
+            ...state.protocols[chainId],
+            steps: newSteps,
+            currentStepId: firstStepId,
+            innerState: null,
           },
         },
       };
@@ -209,7 +233,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
       const chainId = getCurrentChainId(state);
       const stepId = getCurrentStepIdForCurrentChain(state);
       let protocolState = {...state.protocols[chainId]};
-      action.values.forEach((field: Field) => {
+      action.values.forEach((field) => {
         const key = getKey(field);
         const value = getValue(field);
         protocolState = {
@@ -223,15 +247,14 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
         protocols: {
           ...state.protocols,
           [chainId]: {
-            ...state.protocols[chainId],
+            ...protocolState,
             steps: {
-              ...state.protocols[chainId].steps,
+              ...protocolState.steps,
               [stepId]: {
-                ...state.protocols[chainId].steps[stepId],
+                ...protocolState.steps[stepId],
                 isCompleted: !!action.isCompleted,
               },
             },
-            innerState: newInnerState,
           },
         },
       };
@@ -260,6 +283,21 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
           },
         },
       };
+
+    case 'SetNetwork': {
+      const chainId = getCurrentChainId(state);
+
+      return {
+        ...state,
+        protocols: {
+          ...state.protocols,
+          [chainId]: {
+            ...state.protocols[chainId],
+            network: action.network,
+          },
+        },
+      };
+    }
 
     case 'SetChainProtocol':
       return {
@@ -290,6 +328,27 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
           },
         },
       };
+
+    case 'SetIsCompleted': {
+      const chainId = getCurrentChainId(state);
+      const stepId = getCurrentStepIdForCurrentChain(state);
+      return {
+        ...state,
+        protocols: {
+          ...state.protocols,
+          [chainId]: {
+            ...state.protocols[chainId],
+            steps: {
+              ...state.protocols[chainId].steps,
+              [stepId]: {
+                ...state.protocols[chainId].steps[stepId],
+                isCompleted: true,
+              },
+            },
+          },
+        },
+      };
+    }
 
     case 'ClearStepProgression': {
       const newSteps = clearStepProgression(getStepsForCurrentChain(state));
@@ -379,21 +438,24 @@ export const getLastStepIdForCurrentChain = (state: GlobalStateT) => {
 };
 
 // Current Step Id function
-export const getNextStepIdForCurrentStepId = (state: GlobalStateT) => {
+export const getNextStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
-  return state.protocols[chainId].steps[currentStepId].nextStepId;
+  const nextStepId = state.protocols[chainId].steps[currentStepId].nextStepId;
+  return nextStepId ? nextStepId : getLastStepIdForCurrentChain(state);
 };
 
-export const getPreviousStepIdForCurrentStepId = (state: GlobalStateT) => {
+export const getPreviousStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
-  return state.protocols[chainId].steps[currentStepId].previousStepId;
+  const previousStepId =
+    state.protocols[chainId].steps[currentStepId].previousStepId;
+  return previousStepId ? previousStepId : getFirstStepIdForCurrentChain(state);
 };
 
 export const getNextStepForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
-  const nextStepId = getNextStepIdForCurrentStepId(state);
+  const nextStepId = getNextStepId(state);
   return nextStepId === null
     ? null
     : state.protocols[chainId].steps[nextStepId];
@@ -401,7 +463,7 @@ export const getNextStepForCurrentStepId = (state: GlobalStateT) => {
 
 export const getPreviousStepForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
-  const previousStep = getPreviousStepIdForCurrentStepId(state);
+  const previousStep = getPreviousStepId(state);
   return previousStep === null
     ? null
     : state.protocols[chainId].steps[previousStep];
@@ -447,6 +509,13 @@ export const isFirstStepForCurrentStepId = (state: GlobalStateT) => {
   return (
     getCurrentStepIdForCurrentChain(state) ===
     getFirstStepIdForCurrentChain(state)
+  );
+};
+
+export const isConnectionStep = (state: GlobalStateT) => {
+  return (
+    getCurrentStepIdForCurrentChain(state) ===
+    PROTOCOL_STEPS_ID.CHAIN_CONNECTION
   );
 };
 

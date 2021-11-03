@@ -1,12 +1,12 @@
 import {useCallback} from 'react';
-import {GlobalStateT, PROTOCOL_STEPS_ID} from 'types';
+import {GlobalStateT} from 'types';
 import {trackTutorialStepViewed} from '../utils/tracking-utils';
 import {
   getCurrentChainId,
   getCurrentStepIdForCurrentChain,
   getTitleForCurrentStepId,
-  getPreviousStepIdForCurrentStepId,
-  getNextStepIdForCurrentStepId,
+  getPreviousStepId,
+  getNextStepId,
   getPreviousStepForCurrentStepId,
   getNextStepForCurrentStepId,
   isCompletedForCurrentStepId,
@@ -22,11 +22,12 @@ const useSteps = (state: GlobalStateT, dispatch: (value: Action) => void) => {
   const prev = useCallback(() => {
     const title = getTitleForCurrentStepId(state);
     dispatch({
-      type: 'SetChainCurrentStepId',
-      chainId: chainId,
-      currentStepId: getPreviousStepIdForCurrentStepId(
-        state,
-      ) as PROTOCOL_STEPS_ID,
+      type: 'SetSharedState',
+      values: [
+        {
+          currentStepId: getPreviousStepId(state),
+        },
+      ],
     });
     trackTutorialStepViewed(chainId, title, 'prev');
   }, [chainId, stepId]);
@@ -34,9 +35,12 @@ const useSteps = (state: GlobalStateT, dispatch: (value: Action) => void) => {
   const next = useCallback(() => {
     const title = getTitleForCurrentStepId(state);
     dispatch({
-      type: 'SetChainCurrentStepId',
-      chainId: chainId,
-      currentStepId: getNextStepIdForCurrentStepId(state) as PROTOCOL_STEPS_ID,
+      type: 'SetSharedState',
+      values: [
+        {
+          currentStepId: getNextStepId(state),
+        },
+      ],
     });
     trackTutorialStepViewed(chainId, title, 'prev');
   }, [chainId, stepId]);
