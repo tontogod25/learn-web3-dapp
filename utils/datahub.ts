@@ -156,8 +156,8 @@ const getDataHubPolygonNodeUrl = (
 
 const getDataHubSolanaNodeUrl = (network: SOLANA_NETWORKS): string => {
   if (network === SOLANA_NETWORKS.MAINNET) {
-    return `https://${process.env.DATAHUB_SOLANA_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`;
+    return `https://${process.env.DATAHUB_SOLANA_MAINNET_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`;
   } else {
-    return `https://${process.env.DATAHUB_SOLANA_DEVNET_RPC_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`;
+    return `https://${process.env.DATAHUB_SOLANA_DEVNET_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`;
   }
 };
