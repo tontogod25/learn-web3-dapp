@@ -11,7 +11,6 @@ import {
   POLYGON_NETWORKS,
   POLYGON_PROTOCOLS,
   SOLANA_NETWORKS,
-  SOLANA_PROTOCOLS,
 } from 'types';
 
 export const getNodeURL = (
@@ -79,10 +78,7 @@ export const getDatahubNodeURL = (
         protocol as POLYGON_PROTOCOLS,
       );
     case CHAINS.SOLANA:
-      return getDataHubSolanaNodeUrl(
-        network as SOLANA_NETWORKS,
-        protocol as SOLANA_PROTOCOLS,
-      );
+      return getDataHubSolanaNodeUrl(network as SOLANA_NETWORKS);
     case CHAINS.CELO:
       return getDataHubCeloNodeUrl(network as CELO_NETWORKS);
     case CHAINS.SECRET:
@@ -158,23 +154,10 @@ const getDataHubPolygonNodeUrl = (
   return '';
 };
 
-const getDataHubSolanaNodeUrl = (
-  network: SOLANA_NETWORKS,
-  protocol: SOLANA_PROTOCOLS,
-): string => {
+const getDataHubSolanaNodeUrl = (network: SOLANA_NETWORKS): string => {
   if (network === SOLANA_NETWORKS.MAINNET) {
-    if (protocol === SOLANA_PROTOCOLS.RPC) {
-      return `https://${process.env.DATAHUB_SOLANA_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`;
-    } else if (protocol === SOLANA_PROTOCOLS.WS) {
-      return `wss://${process.env.DATAHUB_SOLANA_MAINNET_WS_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`;
-    }
-  } else if (network === SOLANA_NETWORKS.DEVNET) {
-    if (protocol === SOLANA_PROTOCOLS.RPC) {
-      return `https://${process.env.DATAHUB_SOLANA_DEVNET_RPC_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`;
-    } else if (protocol === SOLANA_PROTOCOLS.WS) {
-      return `wss://${process.env.DATAHUB_SOLANA_DEVNET_WS_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`;
-    }
+    return `https://${process.env.DATAHUB_SOLANA_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`;
+  } else {
+    return `https://${process.env.DATAHUB_SOLANA_DEVNET_RPC_URL}/apikey/${process.env.DATAHUB_SOLANA_API_KEY}`;
   }
-
-  return '';
 };
