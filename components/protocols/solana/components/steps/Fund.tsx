@@ -9,12 +9,15 @@ import type {ErrorT} from '@figment-solana/types';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from 'context';
 import axios from 'axios';
+import {PROTOCOL_INNER_STATES_ID, SOLANA_NETWORKS} from 'types';
 
 const {Text} = Typography;
 
 const Fund = () => {
   const {state, dispatch} = useGlobalState();
-  const {address, network} = getSolanaState(state);
+  const {address, network: network0} = getSolanaState(state);
+  const network =
+    network0 === SOLANA_NETWORKS.DATAHUB ? SOLANA_NETWORKS.DEVNET : network0;
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);

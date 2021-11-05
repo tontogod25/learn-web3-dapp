@@ -2,11 +2,7 @@ import {Typography, Popover, Button, Select} from 'antd';
 import type {EntryT, ErrorT} from '@figment-solana/types';
 import ReactJson from 'react-json-view';
 import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
-import {
-  useGlobalState,
-  getNetworkForCurrentChain,
-  isConnectionStep,
-} from 'context';
+import {useGlobalState, isConnectionStep} from 'context';
 import {SOLANA_NETWORKS} from 'types';
 import {getSolanaState} from '@figment-solana/lib';
 
