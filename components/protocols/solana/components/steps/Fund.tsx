@@ -11,14 +11,17 @@ import {
   getChainInnerState,
 } from 'context';
 import axios from 'axios';
-import {PROTOCOL_INNER_STATES_ID} from 'types';
+import {PROTOCOL_INNER_STATES_ID, SOLANA_NETWORKS} from 'types';
 
 const {Text} = Typography;
 
 const Fund = () => {
   const {state, dispatch} = useGlobalState();
   const chainId = getCurrentChainId(state);
-  const network = getNetworkForCurrentChain(state);
+  const network =
+    getNetworkForCurrentChain(state) === SOLANA_NETWORKS.DATAHUB
+      ? SOLANA_NETWORKS.DEVNET
+      : getNetworkForCurrentChain(state);
   const address = getChainInnerState(
     state,
     chainId,
