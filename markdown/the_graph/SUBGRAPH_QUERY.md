@@ -24,7 +24,7 @@ Remember to use **GraphiQL IDE** at [http://localhost:8000/subgraphs/name/punks]
 
 ## 😅 Solution
 
-In `components/protocols/the_graph/graphql/index.ts` replace the GraphQL query with:
+In `components/protocols/the_graph/graphql/query.ts` replace the GraphQL query with:
 
 ```graphql
 // solution

@@ -7,8 +7,9 @@ import {
   getCurrentChainId,
   useGlobalState,
   getNetworkForCurrentChain,
-  isFirstStepForCurrentStepId,
   getFirstStepIdForCurrentChain,
+  getCurrentStepIdForCurrentChain,
+  isConnectionStep,
 } from 'context';
 import {PROTOCOL_INNER_STATES_ID, SOLANA_NETWORKS} from 'types';
 import {getSolanaInnerState} from '@figment-solana/lib';
@@ -103,6 +104,8 @@ const Nav = () => {
     });
   };
 
+  console.log('here', getCurrentStepIdForCurrentChain(state));
+
   return (
     <StepMenuBar>
       <Popover content={AppState} placement="bottom">
@@ -112,7 +115,7 @@ const Nav = () => {
         defaultValue={getNetworkForCurrentChain(state) as SOLANA_NETWORKS}
         style={{width: 120}}
         onChange={toggleLocal}
-        disabled={!isFirstStepForCurrentStepId(state)}
+        disabled={!isConnectionStep(state)}
       >
         <Option value={SOLANA_NETWORKS.DATAHUB}>Datahub</Option>
         <Option value={SOLANA_NETWORKS.DEVNET}>Devnet</Option>

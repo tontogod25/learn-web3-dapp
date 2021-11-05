@@ -25,6 +25,11 @@ To get an Alchemy API key, [create an account](https://www.alchemy.com/), then c
 
 ![Alchemy](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/the-graph/alchemy-view-api-key.png)
 
+Speaking of API keys, it's important to remember that Next.js reads from the file `.env.local` to determine which environment variables to use!
+To be able to complete this Pathway, you must create a new file named `.env.local` in the project root directory: `/learn-web3-dapp/.env.local`, copying the contents of the existing `.env.example` file.
+
+> Easily duplicate the file with the terminal command `cp .env.example .env.local`!
+
 ---
 
 ## 🎥 Video Walkthrough
