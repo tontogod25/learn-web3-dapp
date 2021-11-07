@@ -20,7 +20,7 @@ export default async function getter(
     // @ts-ignore
     res.status(200).json(counter.toString());
   } catch (error) {
-    console.log(error);
-    res.status(500).json("Fetching of contract's storage failed");
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

@@ -36,8 +36,9 @@ export default async function query(
       blockInfo,
     });
   } catch (error) {
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
     res.status(500).json({
-      message: error.message,
+      message: errorMessage,
     });
   }
 }

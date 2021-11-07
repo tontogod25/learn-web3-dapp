@@ -72,6 +72,7 @@ export default async function manifest(
 
     res.status(200).json(status);
   } catch (error) {
-    res.status(500).json(error.message);
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

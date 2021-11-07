@@ -28,7 +28,7 @@ export default async function connect(
       hash: receipt.transactionHash,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json('Deployment of contract failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

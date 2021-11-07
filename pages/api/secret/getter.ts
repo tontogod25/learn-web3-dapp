@@ -44,7 +44,7 @@ export default async function connect(
 
     res.status(200).json(count.toString());
   } catch (error) {
-    console.log(error);
-    res.status(500).json('get counter value failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }
