@@ -1,8 +1,6 @@
 import {Alert, Button, Col, Space, Typography, Modal} from 'antd';
-import type {ErrorT} from '@figment-solana/types';
-import {ErrorBox} from '@figment-solana/components/nav';
+import {ErrorT, ErrorBox, prettyError} from 'utils/error';
 import {useEffect, useState} from 'react';
-import {prettyError} from '@figment-solana/lib';
 import {useGlobalState} from 'context';
 import axios from 'axios';
 import {PROTOCOL_INNER_STATES_ID} from 'types';

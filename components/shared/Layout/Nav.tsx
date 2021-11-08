@@ -6,20 +6,16 @@ import Link from 'next/link';
 import {ChevronRight} from 'react-feather';
 
 import {colors, getChainColors} from 'utils/colors';
-import {CHAINS} from 'types';
 import logoSVG from 'public/figment-learn-compact.svg';
 import discordSVG from 'public/discord.svg';
 import {HEADER_HEIGHT} from 'lib/constants';
-import {
-  getLabelForCurrentChain,
-  getCurrentChainId,
-  useGlobalState,
-} from 'context';
+import {getChainLabel, getChainId} from 'utils/context';
+import {useGlobalState} from 'context';
 
 const Nav = () => {
   const {state} = useGlobalState();
-  const currentChainId = getCurrentChainId(state) as CHAINS;
-  const chainLabel = getLabelForCurrentChain(state);
+  const currentChainId = getChainId(state);
+  const chainLabel = getChainLabel(state);
   const {primaryColor, secondaryColor} = getChainColors(currentChainId);
 
   return (

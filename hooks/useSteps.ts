@@ -1,26 +1,26 @@
 import {useCallback} from 'react';
 import {GlobalStateT} from 'types';
-import {trackTutorialStepViewed} from '../utils/tracking-utils';
+import {trackTutorialStepViewed} from 'utils/tracking-utils';
 import {
-  getCurrentChainId,
-  getCurrentStepIdForCurrentChain,
-  getTitleForCurrentStepId,
+  getChainId,
+  getStepId,
+  getStepTitle,
   getPreviousStepId,
   getNextStepId,
-  getPreviousStepForCurrentStepId,
-  getNextStepForCurrentStepId,
-  isCompletedForCurrentStepId,
-  isFirstStepForCurrentStepId,
-  isLastStepForCurrentStepId,
-  Action,
-} from 'context';
+  getPreviousStep,
+  getNextStep,
+  isCompletedStep,
+  isFirstStep,
+  isLastStep,
+} from 'utils/context';
+import {Action} from 'context';
 
 const useSteps = (state: GlobalStateT, dispatch: (value: Action) => void) => {
-  const chainId = getCurrentChainId(state);
-  const stepId = getCurrentStepIdForCurrentChain(state);
+  const chainId = getChainId(state);
+  const stepId = getStepId(state);
 
   const prev = useCallback(() => {
-    const title = getTitleForCurrentStepId(state);
+    const title = getStepTitle(state);
     dispatch({
       type: 'SetSharedState',
       values: [
@@ -33,7 +33,7 @@ const useSteps = (state: GlobalStateT, dispatch: (value: Action) => void) => {
   }, [chainId, stepId]);
 
   const next = useCallback(() => {
-    const title = getTitleForCurrentStepId(state);
+    const title = getStepTitle(state);
     dispatch({
       type: 'SetSharedState',
       values: [
@@ -45,16 +45,10 @@ const useSteps = (state: GlobalStateT, dispatch: (value: Action) => void) => {
     trackTutorialStepViewed(chainId, title, 'prev');
   }, [chainId, stepId]);
 
-  const isFirstStep = isFirstStepForCurrentStepId(state);
-  const isLastStep = isLastStepForCurrentStepId(state);
-  const previousStepTitle = getPreviousStepForCurrentStepId(state)?.title;
-  const nextStepTitle = getNextStepForCurrentStepId(state)?.title;
-  const isCompleted = isCompletedForCurrentStepId(state);
-
   let justify: 'start' | 'end' | 'space-between';
-  if (isFirstStep) {
+  if (isFirstStep(state)) {
     justify = 'end';
-  } else if (isLastStep) {
+  } else if (isLastStep(state)) {
     justify = 'start';
   } else {
     justify = 'space-between';
@@ -63,12 +57,12 @@ const useSteps = (state: GlobalStateT, dispatch: (value: Action) => void) => {
   return {
     next,
     prev,
-    isFirstStep,
-    isLastStep,
+    isFirstStep: isFirstStep(state),
+    isLastStep: isLastStep(state),
     justify,
-    nextStepTitle,
-    previousStepTitle,
-    isCompleted,
+    nextStepTitle: getNextStep(state)?.title,
+    previousStepTitle: getPreviousStep(state)?.title,
+    isCompleted: isCompletedStep(state),
   };
 };
 

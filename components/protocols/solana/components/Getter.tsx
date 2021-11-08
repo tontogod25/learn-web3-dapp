@@ -1,16 +1,15 @@
 import {Alert, Col, Button, Space, Typography, Modal} from 'antd';
-import {prettyError, getSolanaState} from '@figment-solana/lib';
-import {ErrorBox} from '@figment-solana/components/nav';
-import type {ErrorT} from '@figment-solana/types';
+import {ErrorT, ErrorBox, prettyError} from 'utils/error';
 import {useState, useEffect} from 'react';
 import {useGlobalState} from 'context';
 import axios from 'axios';
+import {getInnerState} from 'utils/context';
 
 const {Text} = Typography;
 
 const Getter = () => {
   const {state, dispatch} = useGlobalState();
-  const {network, greeter} = getSolanaState(state);
+  const {network, greeter} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);

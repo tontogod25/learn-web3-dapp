@@ -1,9 +1,8 @@
 import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
-import {prettyError, getSolanaState} from '@figment-solana/lib';
+import {getInnerState} from 'utils/context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
-import {ErrorBox} from '@figment-solana/components/nav';
+import {ErrorBox, ErrorT, prettyError} from 'utils/error';
 import {accountExplorer} from '@figment-solana/lib';
-import type {ErrorT} from '@figment-solana/types';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from 'context';
 import axios from 'axios';
@@ -12,7 +11,8 @@ const {Text} = Typography;
 
 const Deploy = () => {
   const {state, dispatch} = useGlobalState();
-  const {network} = getSolanaState(state);
+  const {network} = getInnerState(state);
+  console.log(getInnerState(state));
 
   const [value, setValue] = useState<string | null>(null);
   const [address, setAddress] = useState<string | null>(null);
@@ -86,7 +86,7 @@ const Deploy = () => {
             message={<Text strong>{`The program is correctly deployed`}</Text>}
             description={
               <a
-                href={accountExplorer(address, network)}
+                href={accountExplorer(network)(address)}
                 target="_blank"
                 rel="noreferrer"
               >

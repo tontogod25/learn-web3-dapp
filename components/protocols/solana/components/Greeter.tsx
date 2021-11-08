@@ -1,18 +1,17 @@
 import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
 import {transactionExplorer} from '@figment-solana/lib';
-import {ErrorBox} from '@figment-solana/components/nav';
 import {useState, useEffect} from 'react';
-import type {ErrorT} from '@figment-solana/types';
-import {prettyError, getSolanaState} from '@figment-solana/lib';
+import {ErrorT, ErrorBox, prettyError} from 'utils/error';
 import axios from 'axios';
 import {useGlobalState} from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
+import {getInnerState} from 'utils/context';
 
 const {Text} = Typography;
 
 const Greeter = () => {
   const {state, dispatch} = useGlobalState();
-  const {network, secret, greeter, programId} = getSolanaState(state);
+  const {network, secret, greeter, programId} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [address, setAddress] = useState<string | null>(null);
@@ -92,7 +91,7 @@ const Greeter = () => {
               message={
                 <Text>
                   <a
-                    href={transactionExplorer(hash, network)}
+                    href={transactionExplorer(network)(hash)}
                     target="_blank"
                     rel="noreferrer"
                   >

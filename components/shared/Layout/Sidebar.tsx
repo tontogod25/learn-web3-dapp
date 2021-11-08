@@ -1,32 +1,31 @@
 import React from 'react';
 import styled, {withTheme} from 'styled-components';
 import {Space, Menu, Dropdown, Progress} from 'antd';
-import {DownOutlined} from '@ant-design/icons';
 import Markdown from 'components/shared/CustomMarkdown';
+import {useGlobalState} from 'context';
 
 import {MarkdownForChainIdT} from 'types';
 import {
-  useGlobalState,
-  getTitleForCurrentStepId,
-  getStepsForCurrentChain,
-  getPositionForCurrentStepId,
-  getCurrentStepIdForCurrentChain,
-  getIsOneColumn,
-} from 'context';
+  getStepTitle,
+  getSteps,
+  getStepIndex,
+  getStepId,
+  isOneColumnStep,
+} from 'utils/context';
 
 const Sidebar = ({markdown}: {markdown: MarkdownForChainIdT}) => {
   const {state} = useGlobalState();
-  const currentStepId = getCurrentStepIdForCurrentChain(state);
-  const stepTitle = getTitleForCurrentStepId(state);
-  const steps = Object.values(getStepsForCurrentChain(state)).map((step) => {
+  const currentStepId = getStepId(state);
+  const stepTitle = getStepTitle(state);
+  const steps = Object.values(getSteps(state)).map((step) => {
     const index = step.position as number;
     const title = step.title as string;
     return {index, title};
   });
-  const isStepOneColumn = getIsOneColumn(state);
+  const isStepOneColumn = isOneColumnStep(state);
 
   const md = markdown[currentStepId];
-  const stepIndex = getPositionForCurrentStepId(state);
+  const stepIndex = getStepIndex(state);
 
   const menu = (
     <StyledMenu>

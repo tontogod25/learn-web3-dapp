@@ -1,17 +1,16 @@
 import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
 import {LAMPORTS_PER_SOL} from '@solana/web3.js';
-import {ErrorBox} from '@figment-solana/components/nav';
-import type {ErrorT} from '@figment-solana/types';
-import {prettyError, getSolanaState} from '@figment-solana/lib';
+import {ErrorBox, ErrorT, prettyError} from 'utils/error';
 import {useEffect, useState} from 'react';
 import {useGlobalState, getNetworkForCurrentChain} from 'context';
+import {getInnerState} from 'utils/context';
 import axios from 'axios';
 
 const {Text} = Typography;
 
 const Balance = () => {
   const {state, dispatch} = useGlobalState();
-  const {address} = getSolanaState(state);
+  const {address} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);

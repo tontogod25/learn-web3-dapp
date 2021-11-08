@@ -1,11 +1,10 @@
 import {Alert, Col, Button, Space, Typography, Modal} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 import {transactionExplorer} from '@figment-solana/lib';
-import {ErrorBox} from '@figment-solana/components/nav';
 import {useEffect, useState} from 'react';
-import type {ErrorT} from '@figment-solana/types';
-import {prettyError, getSolanaState} from '@figment-solana/lib';
+import {ErrorT, ErrorBox, prettyError} from 'utils/error';
 import {useGlobalState} from 'context';
+import {getInnerState} from 'utils/context';
 
 import axios from 'axios';
 
@@ -13,7 +12,7 @@ const {Text} = Typography;
 
 const Setter = () => {
   const {state, dispatch} = useGlobalState();
-  const {network, greeter, programId, secret} = getSolanaState(state);
+  const {network, greeter, programId, secret} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [resetting, setResetting] = useState<boolean>(false);
@@ -111,7 +110,7 @@ const Setter = () => {
                 message={<Text strong>{`The greeting has been sent`}</Text>}
                 description={
                   <a
-                    href={transactionExplorer(hash, network)}
+                    href={transactionExplorer(network)(hash)}
                     target="_blank"
                     rel="noreferrer"
                   >

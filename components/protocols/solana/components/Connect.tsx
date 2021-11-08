@@ -1,6 +1,6 @@
 import {Col, Alert, Space, Typography, Button} from 'antd';
-import {getCurrentChainId, useGlobalState} from 'context';
-import {getSolanaState} from '@figment-solana/lib';
+import {useGlobalState} from 'context';
+import {getInnerState, getChainLabel} from 'utils/context';
 import {PoweroffOutlined} from '@ant-design/icons';
 import {useEffect, useState} from 'react';
 import Confetti from 'react-confetti';
@@ -10,8 +10,8 @@ const {Text} = Typography;
 
 const Connect = () => {
   const {state, dispatch} = useGlobalState();
-  const {network} = getSolanaState(state);
-  const chainId = getCurrentChainId(state);
+  const {network} = getInnerState(state);
+  const chainLabel = getChainLabel(state);
 
   const [version, setVersion] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
@@ -57,7 +57,7 @@ const Connect = () => {
             <Alert
               message={
                 <Space>
-                  Connected to {chainId}:<Text code>version {version}</Text>
+                  Connected to {chainLabel}:<Text code>version {version}</Text>
                 </Space>
               }
               type="success"
@@ -75,7 +75,7 @@ const Connect = () => {
             />
           ) : (
             <Alert
-              message={<Space>Not Connected to {chainId}</Space>}
+              message={<Space>Not Connected to {chainLabel}</Space>}
               type="error"
               showIcon
             />

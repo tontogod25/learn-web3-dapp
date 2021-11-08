@@ -1,16 +1,12 @@
 import {Form, Input, Button, Alert, Space, Typography, Col, Modal} from 'antd';
 import {LoadingOutlined, RedoOutlined} from '@ant-design/icons';
-import {
-  prettyError,
-  transactionExplorer,
-  getSolanaState,
-} from '@figment-solana/lib';
-import {ErrorBox} from '@figment-solana/components/nav';
-import type {ErrorT} from '@figment-solana/types';
+import {transactionExplorer} from '@figment-solana/lib';
+import {ErrorT, ErrorBox, prettyError} from 'utils/error';
 import {useEffect, useState} from 'react';
 import {Keypair} from '@solana/web3.js';
 import {useGlobalState} from 'context';
 import axios from 'axios';
+import {getInnerState} from 'utils/context';
 
 const layout = {
   labelCol: {span: 4},
@@ -25,7 +21,7 @@ const {Text} = Typography;
 
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();
-  const {address, network, secret} = getSolanaState(state);
+  const {address, network, secret} = getInnerState(state);
 
   const [recipient, setRecipient] = useState<string | null>(null);
   const [error, setError] = useState<ErrorT | null>(null);
@@ -155,7 +151,7 @@ const Transfer = () => {
               message={<Text strong>Transfer confirmed!</Text>}
               description={
                 <a
-                  href={transactionExplorer(hash, network)}
+                  href={transactionExplorer(network)(hash)}
                   target="_blank"
                   rel="noreferrer"
                 >

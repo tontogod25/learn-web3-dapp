@@ -12,7 +12,13 @@ import {
   PROTOCOLS,
   InnerStateT,
 } from 'types';
-import {defaultsDeep, difference, keys, omit} from 'lodash';
+import {
+  getChainId,
+  getStepId,
+  getSteps,
+  getFirstStepId,
+  isCompletedStep,
+} from 'utils/context';
 
 type StepsReducerHelperT = {
   index: number;
@@ -22,20 +28,21 @@ type StepsReducerHelperT = {
 const stepsReducerHelper = (
   {index, data}: {index: number; data: ProtocolStepsT},
   step: StepType,
-): StepsReducerHelperT => {
+): {
+  index: number;
+  data: ProtocolStepsT;
+} => {
   const id = step.id;
   const title = step.title;
   const isOneColumn = !!step.isOneColumn;
   const isSkippable = !!step.skippable || isOneColumn;
   const isCompleted = isSkippable ? true : false;
-  const isVisited = isSkippable ? true : false;
   const position = index + 1;
   const previousStepId =
     index === 0 ? null : (Object.keys(data)[index - 1] as PROTOCOL_STEPS_ID);
   data[id] = {
     id,
     title,
-    isVisited,
     isCompleted,
     isSkippable,
     position,
@@ -60,9 +67,9 @@ const protocolsReducerHelper = (
     {index: 0, data: {}} as StepsReducerHelperT,
   );
   const stepsIds = Object.keys(steps.data) as PROTOCOL_STEPS_ID[];
-  const numberOfStep = stepsIds.length;
-  const firstStepId = PROTOCOL_STEPS_ID.PREFACE;
-  const lastStepId = stepsIds[numberOfStep - 1];
+  const numberOfSteps = stepsIds.length;
+  const firstStepId = stepsIds[0];
+  const lastStepId = stepsIds[numberOfSteps - 1];
 
   protocolsData[chainId] = {
     id: CHAINS_CONFIG[chainId].id,
@@ -75,7 +82,7 @@ const protocolsReducerHelper = (
     steps: steps.data,
     firstStepId,
     lastStepId,
-    numberOfStep,
+    numberOfSteps,
     innerState: undefined,
   };
 
@@ -90,10 +97,13 @@ const buildInitialState = (): ProtocolsStateT => {
   );
 };
 
+// Deprecated
 const clearStepProgression = (steps: ProtocolStepsT): ProtocolStepsT => {
   return Object.keys(steps).reduce((steps, stepId) => {
-    steps[stepId as PROTOCOL_STEPS_ID].isCompleted = false;
-    steps[stepId as PROTOCOL_STEPS_ID].isVisited = false;
+    const step = steps[stepId as PROTOCOL_STEPS_ID];
+    const isOneColumn = step.isOneColumn;
+    const isSkippable = step.isSkippable;
+    step.isCompleted = isOneColumn || isSkippable;
     return steps;
   }, steps);
 };
@@ -103,54 +113,10 @@ const initialGlobalState = {
   protocols: buildInitialState(),
 };
 
-const mergeState = (
-  chainId: CHAINS,
-  storedState: GlobalStateT,
-  initialState: GlobalStateT,
-): GlobalStateT => {
-  const storageProtocols = storedState ? {...storedState.protocols} : {};
-  const initProtocols = {...initialState.protocols};
-  const removedKeys = difference(keys(storageProtocols), keys(initProtocols));
-
-  return storedState
-    ? ({
-        currentChainId: chainId,
-        protocols: omit<any>(
-          defaultsDeep(storageProtocols, initProtocols),
-          removedKeys,
-        ),
-      } as GlobalStateT)
-    : initialState;
-};
-
 export type Action =
   | {type: 'SetCurrentChainId'; currentChainId: CHAINS}
-  | {type: 'SetChainNetwork'; chainId: CHAINS; network: NETWORKS}
-  | {type: 'SetChainProtocol'; chainId: CHAINS; protocol: PROTOCOLS}
-  | {
-      type: 'SetChainCurrentStepId';
-      chainId: CHAINS;
-      currentStepId: PROTOCOL_STEPS_ID;
-    }
-  | {
-      type: 'SetStepIsCompleted';
-      chainId: CHAINS;
-      stepId: PROTOCOL_STEPS_ID;
-      value: boolean;
-    }
   | {
       type: 'SetIsCompleted';
-    }
-  | {
-      type: 'ClearStepProgression';
-      chainId: CHAINS;
-    }
-  | {
-      type: 'Clear';
-    }
-  | {
-      type: 'SetNetwork';
-      network: NETWORKS;
     }
   | {
       type: 'SetInnerState';
@@ -162,6 +128,38 @@ export type Action =
       values: any[];
       isCompleted?: boolean;
     }
+  // Deprecated
+  | {type: 'SetChainNetwork'; chainId: CHAINS; network: NETWORKS}
+  // Deprecated
+  | {type: 'SetChainProtocol'; chainId: CHAINS; protocol: PROTOCOLS}
+  // Deprecated
+  | {
+      type: 'SetChainCurrentStepId';
+      chainId: CHAINS;
+      currentStepId: PROTOCOL_STEPS_ID;
+    }
+  // Deprecated
+  | {
+      type: 'SetStepIsCompleted';
+      chainId: CHAINS;
+      stepId: PROTOCOL_STEPS_ID;
+      value: boolean;
+    }
+  // Deprecated
+  | {
+      type: 'ClearStepProgression';
+      chainId: CHAINS;
+    }
+  // Deprecated
+  | {
+      type: 'Clear';
+    }
+  // Deprecated
+  | {
+      type: 'SetNetwork';
+      network: NETWORKS;
+    }
+  // Deprecated
   | {
       type: 'SetStepInnerState';
       chainId: CHAINS;
@@ -169,19 +167,42 @@ export type Action =
       value: string | null;
     };
 
-const getKey = (field: InnerStateT) => Object.keys(field)[0];
-
-const getValue = (field: InnerStateT) => Object.values(field)[0];
-
 function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
+  const getKey = (field: any) => Object.keys(field)[0];
+  const getValue = (field: any) => Object.values(field)[0];
+
   switch (action.type) {
     case 'SetCurrentChainId':
       return {...state, currentChainId: action.currentChainId};
 
+    case 'SetIsCompleted': {
+      const chainId = getChainId(state);
+      const stepId = getStepId(state);
+      console.log(chainId, stepId);
+      return {
+        ...state,
+        protocols: {
+          ...state.protocols,
+          [chainId]: {
+            ...state.protocols[chainId],
+            steps: {
+              ...state.protocols[chainId].steps,
+              [stepId]: {
+                ...state.protocols[chainId].steps[stepId],
+                isCompleted: true,
+              },
+            },
+          },
+        },
+      };
+    }
+
     case 'SetInnerState': {
-      const chainId = getCurrentChainId(state);
-      const stepId = getCurrentStepIdForCurrentChain(state);
-      const innerState = getChainInnerStates(state);
+      const chainId = getChainId(state);
+      const stepId = getStepId(state);
+      const isCompleted = action.isCompleted ? true : isCompletedStep(state);
+      const innerState = state.protocols[chainId].innerState;
+      console.log(action.values);
       let newInnerState = {...innerState} as InnerStateT;
       action.values.forEach((field: InnerStateT) => {
         const key = getKey(field);
@@ -202,7 +223,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
               ...state.protocols[chainId].steps,
               [stepId]: {
                 ...state.protocols[chainId].steps[stepId],
-                isCompleted: !!action.isCompleted,
+                isCompleted,
               },
             },
             innerState: {...newInnerState},
@@ -211,27 +232,10 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
       };
     }
 
-    case 'Clear': {
-      const newSteps = clearStepProgression(getStepsForCurrentChain(state));
-      const chainId = getCurrentChainId(state);
-      const firstStepId = getFirstStepIdForCurrentChain(state);
-      return {
-        ...state,
-        protocols: {
-          ...state.protocols,
-          [chainId]: {
-            ...state.protocols[chainId],
-            steps: newSteps,
-            currentStepId: firstStepId,
-            innerState: null,
-          },
-        },
-      };
-    }
-
     case 'SetSharedState': {
-      const chainId = getCurrentChainId(state);
-      const stepId = getCurrentStepIdForCurrentChain(state);
+      const chainId = getChainId(state);
+      const stepId = getStepId(state);
+      const isCompleted = action.isCompleted ? true : isCompletedStep(state);
       let protocolState = {...state.protocols[chainId]};
       action.values.forEach((field) => {
         const key = getKey(field);
@@ -252,7 +256,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
               ...protocolState.steps,
               [stepId]: {
                 ...protocolState.steps[stepId],
-                isCompleted: !!action.isCompleted,
+                isCompleted,
               },
             },
           },
@@ -260,6 +264,26 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
       };
     }
 
+    // Deprecated
+    case 'Clear': {
+      const newSteps = clearStepProgression(getSteps(state));
+      const chainId = getChainId(state);
+      const firstStepId = getFirstStepId(state);
+      return {
+        ...state,
+        protocols: {
+          ...state.protocols,
+          [chainId]: {
+            ...state.protocols[chainId],
+            steps: newSteps,
+            currentStepId: firstStepId,
+            innerState: null,
+          },
+        },
+      };
+    }
+
+    // Deprecated
     case 'SetChainCurrentStepId':
       return {
         ...state,
@@ -272,6 +296,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
         },
       };
 
+    // Deprecated
     case 'SetChainNetwork':
       return {
         ...state,
@@ -284,8 +309,9 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
         },
       };
 
+    // Deprecated
     case 'SetNetwork': {
-      const chainId = getCurrentChainId(state);
+      const chainId = getChainId(state);
 
       return {
         ...state,
@@ -299,6 +325,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
       };
     }
 
+    // Deprecated
     case 'SetChainProtocol':
       return {
         ...state,
@@ -311,6 +338,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
         },
       };
 
+    // Deprecated
     case 'SetStepIsCompleted':
       return {
         ...state,
@@ -329,30 +357,10 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
         },
       };
 
-    case 'SetIsCompleted': {
-      const chainId = getCurrentChainId(state);
-      const stepId = getCurrentStepIdForCurrentChain(state);
-      return {
-        ...state,
-        protocols: {
-          ...state.protocols,
-          [chainId]: {
-            ...state.protocols[chainId],
-            steps: {
-              ...state.protocols[chainId].steps,
-              [stepId]: {
-                ...state.protocols[chainId].steps[stepId],
-                isCompleted: true,
-              },
-            },
-          },
-        },
-      };
-    }
-
+    // Deprecated
     case 'ClearStepProgression': {
-      const newSteps = clearStepProgression(getStepsForCurrentChain(state));
-      const firstStepId = getFirstStepIdForCurrentChain(state);
+      const newSteps = clearStepProgression(getSteps(state));
+      const firstStepId = getFirstStepId(state);
       return {
         ...state,
         protocols: {
@@ -366,6 +374,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
       };
     }
 
+    // Deprecated
     case 'SetStepInnerState':
       return {
         ...state,
@@ -387,64 +396,52 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
 }
 
 // Global State function, upmost level
+// Deprecated
 export const getCurrentChainId = (state: GlobalStateT) => {
   return state.currentChainId as CHAINS;
 };
 
 // Current chain function
-export const getLogoUrlForCurrentChain = (state: GlobalStateT) => {
-  const chainId = getCurrentChainId(state);
-  return state.protocols[chainId].logoUrl;
-};
-
+// Deprecated
 export const getLabelForCurrentChain = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   return state.protocols[chainId].label;
 };
-
+// Deprecated
 export const getNetworkForCurrentChain = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   return state.protocols[chainId].network;
 };
-
-export const getProtocolForCurrentChain = (state: GlobalStateT) => {
-  const chainId = getCurrentChainId(state);
-  return state.protocols[chainId].protocol;
-};
-
+// Deprecated
 export const getCurrentStepIdForCurrentChain = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   return state.protocols[chainId].currentStepId;
 };
-
-export const getNumberOfStepForCurrentChain = (state: GlobalStateT) => {
-  const chainId = getCurrentChainId(state);
-  return state.protocols[chainId].numberOfStep;
-};
-
+// Deprecated
 export const getStepsForCurrentChain = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   return state.protocols[chainId].steps;
 };
-
+// Deprecated
 export const getFirstStepIdForCurrentChain = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   return state.protocols[chainId].firstStepId;
 };
-
+// Deprecated
 export const getLastStepIdForCurrentChain = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   return state.protocols[chainId].lastStepId;
 };
 
 // Current Step Id function
+// Deprecated
 export const getNextStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
   const nextStepId = state.protocols[chainId].steps[currentStepId].nextStepId;
   return nextStepId ? nextStepId : getLastStepIdForCurrentChain(state);
 };
-
+// Deprecated
 export const getPreviousStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
@@ -452,7 +449,7 @@ export const getPreviousStepId = (state: GlobalStateT) => {
     state.protocols[chainId].steps[currentStepId].previousStepId;
   return previousStepId ? previousStepId : getFirstStepIdForCurrentChain(state);
 };
-
+// Deprecated
 export const getNextStepForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const nextStepId = getNextStepId(state);
@@ -460,7 +457,7 @@ export const getNextStepForCurrentStepId = (state: GlobalStateT) => {
     ? null
     : state.protocols[chainId].steps[nextStepId];
 };
-
+// Deprecated
 export const getPreviousStepForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const previousStep = getPreviousStepId(state);
@@ -468,64 +465,58 @@ export const getPreviousStepForCurrentStepId = (state: GlobalStateT) => {
     ? null
     : state.protocols[chainId].steps[previousStep];
 };
-
+// Deprecated
 export const getTitleForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
   return state.protocols[chainId].steps[currentStepId].title;
 };
-
+// Deprecated
 export const getPositionForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
   return state.protocols[chainId].steps[currentStepId].position;
 };
-
+// Deprecated
 export const getIsCompletedForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
   return state.protocols[chainId].steps[currentStepId].isCompleted;
 };
-
+// Deprecated
 export const getIsSkippableForCurrentStepId = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
   return state.protocols[chainId].steps[currentStepId].isSkippable;
 };
-
+// Deprecated
 export const getIsOneColumn = (state: GlobalStateT) => {
   const chainId = getCurrentChainId(state);
   const currentStepId = getCurrentStepIdForCurrentChain(state);
   return state.protocols[chainId].steps[currentStepId].isOneColumn;
 };
-
-export const getIsVisitedForCurrentStepId = (state: GlobalStateT) => {
-  const chainId = getCurrentChainId(state);
-  const currentStepId = getCurrentStepIdForCurrentChain(state);
-  return state.protocols[chainId].steps[currentStepId].isSkippable;
-};
-
+// Deprecated
 export const isFirstStepForCurrentStepId = (state: GlobalStateT) => {
   return (
     getCurrentStepIdForCurrentChain(state) ===
     getFirstStepIdForCurrentChain(state)
   );
 };
-
+// Deprecated
 export const isConnectionStep = (state: GlobalStateT) => {
   return (
     getCurrentStepIdForCurrentChain(state) ===
     PROTOCOL_STEPS_ID.CHAIN_CONNECTION
   );
 };
-
+// Deprecated
 export const isLastStepForCurrentStepId = (state: GlobalStateT) => {
   return (
     getCurrentStepIdForCurrentChain(state) ===
     getLastStepIdForCurrentChain(state)
   );
 };
-
+// Deprecated
 export const isCompletedForCurrentStepId = (state: GlobalStateT) => {
   const isCompleted =
     getIsSkippableForCurrentStepId(state) ||
@@ -533,14 +524,8 @@ export const isCompletedForCurrentStepId = (state: GlobalStateT) => {
   return isCompleted;
 };
 
-export const isConnectionStep = (state: GlobalStateT) => {
-  return (
-    getCurrentStepIdForCurrentChain(state) ===
-    PROTOCOL_STEPS_ID.CHAIN_CONNECTION
-  );
-};
-
 // Inner state functions
+// Deprecated
 export const getChainInnerState = (
   state: GlobalStateT,
   chainId: CHAINS,
@@ -548,7 +533,7 @@ export const getChainInnerState = (
 ) => {
   return state.protocols[chainId].innerState?.[stateId] as string | null;
 };
-
+// Deprecated
 export const getChainInnerStates = (state: GlobalStateT): InnerStateT => {
   const chainId = getCurrentChainId(state);
   return state.protocols[chainId].innerState ?? ({} as InnerStateT);
