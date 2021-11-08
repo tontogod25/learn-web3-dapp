@@ -31,7 +31,13 @@ We will guide you through using the various blockchain JavaScript SDKs to intera
 
 ## 🐑 Clone locally
 
-Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) (you'll need `v14.17.0` or greater) and [yarn](https://yarnpkg.com/getting-started/install) installed. Then clone the repo and run `yarn` in the project directory to install the dependencies:
+Make sure you have the following software installed:
+- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- [Node.js](https://nodejs.org/en/) - We recommend using **v14.17.0**, install it using [nvm](https://github.com/nvm-sh/nvm).
+  - **NOTE**: **v17.x** is currently incompatible with this project.
+- [yarn](https://yarnpkg.com/getting-started/install)
+
+Then clone the repo and run `yarn` in the project directory to install the dependencies:
 
 ```text
 git clone https://github.com/figment-networks/learn-web3-dapp.git
@@ -43,6 +49,12 @@ Start the Next.js development server on the default port 3000 with:
 
 ```text
 yarn dev
+```
+
+If you need to use a different port, specify one with the `--port` flag:
+
+```text
+yarn dev --port 3001
 ```
 
 # 🤝 Feedback and contributing
