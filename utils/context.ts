@@ -4,7 +4,9 @@ import {
   CHAINS,
   PROTOCOL_STEPS_ID,
   PROTOCOL_INNER_STATES_ID,
-  InnerStateT,
+  NETWORKS,
+  ProtocolStepsT,
+  ProtocolStepT,
 } from 'types';
 
 export const prepareGlobalStateForStorage = (
@@ -46,42 +48,42 @@ export const prepareGlobalState = (
 // New read-only function for the global state
 //
 // Global State function, upmost level
-export const getChainId = (state: GlobalStateT) => {
+export const getChainId = (state: GlobalStateT): CHAINS => {
   return state.currentChainId as CHAINS;
 };
 
-export const getChainLabel = (state: GlobalStateT) => {
+export const getChainLabel = (state: GlobalStateT): string => {
   const chainId = getChainId(state);
   return state.protocols[chainId].label;
 };
 
-export const getNetwork = (state: GlobalStateT) => {
+export const getNetwork = (state: GlobalStateT): NETWORKS => {
   const chainId = getChainId(state);
   return state.protocols[chainId].network;
 };
 
-export const getSteps = (state: GlobalStateT) => {
+export const getSteps = (state: GlobalStateT): ProtocolStepsT => {
   const chainId = getChainId(state);
   return state.protocols[chainId].steps;
 };
 
-export const getStepId = (state: GlobalStateT) => {
+export const getStepId = (state: GlobalStateT): PROTOCOL_STEPS_ID => {
   const chainId = getChainId(state);
   return state.protocols[chainId].currentStepId;
 };
 
 // Current Step Id function
-export const getFirstStepId = (state: GlobalStateT) => {
+export const getFirstStepId = (state: GlobalStateT): PROTOCOL_STEPS_ID => {
   const chainId = getChainId(state);
   return state.protocols[chainId].firstStepId;
 };
 
-export const getLastStepId = (state: GlobalStateT) => {
+export const getLastStepId = (state: GlobalStateT): PROTOCOL_STEPS_ID => {
   const chainId = getChainId(state);
   return state.protocols[chainId].lastStepId;
 };
 
-export const getPreviousStepId = (state: GlobalStateT) => {
+export const getPreviousStepId = (state: GlobalStateT): PROTOCOL_STEPS_ID => {
   const chainId = getChainId(state);
   const currentStepId = getStepId(state);
   const previousStepId =
@@ -89,14 +91,14 @@ export const getPreviousStepId = (state: GlobalStateT) => {
   return previousStepId ? previousStepId : getFirstStepId(state);
 };
 
-export const getNextStepId = (state: GlobalStateT) => {
+export const getNextStepId = (state: GlobalStateT): PROTOCOL_STEPS_ID => {
   const chainId = getChainId(state);
   const currentStepId = getStepId(state);
   const nextStepId = state.protocols[chainId].steps[currentStepId].nextStepId;
   return nextStepId ? nextStepId : getLastStepId(state);
 };
 
-export const getPreviousStep = (state: GlobalStateT) => {
+export const getPreviousStep = (state: GlobalStateT): ProtocolStepT | null => {
   const chainId = getChainId(state);
   const previousStep = getPreviousStepId(state);
   return previousStep === null
@@ -104,7 +106,7 @@ export const getPreviousStep = (state: GlobalStateT) => {
     : state.protocols[chainId].steps[previousStep];
 };
 
-export const getNextStep = (state: GlobalStateT) => {
+export const getNextStep = (state: GlobalStateT): ProtocolStepT | null => {
   const chainId = getChainId(state);
   const nextStepId = getNextStepId(state);
   return nextStepId === null
@@ -112,24 +114,24 @@ export const getNextStep = (state: GlobalStateT) => {
     : state.protocols[chainId].steps[nextStepId];
 };
 
-export const getStepIndex = (state: GlobalStateT) => {
+export const getStepIndex = (state: GlobalStateT): number => {
   const chainId = getChainId(state);
   const currentStepId = getStepId(state);
   return state.protocols[chainId].steps[currentStepId].position;
 };
 
-export const getStepTitle = (state: GlobalStateT) => {
+export const getStepTitle = (state: GlobalStateT): string => {
   const chainId = getChainId(state);
   const currentStepId = getStepId(state);
   return state.protocols[chainId].steps[currentStepId].title;
 };
 
 // Predicat's functions
-export const isConnectionStep = (state: GlobalStateT) => {
+export const isConnectionStep = (state: GlobalStateT): boolean => {
   return getStepId(state) === PROTOCOL_STEPS_ID.CHAIN_CONNECTION;
 };
 
-export const isOneColumnStep = (state: GlobalStateT) => {
+export const isOneColumnStep = (state: GlobalStateT): boolean => {
   const chainId = getChainId(state);
   const currentStepId = getStepId(state);
   return state.protocols[chainId].steps[currentStepId].isOneColumn;
@@ -139,11 +141,11 @@ export const isFirstStep = (state: GlobalStateT) => {
   return getStepId(state) === getFirstStepId(state);
 };
 
-export const isLastStep = (state: GlobalStateT) => {
+export const isLastStep = (state: GlobalStateT): boolean => {
   return getStepId(state) === getLastStepId(state);
 };
 
-export const isCompletedStep = (state: GlobalStateT) => {
+export const isCompletedStep = (state: GlobalStateT): boolean => {
   const chainId = getChainId(state);
   const currentStepId = getStepId(state);
   console.log(
@@ -158,7 +160,7 @@ export const isCompletedStep = (state: GlobalStateT) => {
   );
 };
 
-export const isSkippableStep = (state: GlobalStateT) => {
+export const isSkippableStep = (state: GlobalStateT): boolean => {
   const chainId = getChainId(state);
   const currentStepId = getStepId(state);
   return state.protocols[chainId].steps[currentStepId].isSkippable;
@@ -168,7 +170,7 @@ export const isSkippableStep = (state: GlobalStateT) => {
 export const getChainInnerState = (
   state: GlobalStateT,
   stateId: PROTOCOL_INNER_STATES_ID,
-) => {
+): string | null => {
   const chainId = getChainId(state);
   return state.protocols[chainId].innerState?.[stateId] as string | null;
 };

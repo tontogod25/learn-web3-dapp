@@ -28,10 +28,7 @@ type StepsReducerHelperT = {
 const stepsReducerHelper = (
   {index, data}: {index: number; data: ProtocolStepsT},
   step: StepType,
-): {
-  index: number;
-  data: ProtocolStepsT;
-} => {
+): StepsReducerHelperT => {
   const id = step.id;
   const title = step.title;
   const isOneColumn = !!step.isOneColumn;
@@ -202,7 +199,6 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
       const stepId = getStepId(state);
       const isCompleted = action.isCompleted ? true : isCompletedStep(state);
       const innerState = state.protocols[chainId].innerState;
-      console.log(action.values);
       let newInnerState = {...innerState} as InnerStateT;
       action.values.forEach((field: InnerStateT) => {
         const key = getKey(field);
@@ -226,7 +222,7 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
                 isCompleted,
               },
             },
-            innerState: {...newInnerState},
+            innerState: newInnerState,
           },
         },
       };
@@ -236,12 +232,12 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
       const chainId = getChainId(state);
       const stepId = getStepId(state);
       const isCompleted = action.isCompleted ? true : isCompletedStep(state);
-      let protocolState = {...state.protocols[chainId]};
+      let sharedState = {...state.protocols[chainId]};
       action.values.forEach((field) => {
         const key = getKey(field);
         const value = getValue(field);
-        protocolState = {
-          ...protocolState,
+        sharedState = {
+          ...sharedState,
           [key]: value,
         };
       });
@@ -251,11 +247,11 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
         protocols: {
           ...state.protocols,
           [chainId]: {
-            ...protocolState,
+            ...sharedState,
             steps: {
-              ...protocolState.steps,
+              ...sharedState.steps,
               [stepId]: {
-                ...protocolState.steps[stepId],
+                ...sharedState.steps[stepId],
                 isCompleted,
               },
             },

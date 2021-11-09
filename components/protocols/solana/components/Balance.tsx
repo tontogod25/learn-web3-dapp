@@ -2,7 +2,7 @@ import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
 import {LAMPORTS_PER_SOL} from '@solana/web3.js';
 import {ErrorBox, ErrorT, prettyError} from 'utils/error';
 import {useEffect, useState} from 'react';
-import {useGlobalState, getNetworkForCurrentChain} from 'context';
+import {useGlobalState} from 'context';
 import {getInnerState} from 'utils/context';
 import axios from 'axios';
 
@@ -10,7 +10,7 @@ const {Text} = Typography;
 
 const Balance = () => {
   const {state, dispatch} = useGlobalState();
-  const {address} = getInnerState(state);
+  const {address, network} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
@@ -44,7 +44,6 @@ const Balance = () => {
     setError(null);
     setBalance(null);
     try {
-      const network = getNetworkForCurrentChain(state);
       const response = await axios.post(`/api/solana/balance`, {
         network,
         address,
