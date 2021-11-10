@@ -1,10 +1,15 @@
 # 💻 Requirements
 
-Make sure you've installed the [Solana CLI](https://docs.solana.com/cli/install-solana-cli-tools)'s latest release.
+You will need to [install the Solana CLI](https://docs.solana.com/cli/install-solana-cli-tools) to complete this Pathway.
 
-> 🪟 **Windows Users:** There are known compatibility issues with the Solana BPF toolchain. You will need to use the Windows Subsystem for Linux or Gitpod to compile Solana programs. Please refer to the [installation guide](https://docs.figment.io/network-documentation/extra-guides/solana-setup-for-windows) we have provided.
->
-> 🍎 **macOS Users:** If you are using any Apple Silicon products (M1 processor), you may need to build the Solana CLI from source. [Refer to this article for more information](https://dev.to/codenjobs/how-to-make-solana-test-validator-work-with-a-macbook-with-m1-chip-5emd).
+## 🐑 Local clone
+
+If you cloned the `learn-web3-dapp` repo locally, pay attention to the following:
+
+{% hint style="tip" %}
+**Windows Users:** There are known compatibility issues with the Solana BPF toolchain. You will need to use the Windows Subsystem for Linux to compile Solana programs. Please refer to the [installation guide](https://docs.figment.io/network-documentation/extra-guides/solana-setup-for-windows) we have provided.\
+**macOS Users:** If you are using any Apple Silicon products (M1 processor), you may need to build the Solana CLI from source. [Refer to this article for more information](https://dev.to/codenjobs/how-to-make-solana-test-validator-work-with-a-macbook-with-m1-chip-5emd).
+{% endhint %}
 
 ---
 
@@ -38,7 +43,7 @@ DATAHUB_TEZOS_API_KEY=
 
 # 🤖 Using a Test Validator
 
-At some point it may be useful to run a Test Validator. For example, if can't get airdrops because the Devnet faucet is not working. To run a local Test Validator, use this command in its own terminal tab or window :
+At some point it may be necessary to run a Test Validator. For example, if you can't get airdrops because the Devnet faucet is not working. To run a local Test Validator you will need to have the Solana CLI installed. Use this command in its own terminal tab or window :
 
 ```text
 solana-test-validator
