@@ -1,16 +1,14 @@
 # 💻 Requirements
 
-## 🤖 Gitpod
-
-You will need to [install the Solana CLI](https://docs.solana.com/cli/install-solana-cli-tools) in the Gitpod workspace to complete this Pathway.
+You will need to [install the Solana CLI](https://docs.solana.com/cli/install-solana-cli-tools) to complete this Pathway.
 
 ## 🐑 Local clone
 
-If you have cloned the `learn-web3-dapp` repository to your local machine:
+If you are not using Gitpod, pay attention to the following:
 
-> 🪟 **Windows Users:** There are known compatibility issues with the Solana BPF toolchain. You will need to use the Windows Subsystem for Linux or Gitpod to compile Solana programs. Please refer to the [installation guide](https://docs.figment.io/network-documentation/extra-guides/solana-setup-for-windows) we have provided.
->
-> 🍎 **macOS Users:** If you are using any Apple Silicon products (M1 processor), you may need to build the Solana CLI from source. [Refer to this article for more information](https://dev.to/codenjobs/how-to-make-solana-test-validator-work-with-a-macbook-with-m1-chip-5emd).
+🪟 **Windows Users:** There are known compatibility issues with the Solana BPF toolchain. You will need to use the Windows Subsystem for Linux or Gitpod to compile Solana programs. Please refer to the [installation guide](https://docs.figment.io/network-documentation/extra-guides/solana-setup-for-windows) we have provided.
+
+🍎 **macOS Users:** If you are using any Apple Silicon products (M1 processor), you may need to build the Solana CLI from source. [Refer to this article for more information](https://dev.to/codenjobs/how-to-make-solana-test-validator-work-with-a-macbook-with-m1-chip-5emd).
 
 ---
 
