@@ -12,7 +12,7 @@ If you're running the Pathway using Gitpod, you will need to add the Gitpod Work
 
 ## 👨‍💻 Your turn! Write the GraphQL query
 
-In `components/protocols/the_graph/graphql/index.ts`, write a GraphQL query to return the 10 most expensive CryptoPunks.
+In `components/protocols/the_graph/graphql/query.ts`, write a GraphQL query to return the 10 most expensive CryptoPunks.
 
 Some hints to help you:
 
