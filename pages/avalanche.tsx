@@ -4,16 +4,14 @@ import Head from 'components/shared/Layout/Head';
 import {getStaticPropsForChain} from 'utils/pages';
 
 export async function getStaticProps() {
-  return getStaticPropsForChain(CHAINS.AVALANCHE);
+  return getStaticPropsForChain(CHAINS.CERAMIC);
 }
 
-const Avalanche = ({chain, markdown}: ChainPropT) => {
+export default function ({chain, markdown}: ChainPropT) {
   return (
     <>
       <Head chain={chain} />
       <WithLayoutAvalanche chain={chain} markdown={markdown} />
     </>
   );
-};
-
-export default Avalanche;
+}
