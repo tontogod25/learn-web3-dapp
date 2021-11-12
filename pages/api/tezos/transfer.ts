@@ -21,7 +21,7 @@ export default async function transfer(
 
     res.status(200).json(operation.hash);
   } catch (error) {
-    console.log(error);
-    res.status(500).json('Transfer failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

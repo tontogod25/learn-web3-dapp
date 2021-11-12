@@ -29,19 +29,22 @@ We will guide you through using the various blockchain JavaScript SDKs to intera
 
 # 🧑‍💻 Get started
 
+## 🤖 Using Gitpod (Recommended)
+
+The best way to go through those courses it using [Gitpod](https://gitpod.io). Gitpod provides prebuilt developer environments in your browser, powered by VS Code. Just sign in using GitHub and you'll be up and running in seconds without having to do any manual setup 🔥
+
+[**Open this repo on Gitpod**](https://gitpod.io/#https://github.com/figment-networks/learn-web3-dapp)
+
 ## 🐑 Clone locally
 
-Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node](https://nodejs.org/en/) (you'll need `v14.17.0` or greater) and [yarn](https://yarnpkg.com/getting-started/install) installed. Then clone the repo and run `yarn` in the project directory to install the dependencies:
+Make sure you have installed [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Node.js](https://nodejs.org/en/) (Please install **v14.17.0**, we recommend using [nvm](https://github.com/nvm-sh/nvm)) and [yarn](https://yarnpkg.com/getting-started/install).
+
+Then clone the repo, install dependencies and start the server by running all these commands:
 
 ```text
 git clone https://github.com/figment-networks/learn-web3-dapp.git
 cd learn-web3-dapp
 yarn
-```
-
-Start the Next.js development server on the default port 3000 with:
-
-```text
 yarn dev
 ```
 

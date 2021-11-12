@@ -22,7 +22,7 @@ export default async function transfer(
 
     res.status(200).json(celoReceipt.transactionHash);
   } catch (error) {
-    console.error(error);
-    res.status(500).json('Transfer of CELO failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }

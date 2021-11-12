@@ -2,7 +2,8 @@ import {PolygonQueryResponse} from '@figment-polygon/types';
 import {LoadingOutlined} from '@ant-design/icons';
 import {Alert, Button, Col, Space} from 'antd';
 import {useState} from 'react';
-import ReactJson from 'react-json-view';
+import dynamic from 'next/dynamic';
+const DynamicReactJson = dynamic(() => import('react-json-view'), {ssr: false});
 import axios from 'axios';
 import {
   getCurrentChainId,
@@ -57,7 +58,7 @@ const Query = () => {
                 boxSizing: 'content-box',
               }}
             >
-              <ReactJson
+              <DynamicReactJson
                 src={queryData}
                 collapsed={false}
                 name={'query data'}

@@ -26,7 +26,7 @@ export default async function balance(
       attoUSD: cUSDBalance.toString(),
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json('Querying of balance failed');
+    let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
+    res.status(500).json(errorMessage);
   }
 }
