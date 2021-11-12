@@ -72,6 +72,11 @@ export const CHAINS_CONFIG: ChainsType = {
         id: PROTOCOL_STEPS_ID.IMPORT_TOKEN,
         title: 'Import tokens from X-Chain to C-Chain',
       },
+      {
+        id: PROTOCOL_STEPS_ID.FINAL,
+        title: '🎓 Pathway complete!',
+        isOneColumn: true,
+      },
     ],
   },
   [CHAINS.CELO]: {
@@ -95,42 +100,39 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
         title: 'Connect to Celo',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CREATE_ACCOUNT,
         title: 'Create an account',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GET_BALANCE,
         title: 'Get the balance',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.TRANSFER_TOKEN,
         title: 'Transfer some tokens',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.SWAP_TOKEN,
         title: 'Swap cUSD to CELO',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.DEPLOY_CONTRACT,
         title: 'Deploy a smart contract',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE,
         title: 'Get the storage of a smart contract',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
         title: 'Set the storage of a smart contract',
-        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.FINAL,
+        title: '🎓 Pathway complete!',
+        isOneColumn: true,
       },
     ],
   },
@@ -184,6 +186,11 @@ export const CHAINS_CONFIG: ChainsType = {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
         title: 'Set the storage of a smart contract',
       },
+      {
+        id: PROTOCOL_STEPS_ID.FINAL,
+        title: '🎓 Pathway complete!',
+        isOneColumn: true,
+      },
     ],
   },
   [CHAINS.POLKADOT]: {
@@ -207,37 +214,35 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
         title: 'Connect to Polkadot',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CREATE_ACCOUNT,
         title: 'Create an account',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.RESTORE_ACCOUNT,
         title: 'Restore an account',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.ESTIMATE_FEES,
         title: 'Estimate transaction fees',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GET_BALANCE,
         title: 'Get the balance',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.ESTIMATE_DEPOSIT,
         title: 'Existential deposit',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.TRANSFER_TOKEN,
         title: 'Transfer some tokens',
-        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.FINAL,
+        title: '🎓 Pathway complete!',
+        isOneColumn: true,
       },
     ],
   },
@@ -278,7 +283,6 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.DEPLOY_CONTRACT,
         title: 'Deploy a Solidity smart contract',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
@@ -291,6 +295,11 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.RESTORE_ACCOUNT,
         title: 'Restore your account',
+      },
+      {
+        id: PROTOCOL_STEPS_ID.FINAL,
+        title: '🎓 Pathway complete!',
+        isOneColumn: true,
       },
     ],
   },
@@ -315,37 +324,35 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
         title: 'Connect to Secret',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CREATE_ACCOUNT,
         title: 'Create an account',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GET_BALANCE,
         title: 'Get the balance',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.TRANSFER_TOKEN,
         title: 'Transfer some SCRT',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.DEPLOY_CONTRACT,
         title: 'Deploy a smart contract',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE,
         title: 'Get the storage of a smart contract',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
         title: 'Set the storage of a smart contract',
-        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.FINAL,
+        title: '🎓 Pathway complete!',
+        isOneColumn: true,
       },
     ],
   },
@@ -403,6 +410,11 @@ export const CHAINS_CONFIG: ChainsType = {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
         title: 'Send data to the program',
       },
+      {
+        id: PROTOCOL_STEPS_ID.FINAL,
+        title: '🎓 Pathway complete!',
+        isOneColumn: true,
+      },
     ],
   },
   [CHAINS.TEZOS]: {
@@ -426,37 +438,35 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
         title: 'Connect to Tezos',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CREATE_ACCOUNT,
         title: 'Create an account',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GET_BALANCE,
         title: 'Get the balance',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.TRANSFER_TOKEN,
         title: 'Transfer some TEZ',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.DEPLOY_CONTRACT,
         title: 'Deploy a smart contract',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE,
         title: 'Get the storage of a smart contract',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
         title: 'Set the storage of a smart contract',
-        skippable: true,
+      },
+      {
+        id: PROTOCOL_STEPS_ID.FINAL,
+        title: '🎓 Pathway complete!',
+        isOneColumn: true,
       },
     ],
   },
@@ -493,6 +503,11 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.CUSTOM_DEFINITION,
         title: 'Deploy and use custom definition',
+      },
+      {
+        id: PROTOCOL_STEPS_ID.FINAL,
+        title: '🎓 Pathway complete!',
+        isOneColumn: true,
       },
     ],
   },
@@ -537,6 +552,11 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.SUBGRAPH_QUERY,
         title: 'Query the subgraph',
+      },
+      {
+        id: PROTOCOL_STEPS_ID.FINAL,
+        title: '🎓 Pathway complete!',
+        isOneColumn: true,
       },
     ],
   },
