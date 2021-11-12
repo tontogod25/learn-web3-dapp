@@ -173,6 +173,11 @@ export type ChainsType = {
   [key in CHAINS]: ChainType;
 };
 
+export type ChainPropT = {
+  chain: ChainType;
+  markdown: MarkdownForChainIdT;
+};
+
 export type StepType = {
   id: PROTOCOL_STEPS_ID;
   title: string;
