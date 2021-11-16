@@ -6,12 +6,12 @@ Here's a quick recap of what we covered:
 - 🧑‍🚀 Updating and reading your basic profile
 - ⛓ How to deploy and use custom schemas and definitions
 
-## 🧐 Keep learning with these resources:
+# 🧐 Keep learning with these resources:
 
 - TBD
 - TBD
 - TBD
 
-## 🗣 Give us your feedback
+# 🗣 Give us your feedback
 
 Please take a couple of minutes to fill out this short **[feedback form](https://docs.google.com/forms/d/1SXg3xo0I1BRN2BAS-ffDbj1P6bfwo0x48trttmJ5xKs/)**.

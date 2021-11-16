@@ -6,12 +6,12 @@ Here's a quick recap of what we covered:
 - 💸 Transferring tokens between accounts
 - ♻️ Importing and Exporting tokens between chains
 
-## 🧐 Keep learning with these resources
+# 🧐 Keep learning with these resources
 
 - 🏗 [Create NFTs with the Avalanche wallet](https://learn.figment.io/tutorials/create-nfts-with-the-avalanche-wallet)
 - 🗣 [Create a chat application on Avalanche](https://learn.figment.io/tutorials/create-a-chat-application-using-solidity-and-react)
 - 🔍 [Explore the Avalanche ecosystem](https://ecosystem.avax.network/marketplace?tag=)
 
-## 🗣 Give us your feedback
+# 🗣 Give us your feedback
 
 Please take a couple of minutes to fill out this short **[feedback form](https://docs.google.com/forms/d/1SXg3xo0I1BRN2BAS-ffDbj1P6bfwo0x48trttmJ5xKs/)**.
