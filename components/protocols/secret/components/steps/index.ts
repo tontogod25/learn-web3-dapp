@@ -1,9 +1,7 @@
-import Connect from '@figment-secret/components/steps/Connect';
-import Account from '@figment-secret/components/steps/Account';
-import Balance from '@figment-secret/components/steps/Balance';
-import Transfer from '@figment-secret/components/steps/Transfer';
-import Deploy from '@figment-secret/components/steps/Deploy';
-import Setter from '@figment-secret/components/steps/Setter';
-import Getter from '@figment-secret/components/steps/Getter';
-
-export {Connect, Account, Balance, Transfer, Deploy, Getter, Setter};
+export {default as Connect} from '@figment-secret/components/steps/Connect';
+export {default as Account} from '@figment-secret/components/steps/Account';
+export {default as Balance} from '@figment-secret/components/steps/Balance';
+export {default as Transfer} from '@figment-secret/components/steps/Transfer';
+export {default as Deploy} from '@figment-secret/components/steps/Deploy';
+export {default as Setter} from '@figment-secret/components/steps/Setter';
+export {default as Getter} from '@figment-secret/components/steps/Getter';

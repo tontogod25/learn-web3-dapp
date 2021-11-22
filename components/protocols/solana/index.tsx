@@ -1,20 +1,9 @@
-import Layout from 'components/shared/Layout';
-import {ChainType, PROTOCOL_STEPS_ID, MarkdownForChainIdT} from 'types';
-import {accountExplorer} from '@figment-solana/lib';
-import {
-  Connect,
-  Keypair,
-  Fund,
-  Balance,
-  Transfer,
-  Deploy,
-  Greeter,
-  Getter,
-  Setter,
-} from '@figment-solana/components';
-import {useGlobalState} from 'context';
-import {getInnerState, getStepId} from 'utils/context';
 import ProtocolNav from 'components/shared/ProtocolNav/ProtocolNav';
+import {getInnerState, getStepId} from 'utils/context';
+import * as Steps from '@figment-solana/components';
+import {accountExplorer} from '@figment-solana/lib';
+import {PROTOCOL_STEPS_ID} from 'types';
+import {useGlobalState} from 'context';
 
 const Solana: React.FC = () => {
   const {state} = useGlobalState();
@@ -29,24 +18,17 @@ const Solana: React.FC = () => {
         accountExplorer={accountExplorer(network)}
       />
       {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
-      {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Connect />}
-      {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Keypair />}
-      {stepId === PROTOCOL_STEPS_ID.FUND_ACCOUNT && <Fund />}
-      {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Balance />}
-      {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Transfer />}
-      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Deploy />}
-      {stepId === PROTOCOL_STEPS_ID.SOLANA_CREATE_GREETER && <Greeter />}
-      {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Getter />}
-      {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Setter />}
+      {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Steps.Connect />}
+      {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Steps.Keypair />}
+      {stepId === PROTOCOL_STEPS_ID.FUND_ACCOUNT && <Steps.Fund />}
+      {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Steps.Balance />}
+      {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Steps.Transfer />}
+      {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Steps.Deploy />}
+      {stepId === PROTOCOL_STEPS_ID.SOLANA_CREATE_GREETER && <Steps.Greeter />}
+      {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Steps.Getter />}
+      {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Steps.Setter />}
     </>
   );
 };
 
-const WithLayoutSolana: React.FC<{
-  chain: ChainType;
-  markdown: MarkdownForChainIdT;
-}> = ({chain, markdown}) => {
-  return Layout(Solana, chain, markdown);
-};
-
-export default WithLayoutSolana;
+export default Solana;

@@ -1,4 +1,5 @@
-import ReactJson from 'react-json-view';
+import dynamic from 'next/dynamic';
+const DynamicReactJson = dynamic(() => import('react-json-view'), {ssr: false});
 
 export type ErrorT = {
   message: string;
@@ -8,7 +9,7 @@ export type ErrorT = {
 
 export const ErrorBox = ({error}: {error: ErrorT}) => {
   return (
-    <ReactJson
+    <DynamicReactJson
       src={error}
       collapsed={false}
       name={'error'}
