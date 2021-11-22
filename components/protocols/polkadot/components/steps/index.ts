@@ -1,9 +1,7 @@
-import Connect from '@figment-polkadot/components/steps/Connect';
-import Account from '@figment-polkadot/components/steps/Account';
-import Balance from '@figment-polkadot/components/steps/Balance';
-import Transfer from '@figment-polkadot/components/steps/Transfer';
-import Restore from '@figment-polkadot/components/steps/Restore';
-import Estimate from '@figment-polkadot/components/steps/Estimate';
-import Deposit from '@figment-polkadot/components/steps/Deposit';
-
-export {Connect, Account, Balance, Transfer, Restore, Estimate, Deposit};
+export {default as Connect} from '@figment-polkadot/components/steps/Connect';
+export {default as Account} from '@figment-polkadot/components/steps/Account';
+export {default as Balance} from '@figment-polkadot/components/steps/Balance';
+export {default as Transfer} from '@figment-polkadot/components/steps/Transfer';
+export {default as Restore} from '@figment-polkadot/components/steps/Restore';
+export {default as Estimate} from '@figment-polkadot/components/steps/Estimate';
+export {default as Deposit} from '@figment-polkadot/components/steps/Deposit';

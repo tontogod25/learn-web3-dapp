@@ -1,17 +1,19 @@
 import {CHAINS, ChainPropT} from 'types';
-import WithLayoutAvalanche from 'components/protocols/avalanche';
-import Head from 'components/shared/Layout/Head';
 import {getStaticPropsForChain} from 'utils/pages';
+import Layout from 'components/shared/Layout';
+import {Avalanche} from 'components/protocols';
 
 export async function getStaticProps() {
   return getStaticPropsForChain(CHAINS.AVALANCHE);
 }
 
-export default function ({chain, markdown}: ChainPropT) {
+const Protocol = (props: ChainPropT) => {
+  const {markdown, chain} = props;
   return (
-    <>
-      <Head chain={chain} />
-      <WithLayoutAvalanche chain={chain} markdown={markdown} />
-    </>
+    <Layout markdown={markdown} chain={chain}>
+      <Avalanche />
+    </Layout>
   );
-}
+};
+
+export default Protocol;

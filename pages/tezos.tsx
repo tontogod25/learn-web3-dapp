@@ -1,17 +1,19 @@
 import {CHAINS, ChainPropT} from 'types';
-import WithLayoutTezos from 'components/protocols/tezos';
-import Head from 'components/shared/Layout/Head';
 import {getStaticPropsForChain} from 'utils/pages';
+import Layout from 'components/shared/Layout';
+import {Tezos} from 'components/protocols';
 
 export async function getStaticProps() {
   return getStaticPropsForChain(CHAINS.TEZOS);
 }
 
-export default function ({chain, markdown}: ChainPropT) {
+const Protocol = (props: ChainPropT) => {
+  const {markdown, chain} = props;
   return (
-    <>
-      <Head chain={chain} />
-      <WithLayoutTezos chain={chain} markdown={markdown} />
-    </>
+    <Layout markdown={markdown} chain={chain}>
+      <Tezos />
+    </Layout>
   );
-}
+};
+
+export default Protocol;

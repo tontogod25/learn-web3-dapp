@@ -1,10 +1,8 @@
-import Account from '@figment-near/components/steps/Account';
-import Balance from '@figment-near/components/steps/Balance';
-import Connect from '@figment-near/components/steps/Connect';
-import Keys from '@figment-near/components/steps/Keys';
-import Transfer from '@figment-near/components/steps/Transfer';
-import Deploy from '@figment-near/components/steps/Deploy';
-import Setter from '@figment-near/components/steps/Setter';
-import Getter from '@figment-near/components/steps/Getter';
-
-export {Account, Balance, Connect, Keys, Transfer, Deploy, Setter, Getter};
+export {default as Account} from '@figment-near/components/steps/Account';
+export {default as Balance} from '@figment-near/components/steps/Balance';
+export {default as Connect} from '@figment-near/components/steps/Connect';
+export {default as Keys} from '@figment-near/components/steps/Keys';
+export {default as Transfer} from '@figment-near/components/steps/Transfer';
+export {default as Deploy} from '@figment-near/components/steps/Deploy';
+export {default as Setter} from '@figment-near/components/steps/Setter';
+export {default as Getter} from '@figment-near/components/steps/Getter';

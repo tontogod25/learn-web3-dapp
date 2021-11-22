@@ -1,9 +1,7 @@
-import Connect from '@figment-tezos/components/steps/Connect';
-import Account from '@figment-tezos/components/steps/Account';
-import Balance from '@figment-tezos/components/steps/Balance';
-import Transfer from '@figment-tezos/components/steps/Transfer';
-import Deploy from '@figment-tezos/components/steps/Deploy';
-import Getter from '@figment-tezos/components/steps/Getter';
-import Setter from '@figment-tezos/components/steps/Setter';
-
-export {Connect, Account, Balance, Transfer, Deploy, Getter, Setter};
+export {default as Connect} from '@figment-tezos/components/steps/Connect';
+export {default as Account} from '@figment-tezos/components/steps/Account';
+export {default as Balance} from '@figment-tezos/components/steps/Balance';
+export {default as Transfer} from '@figment-tezos/components/steps/Transfer';
+export {default as Deploy} from '@figment-tezos/components/steps/Deploy';
+export {default as Getter} from '@figment-tezos/components/steps/Getter';
+export {default as Setter} from '@figment-tezos/components/steps/Setter';

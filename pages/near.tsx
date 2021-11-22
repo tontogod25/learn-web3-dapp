@@ -1,17 +1,19 @@
-import {CHAINS, ChainPropT} from 'types';
-import WithLayoutNear from 'components/protocols/near';
-import Head from 'components/shared/Layout/Head';
 import {getStaticPropsForChain} from 'utils/pages';
+import {CHAINS, ChainPropT} from 'types';
+import Layout from 'components/shared/Layout';
+import {Avalanche} from 'components/protocols';
 
 export async function getStaticProps() {
   return getStaticPropsForChain(CHAINS.NEAR);
 }
 
-export default function ({chain, markdown}: ChainPropT) {
+const Protocol = (props: ChainPropT) => {
+  const {markdown, chain} = props;
   return (
-    <>
-      <Head chain={chain} />
-      <WithLayoutNear chain={chain} markdown={markdown} />
-    </>
+    <Layout markdown={markdown} chain={chain}>
+      <Avalanche />
+    </Layout>
   );
-}
+};
+
+export default Protocol;

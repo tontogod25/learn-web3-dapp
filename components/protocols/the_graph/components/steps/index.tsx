@@ -1,8 +1,6 @@
-import Node from '@figment-the-graph/components/steps/Node';
-import Subgraph from '@figment-the-graph/components/steps/Subgraph';
-import Manifest from '@figment-the-graph/components/steps/Manifest';
-import Entity from '@figment-the-graph/components/steps/Entity';
-import Query from '@figment-the-graph/components/steps/Query';
-import Mapping from '@figment-the-graph/components/steps/Mapping';
-
-export {Node, Subgraph, Manifest, Entity, Mapping, Query};
+export {default as Node} from '@figment-the-graph/components/steps/Node';
+export {default as Subgraph} from '@figment-the-graph/components/steps/Subgraph';
+export {default as Manifest} from '@figment-the-graph/components/steps/Manifest';
+export {default as Entity} from '@figment-the-graph/components/steps/Entity';
+export {default as Query} from '@figment-the-graph/components/steps/Query';
+export {default as Mapping} from '@figment-the-graph/components/steps/Mapping';
