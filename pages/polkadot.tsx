@@ -1,17 +1,19 @@
 import {CHAINS, ChainPropT} from 'types';
-import WithLayoutPolkadot from 'components/protocols/polkadot';
-import Head from 'components/shared/Layout/Head';
 import {getStaticPropsForChain} from 'utils/pages';
+import Layout from 'components/shared/Layout';
+import {Polkadot} from 'components/protocols';
 
 export async function getStaticProps() {
   return getStaticPropsForChain(CHAINS.POLKADOT);
 }
 
-export default function ({chain, markdown}: ChainPropT) {
+const Protocol = (props: ChainPropT) => {
+  const {markdown, chain} = props;
   return (
-    <>
-      <Head chain={chain} />
-      <WithLayoutPolkadot chain={chain} markdown={markdown} />
-    </>
+    <Layout markdown={markdown} chain={chain}>
+      <Polkadot />
+    </Layout>
   );
-}
+};
+
+export default Protocol;

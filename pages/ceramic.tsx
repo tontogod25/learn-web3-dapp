@@ -1,17 +1,19 @@
 import {CHAINS, ChainPropT} from 'types';
-import WithLayoutCeramic from 'components/protocols/ceramic';
-import Head from 'components/shared/Layout/Head';
 import {getStaticPropsForChain} from 'utils/pages';
+import Layout from 'components/shared/Layout';
+import {Ceramic} from 'components/protocols';
 
 export async function getStaticProps() {
   return getStaticPropsForChain(CHAINS.CERAMIC);
 }
 
-export default function ({chain, markdown}: ChainPropT) {
+const Protocol = (props: ChainPropT) => {
+  const {markdown, chain} = props;
   return (
-    <>
-      <Head chain={chain} />
-      <WithLayoutCeramic chain={chain} markdown={markdown} />
-    </>
+    <Layout markdown={markdown} chain={chain}>
+      <Ceramic />
+    </Layout>
   );
-}
+};
+
+export default Protocol;

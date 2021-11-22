@@ -1,10 +1,9 @@
 import Head from 'next/head';
-import {ChainType} from 'types';
 
-export default function HeadLayout({chain}: {chain: ChainType}) {
+export default function HeadLayout({label}: {label: string}) {
   return (
     <Head>
-      <title>{`Figment Learn - ${chain.label} Pathway`}</title>
+      <title>{`Figment Learn - ${label} Pathway`}</title>
       <meta
         name="description"
         content="Figment Learn's Web 3 education courses"
