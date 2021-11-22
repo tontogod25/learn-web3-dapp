@@ -1,56 +1,54 @@
 import {useCallback} from 'react';
-import {GlobalStateT, PROTOCOL_STEPS_ID} from 'types';
-import {trackTutorialStepViewed} from '../utils/tracking-utils';
+import {GlobalStateT} from 'types';
+import {trackTutorialStepViewed} from 'utils/tracking-utils';
 import {
-  getCurrentChainId,
-  getCurrentStepIdForCurrentChain,
-  getTitleForCurrentStepId,
-  getPreviousStepIdForCurrentStepId,
-  getNextStepIdForCurrentStepId,
-  getPreviousStepForCurrentStepId,
-  getNextStepForCurrentStepId,
-  isCompletedForCurrentStepId,
-  isFirstStepForCurrentStepId,
-  isLastStepForCurrentStepId,
-  Action,
-} from 'context';
+  getChainId,
+  getStepId,
+  getStepTitle,
+  getPreviousStepId,
+  getNextStepId,
+  getPreviousStep,
+  getNextStep,
+  isCompletedStep,
+  isFirstStep,
+  isLastStep,
+} from 'utils/context';
+import {Action} from 'context';
 
 const useSteps = (state: GlobalStateT, dispatch: (value: Action) => void) => {
-  const chainId = getCurrentChainId(state);
-  const stepId = getCurrentStepIdForCurrentChain(state);
+  const chainId = getChainId(state);
+  const stepId = getStepId(state);
 
   const prev = useCallback(() => {
-    const title = getTitleForCurrentStepId(state);
+    const title = getStepTitle(state);
     dispatch({
-      type: 'SetChainCurrentStepId',
-      chainId: chainId,
-      currentStepId: getPreviousStepIdForCurrentStepId(
-        state,
-      ) as PROTOCOL_STEPS_ID,
+      type: 'SetSharedState',
+      values: [
+        {
+          currentStepId: getPreviousStepId(state),
+        },
+      ],
     });
     trackTutorialStepViewed(chainId, title, 'prev');
   }, [chainId, stepId]);
 
   const next = useCallback(() => {
-    const title = getTitleForCurrentStepId(state);
+    const title = getStepTitle(state);
     dispatch({
-      type: 'SetChainCurrentStepId',
-      chainId: chainId,
-      currentStepId: getNextStepIdForCurrentStepId(state) as PROTOCOL_STEPS_ID,
+      type: 'SetSharedState',
+      values: [
+        {
+          currentStepId: getNextStepId(state),
+        },
+      ],
     });
     trackTutorialStepViewed(chainId, title, 'prev');
   }, [chainId, stepId]);
 
-  const isFirstStep = isFirstStepForCurrentStepId(state);
-  const isLastStep = isLastStepForCurrentStepId(state);
-  const previousStepTitle = getPreviousStepForCurrentStepId(state)?.title;
-  const nextStepTitle = getNextStepForCurrentStepId(state)?.title;
-  const isCompleted = isCompletedForCurrentStepId(state);
-
   let justify: 'start' | 'end' | 'space-between';
-  if (isFirstStep) {
+  if (isFirstStep(state)) {
     justify = 'end';
-  } else if (isLastStep) {
+  } else if (isLastStep(state)) {
     justify = 'start';
   } else {
     justify = 'space-between';
@@ -59,12 +57,12 @@ const useSteps = (state: GlobalStateT, dispatch: (value: Action) => void) => {
   return {
     next,
     prev,
-    isFirstStep,
-    isLastStep,
+    isFirstStep: isFirstStep(state),
+    isLastStep: isLastStep(state),
     justify,
-    nextStepTitle,
-    previousStepTitle,
-    isCompleted,
+    nextStepTitle: getNextStep(state)?.title,
+    previousStepTitle: getPreviousStep(state)?.title,
+    isCompleted: isCompletedStep(state),
   };
 };
 

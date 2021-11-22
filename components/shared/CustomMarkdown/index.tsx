@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import {dracula} from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import gfm from 'remark-gfm';
 import {Typography, Divider, Tag} from 'antd';
 import {FileOutlined, LinkOutlined} from '@ant-design/icons';

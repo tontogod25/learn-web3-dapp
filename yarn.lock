@@ -3079,6 +3079,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/simple-react-lightbox@^3.6.1":
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/@types/simple-react-lightbox/-/simple-react-lightbox-3.6.1.tgz#d2fffaa02449b61deffab0e968931990e8c65097"
+  integrity sha512-iizqoJJuxIvzLWdnfqo9pGG4d5HfQa407Bk4e8Tgf1kS5Fkes8b/5Kdhzwhxa/4XWEpv1mQBCVwfwS87dNYQ8Q==
+  dependencies:
+    "@types/react" "*"
+
 "@types/stack-utils@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.1.tgz#20f18294f797f2209b5f65c8e3b5c8e8261d127c"

@@ -1,15 +1,22 @@
+import ProtocolNav from 'components/shared/ProtocolNav/ProtocolNav';
+import {getInnerState, getStepId} from 'utils/context';
+import * as Steps from '@figment-solana/components';
+import {accountExplorer} from '@figment-solana/lib';
 import {PROTOCOL_STEPS_ID} from 'types';
-import Nav from '@figment-solana/components/nav';
-import * as Steps from '@figment-solana/components/steps';
-import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
+import {useGlobalState} from 'context';
 
 const Solana: React.FC = () => {
   const {state} = useGlobalState();
-  const stepId = getCurrentStepIdForCurrentChain(state);
+  const {address, network} = getInnerState(state);
+  const stepId = getStepId(state);
 
   return (
-    <div>
-      <Nav />
+    <>
+      <ProtocolNav
+        address={address}
+        network={network}
+        accountExplorer={accountExplorer(network)}
+      />
       {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Steps.Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Steps.Keypair />}
@@ -20,7 +27,7 @@ const Solana: React.FC = () => {
       {stepId === PROTOCOL_STEPS_ID.SOLANA_CREATE_GREETER && <Steps.Greeter />}
       {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Steps.Getter />}
       {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Steps.Setter />}
-    </div>
+    </>
   );
 };
 

@@ -1,38 +1,34 @@
 import {Alert, Col, Input, Button, Space, Typography, Modal} from 'antd';
 import {LAMPORTS_PER_SOL} from '@solana/web3.js';
-import {ErrorBox} from '@figment-solana/components/nav';
-import type {ErrorT} from '@figment-solana/types';
-import {prettyError} from '@figment-solana/lib';
+import {ErrorBox, ErrorT, prettyError} from 'utils/error';
 import {useEffect, useState} from 'react';
-import {
-  getCurrentChainId,
-  useGlobalState,
-  getCurrentStepIdForCurrentChain,
-  getNetworkForCurrentChain,
-  getChainInnerState,
-} from 'context';
+import {useGlobalState} from 'context';
+import {getInnerState} from 'utils/context';
 import axios from 'axios';
-import {PROTOCOL_INNER_STATES_ID} from 'types';
 
 const {Text} = Typography;
 
 const Balance = () => {
   const {state, dispatch} = useGlobalState();
+  const {address, network} = getInnerState(state);
+
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);
   const [balance, setBalance] = useState<number | null>(null);
-  const chainId = getCurrentChainId(state);
-  const address = getChainInnerState(
-    state,
-    chainId,
-    PROTOCOL_INNER_STATES_ID.ADDRESS,
-  );
 
   useEffect(() => {
     if (error) {
       errorMsg(error);
     }
   }, [error, setError]);
+
+  useEffect(() => {
+    if (balance) {
+      dispatch({
+        type: 'SetIsCompleted',
+      });
+    }
+  }, [balance, setBalance]);
 
   function errorMsg(error: ErrorT) {
     Modal.error({
@@ -46,22 +42,15 @@ const Balance = () => {
   const getBalance = async () => {
     setFetching(true);
     setError(null);
+    setBalance(null);
     try {
-      const network = getNetworkForCurrentChain(state);
       const response = await axios.post(`/api/solana/balance`, {
         network,
         address,
       });
       setBalance(response.data / LAMPORTS_PER_SOL);
-      dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
-      });
     } catch (error) {
       setError(prettyError(error));
-      setBalance(null);
     } finally {
       setFetching(false);
     }
@@ -86,7 +75,6 @@ const Balance = () => {
               >{`This address has a balance of ${balance} SOL`}</Text>
             }
             type="success"
-            closable
             showIcon
           />
         )}
