@@ -4,7 +4,7 @@ import Head from 'components/shared/Layout/Head';
 import {getStaticPropsForChain} from 'utils/pages';
 
 export async function getStaticProps() {
-  return getStaticPropsForChain(CHAINS.CERAMIC);
+  return getStaticPropsForChain(CHAINS.AVALANCHE);
 }
 
 export default function ({chain, markdown}: ChainPropT) {
