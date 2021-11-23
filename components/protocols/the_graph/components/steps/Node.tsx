@@ -1,11 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Alert, Space, Typography} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
-import {
-  getCurrentChainId,
-  useGlobalState,
-  getCurrentStepIdForCurrentChain,
-} from 'context';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 import Confetti from 'react-confetti';
 import {StepButton} from 'components/shared/Button.styles';
@@ -18,15 +14,12 @@ const GraphNode = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
+  const {primaryColor, secondaryColor} = useColors(state);
 
   useEffect(() => {
     if (isValid) {
       dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
+        type: 'SetIsCompleted',
       });
     }
   }, [isValid, setIsValid]);
@@ -46,7 +39,7 @@ const GraphNode = () => {
   };
 
   return (
-    <Col key={fetching as unknown as React.Key}>
+    <Col key={`${fetching}`}>
       {isValid && (
         <Confetti numberOfPieces={500} tweenDuration={1000} gravity={0.05} />
       )}

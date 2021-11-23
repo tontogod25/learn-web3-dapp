@@ -1,11 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Alert, Space, Typography} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
-import {
-  getCurrentChainId,
-  useGlobalState,
-  getCurrentStepIdForCurrentChain,
-} from 'context';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 import {StepButton} from 'components/shared/Button.styles';
 import {useColors} from 'hooks';
@@ -17,15 +13,12 @@ const GraphNode = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
+  const {primaryColor, secondaryColor} = useColors(state);
 
   useEffect(() => {
     if (isValid) {
       dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
+        type: 'SetIsCompleted',
       });
     }
   }, [isValid, setIsValid]);
@@ -66,7 +59,8 @@ const GraphNode = () => {
               description={
                 <Space direction="vertical">
                   <div>
-                    Sorry no confetti this time... But that's a great start.
+                    Sorry no confetti this time... But that&apos;s a great
+                    start.
                   </div>
                   <div>
                     Now let&apos;s tweak the subgraph to make it do something
