@@ -6,11 +6,7 @@ import {
   CloseOutlined,
 } from '@ant-design/icons';
 import type {ManifestStepStatusesT} from '@figment-the-graph/types';
-import {
-  getCurrentChainId,
-  useGlobalState,
-  getCurrentStepIdForCurrentChain,
-} from 'context';
+import {useGlobalState} from 'context';
 import axios from 'axios';
 import {StepButton} from 'components/shared/Button.styles';
 import {useColors} from 'hooks';
@@ -20,7 +16,7 @@ const {Text} = Typography;
 
 const GraphNode = () => {
   const {state, dispatch} = useGlobalState();
-  const {primaryColor, secondaryColor} = useColors(getCurrentChainId(state));
+  const {primaryColor, secondaryColor} = useColors(state);
 
   const [status, setStatus] = useState<ManifestStepStatusesT>(
     defaultManifestStatus,
@@ -36,10 +32,7 @@ const GraphNode = () => {
   useEffect(() => {
     if (isValid()) {
       dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
+        type: 'SetIsCompleted',
       });
     }
   }, [status, setStatus]);
@@ -59,7 +52,7 @@ const GraphNode = () => {
   };
 
   return (
-    <Col key={fetching as unknown as React.Key}>
+    <Col key={`${fetching}`}>
       <Space direction="vertical" size="large">
         <StepButton
           type="primary"
