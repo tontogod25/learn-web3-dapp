@@ -47,13 +47,11 @@ export const networksMap = (
 
   // SECRET NETWORKS MAP
   if (chain === CHAINS.SECRET) {
-    // if (network === NETWORK.DATAHUB) {
-    //   return SECRET_NETWORKS.DATAHUB;
-    // }
-    // if (network === NETWORK.TESTNET) {
-    //   return SECRET_NETWORKS.TESTNET;
-    // }
-    return SECRET_NETWORKS.TESTNET;
+    if (network === NETWORK.TESTNET) {
+      return SECRET_NETWORKS.TESTNET;
+    } else {
+      return undefined;
+    }
   }
 
   // NEAR NETWORKS MAP
