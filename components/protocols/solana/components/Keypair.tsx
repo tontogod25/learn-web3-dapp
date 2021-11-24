@@ -49,6 +49,9 @@ const Keypair = () => {
 
   const generateKeypair = async () => {
     setFetching(true);
+    setError(null);
+    setAddress(null);
+    setSecret(null);
     try {
       const response = await axios.get(`/api/solana/keypair`);
       setAddress(response.data.address);

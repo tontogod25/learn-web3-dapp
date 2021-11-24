@@ -1,12 +1,13 @@
+import {useEffect, useState} from 'react';
+import axios from 'axios';
+
 import {Alert, Col, Button, Space, Typography, Modal} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {transactionExplorer} from '@figment-solana/lib';
-import {useEffect, useState} from 'react';
+
 import {ErrorT, ErrorBox, prettyError} from 'utils/error';
+import {transactionExplorer} from '@figment-solana/lib';
 import {useGlobalState} from 'context';
 import {getInnerState} from 'utils/context';
-
-import axios from 'axios';
 
 const {Text} = Typography;
 

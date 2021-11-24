@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getSafeUrl} from 'components/protocols/secret/lib';
+import {getNodeUrl} from '@figment-secret/lib';
 import {
   EnigmaUtils,
   SigningCosmWasmClient,
@@ -13,7 +13,7 @@ export default async function connect(
   res: NextApiResponse<string>,
 ) {
   try {
-    const url = await getSafeUrl();
+    const url = await getNodeUrl();
     const {mnemonic, txAmount} = req.body;
     console.log(url);
     console.log(mnemonic);

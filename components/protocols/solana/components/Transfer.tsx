@@ -4,9 +4,9 @@ import {transactionExplorer} from '@figment-solana/lib';
 import {ErrorT, ErrorBox, prettyError} from 'utils/error';
 import {useEffect, useState} from 'react';
 import {Keypair} from '@solana/web3.js';
-import {useGlobalState} from 'context';
 import axios from 'axios';
 import {getInnerState} from 'utils/context';
+import {useGlobalState} from 'context';
 
 const layout = {
   labelCol: {span: 4},
@@ -46,7 +46,7 @@ const Transfer = () => {
         type: 'SetIsCompleted',
       });
     }
-  }, [fetching, setFetching]);
+  }, [hash, setHash]);
 
   function errorMsg(error: ErrorT) {
     Modal.error({

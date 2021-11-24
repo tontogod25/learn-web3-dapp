@@ -5,7 +5,7 @@ import {
   pubkeyToAddress,
   encodeSecp256k1Pubkey,
 } from 'secretjs';
-import {getSafeUrl} from 'components/protocols/secret/lib';
+import {getNodeUrl} from '@figment-secret/lib';
 import type {NextApiRequest, NextApiResponse} from 'next';
 import fs from 'fs';
 
@@ -31,7 +31,7 @@ export default async function connect(
   res: NextApiResponse<ResponseT | string>,
 ) {
   try {
-    const url = await getSafeUrl();
+    const url = await getNodeUrl();
     const {mnemonic} = req.body;
     const signingPen = await Secp256k1Pen.fromMnemonic(mnemonic);
     const pubkey = encodeSecp256k1Pubkey(signingPen.pubkey);
