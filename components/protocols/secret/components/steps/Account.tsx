@@ -86,7 +86,7 @@ const Account = () => {
             <Alert
               message={
                 <a
-                  href={`https://faucet.secrettestnet.io/`}
+                  href={`https://faucet.supernova.enigma.co/`}
                   target="_blank"
                   rel="noreferrer"
                 >

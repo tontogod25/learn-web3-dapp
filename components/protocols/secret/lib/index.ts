@@ -8,10 +8,10 @@ export const getDataHubSecretNodeUrl = (network: SECRET_NETWORKS): string => {
 };
 
 export const transactionUrl = (hash: string) =>
-  `https://secretnodes.com/secret/chains/holodeck-2/transactions/${hash}`;
+  `https://secretnodes.com/secret/chains/supernova-2/transactions/${hash}`;
 
 export const contractsUrl = (hash: string) =>
-  `https://secretnodes.com/secret/chains/holodeck-2/contracts/${hash}`;
+  `https://secretnodes.com/secret/chains/supernova-2/contracts/${hash}`;
 
 export const getSecretTestnetUrl = () => {
   return 'https://chainofsecrets.secrettestnet.io/';

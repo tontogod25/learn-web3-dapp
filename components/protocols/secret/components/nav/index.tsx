@@ -73,7 +73,7 @@ const Nav = () => {
     });
     dispatch({
       type: 'SetNetwork',
-      network: 'holodeck-2',
+      network: 'supernova-2',
     });
     trackStorageCleared('secret');
   };
