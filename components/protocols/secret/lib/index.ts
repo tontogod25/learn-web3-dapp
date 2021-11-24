@@ -14,7 +14,7 @@ export const contractsUrl = (hash: string) =>
   `https://secretnodes.com/secret/chains/supernova-2/contracts/${hash}`;
 
 export const getSecretTestnetUrl = () => {
-  return 'http://bootstrap.supernova.enigma.co/';
+  return 'https://chainofsecrets.secrettestnet.io/';
 };
 
 export const getSafeUrl = async (force = true): Promise<string> => {
