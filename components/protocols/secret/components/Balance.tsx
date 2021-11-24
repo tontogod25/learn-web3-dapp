@@ -10,7 +10,7 @@ const DECIMAL_OFFSET = 10 ** 6;
 
 const Balance = () => {
   const {state, dispatch} = useGlobalState();
-  const {address, network} = getInnerState(state);
+  const {address} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,10 +29,7 @@ const Balance = () => {
     setError(null);
     setBalance(null);
     try {
-      const response = await axios.post(`/api/secret/balance`, {
-        network,
-        address,
-      });
+      const response = await axios.post(`/api/secret/balance`, {address});
       const amount = response.data;
       const intoSCRT = (amount / DECIMAL_OFFSET).toFixed();
       setBalance(parseFloat(intoSCRT));
@@ -59,7 +56,7 @@ const Balance = () => {
             message={
               <Text
                 strong
-              >{`This address has a balance of ${balance} SOL`}</Text>
+              >{`This address has a balance of ${balance} SCRT`}</Text>
             }
             type="success"
             showIcon
@@ -67,7 +64,7 @@ const Balance = () => {
         ) : error ? (
           <Alert message={error} type="error" showIcon />
         ) : (
-          <Alert message="Please Generate a Keypair" type="error" showIcon />
+          <Alert message="Please Complete the code." type="error" showIcon />
         )}
       </Space>
     </Col>

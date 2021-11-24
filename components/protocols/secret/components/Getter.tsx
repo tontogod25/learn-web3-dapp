@@ -34,7 +34,7 @@ const Getter = () => {
       });
       setValue(response.data);
     } catch (error) {
-      setError(error.data.message);
+      setError(error.message);
     } finally {
       setFetching(false);
     }
@@ -44,9 +44,8 @@ const Getter = () => {
     <Col>
       <Space direction="vertical" size="large">
         <Space direction="vertical">
-          <Text>Get the stored value:</Text>
           <Button type="primary" onClick={getCounter} loading={fetching}>
-            Get Value
+            Get the stored value
           </Button>
         </Space>
         {value ? (

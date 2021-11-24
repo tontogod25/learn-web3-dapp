@@ -13,8 +13,8 @@ export default async function connect(
   res: NextApiResponse<string>,
 ) {
   try {
-    const url = await getNodeUrl();
-    const {mnemonic, contract} = req.body;
+    const url = getNodeUrl();
+    const {mnemonic, contractId} = req.body;
     const signingPen = await Secp256k1Pen.fromMnemonic(mnemonic);
     const pubkey = encodeSecp256k1Pubkey(signingPen.pubkey);
     const address = pubkeyToAddress(pubkey, 'secret');
@@ -37,7 +37,7 @@ export default async function connect(
 
     // Increment the counter
     const handleMsg = {increment: {}};
-    const response = undefined;
+    const response = await client.execute(contractId, handleMsg);
 
     res.status(200).json(response.transactionHash);
   } catch (error) {

@@ -20,7 +20,7 @@ const {Text} = Typography;
 
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();
-  const {address, mnemonic, network} = getInnerState(state);
+  const {address, mnemonic} = getInnerState(state);
 
   const [error, setError] = useState<string | null>(null);
   const [hash, setHash] = useState<string | null>(null);
@@ -35,15 +35,14 @@ const Transfer = () => {
   }, [hash, setHash]);
 
   const transfer = async (values: any) => {
+    setFetching(true);
     const txAmount = values.amount;
     try {
       if (isNaN(txAmount)) {
         throw new Error('invalid amount');
       }
       const response = await axios.post(`/api/secret/transfer`, {
-        address,
         mnemonic,
-        network,
         txAmount,
       });
       setHash(response.data);

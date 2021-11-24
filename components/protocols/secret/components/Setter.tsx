@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
-import {Alert, Col, Button, Space, Typography, Modal} from 'antd';
+import {Alert, Col, Button, Space, Typography} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
 
 import {transactionUrl} from '@figment-secret/lib';
@@ -43,7 +43,7 @@ const Setter = () => {
       });
       setValue(response.data);
     } catch (error) {
-      setError(error.data.message);
+      setError(error.message);
     } finally {
       setFetching(false);
     }
@@ -60,7 +60,7 @@ const Setter = () => {
       });
       setHash(response.data);
     } catch (error) {
-      setError(error.data.message);
+      setError(error.message);
     } finally {
       setResetting(false);
     }
@@ -69,7 +69,7 @@ const Setter = () => {
   return (
     <>
       <Space direction="vertical" size="large">
-        <Text>Current value of the counter stored in the contract:</Text>
+        <Text strong>Current value of the counter stored in the contract:</Text>
         {fetching ? (
           <LoadingOutlined style={{fontSize: 24}} spin />
         ) : (

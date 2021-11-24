@@ -49,7 +49,7 @@ export default async function connect(
 
     // Upload the contract wasm
     const wasm = fs.readFileSync(CONTRACT_PATH);
-    const uploadReceipt = await client.undefined;
+    const uploadReceipt = await client.upload(wasm, {});
     if (!uploadReceipt) {
       throw new Error('uploadReceipt error');
     }
@@ -58,7 +58,7 @@ export default async function connect(
 
     // Create an instance of the Counter contract, providing a starting count
     const initMsg = {count: 101};
-    const receipt = undefined;
+    const receipt = await client.instantiate(codeId, initMsg, address.slice(6));
 
     res.status(200).json({
       contractAddress: receipt.contractAddress,

@@ -15,7 +15,7 @@ In `pages/api/secret/connect.ts`, implement the function and try to establish yo
 ```typescript
 //...
 try {
-    const url = await getSafeUrl();
+    const url = getNodeUrl();
     const client = undefined;
     const nodeInfo = undefined;
     const version = undefined;
@@ -38,7 +38,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 ```typescript
 // solution
 try {
-    const url = await getSafeUrl();
+    const url = getNodeUrl();
     const client = new CosmWasmClient(url);
     const nodeInfo = await client.restClient.nodeInfo();
     const version = nodeInfo.application_version.version;

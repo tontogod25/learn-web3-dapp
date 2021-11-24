@@ -7,10 +7,10 @@ export default async function connect(
   res: NextApiResponse<string>,
 ) {
   try {
-    const url = await getNodeUrl();
-    const client = undefined;
-    const nodeInfo = undefined;
-    const version = undefined;
+    const url = getNodeUrl();
+    const client = new CosmWasmClient(url);
+    const nodeInfo = await client.restClient.nodeInfo();
+    const version = nodeInfo.application_version.version;
     res.status(200).json(version);
   } catch (error) {
     let errorMessage = error instanceof Error ? error.message : 'Unknown Error';

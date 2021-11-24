@@ -16,7 +16,7 @@ In `pages/api/secret/balance.ts`, implement the default function. You must repla
 
 ```typescript
   try {
-    const url = await getSafeUrl()
+    const url = getNodeUrl();
     const { address }= req.body
     const client = new CosmWasmClient(url)
 
@@ -48,7 +48,7 @@ You could experience some issues with the availability of the network. [**Click 
 ```typescript
 // solution
   try {
-    const url = await getSafeUrl()
+    const url = getNodeUrl();
     const { address }= req.body
     const client = new CosmWasmClient(url);
 

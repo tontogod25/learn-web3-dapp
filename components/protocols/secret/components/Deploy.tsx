@@ -37,10 +37,7 @@ const Deploy = () => {
     setError(null);
     setFetching(true);
     try {
-      const response = await axios.post(`/api/secret/deploy`, {
-        mnemonic,
-        network,
-      });
+      const response = await axios.post(`/api/secret/deploy`, {mnemonic});
       setAddress(response.data.contractAddress);
       setHash(response.data.transactionHash);
     } catch (error) {
@@ -70,9 +67,9 @@ const Deploy = () => {
         {hash && address ? (
           <Alert
             message={
-              <Text
-                strong
-              >{`The contract has been deployed!: ${address}`}</Text>
+              <Space direction="vertical">
+                <Text strong>The contract has been deployed!</Text>
+              </Space>
             }
             description={
               <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
