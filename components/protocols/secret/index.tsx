@@ -8,11 +8,12 @@ import {
 import {useLocalStorage} from '@figment-secret/hooks';
 import Nav from '@figment-secret/components/nav';
 import {PROTOCOL_STEPS_ID} from 'types';
-import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
+import {useGlobalState} from 'context';
+import {getStepId} from 'utils/context';
 
 const Secret: React.FC = () => {
   const {state: global_state} = useGlobalState();
-  const stepId = getCurrentStepIdForCurrentChain(global_state);
+  const stepId = getStepId(global_state);
 
   const [storageState, setStorageState] = useLocalStorage(
     'secret',
