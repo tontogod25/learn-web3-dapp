@@ -10,7 +10,7 @@ If you want to learn more about Secret smart contracts, follow the [**Developing
 {% endhint %}
 
 {% hint style="danger" %}
-You could experience some issues with the availability of the network [**Click here to check the current status**](https://secretnodes.com/secret/chains/holodeck-2)
+You could experience some issues with the availability of the network [**Click here to check the current status**](https://secretnodes.com/secret/chains/supernova-2)
 {% endhint %}
 
 Before, focusing on the deployment instructions, let's take a look at some important global variables:
