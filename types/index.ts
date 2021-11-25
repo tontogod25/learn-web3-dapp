@@ -82,9 +82,8 @@ export enum CHAIN_PROVIDERS {
 
 // NETWORKS ----------------------
 export enum AVALANCHE_NETWORKS {
-  MAINNET = 'MAINNET',
-  FUJI = 'FUJI',
-  DATAHUB = 'datahub',
+  TESTNET = 'Testnet',
+  DATAHUB = 'Datahub',
 }
 
 export enum CELO_NETWORKS {

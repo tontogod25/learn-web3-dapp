@@ -1,12 +1,15 @@
-import {getNodeURL as getNodeUrl} from 'utils/datahub';
-import {CHAINS, AVALANCHE_NETWORKS} from 'types';
 import {Avalanche} from 'avalanche';
 
 const AVALANCHE_NETWORK_ID = 5;
 const AVALANCHE_NETWORK_NAME = 'fuji';
 
-export const getNodeURL = (network: string) =>
-  getNodeUrl(CHAINS.AVALANCHE, AVALANCHE_NETWORKS.FUJI, undefined, network);
+export const getNodeURL = (network: string) => {
+  if (network === 'Testnet') {
+    return 'https://api.avax-test.network';
+  } else {
+    return `https://${process.env.AVALANCHE_DATAHUB_URL}/apikey/${process.env.DATAHUB_AVALANCHE_API_KEY}`;
+  }
+};
 
 export const getAvalancheClient = (network: string) => {
   const url = new URL(getNodeURL(network));
