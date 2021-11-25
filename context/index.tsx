@@ -175,7 +175,6 @@ function globalStateReducer(state: GlobalStateT, action: Action): GlobalStateT {
     case 'SetIsCompleted': {
       const chainId = getChainId(state);
       const stepId = getStepId(state);
-      console.log(chainId, stepId);
       return {
         ...state,
         protocols: {

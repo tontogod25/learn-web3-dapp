@@ -37,7 +37,7 @@ export default async function connect(
     const pubkey = encodeSecp256k1Pubkey(signingPen.pubkey);
     const address = pubkeyToAddress(pubkey, 'secret');
 
-    // 1. Initialise client
+    // Initialise client
     const txEncryptionSeed = EnigmaUtils.GenerateNewSeed();
     const client = new SigningCosmWasmClient(
       url,
@@ -49,7 +49,7 @@ export default async function connect(
 
     // Upload the contract wasm
     const wasm = fs.readFileSync(CONTRACT_PATH);
-    const uploadReceipt = await client.upload(wasm, {});
+    const uploadReceipt = await client.undefined;
     if (!uploadReceipt) {
       throw new Error('uploadReceipt error');
     }
@@ -58,7 +58,7 @@ export default async function connect(
 
     // Create an instance of the Counter contract, providing a starting count
     const initMsg = {count: 101};
-    const receipt = await client.instantiate(codeId, initMsg, address.slice(6));
+    const receipt = undefined;
 
     res.status(200).json({
       contractAddress: receipt.contractAddress,

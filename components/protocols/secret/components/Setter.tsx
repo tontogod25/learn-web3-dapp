@@ -76,7 +76,6 @@ const Setter = () => {
           <Alert
             style={{fontWeight: 'bold', textAlign: 'center'}}
             type="success"
-            closable={false}
             message={value}
           />
         )}
@@ -102,7 +101,6 @@ const Setter = () => {
                   </a>
                 }
                 type="success"
-                closable
                 showIcon
               />
             ) : error ? (

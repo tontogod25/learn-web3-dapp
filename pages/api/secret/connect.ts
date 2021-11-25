@@ -8,9 +8,9 @@ export default async function connect(
 ) {
   try {
     const url = getNodeUrl();
-    const client = new CosmWasmClient(url);
-    const nodeInfo = await client.restClient.nodeInfo();
-    const version = nodeInfo.application_version.version;
+    const client = undefined;
+    const nodeInfo = undefined;
+    const version = undefined;
     res.status(200).json(version);
   } catch (error) {
     let errorMessage = error instanceof Error ? error.message : 'Unknown Error';

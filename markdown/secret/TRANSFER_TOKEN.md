@@ -56,7 +56,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 ```tsx
 // solution
 //...
-// 1. Initialize a secure Secret client
+// 2. Initialize a secure Secret client
 const client = new SigningCosmWasmClient(
   url,
   address,
@@ -65,7 +65,7 @@ const client = new SigningCosmWasmClient(
   fees,
 );
 
-// 2. Send tokens
+// 3. Send tokens
 const memo = 'sendTokens example'; // optional memo
 const sent = await client.sendTokens(
   address,

@@ -39,7 +39,7 @@ export default async function connect(
 
     // Get the stored value
     console.log('Querying contract for current count');
-    let response = await client.queryContractSmart(contractId, {get_count: {}});
+    let response = undefined;
     let count = response.count as number;
 
     res.status(200).json(count.toString());

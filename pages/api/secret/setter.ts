@@ -37,7 +37,7 @@ export default async function connect(
 
     // Increment the counter
     const handleMsg = {increment: {}};
-    const response = await client.execute(contractId, handleMsg);
+    const response = undefined;
 
     res.status(200).json(response.transactionHash);
   } catch (error) {
