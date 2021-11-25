@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {Alert, Col, Input, Button, Space, Typography} from 'antd';
+import {Alert, Col, Button, Space, Typography} from 'antd';
 import axios from 'axios';
 import {useGlobalState} from 'context';
 import {getInnerState} from 'utils/context';
@@ -44,11 +44,6 @@ const Balance = () => {
   return (
     <Col>
       <Space direction="vertical">
-        <Input
-          style={{width: '420px', fontWeight: 'bold'}}
-          defaultValue={address}
-          disabled={true}
-        />
         <Button type="primary" onClick={getBalance} loading={fetching}>
           Check Balance
         </Button>

@@ -26,7 +26,7 @@ const Import = () => {
     setError(null);
     setHash(null);
     try {
-      const response = await axios.post(`/api/import/export`, {
+      const response = await axios.post(`/api/avalanche/import`, {
         secret,
         network,
       });

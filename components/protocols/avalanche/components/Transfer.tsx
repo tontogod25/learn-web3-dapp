@@ -51,7 +51,7 @@ const Transfer = () => {
         address,
         network,
         navax: txAmount,
-        recipeint: RECIPIENT,
+        recipient: RECIPIENT,
       });
       setHash(response.data);
     } catch (error) {
