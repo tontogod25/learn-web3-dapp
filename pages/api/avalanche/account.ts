@@ -12,7 +12,7 @@ export default function account(
 ) {
   try {
     const {network} = req.body;
-    const client = getAvalancheClient();
+    const client = getAvalancheClient(network);
     const chain = client.XChain();
     const keyChain = chain.keyChain();
     const keypair = keyChain.undefined; // There is a useful method to use here

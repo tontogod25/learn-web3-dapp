@@ -6,6 +6,8 @@ import {useGlobalState} from 'context';
 
 const {Text} = Typography;
 
+const FAUCET = 'https://faucet.supernova.enigma.co/';
+
 const Account = () => {
   const {dispatch} = useGlobalState();
 
@@ -40,7 +42,6 @@ const Account = () => {
       const response = await axios.get(`/api/secret/account`);
       setAddress(response.data.address);
       setMnemonic(response.data.mnemonic);
-      setFetching(false);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -94,11 +95,7 @@ const Account = () => {
             />
             <Alert
               message={
-                <a
-                  href={`https://faucet.supernova.enigma.co/`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href={FAUCET} target="_blank" rel="noreferrer">
                   Fund your new account
                 </a>
               }

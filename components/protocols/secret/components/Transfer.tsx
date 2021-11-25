@@ -18,6 +18,8 @@ const tailLayout = {
 
 const {Text} = Typography;
 
+const CHAIN_LABEL = 'Secret';
+
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();
   const {address, mnemonic} = getInnerState(state);
@@ -36,6 +38,8 @@ const Transfer = () => {
 
   const transfer = async (values: any) => {
     setFetching(true);
+    setError(null);
+    setHash(null);
     const txAmount = values.amount;
     try {
       if (isNaN(txAmount)) {
@@ -47,7 +51,7 @@ const Transfer = () => {
       });
       setHash(response.data);
     } catch (error) {
-      setError(error.data.message);
+      setError(error.message);
     } finally {
       setFetching(false);
     }
@@ -109,7 +113,7 @@ const Transfer = () => {
               message={<Text strong>Transfer confirmed!</Text>}
               description={
                 <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
-                  View on Secret Explorer
+                  View on {CHAIN_LABEL} Explorer
                 </a>
               }
             />
@@ -118,13 +122,7 @@ const Transfer = () => {
 
         {error && (
           <Form.Item {...tailLayout}>
-            <Alert
-              type="error"
-              showIcon
-              closable
-              message={error}
-              onClose={() => setError(null)}
-            />
+            <Alert type="error" showIcon message={error} />
           </Form.Item>
         )}
       </Form>

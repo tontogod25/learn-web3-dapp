@@ -1,14 +1,11 @@
+import {useEffect, useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {transactionUrl} from '@figment-avalanche/lib';
-import {useState, useEffect} from 'react';
 import axios from 'axios';
-import {
-  getCurrentChainId,
-  useGlobalState,
-  getCurrentStepIdForCurrentChain,
-} from 'context';
-import {getAvalancheInnerState} from '@figment-avalanche/lib';
+
+import {transactionUrl} from '@figment-avalanche/lib';
+import {getInnerState} from 'utils/context';
+import {useGlobalState} from 'context';
 
 const layout = {
   labelCol: {span: 4},
@@ -19,25 +16,23 @@ const tailLayout = {
   wrapperCol: {offset: 4, span: 20},
 };
 
-const recipient = 'X-fuji1j2zasjlkkvptegp6dpm222q6sn02k0rp9fj92d';
+const RECIPIENT = 'X-fuji1j2zasjlkkvptegp6dpm222q6sn02k0rp9fj92d';
+const CHAIN_LABEL = 'Avalanche';
 
 const {Text} = Typography;
 
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();
-  const avalancheState = getAvalancheInnerState(state);
+  const {address, secret, network} = getInnerState(state);
 
   const [error, setError] = useState<string | null>(null);
+  const [hash, setHash] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
-  const [hash, setHash] = useState(null);
 
   useEffect(() => {
     if (hash) {
       dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
+        type: 'SetIsCompleted',
       });
     }
   }, [hash, setHash]);
@@ -45,20 +40,22 @@ const Transfer = () => {
   const transfer = async (values: any) => {
     setFetching(true);
     setError(null);
-    const navax = parseFloat(values.amount);
+    setHash(null);
+    const txAmount = parseFloat(values.amount);
     try {
-      if (isNaN(navax)) {
+      if (isNaN(txAmount)) {
         throw new Error('invalid amount');
       }
       const response = await axios.post(`/api/avalanche/transfer`, {
-        ...avalancheState,
-        navax,
-        recipient,
+        secret,
+        address,
+        network,
+        navax: txAmount,
+        recipeint: RECIPIENT,
       });
       setHash(response.data);
     } catch (error) {
-      const errorMsg = error.data ? error.data.message : 'Unknown error';
-      setError(errorMsg);
+      setError(error.message);
     } finally {
       setFetching(false);
     }
@@ -72,20 +69,18 @@ const Transfer = () => {
         layout="horizontal"
         onFinish={transfer}
         initialValues={{
-          from: avalancheState.address,
-          amount: 1,
-          to: recipient,
+          from: address,
         }}
       >
         <Form.Item label="Sender" name="from" required>
-          <Text code>{avalancheState.address}</Text>
+          <Text code>{address}</Text>
         </Form.Item>
 
         <Form.Item
           label="Amount"
           name="amount"
           required
-          tooltip="1 AVAX = 10**9 nAVAX"
+          tooltip="1 AVAX = 1,000,000,000 nAVAX"
         >
           <Space direction="vertical">
             <Input
@@ -97,7 +92,7 @@ const Transfer = () => {
         </Form.Item>
 
         <Form.Item label="Recipient" name="to" required>
-          <Text code>{recipient}</Text>
+          <Text code>{RECIPIENT}</Text>
         </Form.Item>
 
         <Form.Item {...tailLayout}>
@@ -125,12 +120,8 @@ const Transfer = () => {
               showIcon
               message={<Text strong>Transfer confirmed!</Text>}
               description={
-                <a
-                  href={transactionUrl(hash as string)}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View on Avalanche Explorer
+                <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
+                  View on {CHAIN_LABEL} Explorer
                 </a>
               }
             />
