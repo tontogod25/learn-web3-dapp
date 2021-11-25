@@ -56,7 +56,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 //...
 // Get the stored value
 console.log('Querying contract for current count');
-let response = await client.queryContractSmart(contracId, {get_count: {}});
+let response = await client.queryContractSmart(contractId, {get_count: {}});
 let count = response.count as number;
 //...
 ```
