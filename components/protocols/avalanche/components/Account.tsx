@@ -1,66 +1,49 @@
-import {Alert, Button, Col, Space, Typography} from 'antd';
 import {useEffect, useState} from 'react';
+import {Alert, Button, Col, Space, Typography} from 'antd';
 import axios from 'axios';
-import {
-  getCurrentChainId,
-  useGlobalState,
-  getCurrentStepIdForCurrentChain,
-} from 'context';
 import {PROTOCOL_INNER_STATES_ID} from 'types';
-import {getAvalancheInnerState} from '@figment-avalanche/lib';
+import {useGlobalState} from 'context';
 
 const {Text} = Typography;
 
+const FAUCET = 'https://faucet.avax-test.network/';
+
 const Account = () => {
-  const {state, dispatch} = useGlobalState();
-  const avalancheState = getAvalancheInnerState(state);
+  const {dispatch} = useGlobalState();
 
   const [address, setAddress] = useState<string | null>(null);
   const [secret, setSecret] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (address && secret) {
       dispatch({
-        type: 'SetStepInnerState',
-        chainId: getCurrentChainId(state),
-        innerStateId: PROTOCOL_INNER_STATES_ID.SECRET,
-        value: secret,
-      });
-      dispatch({
-        type: 'SetStepInnerState',
-        chainId: getCurrentChainId(state),
-        innerStateId: PROTOCOL_INNER_STATES_ID.ADDRESS,
-        value: address,
-      });
-      dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
+        type: 'SetInnerState',
+        values: [
+          {
+            [PROTOCOL_INNER_STATES_ID.ADDRESS]: address,
+          },
+          {
+            [PROTOCOL_INNER_STATES_ID.SECRET]: secret,
+          },
+        ],
+        isCompleted: true,
       });
     }
   }, [address, secret]);
-
-  useEffect(() => {
-    if (avalancheState.address) {
-      setAddress(avalancheState.address);
-    }
-  }, []);
 
   const generateKeypair = async () => {
     try {
       setFetching(true);
       setAddress(null);
       setSecret(null);
-      setError(undefined);
+      setError(null);
       const response = await axios.get(`/api/avalanche/account`);
       setAddress(response.data.address);
       setSecret(response.data.secret);
     } catch (error) {
-      const errorMsg = error.data ? error.data.message : 'Unknown error';
-      setError(errorMsg);
+      setError(error.message);
     } finally {
       setFetching(false);
     }
@@ -77,7 +60,7 @@ const Account = () => {
         >
           Generate a Keypair
         </Button>
-        {address && (
+        {address && secret ? (
           <>
             <Alert
               message={
@@ -106,11 +89,7 @@ const Account = () => {
                 </Space>
               }
               description={
-                <a
-                  href={`https://faucet.avax-test.network/`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href={FAUCET} target="_blank" rel="noreferrer">
                   Go to the faucet
                 </a>
               }
@@ -118,17 +97,10 @@ const Account = () => {
               showIcon
             />
           </>
-        )}
-        {error && (
-          <Alert
-            message={
-              <Space>
-                <Text code>Error: {error}</Text>
-              </Space>
-            }
-            type="error"
-            showIcon
-          />
+        ) : error ? (
+          <Alert message={error} type="error" showIcon />
+        ) : (
+          <Alert message="Please Generate a Keypair" type="error" showIcon />
         )}
       </Space>
     </Col>

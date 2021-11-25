@@ -1,17 +1,13 @@
 import {Col, Button, Alert, Space} from 'antd';
 import {transactionUrl} from '@figment-avalanche/lib';
-import {useEffect, useState} from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
-import {
-  getCurrentChainId,
-  useGlobalState,
-  getCurrentStepIdForCurrentChain,
-} from 'context';
-import {getAvalancheInnerState} from '@figment-avalanche/lib';
+import {useGlobalState} from 'context';
+import {getInnerState} from 'utils/context';
 
 const Import = () => {
   const {state, dispatch} = useGlobalState();
-  const avalancheState = getAvalancheInnerState(state);
+  const {secret, network} = getInnerState(state);
 
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
@@ -20,25 +16,23 @@ const Import = () => {
   useEffect(() => {
     if (hash) {
       dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
+        type: 'SetIsCompleted',
       });
     }
   }, [hash, setHash]);
 
   const importToken = async () => {
     setFetching(true);
+    setError(null);
+    setHash(null);
     try {
-      const response = await axios.post(
-        `/api/avalanche/import`,
-        avalancheState,
-      );
+      const response = await axios.post(`/api/avalanche/import`, {
+        secret,
+        network,
+      });
       setHash(response.data);
     } catch (error) {
-      const errorMsg = error.data ? error.data.message : 'Unknown error';
-      setError(errorMsg);
+      setError(error.message);
     } finally {
       setFetching(false);
     }
@@ -50,29 +44,21 @@ const Import = () => {
         <Button type="primary" onClick={importToken} loading={fetching}>
           Import to C-Chain
         </Button>
-        {hash && (
+        {hash ? (
           <Alert
             style={{maxWidth: '550px'}}
             type="success"
             showIcon
             message={
-              <a
-                href={transactionUrl(hash as string)}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
                 View transaction on Avalanche Explorer
               </a>
             }
           />
-        )}
-        {error && (
-          <Alert
-            style={{maxWidth: '350px'}}
-            type="error"
-            showIcon
-            message={error}
-          />
+        ) : error ? (
+          <Alert message={error} type="error" showIcon />
+        ) : (
+          <Alert message="Please Complete the code." type="error" showIcon />
         )}
       </Space>
     </Col>

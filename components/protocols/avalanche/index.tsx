@@ -1,15 +1,23 @@
-import * as Steps from '@figment-avalanche/components/steps';
-import Nav from '@figment-avalanche/components/nav';
+import ProtocolNav from 'components/shared/ProtocolNav/ProtocolNav';
+import {getInnerState, getStepId} from 'utils/context';
 import {PROTOCOL_STEPS_ID} from 'types';
-import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
+import {useGlobalState} from 'context';
+
+import * as Steps from '@figment-avalanche/components';
+import {accountExplorer} from '@figment-avalanche/lib';
 
 const Avalanche: React.FC = () => {
   const {state} = useGlobalState();
-  const stepId = getCurrentStepIdForCurrentChain(state) as any;
+  const {address, network} = getInnerState(state);
+  const stepId = getStepId(state);
 
   return (
     <>
-      <Nav />
+      <ProtocolNav
+        address={address}
+        network={network}
+        accountExplorer={accountExplorer(network)}
+      />{' '}
       {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Steps.Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_KEYPAIR && <Steps.Account />}

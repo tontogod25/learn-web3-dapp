@@ -34,7 +34,7 @@ export const networksMap = (
       return AVALANCHE_NETWORKS.DATAHUB;
     }
     if (network === NETWORK.TESTNET) {
-      return AVALANCHE_NETWORKS.FUJI;
+      return AVALANCHE_NETWORKS.TESTNET;
     }
   }
 
