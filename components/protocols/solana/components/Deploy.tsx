@@ -12,7 +12,6 @@ const {Text} = Typography;
 const Deploy = () => {
   const {state, dispatch} = useGlobalState();
   const {network} = getInnerState(state);
-  console.log(getInnerState(state));
 
   const [value, setValue] = useState<string | null>(null);
   const [address, setAddress] = useState<string | null>(null);

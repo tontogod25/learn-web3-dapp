@@ -5,7 +5,7 @@ If you want to learn more about Secret smart contracts, follow the [**Developing
 {% endhint %}
 
 {% hint style="danger" %}
-You could experience some issues with the availability of the network [**Click here to check the current status**](https://secretnodes.com/secret/chains/holodeck-2)
+You could experience some issues with the availability of the network [**Click here to check the current status**](https://secretnodes.com/secret/chains/supernova-2)
 {% endhint %}
 
 Before focusing on altering a value on the smart contract, let's take a look at the fees object:
@@ -55,14 +55,14 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 //...
 // Increment the counter
 const handleMsg = {increment: {}};
-const response = await client.execute(contract, handleMsg);
+const response = await client.execute(contractId, handleMsg);
 //...
 ```
 
 **What happened in the code above?**
 
 - We're calling the `execute` method of the `SigningCosmWasmClient`, passing to it:
-  - The `contract`, which is the contract address.
+  - The `contractId`, which is the contract address.
   - The `{ increment: {} }` object which represents the name of the method we are calling and the parameters we're passing to it. Again, we are passing an empty object as there are no arguments.
 
 ---

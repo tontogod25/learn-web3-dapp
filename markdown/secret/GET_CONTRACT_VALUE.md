@@ -5,7 +5,7 @@ If you want to learn more about Secret smart contracts, follow the [**Developing
 {% endhint %}
 
 {% hint style="danger" %}
-You could experience some issues with the availability of the network [**Click here to check the current status**](https://secretnodes.com/secret/chains/holodeck-2)
+You could experience some issues with the availability of the network [**Click here to check the current status**](https://secretnodes.com/secret/chains/supernova-2)
 {% endhint %}
 
 Before focusing on retrieving a value from the smart contract, let's take a look at the fees object:
@@ -56,7 +56,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 //...
 // Get the stored value
 console.log('Querying contract for current count');
-let response = await client.queryContractSmart(contract, {get_count: {}});
+let response = await client.queryContractSmart(contractId, {get_count: {}});
 let count = response.count as number;
 //...
 ```
@@ -64,7 +64,7 @@ let count = response.count as number;
 **What happened in the code above?**
 
 - We're calling the `queryContractSmart` method of the client, passing to it:
-  - The `contract`, which is the contract address.
+  - The `contractId`, which is the contract address.
   - The `{ get_count: {} }` object which represents the name of the method we are calling and the parameters we're passing to it. In this case, there are no arguments passed to `get_count`, but we must still pass an empty object: `{}`.
 
 ---

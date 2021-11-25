@@ -1,4 +1,4 @@
-Now that you have created an account on the **Secret** `holodeck-2` network, and funded it using the faucet - We're going to check the balance of our account to make sure everything went alright.
+Now that you have created an account on the **Secret** `supernova-2` network, and funded it using the faucet - We're going to check the balance of our account to make sure everything went alright.
 
 {% hint style="info" %}
 The native token on the **Secret Network** is **SCRT**
@@ -16,7 +16,7 @@ In `pages/api/secret/balance.ts`, implement the default function. You must repla
 
 ```typescript
   try {
-    const url = await getSafeUrl()
+    const url = getNodeUrl();
     const { address }= req.body
     const client = new CosmWasmClient(url)
 
@@ -38,7 +38,7 @@ In `pages/api/secret/balance.ts`, implement the default function. You must repla
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 {% hint style="danger" %}
-You could experience some issues with the availability of the network. [**Click here to check the current status of `holodeck-2`**](https://secretnodes.com/secret/chains/holodeck-2)
+You could experience some issues with the availability of the network. [**Click here to check the current status of `supernova-2`**](https://secretnodes.com/secret/chains/supernova-2)
 {% endhint %}
 
 ---
@@ -48,7 +48,7 @@ You could experience some issues with the availability of the network. [**Click 
 ```typescript
 // solution
   try {
-    const url = await getSafeUrl()
+    const url = getNodeUrl();
     const { address }= req.body
     const client = new CosmWasmClient(url);
 

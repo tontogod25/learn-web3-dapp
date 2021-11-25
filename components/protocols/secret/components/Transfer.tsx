@@ -1,9 +1,11 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@figment-secret/hooks';
-import {transactionUrl} from '@figment-secret/lib';
 import axios from 'axios';
+
+import {transactionUrl} from '@figment-secret/lib';
+import {getInnerState} from 'utils/context';
+import {useGlobalState} from 'context';
 
 const layout = {
   labelCol: {span: 4},
@@ -17,30 +19,38 @@ const tailLayout = {
 const {Text} = Typography;
 
 const Transfer = () => {
+  const {state, dispatch} = useGlobalState();
+  const {address, mnemonic} = getInnerState(state);
+
   const [error, setError] = useState<string | null>(null);
+  const [hash, setHash] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
-  const [txHash, setTxHash] = useState(null);
-  const {state} = useAppState();
 
-  const transfer = (values: any) => {
-    const isValidAmount = parseFloat(values.amount);
-    if (isNaN(isValidAmount)) {
-      setError('Amount needs to be a valid number');
-      throw Error('Invalid Amount');
-    }
-    const txAmount = values.amount;
-
-    setFetching(true);
-    axios
-      .post(`/api/secret/transfer`, {...state, txAmount})
-      .then((res) => {
-        setTxHash(res.data);
-        setFetching(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setFetching(false);
+  useEffect(() => {
+    if (hash) {
+      dispatch({
+        type: 'SetIsCompleted',
       });
+    }
+  }, [hash, setHash]);
+
+  const transfer = async (values: any) => {
+    setFetching(true);
+    const txAmount = values.amount;
+    try {
+      if (isNaN(txAmount)) {
+        throw new Error('invalid amount');
+      }
+      const response = await axios.post(`/api/secret/transfer`, {
+        mnemonic,
+        txAmount,
+      });
+      setHash(response.data);
+    } catch (error) {
+      setError(error.data.message);
+    } finally {
+      setFetching(false);
+    }
   };
 
   return (
@@ -51,32 +61,26 @@ const Transfer = () => {
         layout="horizontal"
         onFinish={transfer}
         initialValues={{
-          from: state.address,
-          amount: 1,
-          to: state.address,
+          from: address,
         }}
       >
         <Form.Item label="Sender" name="from" required>
-          <Text code>{state.address}</Text>
+          <Text code>{address}</Text>
         </Form.Item>
 
         <Form.Item
           label="Amount"
           name="amount"
           required
-          tooltip="1 SCRT = 10**6 uSCRT"
+          tooltip="1 SCRT = 1,000,000 uSCRT"
         >
           <Space direction="vertical">
-            <Input
-              suffix="uSCRT"
-              style={{width: '200px'}}
-              placeholder={'enter amount in uSCRT'}
-            />
+            <Input suffix="uSCRT" style={{width: '200px'}} />
           </Space>
         </Form.Item>
 
         <Form.Item label="Recipient" name="to" required>
-          <Text code>{state.address}</Text>
+          <Text code>{address}</Text>
         </Form.Item>
 
         <Form.Item {...tailLayout}>
@@ -96,7 +100,7 @@ const Transfer = () => {
           </Form.Item>
         )}
 
-        {txHash && (
+        {hash && (
           <Form.Item {...tailLayout}>
             <Alert
               style={{maxWidth: '350px'}}
@@ -104,11 +108,7 @@ const Transfer = () => {
               showIcon
               message={<Text strong>Transfer confirmed!</Text>}
               description={
-                <a
-                  href={transactionUrl(txHash ?? '')}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
                   View on Secret Explorer
                 </a>
               }
@@ -123,7 +123,7 @@ const Transfer = () => {
               showIcon
               closable
               message={error}
-              onClose={() => setError('')}
+              onClose={() => setError(null)}
             />
           </Form.Item>
         )}

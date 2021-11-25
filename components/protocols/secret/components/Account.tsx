@@ -1,40 +1,49 @@
 import {useEffect, useState} from 'react';
 import {Alert, Button, Col, Space, Typography} from 'antd';
-import {useAppState} from '@figment-secret/hooks';
 import axios from 'axios';
-import {mnemonic} from 'avalanche/dist/utils';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
+import {useGlobalState} from 'context';
 
 const {Text} = Typography;
 
 const Account = () => {
+  const {dispatch} = useGlobalState();
+
   const [fetching, setFetching] = useState<boolean>(false);
   const [address, setAddress] = useState<string | null>(null);
-  const {state, dispatch} = useAppState();
+  const [mnemonic, setMnemonic] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (state?.address) {
-      setAddress(state.address);
+    if (address && mnemonic) {
+      dispatch({
+        type: 'SetInnerState',
+        values: [
+          {
+            [PROTOCOL_INNER_STATES_ID.ADDRESS]: address,
+          },
+          {
+            [PROTOCOL_INNER_STATES_ID.MNEMONIC]: mnemonic,
+          },
+        ],
+        isCompleted: true,
+      });
     }
-  }, []);
+  }, [address, mnemonic]);
 
   const generateKeypair = async () => {
+    setFetching(true);
+    setError(null);
+    setAddress(null);
+    setMnemonic(null);
     try {
-      setFetching(true);
       const response = await axios.get(`/api/secret/account`);
-      const mnemonic = response.data.mnemonic;
-      const address = response.data.address;
-      setAddress(address);
-      dispatch({
-        type: 'SetMnemonic',
-        mnemonic: mnemonic,
-      });
-      dispatch({
-        type: 'SetAddress',
-        address: address,
-      });
+      setAddress(response.data.address);
+      setMnemonic(response.data.mnemonic);
       setFetching(false);
     } catch (error) {
-      console.error(error);
+      setError(error.message);
+    } finally {
       setFetching(false);
     }
   };
@@ -49,7 +58,7 @@ const Account = () => {
       >
         Generate a mnemonic
       </Button>
-      {address && (
+      {mnemonic && address ? (
         <Col>
           <Space direction="vertical">
             <Alert
@@ -86,7 +95,7 @@ const Account = () => {
             <Alert
               message={
                 <a
-                  href={`https://faucet.secrettestnet.io/`}
+                  href={`https://faucet.supernova.enigma.co/`}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -98,6 +107,10 @@ const Account = () => {
             />
           </Space>
         </Col>
+      ) : error ? (
+        <Alert message={error} type="error" showIcon />
+      ) : (
+        <Alert message="Please Generate a Keypair" type="error" showIcon />
       )}
     </Col>
   );

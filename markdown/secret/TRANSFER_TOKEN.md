@@ -3,7 +3,7 @@ Of course, everyone likes to eat pizza, but among all available pizzas you prefe
 To do so, you'll need to make an encrypted transaction - in the **Secret** world everything is done with privacy in mind! Let's take a look at how to do this.
 
 {% hint style="danger" %}
-You could experience some issues with the availability of the network [**Click here to check the current status**](https://secretnodes.com/secret/chains/holodeck-2)
+You could experience some issues with the availability of the network [**Click here to check the current status**](https://secretnodes.com/secret/chains/supernova-2)
 {% endhint %}
 
 ---
@@ -56,7 +56,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 ```tsx
 // solution
 //...
-// 1. Initialize a secure Secret client
+// 2. Initialize a secure Secret client
 const client = new SigningCosmWasmClient(
   url,
   address,
@@ -65,7 +65,7 @@ const client = new SigningCosmWasmClient(
   fees,
 );
 
-// 2. Send tokens
+// 3. Send tokens
 const memo = 'sendTokens example'; // optional memo
 const sent = await client.sendTokens(
   address,

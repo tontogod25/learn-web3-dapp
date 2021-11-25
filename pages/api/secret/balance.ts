@@ -1,13 +1,13 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getSafeUrl} from 'components/protocols/secret/lib';
+import {getNodeUrl} from '@figment-secret/lib';
 import {CosmWasmClient} from 'secretjs';
 
 export default async function connect(
   req: NextApiRequest,
-  res: NextApiResponse<string>,
+  res: NextApiResponse<string | string>,
 ) {
   try {
-    const url = await getSafeUrl();
+    const url = getNodeUrl();
     const {address} = req.body;
     const client = new CosmWasmClient(url);
 

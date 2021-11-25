@@ -148,11 +148,7 @@ export const isLastStep = (state: GlobalStateT): boolean => {
 export const isCompletedStep = (state: GlobalStateT): boolean => {
   const chainId = getChainId(state);
   const currentStepId = getStepId(state);
-  console.log(
-    chainId,
-    currentStepId,
-    state.protocols[chainId].steps[currentStepId].isCompleted,
-  );
+
   return (
     isOneColumnStep(state) ||
     isSkippableStep(state) ||

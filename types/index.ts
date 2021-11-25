@@ -94,7 +94,7 @@ export enum CELO_NETWORKS {
 
 export enum SECRET_NETWORKS {
   MAINNET = 'MAINNET',
-  TESTNET = 'HOLODECK-2',
+  TESTNET = 'SUPERNOVA-2',
   DATAHUB = 'datahub',
 }
 
