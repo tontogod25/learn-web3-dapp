@@ -1,11 +1,11 @@
-Last but certainly not least, we'll need to modify the data stored into **greeter**. Doing so will change the state of the blockchain, so we'll have to create a transaction. In the challenge below we're going to show you how to achieve this.
+Last but certainly not least, we'll need to modify the data stored into **greeter**. Doing so will change the state of the blockchain, so we'll have to create a transaction. In the challenge below, we're going to show you how to achieve this.
 
 ---
 
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-In `pages/api/solana/setter.ts`, complete `setter`. First you'll have to create an instruction, then you'll have to send and confirm a transaction to store the data from. You must replace the instances of `undefined` with working code to accomplish this.
+In `pages/api/solana/setter.ts`, complete the `setter` function. First you'll have to create an instruction, then you'll have to send and confirm a transaction to store the data from. You must replace the instances of `undefined` with working code to accomplish this.
 {% endhint %}
 
 **Take a few minutes to figure this out**
@@ -28,10 +28,6 @@ res.status(200).json(undefined);
 
 - [Read about TransactionInstruction](https://solana-labs.github.io/solana-web3.js/classes/TransactionInstruction.html)
 - [Read about sendAndConfirmTransaction](https://solana-labs.github.io/solana-web3.js/modules.html#sendAndConfirmTransaction)
-
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
@@ -61,29 +57,19 @@ res.status(200).json(hash);
 **What happened in the code above?**
 
 - First, we create a `new` instance of the `TransactionInstruction` class:
-  - With the greeter's keys, setting the **isWritable** flag to `true`
-  - With the `programId` or address of the program we want to call: `programKey` ()
+  - With the greeter's public key, setting the **isWritable** flag to `true`
+  - With the `programId` or address of the program we want to call: `programKey`.
   - With the data we want to pass to the call. In this case, there is only one kind of instruction we can send and `Buffer.alloc(0)` is like referring to the zero-index of an array. If there were multiple instructions, we would alter this value.
-- Then we send and await the transaction confirmation;
-  - `[payerKeypair]` being the account created during [second tutorial](https://learn.figment.io/tutorials/create-solana-keypair).
+- Then we send and await the transaction confirmation. `[payerKeypair]` is the account created during second tutorial, "Create an account".
 
 ---
 
 # ✅ Make sure it works
 
-Once you have the code above saved, click on **Send A Greeting** and watch the magic happen:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/solana/solana-setter.gif)
+Once the code in `pages/api/solana/setter.ts` is complete, click on **Send Greeting** to perform the transaction and increment the stored number of greetings by 1.
 
 ---
 
 # 🏁 Conclusion
 
-Congratulations on completing the Solana Pathway! We hope you had a fun time and learned a lot. Here are a few things you can check out when you are ready to go further:
-
-- [Keep exploring the Solana JS API](https://solana-labs.github.io/solana-web3.js/modules.html#sendAndConfirmTransaction)
-- [Solana's Hello World dApp](https://github.com/solana-labs/example-helloworld)
-- [Read some programs written by Solana devs](https://github.com/solana-labs/solana-program-library/tree/master/examples)
-- [Look at the Solana's Token Swap program](https://github.com/solana-labs/solana-program-library/tree/master/token-swap)
-
-If you had any difficulties following this tutorial or simply want to discuss Solana with other developers you can join [our Discord](https://discord.gg/fszyM7K) or head over to our [community forums](https://community.figment.io).
+From connecting to a cluster to deploying and interacting with programs, you've covered all the basics of using Solana! Proceed to the final step for a quick recap and some links to additional learning resources.

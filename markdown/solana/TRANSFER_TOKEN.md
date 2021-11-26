@@ -13,18 +13,17 @@ In `pages/api/solana/transfer.ts` finish implementing the `transfer()` function.
 **Take a few minutes to figure this out.**
 
 ```typescript
-//..
-//... let's snip the beginning as it should be familiar for you by now!
+//.. let's snip the beginning as it should be familiar for you by now!
 // Find the parameter to pass
 const instructions = SystemProgram.transfer;
 
-// How could you construct a signer array's
+// How could you construct a signer array?
 const signers = undefined;
 
-// Maybe adding someting to a Transaction could be interesting ?
+// Maybe adding someting to a Transaction could be interesting?
 const transaction = new Transaction();
 
-// We can send and confirm a transaction in one row.
+// We can send and confirm a transaction in one line of code.
 const hash = undefined;
 //..
 ```
@@ -35,10 +34,6 @@ const hash = undefined;
 - [Read about adding instructions to `Transaction`](https://solana-labs.github.io/solana-web3.js/classes/Transaction.html#add)
 - [Anatomy of a `Transaction`](https://docs.solana.com/developing/programming-model/transactions)
 
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
-
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
@@ -47,7 +42,6 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ```typescript
 // solution
-//..
 //... let's snip the beginning as it should be familiar for you by now!
 const instructions = SystemProgram.transfer({
   fromPubkey,
@@ -72,10 +66,10 @@ res.status(200).json(hash);
 
 **What happened in the code above:**
 
-- We create `instructions` for the transaction: From who, to who and what amount.
+- We create `instructions` for the transfer, supplying a **sender** a **receiver** and an **amount**.
 - We also need a `signers` array with only one signer: the account sending the transaction. It contains both the signers `publicKey` & `secretKey`.
   - The `secretKey` is used to sign the transaction.
-- Create a `Transaction` object and `add()` the instructions to it.
+- Create a new `Transaction` object and add the `instructions` to it.
 - Send and await the confirmation of the signed transaction using `sendAndConfirmTransaction`.
 - Finally, we return the transaction hash to the client-side as JSON.
 
@@ -83,11 +77,7 @@ res.status(200).json(hash);
 
 # ✅ Make sure it works
 
-Once you've filled in the form with a value, click **Submit Transfer**:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/solana/solana-transfer.gif)
-
-**About the explorer**, it's very good practice to look over all the fields one by one to familiarize yourself with the structure of a transaction. This page features the transaction result (`SUCCESS`), status (`FINALIZED`), the amount sent, the `from` and `to` addresses, the block that included this transaction, the fee that was paid, etc.
+Once the code in `pages/api/solana/transfer.ts` is complete, you can enter an amount to transfer in the form field, click to generate a random address to send the transfer to and then click **Submit Transfer**. Remember that 1 SOL is equal to 1,000,000,000 lamports.
 
 ---
 
@@ -95,9 +85,9 @@ Once you've filled in the form with a value, click **Submit Transfer**:
 
 When viewing Account details on the Solana Explorer:
 
-1. The Account Overview panel displays information about the account including its address, balance, and information about whether or not there is a Program deployed at that address.
-
 ![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/solana/solana-transfer.png)
+
+1. The Account Overview panel displays information about the account, including its address, balance, and if there is a Program deployed at that address.
 
 2. The History tab displays the Transaction history for the selected account, which is a list of previous transactions that account has been involved in.
 

@@ -42,21 +42,19 @@ const secret = JSON.stringify(Array.from(keypair.secretKey));
 
 - We used the `Keypair` from `@solana/web3.js` to `generate()` a keypair.
 - Parse the keypair object to extract the public key (as a string) using `keypair?.publicKey.toString()`.
-- The secret key is kept in array format, so to send it back to the client-side we need to remember to use `JSON.stringify`.
-- There's the nullish coalescing operator and optional chaining operator `?.` again! We don't want to return undefined values to the client-side.
+  - Using the nullish coalescing operator and optional chaining operator `?.` because we don't want to return undefined values to the client-side.
+- The secret key is kept in array format, so `Array.from` will be useful. To send it back to the client-side in a usable format, we need to remember to use `JSON.stringify`.
 
 ---
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route. Now click on **Generate a Keypair** and you should see:
+Once the code in `pages/api/solana/keypair.ts` is complete and the file is saved, Next.js will rebuild the API route. Now click on **Generate Keypair** to get a keypair and display the public key.
 
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/solana/solana-keypair.gif)
-
-**Click on "Generate a Keypair" again. And again. And again!** Each time it will generate a new one with virtually no risk that someone else creates the same one as you. That's because the domain of possible addresses is so vast that the probability of two identical addresses being generated is ridiculously small.
+**Click on "Generate Keypair" again. And again. And again!** Each time, it will generate a new one with virtually no risk that someone else creates the same one as you. That's because the domain of possible addresses is so vast that the probability of two identical addresses being generated is ridiculously small.
 
 ---
 
 # 🏁 Conclusion
 
-Now that we have an account, we can fund it so we can start playing around with tokens!
+Now that we have an account, we can fund it with an **airdrop** and start playing around with tokens!
