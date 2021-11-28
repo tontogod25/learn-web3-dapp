@@ -87,8 +87,8 @@ export enum AVALANCHE_NETWORKS {
 }
 
 export enum CELO_NETWORKS {
-  MAINNET = 'MAINNET',
-  ALFAJORES = 'alfajores',
+  TESTNET = 'Alfajores',
+  DATAHUB = 'Datahub',
 }
 
 export enum SECRET_NETWORKS {

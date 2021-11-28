@@ -4,7 +4,7 @@ import {LoadingOutlined} from '@ant-design/icons';
 import axios from 'axios';
 
 import {transactionUrl} from '@figment-secret/lib';
-import {getInnerState} from 'utils/context';
+import {getInnerState, getChainLabel} from 'utils/context';
 import {useGlobalState} from 'context';
 
 const layout = {
@@ -18,10 +18,11 @@ const tailLayout = {
 
 const {Text} = Typography;
 
-const CHAIN_LABEL = 'Secret';
+const RECIPIENT = 'secret1v4n4du5w02degaalj682p03pjkthf4cund49hc';
 
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();
+  const chainLabel = getChainLabel(state);
   const {address, mnemonic} = getInnerState(state);
 
   const [error, setError] = useState<string | null>(null);
@@ -48,6 +49,7 @@ const Transfer = () => {
       const response = await axios.post(`/api/secret/transfer`, {
         mnemonic,
         txAmount,
+        recipient: RECIPIENT,
       });
       setHash(response.data);
     } catch (error) {
@@ -113,7 +115,7 @@ const Transfer = () => {
               message={<Text strong>Transfer confirmed!</Text>}
               description={
                 <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
-                  View on {CHAIN_LABEL} Explorer
+                  View on {chainLabel} Explorer
                 </a>
               }
             />
