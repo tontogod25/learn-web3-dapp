@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 
 import {ApiPromise, WsProvider} from '@polkadot/api';
-import {getSafeUrl} from '@figment-polkadot/lib';
+import {getNodeUrl} from '@figment-polkadot/lib';
 
 export default async function transfer(
   req: NextApiRequest,
@@ -9,9 +9,8 @@ export default async function transfer(
 ) {
   let provider;
   try {
-    const {mnemonic, txAmount} = req.body;
-
-    const url = getSafeUrl();
+    const {mnemonic, txAmount, network} = req.body;
+    const url = getNodeUrl(network);
     provider = new WsProvider(url);
     const api = await ApiPromise.create({provider: provider});
 

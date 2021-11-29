@@ -13,8 +13,8 @@ In `pages/api/polkadot/balance.ts`, implement the function and try to query the 
 ```typescript
 //...
   try {
-    const { address } = req.body;
-    const url = getSafeUrl();
+    const {address, network} = req.body;
+    const url = getNodeUrl(network);
     provider = new WsProvider(url);
     const api = await ApiPromise.create({ provider: provider });
     const { data: balance } = undefined;
@@ -39,9 +39,9 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { address } = req.body;
-    const url = getSafeUrl();
-    const provider = new WsProvider(url);
+    const {address, network} = req.body;
+    const url = getNodeUrl(network);
+    provider = new WsProvider(url);
     const api = await ApiPromise.create({ provider: provider });
     const { data: balance } = await api.query.system.account(address);
     const amount = balance.free.toNumber();

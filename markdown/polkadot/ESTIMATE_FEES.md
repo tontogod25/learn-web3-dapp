@@ -15,9 +15,8 @@ In `pages/api/polkadot/estimate.ts`, implement the function and try to estimate 
 ```typescript
 //...
   try {
-    const { address } = req.body;
-
-    const url = getSafeUrl();
+    const {address, network} = req.body;
+    const url = getNodeUrl(network);
     provider = new WsProvider(url);
     const api = await ApiPromise.create({ provider: provider });
 
@@ -50,10 +49,9 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { address } = req.body;
-
-    const url = getSafeUrl();
-    const provider = new WsProvider(url);
+    const {address, network} = req.body;
+    const url = getNodeUrl(network);
+    provider = new WsProvider(url);
     const api = await ApiPromise.create({ provider: provider });
 
     // A generic address for recipient (//Alice) and an amount to send

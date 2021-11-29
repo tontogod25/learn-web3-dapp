@@ -100,42 +100,34 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
         title: 'Connect to Celo',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CREATE_ACCOUNT,
         title: 'Create an account',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GET_BALANCE,
         title: 'Get the balance',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.TRANSFER_TOKEN,
         title: 'Transfer some tokens',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.SWAP_TOKEN,
         title: 'Swap cUSD to CELO',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.DEPLOY_CONTRACT,
         title: 'Deploy a smart contract',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE,
         title: 'Get the storage of a smart contract',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
         title: 'Set the storage of a smart contract',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.FINAL,
@@ -207,7 +199,7 @@ export const CHAINS_CONFIG: ChainsType = {
     active: true,
     logoUrl: 'https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=010',
     protocol: POLYGON_PROTOCOLS.WS,
-    network: POLKADOT_NETWORKS.WESTEND,
+    network: POLKADOT_NETWORKS.TESTNET,
     steps: [
       {
         id: PROTOCOL_STEPS_ID.PREFACE,
@@ -222,37 +214,30 @@ export const CHAINS_CONFIG: ChainsType = {
       {
         id: PROTOCOL_STEPS_ID.CHAIN_CONNECTION,
         title: 'Connect to Polkadot',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.CREATE_ACCOUNT,
         title: 'Create an account',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.RESTORE_ACCOUNT,
         title: 'Restore an account',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.ESTIMATE_FEES,
         title: 'Estimate transaction fees',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.GET_BALANCE,
         title: 'Get the balance',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.ESTIMATE_DEPOSIT,
         title: 'Existential deposit',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.TRANSFER_TOKEN,
         title: 'Transfer some tokens',
-        skippable: true,
       },
       {
         id: PROTOCOL_STEPS_ID.FINAL,

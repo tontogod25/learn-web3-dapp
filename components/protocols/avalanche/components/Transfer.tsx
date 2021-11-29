@@ -76,12 +76,7 @@ const Transfer = () => {
           <Text code>{address}</Text>
         </Form.Item>
 
-        <Form.Item
-          label="Amount"
-          name="amount"
-          required
-          tooltip="1 AVAX = 1,000,000,000 nAVAX"
-        >
+        <Form.Item label="Amount" name="amount" required>
           <Space direction="vertical">
             <Input
               suffix="nAVAX"
