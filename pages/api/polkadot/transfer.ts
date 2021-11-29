@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 
-import {ApiPromise, WsProvider} from '@polkadot/api';
+import {ApiPromise, WsProvider, Keyring} from '@polkadot/api';
 import {getNodeUrl} from '@figment-polkadot/lib';
 
 export default async function transfer(
