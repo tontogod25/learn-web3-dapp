@@ -32,10 +32,6 @@ In `pages/api/near/check-account.ts`, implement the default function. You must r
 - [An explanation of `NEAR Accounts`](https://docs.near.org/docs/concepts/account)
 - [RPC `view_account`](https://docs.near.org/docs/develop/front-end/rpc#view-account)
 
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
-
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
@@ -117,13 +113,7 @@ try {
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route:
-
-- Choose an account Id.
-- Click on **Check it!**
-  You should see:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/near/near-account.gif)
+Once the code in `pages/api/near/check-account.ts` is complete, Next.js will rebuild the API route. Choose an account ID and enter it into the textinput, then click on **Check it!** to see if it is available.
 
 ---
 

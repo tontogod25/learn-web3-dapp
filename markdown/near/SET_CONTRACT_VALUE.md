@@ -9,7 +9,7 @@ If you want to learn more about NEAR smart contracts, you can follow the tutoria
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-In`pages/api/near/setter.ts`, implement the default function. You must replace any instances of `undefined` with working code to accomplish this.
+In `pages/api/near/setter.ts`, implement the default function. You must replace any instances of `undefined` with working code to accomplish this.
 {% endhint %}
 
 **Take a few minutes to figure this out.**
@@ -76,16 +76,10 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once you have the code above saved, click the button and watch the magic happen:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/near/near-setter.gif)
+Once the code in `pages/api/near/setter.ts` is complete, enter a value into the textinput then click the **Set greeting** button to send the new value to the smart contract.
 
 ---
 
 # 🏁 Conclusion
 
 Congratulations! You have successfully created, deployed, and interacted with a smart contract on the NEAR Testnet using DataHub.
-
-While we have only covered a very small area of contract development, you are more than welcome to continue exploration and experiments on your own! Feel free to check out the [**NEAR Developer site**](https://examples.near.org/) for more examples and tutorials.
-
-If you had any difficulties following this tutorial or simply want to discuss NEAR with other developers you can join [our Discord](https://discord.gg/fszyM7K) or head over to our [community forums](https://community.figment.io).
