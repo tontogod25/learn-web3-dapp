@@ -59,9 +59,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-When you have completed the code, click on **Restore Account**
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polkadot/polkadot-restore.gif)
+When the code in `pages/api/polkadot/restore.ts` is complete, click on **Restore Account** to restore your Polkadot address from the mnemonic.
 
 ---
 

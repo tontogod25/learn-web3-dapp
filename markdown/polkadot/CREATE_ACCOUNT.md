@@ -99,9 +99,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route. Now click on **Generate a Keypair** and you should see:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polkadot/polkadot-account.gif)
+Once the code in `pages/api/polkadot/account.ts` is complete, Next.js will rebuild the API route. Now click on **Generate a Keypair** to make a Polkadot account. Remember to fund the the account by visiting the faucet and sending the message `!drip <your address>`.
 
 ---
 

@@ -1,4 +1,4 @@
-In this tutorial, we will learn how to query an account balance on Polkadot. Account balances are important to keep track of so that users know if they can afford to send a transaction, or to afford what is called the **existential deposit**, which will be explained in the next tutorial.
+In this tutorial, we will learn how to query an account balance on Polkadot. Account balances are important to keep track of so that users know if they can afford to send a transaction, or to afford the **existential deposit**.
 
 ---
 
@@ -61,9 +61,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route. Click on **Check Balance** and you should see the balance displayed on the page:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polkadot/polkadot-balance.gif)
+Once the code in `pages/api/polkadot/balance.ts` is complete, Next.js will rebuild the API route. Click on **Check Balance** and you should see the balance displayed on the page.
 
 ---
 
