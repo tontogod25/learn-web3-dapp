@@ -52,16 +52,14 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 **What happened in the code above?**
 
-- We created a `connection` instance of the `Connection` class using the `new` constructor
-- We then call `getVersion` on that `connection` instance. The docs state that `connection.getVersion` returns a Promise so we need to handle this with either `.then`, or in a more compact manner with the nullish coalescing operator and optional chaining operator: `?.` In this way, `version?.["solana-core"]` will provide a safe value other than `undefined` when getting `version`!
+- We created a `connection` instance of the `Connection` class using the `new` constructor.
+- We then call `getVersion` on that `connection` instance. The docs state that `connection.getVersion` returns a Promise, so remember to use the `await` syntax.
 
 ---
 
 # ✅ Make sure it works
 
-Once the code above is saved, refresh the page to see it update & display the current version of the Solana software!
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/solana/solana-connect.gif)
+Once you've made the necessary changes to `pages/api/solana/connect.ts` and saved the file, click on the blue 'power icon' button on the right side of the screen to connect & display the current version of the Solana node!
 
 ---
 

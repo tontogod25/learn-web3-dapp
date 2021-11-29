@@ -77,19 +77,19 @@ res.status(200).json(greeting.counter);
 
 **What happened in the code above?**
 
-- First, we pass the **Schema** and the **Account**'s key (here key refers to the key of a map struct, **not** a public or private key), and then the binary data stored into **greeter**.
+- The `deserialize()` function takes a schema, a class type and a buffer as input.
+- The **Schema** and the **Account**'s key (here key refers to the key of a map struct, **not** a public or private key), and then the binary data stored into **greeter**.
+
 - Finally, we just need to call the property `counter` of `greeting` to pass the value as JSON back to the client-side.
 
 ---
 
 # ✅ Make sure it works
 
-Once you have the code above saved, click on **Get Greeting** and watch the magic happen:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/solana/solana-getter.gif)
+Once the code in `pages/api/solana/getter.ts` is complete, click on **Get Greeting** to get the data stored in the Greeter account and display it on the page.
 
 ---
 
 # 🏁 Conclusion
 
-Simply getting the number of greetings is not enough, we'd like to also _send_ a greeting to our contract. We're going to learn how to do it in the next step. Ready?
+Simply getting the number of greetings is not enough, we'd like to also _send_ a greeting to our program. We're going to learn how to do that in the next step. Ready?

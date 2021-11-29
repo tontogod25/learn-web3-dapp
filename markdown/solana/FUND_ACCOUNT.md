@@ -15,7 +15,7 @@ To fund an account, we will do what is called an **airdrop** - some tokens will 
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-In `pages/api/solana/fund.ts`, implement the `fund` function. Convert the text input to an address and use `requestAirdrop` to get 1 **SOL**. You must replace the instances of `undefined` with working code to accomplish this.
+In `pages/api/solana/fund.ts`, implement the `fund` function. Convert the address passed in the request body to a public key and use `requestAirdrop` to get 1 **SOL**. You must replace the instances of `undefined` with working code to accomplish this.
 {% endhint %}
 
 **Take a few minutes to figure this out.**
@@ -63,22 +63,15 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 **What happened in the code above?**
 
 - We created a `PublicKey` from the string formatted address.
-- We pass this to `requestAirdrop`, together with a constant which represents one `SOL`
-- We can then verify than the transaction is confirmed by passing the transaction hash to the `confirmTransaction` method.
-- Finally, we return the hash of the transaction to the client side in JSON format.
+- We pass this to `requestAirdrop`, together with a constant which represents one `SOL`.
+- We can then verify that the transaction is confirmed by passing the transaction hash to the `confirmTransaction` method.
+- Finally, we return the hash of the transaction to the client-side in JSON format.
 
 ---
 
 # ✅ Make sure it works
 
-Once you have the code above saved:
-
-- Copy and paste the generated address into the text input.
-- Click on **Fund this Address**
-
-Let the magic happen: You're now 1 SOL richer on devnet!
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/solana/solana-fund.gif)
+Once the code in `pages/api/solana/fund.ts` is complete, click on **Fund this address**. The transaction is sent and confirmed - You're now 1 SOL richer on the devnet! There are rate limits in place to prevent abuse of the airdrop function, but for now, 1 SOL is more than enough for testing 😊.
 
 ---
 
@@ -92,11 +85,11 @@ When viewing Transaction details on the Solana Explorer:
 
 2. The Overview panel displays information such as the transaction signature, which block it was included in and what the fee amount for the transaction was.
 
-3. The Account Input(s) panel displays the accounts involved in the transaction, including the change in their SOL balance and details like which account paid the transaction fee, and which was responsible for signing the transaction.
+3. The Account Input(s) panel displays the accounts involved in the transaction, including the change in their SOL balance and details like which account paid the transaction fee, and the account responsible for signing the transaction.
 
-4. The Instruction(s) panel displays which Program instructions were used in the transaction. Most of the time this will be the Transfer instruction.
+4. The Instruction(s) panel displays which Program instructions were used in the transaction. Most of the time, this will be the Transfer instruction.
 
-5. The Program Log contains logging output which pertains to the execution of the Program. Log output can be useful for developers to assist in debugging their programs.
+5. The Program Log contains logging output from the execution of the Program. Log output can be useful for developers to assist in debugging their programs.
 
 More information about the terminology used on the Solana Explorer is available in the [terminology](https://docs.solana.com/terminology) section of the Solana docs.
 
@@ -104,4 +97,4 @@ More information about the terminology used on the Solana Explorer is available 
 
 # 🏁 Conclusion
 
-Before we make our first transfer, let's check that that the account is actually funded by asking the cluster for our balance!
+Before we make our first transfer, let's check that the account is funded by asking the cluster for the balance of our public key!
