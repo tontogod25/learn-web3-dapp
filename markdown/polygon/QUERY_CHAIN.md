@@ -2,7 +2,7 @@
 
 In order to gather information from the blockchain, we will use ethers again. For basic interaction with Polygon, the [provider](https://docs.ethers.io/v5/api/providers/provider/) methods are often most useful.
 
-In the file `components/protocols/polygon/components/steps/Query.tsx` we have already written the `getQuery` function which will send a network request to the node server. [By convention of Next.js routing](https://nextjs.org/docs/api-routes/introduction), a client-side request to `http://localhost:3000/api/polygon/query` will get routed to the file `query.js` in `/pages/api/polygon` and be executed by the default imported function.
+In the file `components/protocols/polygon/components/steps/Query.tsx` we have already written the `getQuery` function which will send a network request to the node server. [By convention of Next.js routing](https://nextjs.org/docs/api-routes/introduction), a client-side request to `http://localhost:3000/api/polygon/query` will get routed to the file `pages/api/polygon/query.js` and be executed by the default imported function.
 
 ---
 
@@ -95,9 +95,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code above is saved, you can click on **Query Polygon** and watch the magic happen.
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polygon/polygon-query.gif)
+Once the code in `pages/api/polygon/query.ts` is complete, click on **Query Polygon** to send a request to the network and display some important information contained in a recent block on the page.
 
 ---
 

@@ -5,7 +5,7 @@ At this point, we have deployed a smart contract on the Polygon testnet & set th
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-In the file `components/protocols/polygon/components/steps/Getter.tsx`, implement the `getValue` function.  
+In the file `components/protocols/polygon/components/Getter.tsx`, implement the `getValue` function.  
 {% endhint %}
 
 **Take a few minutes to figure this out.**
@@ -66,8 +66,8 @@ const getValue = async () => {
 **What happened in the code above?**
 
 - We create `Contract` objects using
-  - The contract json's address
-  - The contract json's abi
+  - The contract JSON's address (Note the bracket notation containing the ChainID of the Mumbai testnet)
+  - The contract JSON's ABI
   - A web3 provider
 - We then call the functions `get()` on this Contract object to operate our decentralized code. The names of the functions must match the ones we defined in our Solidity smart contract, otherwise how would we know which code to execute?
 
@@ -75,9 +75,7 @@ const getValue = async () => {
 
 # ✅ Make sure it works
 
-Once the code above save you can click and this is what the UI should look like!
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polygon/polygon-getter.gif)
+Once the code in `components/protocols/polygon/components/Getter.tsx` is complete, click on the **Get Value** button to fetch the data from the smart contract.
 
 ---
 

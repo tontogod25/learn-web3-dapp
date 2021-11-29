@@ -4,11 +4,7 @@ Click on the icon in the upper-right corner of the page to copy the hexadecimal 
 
 ![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polygon/click_to_copy.png)
 
-Visit [https://faucet.matic.network/](https://faucet.matic.network/) and paste the address from your selected account in Metamask into the textinput. It is OK to leave the default options for **MATIC** tokens and the Mumbai network selected. Click the Submit button, then click again below to confirm the transaction.
-
-{% hint style="warning" %}
-Sometimes the transaction response on the faucet website returns an `[Object object]` - when this happens, simply refresh the page and try again.
-{% endhint %}
+Visit [https://faucet.polygon.technology/](https://faucet.polygon.technology/) and paste the address from your selected account in Metamask into the textinput. It is OK to leave the default options for **MATIC** tokens and the Mumbai network selected. Click the Submit button, then click again on the popup to confirm the transaction.
 
 Once this transaction is confirmed, you will have 1 **MATIC** on the Mumbai testnet!
 
@@ -17,7 +13,7 @@ Once this transaction is confirmed, you will have 1 **MATIC** on the Mumbai test
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-**Imagine this scenario:** You know you have a big balance. You need to show that balance so you can brag about it to all your awesome Web 3 developer friends! In `components/protocols/polygon/components/steps/Balance.tsx`, implement the`checkBalance` function :
+**Imagine this scenario:** You know you have a big balance. You need to show that balance so you can brag about it to all your awesome Web 3 developer friends! In `components/protocols/polygon/components/Balance.tsx`, implement the `checkBalance` function :
 {% endhint %}
 
 **Take a few minutes to figure this out.**
@@ -89,9 +85,7 @@ const checkBalance = async () => {
 
 # ✅ Make sure it works
 
-When you have completed the code, the **Check Balance** button will function. Click it to view the balance of the connected account:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polygon/polygon-balance.gif)
+When you have completed the code in `components/protocols/polygon/components/Balance.tsx`, the **Check Balance** button will function. Click it to view the balance of the connected Polygon account.
 
 ---
 
