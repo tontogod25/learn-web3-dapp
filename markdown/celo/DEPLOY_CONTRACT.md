@@ -84,9 +84,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once you have the code above saved, click on **Deploy Contract**:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/celo/celo-deploy.gif)
+Once the code in `pages/api/celo/deploy.ts` is complete, click on **Deploy Contract** to send the transaction (and the compiled smart contract) to Celo.
 
 ---
 

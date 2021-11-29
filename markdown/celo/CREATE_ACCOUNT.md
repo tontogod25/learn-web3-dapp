@@ -74,9 +74,7 @@ Do not forget to fund the newly created wallet using the [Celo developer faucet]
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route. Now click on **Generate a Keypair** and you should see:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/celo/celo-account.gif)
+Once the code in `pages/api/celo/account.ts` is complete, Next.js will rebuild the API route. Now click on **Generate a Keypair** to create your Celo keypair.
 
 ---
 

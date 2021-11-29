@@ -75,12 +75,10 @@ const hash = await sellReceipt.getHash();
 
 # ✅ Make sure it works
 
-Once you have the code above saved, click on **Swap 1 cUSD**:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/celo/celo-swap.gif)
+Once the in `pages/api/celo/swap.ts` is complete, click on **Swap 1 cUSD**. When the transaction is complete, you will see how many CELO you got for swapping the stabletoken.
 
 {% hint style="info" %}
-Fun fact, if you take the inverse of the returned value you'll find the quotation displayed on [Coinmarketcap](https://coinmarketcap.com/currencies/celo/)
+Fun fact, if you take the inverse of the returned value you'll find the price quotation displayed on [Coinmarketcap](https://coinmarketcap.com/currencies/celo/)
 {% endhint %}
 
 ---
