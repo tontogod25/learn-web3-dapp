@@ -31,7 +31,7 @@ const Connect = () => {
     setError(null);
     setVersion(null);
     try {
-      const response = await axios.post(`/api/secret/connect`, {network});
+      const response = await axios.post(`/api/polkadot/connect`, {network});
       setVersion(response.data);
     } catch (error) {
       setError(error.message);
@@ -66,17 +66,13 @@ const Connect = () => {
             />
           ) : error ? (
             <Alert
-              message={
-                <Space>
-                  <Text code>Error: {error}</Text>
-                </Space>
-              }
+              message={<Text code>Error: {error}</Text>}
               type="error"
               showIcon
             />
           ) : (
             <Alert
-              message={<Space>Not Connected to {chainLabel}</Space>}
+              message={<Text code>Not Connected to {chainLabel}</Text>}
               type="error"
               showIcon
             />
