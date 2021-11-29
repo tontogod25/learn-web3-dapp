@@ -44,7 +44,7 @@ const Deploy = () => {
         network,
       });
       setContract(response.data.address);
-      setHash(response.data.secret);
+      setHash(response.data.hash);
     } catch (error) {
       setError(error.message);
     } finally {

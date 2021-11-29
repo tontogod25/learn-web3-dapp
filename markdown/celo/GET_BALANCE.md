@@ -17,8 +17,8 @@ In `pages/api/celo/balance.ts`, implement the **balance** function. You must rep
 ```typescript
 //...
   try {
-    const { address } = req.body;
-    const url = getSafeUrl();
+    const {address, network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
 
     const goldtoken = undefined;
@@ -29,8 +29,8 @@ In `pages/api/celo/balance.ts`, implement the **balance** function. You must rep
 
 
     res.status(200).json({
-        attoCELO: celoBalance.toString(),
-        attoUSD: cUSDBalance.toString()
+      attoCELO: celoBalance.toString(),
+      attoUSD: cUSDBalance.toString(),
     });
   }
 //...
@@ -52,8 +52,8 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { address } = req.body
-    const url = getSafeUrl();
+    const {address, network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
 
     const goldtoken = await kit.contracts.getGoldToken();

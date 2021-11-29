@@ -4,7 +4,7 @@ import {LoadingOutlined} from '@ant-design/icons';
 import axios from 'axios';
 
 import {transactionUrl} from '@figment-celo/lib';
-import {getInnerState, getChainLabel} from 'utils/context';
+import {getInnerState} from 'utils/context';
 import {useGlobalState} from 'context';
 
 const layout = {
@@ -22,7 +22,6 @@ const RECIPIENT = '0xD86518b29BB52a5DAC5991eACf09481CE4B0710d';
 
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();
-  const chainLabel = getChainLabel(state);
   const {address, secret, network} = getInnerState(state);
 
   const [error, setError] = useState<string | null>(null);
@@ -76,17 +75,12 @@ const Transfer = () => {
           <Text code>{address}</Text>
         </Form.Item>
 
-        <Form.Item
-          label="Amount"
-          name="amount"
-          required
-          tooltip="1 AVAX = 1,000,000,000 nAVAX"
-        >
+        <Form.Item label="Amount" name="amount" required>
           <Space direction="vertical">
             <Input
-              suffix="nAVAX"
+              suffix="aCELO"
               style={{width: '200px'}}
-              placeholder={'enter amount in nAVAX'}
+              placeholder={'1 000'}
             />
           </Space>
         </Form.Item>
@@ -121,7 +115,7 @@ const Transfer = () => {
               message={<Text strong>Transfer confirmed!</Text>}
               description={
                 <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
-                  View on {chainLabel} Explorer
+                  View on transaction Explorer
                 </a>
               }
             />

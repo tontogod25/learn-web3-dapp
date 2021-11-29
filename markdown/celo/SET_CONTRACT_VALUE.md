@@ -17,8 +17,8 @@ In `pages/api/celo/setter.ts`, implement the default function. You must replace 
 ```tsx
 //...
   try {
-    const { secret, newMessage, contract, address } = req.body;
-    const url = getSafeUrl();
+    const {secret, newMessage, contract, address, network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
     kit.addAccount(secret);
 
@@ -51,8 +51,8 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { secret, newMessage, contract, address } = req.body;
-    const url = getSafeUrl();
+    const {secret, newMessage, contract, address, network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
     kit.addAccount(secret);
 

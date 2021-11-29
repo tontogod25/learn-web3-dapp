@@ -15,16 +15,17 @@ In `pages/api/celo/account.ts`, implement the function to first create a **mnemo
 ```typescript
 //...
 try {
-    const url = getSafeUrl();
+    const {network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
     const account = undefined;
     const address = undefined;
     const secret = undefined;
 
     res.status(200).json({
-        address,
-        secret
-    })
+      address,
+      secret,
+    });
 }
 //...
 ```
@@ -43,16 +44,16 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
 try {
-    const url = getSafeUrl();
-    const kit = newKit(url);
+    const {network} = req.body;
+    const url = getNodeUrl(network);
     const account = kit.web3.eth.accounts.create();
     const address = account.address;
     const secret = account.privateKey;
 
     res.status(200).json({
-        address,
-        secret
-    })
+      address,
+      secret,
+    });
 }
 //...
 ```

@@ -9,7 +9,7 @@ const {Text} = Typography;
 
 const Getter = () => {
   const {state, dispatch} = useGlobalState();
-  const {contract, network} = getInnerState(state);
+  const {contractId, network} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,12 +29,12 @@ const Getter = () => {
     setValue(null);
     try {
       const response = await axios.post(`/api/celo/getter`, {
-        contract,
+        contract: contractId,
         network,
       });
       setValue(response.data);
     } catch (error) {
-      setError(error);
+      setError(error.message);
     } finally {
       setFetching(false);
     }

@@ -11,7 +11,7 @@ const {Text} = Typography;
 
 const Setter = () => {
   const {state, dispatch} = useGlobalState();
-  const {secret, contract, address, network} = getInnerState(state);
+  const {secret, contractId, address, network} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [resetting, setResetting] = useState<boolean>(false);
@@ -35,12 +35,12 @@ const Setter = () => {
       setValue(null);
       try {
         const response = await axios.post(`/api/celo/getter`, {
-          contract,
+          contract: contractId,
           network,
         });
         setValue(response.data);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       } finally {
         setFetching(false);
       }
@@ -55,14 +55,14 @@ const Setter = () => {
     try {
       const response = await axios.post(`/api/celo/setter`, {
         secret,
-        contract,
+        contract: contractId,
         address,
         network,
         newMessage,
       });
       setHash(response.data);
     } catch (error) {
-      setError(error);
+      setError(error.message);
     } finally {
       setResetting(false);
     }
@@ -101,7 +101,7 @@ const Setter = () => {
               <LoadingOutlined style={{fontSize: 24}} spin />
             ) : hash ? (
               <Alert
-                message={<Text strong>{`The value has been incremented`}</Text>}
+                message={<Text strong>{`The value has been updated`}</Text>}
                 description={
                   <a
                     href={transactionUrl(hash)}

@@ -4,7 +4,7 @@ import {LoadingOutlined} from '@ant-design/icons';
 import axios from 'axios';
 
 import {transactionUrl} from '@figment-avalanche/lib';
-import {getInnerState, getChainLabel} from 'utils/context';
+import {getInnerState} from 'utils/context';
 import {useGlobalState} from 'context';
 
 const layout = {
@@ -22,7 +22,6 @@ const {Text} = Typography;
 
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();
-  const chainLabel = getChainLabel(state);
   const {address, secret, network} = getInnerState(state);
 
   const [error, setError] = useState<string | null>(null);
@@ -121,7 +120,7 @@ const Transfer = () => {
               message={<Text strong>Transfer confirmed!</Text>}
               description={
                 <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
-                  View on {chainLabel} Explorer
+                  View on transaction Explorer
                 </a>
               }
             />

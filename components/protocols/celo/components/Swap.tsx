@@ -49,7 +49,7 @@ const Swap = () => {
 
   return (
     <Col>
-      <Space direction="vertical">
+      <Space direction="vertical" size="large">
         <Button type="primary" onClick={exchangeUSD} loading={fetching}>
           Swap 1 cUSD
         </Button>
