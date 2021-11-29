@@ -7,7 +7,7 @@ export default async function connect(
   req: NextApiRequest,
   res: NextApiResponse<string>,
 ) {
-  let provider;
+  let provider: any;
   try {
     const {network} = req.body;
     const url = getNodeUrl(network);
