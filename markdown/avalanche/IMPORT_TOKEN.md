@@ -126,18 +126,10 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route. Click on **Import 0.05 AVAX** and you should see the balance displayed on the page:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/avalanche/avalanche-import.gif)
+Once the code in `pages/api/avalanche/import.ts` is complete, Next.js will rebuild the API route. Click on **Import 0.05 AVAX** and you should see the balance displayed on the page.
 
 ---
 
 # 🏁 Conclusion
 
 Congratulations, you've made it this far and successfully completed an AVAX transfer from the X-Chain to the C-Chain. The same approach works in reverse (C-Chain -> X-Chain), or for any other inter-chain transfers (X-Chain -> P-Chain or P-Chain -> C-Chain for example).
-
-The Avalanche team has put together a [good list of examples](https://github.com/ava-labs/avalanchejs/tree/master/examples/avm), be sure to check them out if you need a more advanced look at the AvalancheJS library.
-
-Ready for more? No problem! While the basic Pathway is complete at this point, you are more than welcome to explore other [Avalanche tutorials](https://learn.figment.io/protocols/avalanche).
-
-If you had any difficulties following this tutorial or simply want to discuss Avalanche with other developers you can join [our Discord](https://discord.gg/fszyM7K) or head over to our [community forums](https://community.figment.io).

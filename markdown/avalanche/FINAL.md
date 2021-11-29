@@ -11,6 +11,7 @@ Here's a quick recap of what we covered:
 - 🏗 [Create NFTs with the Avalanche wallet](https://learn.figment.io/tutorials/create-nfts-with-the-avalanche-wallet)
 - 🗣 [Create a chat application on Avalanche](https://learn.figment.io/tutorials/create-a-chat-application-using-solidity-and-react)
 - 🔍 [Explore the Avalanche ecosystem](https://ecosystem.avax.network/marketplace?tag=)
+- 📚 [AvalancheJS examples](https://github.com/ava-labs/avalanchejs/tree/master/examples/avm)
 
 # 🗣 Give us your feedback
 

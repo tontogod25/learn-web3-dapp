@@ -32,10 +32,6 @@ In `pages/api/avalanche/connect.ts`, implement the function and try to establish
 - Use the `Info` method on the client.
 - Use the `getNodeVersion` method on the client info (remember to `await` this call).
 
-{% hint style="info" %}
-You can [**join us on Discord**](https://discord.gg/fszyM7K), if you have questions or want help completing the tutorial.
-{% endhint %}
-
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
 ---
@@ -68,9 +64,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code is complete and the file has been saved, refresh the page to see it update & display the current version.
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/avalanche/avalanche-connect.gif)
+Once the code in `pages/api/avalanche/connect.ts` is complete and the file has been saved, click the blue button to connect to Avalanche and display the current version.
 
 ---
 

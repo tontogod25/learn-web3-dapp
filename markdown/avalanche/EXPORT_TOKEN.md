@@ -114,9 +114,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route. Click on **Export 0.05 AVAX** and you should see the balance displayed on the page:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/avalanche/avalanche-export.gif)
+Once the code in `pages/api/avalanche/export.ts` is complete, Next.js will rebuild the API route. Click on **Export 0.05 AVAX** and you should see the balance displayed on the page.
 
 ---
 
