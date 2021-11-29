@@ -97,15 +97,10 @@ const sent = await client.sendTokens(
 
 # ✅ Make sure it works
 
-Once you have the code above saved:
-
-- Fill in the amount of **SCRT** you want to send to your favorite pizza maker (and as you realize, it was yourself).
-- Click on **Submit Transfer**.
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/secret/secret-transfer.gif)
+Once the code in `pages/api/secret/transfer.ts` is complete, fill in the amount of **SCRT** you want to send to your favorite pizza maker (and as you realize, it was yourself), then click on **Submit Transfer** to send the transaction.
 
 ---
 
 # 🏁 Conclusion
 
-Now that we have funded our account and made a transfer, let's move on to deploying some code (known as a "smart contract") to the **Secret** blockchain! Ready to take the plunge? Let's go...
+Now that we have funded our account and made a transfer, let's move on to deploying some code (known as a "smart contract") to the **Secret** blockchain! Ready to take the plunge? Let's go!
