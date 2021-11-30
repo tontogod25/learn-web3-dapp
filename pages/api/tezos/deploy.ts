@@ -19,16 +19,13 @@ export default async function deploy(
 
     await importKey(tezos, email, password, mnemonic, secret);
 
-    const operation = await tezos.contract.originate({
-      code: CONTRACT_JSON,
-      storage: 0,
-    });
+    const operation = await undefined;
 
-    const contract = await operation.contract();
+    const contract = await undefined;
 
     res.status(200).json({
       contractAddress: contract.address,
-      hash: operation.hash,
+      hash: operation.hash
     });
   } catch (error) {
     let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
