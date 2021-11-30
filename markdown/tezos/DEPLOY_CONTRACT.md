@@ -105,7 +105,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code in `pages/api/tezos/deploy.ts` is complete, click on **Deploy Contract** to send the compiled smart contract to the network.
+Once the code in `pages/api/tezos/deploy.ts` is complete, click on **Deploy the contract** to send the compiled smart contract to the network.
 
 ---
 
