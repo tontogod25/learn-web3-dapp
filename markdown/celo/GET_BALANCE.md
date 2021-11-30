@@ -24,13 +24,16 @@ In `pages/api/celo/balance.ts`, implement the **balance** function. You must rep
     const goldtoken = undefined;
     const celoBalance = undefined;
 
-    const stabletoken = undefined;
+    const stabletokenUSD = undefined;
     const cUSDBalance = undefined;
 
+    const stabletokenEUR = undefined;
+    const cEURBalance = undefined;
 
     res.status(200).json({
       attoCELO: celoBalance.toString(),
       attoUSD: cUSDBalance.toString(),
+      attoEUR: cEURBalance.toString(),
     });
   }
 //...
@@ -59,12 +62,16 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
     const goldtoken = await kit.contracts.getGoldToken();
     const celoBalance = await goldtoken.balanceOf(address);
 
-    const stabletoken = await kit.contracts.getStableToken();
-    const cUSDBalance = await stabletoken.balanceOf(address);
+    const stabletokenUSD = await kit.contracts.getStableToken("cUSD");
+    const cUSDBalance = await stabletokenUSD.balanceOf(address);
+
+    const stabletokenEUR = await kit.contracts.getStableToken("cEUR");
+    const cEURBalance = await stabletokenEUR.balanceOf(address);
 
     res.status(200).json({
-        attoCELO: celoBalance.toString(),
-        attoUSD: cUSDBalance.toString()
+      attoCELO: celoBalance.toString(),
+      attoUSD: cUSDBalance.toString(),
+      attoEUR: cEURBalance.toString(),
     })
   }
 //...

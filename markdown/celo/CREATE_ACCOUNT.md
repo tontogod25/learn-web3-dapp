@@ -46,6 +46,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 try {
     const {network} = req.body;
     const url = getNodeUrl(network);
+    const kit = newKit(url);
     const account = kit.web3.eth.accounts.create();
     const address = account.address;
     const secret = account.privateKey;

@@ -17,6 +17,7 @@ const Balance = () => {
   const [error, setError] = useState<string | null>(null);
   const [balanceCELO, setBalanceCELO] = useState<number | null>(null);
   const [balanceUSD, setBalanceUSD] = useState<number | null>(null);
+  const [balanceEUR, setBalanceEUR] = useState<number | null>(null);
 
   useEffect(() => {
     if (balanceCELO) {
@@ -31,6 +32,7 @@ const Balance = () => {
     setError(null);
     setBalanceCELO(null);
     setBalanceUSD(null);
+    setBalanceEUR(null);
     try {
       const response = await axios.post(`/api/celo/balance`, {
         address,
@@ -44,6 +46,11 @@ const Balance = () => {
       setBalanceUSD(
         parseFloat(
           (parseFloat(response.data.attoUSD) / DECIMAL_OFFSET).toFixed(),
+        ),
+      );
+      setBalanceEUR(
+        parseFloat(
+          (parseFloat(response.data.attoEUR) / DECIMAL_OFFSET).toFixed(),
         ),
       );
     } catch (error) {
@@ -68,7 +75,10 @@ const Balance = () => {
                   {balanceCELO} {TOKEN_SYMBOL}
                 </li>
                 <li>
-                  {balanceUSD} {'USD'}
+                  {balanceUSD} {'cUSD'}
+                </li>
+                <li>
+                  {balanceEUR} {'cEUR'}
                 </li>
               </ul>
             }

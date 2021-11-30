@@ -5,6 +5,7 @@ import {newKit} from '@celo/contractkit';
 type ResponseT = {
   attoCELO: string;
   attoUSD: string;
+  attoEUR: string;
 };
 export default async function balance(
   req: NextApiRequest,
@@ -18,12 +19,16 @@ export default async function balance(
     const goldtoken = undefined;
     const celoBalance = undefined;
 
-    const stabletoken = undefined;
+    const stabletokenUSD = undefined;
     const cUSDBalance = undefined;
+
+    const stabletokenEUR = undefined;
+    const cEURBalance = undefined;
 
     res.status(200).json({
       attoCELO: celoBalance.toString(),
       attoUSD: cUSDBalance.toString(),
+      attoEUR: cEURBalance.toString(),
     });
   } catch (error) {
     let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
