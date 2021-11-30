@@ -1,6 +1,6 @@
+import {useEffect, useState} from 'react';
 import {Alert, Col, Space, Typography, Button} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
-import {useEffect, useState} from 'react';
 import Confetti from 'react-confetti';
 import axios from 'axios';
 
