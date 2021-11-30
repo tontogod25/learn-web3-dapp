@@ -2,7 +2,6 @@ import type {NextApiRequest, NextApiResponse} from 'next';
 import {TezosToolkit} from '@taquito/taquito';
 import {getNodeUrl} from '@figment-tezos/lib';
 import {importKey} from '@taquito/signer';
-import {CONTRACT_JSON} from 'contracts/tezos/counter.js';
 
 export default async function setter(
   req: NextApiRequest,
