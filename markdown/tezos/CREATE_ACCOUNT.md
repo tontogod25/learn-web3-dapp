@@ -33,6 +33,7 @@ In `pages/api/tezos/account.ts`, implement the function and try to activate your
 
     // call the importKey method
     undefined;
+    throw new Error('Please complete the code');
 
     res.status(200).json(true);
   }

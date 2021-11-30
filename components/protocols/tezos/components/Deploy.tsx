@@ -48,7 +48,7 @@ const Deploy = () => {
       setContract(response.data.contractAddress);
       setHash(response.data.hash);
     } catch (error) {
-      setError(error.message);
+      setError(error.response.data);
     } finally {
       setFetching(false);
     }

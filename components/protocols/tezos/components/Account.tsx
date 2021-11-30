@@ -70,7 +70,7 @@ const Account = () => {
       setActivated(response.data);
       setFetching(true);
     } catch (error) {
-      setError(error.message);
+      setError(error.response.data);
     } finally {
       setFetching(false);
     }

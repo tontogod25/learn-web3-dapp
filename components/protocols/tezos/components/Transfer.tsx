@@ -44,7 +44,7 @@ const Transfer = () => {
     const txAmount = parseFloat(values.amount);
     try {
       if (isNaN(txAmount)) {
-        throw new Error('invalid amount');
+        throw new Error('Invalid amount: Please enter a number!');
       }
       const response = await axios.post(`/api/tezos/transfer`, {
         network,
@@ -57,7 +57,8 @@ const Transfer = () => {
       });
       setHash(response.data);
     } catch (error) {
-      setError(error.message);
+      const errorMessage = error.response ? error.response.data : error.message;
+      setError(errorMessage);
     } finally {
       setFetching(false);
     }
