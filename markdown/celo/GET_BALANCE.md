@@ -1,7 +1,7 @@
 Now that we have our account created, wouldn’t it be nice to keep track of our cUSD and CELO balances? In this step, we will examine how we can do just that!
 
 {% hint style="info" %}
-The Celo blockchain has two native assets, **CELO** (CELO) and the **Celo Dollar** (cUSD). Both of these assets implement the `ERC20` token standard from Ethereum. The CELO asset is managed by the CELO smart contract and Celo Dollars is managed by the cUSD contract.
+The Celo blockchain has three native assets, **CELO** (CELO), the **Celo Dollar** (cUSD) and the **Celo Euro** (cEUR). These assets implement the `ERC20` token standard from Ethereum. The CELO asset is managed by the CELO smart contract and Celo Dollar or Celo Euro are managed by the cUSD or cEUR contracts.
 {% endhint %}
 
 ---
@@ -67,7 +67,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
     const stabletokenEUR = await kit.contracts.getStableToken("cEUR");
     const cEURBalance = await stabletokenEUR.balanceOf(address);
-
+    
     res.status(200).json({
       attoCELO: celoBalance.toString(),
       attoUSD: cUSDBalance.toString(),
@@ -81,7 +81,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 - First, we create a new `kit` instance.
 - Next, we call the `getGoldToken` method of the `contracts` module to access CELO contract, then providing the input address to the `balanceOf` method, returning the balance of **CELO** token.
-- Next, we call the `getStableToken` method of the `contracts` module to access the cUSD contract, then providing the input address to the `balanceOf` method, returning the balance of **cUSD** token.
+- Next, we call the `getStableToken` method of the `contracts` module to access the cUSD and cEUR contracts, then provide the input address to the `balanceOf` method, returning the balance of **cUSD** and **cEUR** tokens.
 
 {% hint style="tip" %}
 The amount returned by these calls is denominated in **aCELO** and **acUSD**, which stands for "attoCELO" and "attocUSD" - representing [eighteen decimal places](https://en.wikipedia.org/wiki/Atto-). So to convert it to **CELO** and **cUSD** you'll need to divide it by 10\*\*18 💪
@@ -91,9 +91,7 @@ The amount returned by these calls is denominated in **aCELO** and **acUSD**, wh
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route. Click on **Check Balance** and you should see the balance displayed on the page:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/celo/celo-balance.gif)
+Once the code in `pages/api/celo/balance.ts` is complete, Next.js will rebuild the API route. Click on **Check Balance** and you should see the balances displayed on the page.
 
 ---
 

@@ -85,16 +85,10 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once you have the code above saved, click the button and watch the magic happen:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/celo/celo-setter.gif)
+Once the code in `pages/api/celo/setter.ts` is complete, enter a value into the textinput and click the button to set the value stored in the smart contract.
 
 ---
 
 # Conclusion
 
-Congratulations! You've completed the Celo Pathway. In this series of tutorials, we learned quite a lot! We connected to Celo; created and funded an account on the Alfajores testnet; transferred and swapped tokens; then deployed a smart contract with few lines of JavaScript code and called two methods on that smart contract.
-
-We have only covered a very small portion of smart contract development, however there are many existing Solidity resources. We invite you to keep experimenting on your own, and we will be providing more advanced Celo tutorials shortly to help you bring your knowledge and skills to the next level.
-
-If you had any difficulties following this tutorial or simply want to discuss Celo with other developers you can join [our Discord](https://discord.gg/fszyM7K) or head over to our [community forums](https://community.figment.io).
+You've learned how to deploy and interact with Solidity smart contracts deployed on the Celo blockchain.
