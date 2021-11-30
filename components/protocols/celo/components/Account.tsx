@@ -1,23 +1,26 @@
 import {useEffect, useState} from 'react';
 import {Alert, Button, Col, Space, Typography} from 'antd';
 import axios from 'axios';
+
 import {PROTOCOL_INNER_STATES_ID} from 'types';
 import {useGlobalState} from 'context';
+import {getInnerState} from 'utils/context';
 
 const {Text} = Typography;
 
-const FAUCET_URL = 'https://faucet.supernova.enigma.co/';
+const FAUCET_URL = 'https://celo.org/developers/faucet';
 
 const Account = () => {
-  const {dispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
+  const {network} = getInnerState(state);
 
-  const [fetching, setFetching] = useState<boolean>(false);
   const [address, setAddress] = useState<string | null>(null);
-  const [mnemonic, setMnemonic] = useState<string | null>(null);
+  const [secret, setSecret] = useState<string | null>(null);
+  const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (address && mnemonic) {
+    if (address && secret) {
       dispatch({
         type: 'SetInnerState',
         values: [
@@ -25,23 +28,23 @@ const Account = () => {
             [PROTOCOL_INNER_STATES_ID.ADDRESS]: address,
           },
           {
-            [PROTOCOL_INNER_STATES_ID.MNEMONIC]: mnemonic,
+            [PROTOCOL_INNER_STATES_ID.SECRET]: secret,
           },
         ],
         isCompleted: true,
       });
     }
-  }, [address, mnemonic]);
+  }, [address, secret]);
 
   const generateKeypair = async () => {
-    setFetching(true);
-    setError(null);
-    setAddress(null);
-    setMnemonic(null);
     try {
-      const response = await axios.get(`/api/secret/account`);
+      setFetching(true);
+      setAddress(null);
+      setSecret(null);
+      setError(null);
+      const response = await axios.post(`/api/celo/account`, {network});
       setAddress(response.data.address);
-      setMnemonic(response.data.mnemonic);
+      setSecret(response.data.secret);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -60,7 +63,7 @@ const Account = () => {
         >
           Generate a Keypair
         </Button>
-        {address && mnemonic ? (
+        {address && secret ? (
           <>
             <Alert
               message={

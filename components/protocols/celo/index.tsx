@@ -1,29 +1,23 @@
-import {useEffect, useReducer} from 'react';
-import * as Steps from '@figment-celo/components/steps';
-import {
-  appStateReducer,
-  initialState,
-  CeloContext,
-} from '@figment-celo/context';
-import {useLocalStorage} from '@figment-celo/hooks';
+import ProtocolNav from 'components/shared/ProtocolNav/ProtocolNav';
+import {getInnerState, getStepId} from 'utils/context';
 import {PROTOCOL_STEPS_ID} from 'types';
-import Nav from './components/nav';
-import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
+import {useGlobalState} from 'context';
+
+import * as Steps from '@figment-celo/components';
+import {accountExplorer} from '@figment-celo/lib';
 
 const Celo: React.FC = () => {
-  const {state: global_state} = useGlobalState();
-  const stepId = getCurrentStepIdForCurrentChain(global_state);
-
-  const [storageState, setStorageState] = useLocalStorage('celo', initialState);
-  const [state, dispatch] = useReducer(appStateReducer, storageState);
-
-  useEffect(() => {
-    setStorageState(state);
-  }, [state]);
+  const {state} = useGlobalState();
+  const {address, network} = getInnerState(state);
+  const stepId = getStepId(state);
 
   return (
-    <CeloContext.Provider value={{state, dispatch}}>
-      <Nav />
+    <>
+      <ProtocolNav
+        address={address}
+        network={network}
+        accountExplorer={accountExplorer(network)}
+      />
       {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Steps.Connect />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Steps.Account />}
@@ -33,7 +27,7 @@ const Celo: React.FC = () => {
       {stepId === PROTOCOL_STEPS_ID.DEPLOY_CONTRACT && <Steps.Deploy />}
       {stepId === PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE && <Steps.Getter />}
       {stepId === PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE && <Steps.Setter />}
-    </CeloContext.Provider>
+    </>
   );
 };
 

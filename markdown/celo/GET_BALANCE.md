@@ -17,20 +17,23 @@ In `pages/api/celo/balance.ts`, implement the **balance** function. You must rep
 ```typescript
 //...
   try {
-    const { address } = req.body;
-    const url = getSafeUrl();
+    const {address, network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
 
     const goldtoken = undefined;
     const celoBalance = undefined;
 
-    const stabletoken = undefined;
+    const stabletokenUSD = undefined;
     const cUSDBalance = undefined;
 
+    const stabletokenEUR = undefined;
+    const cEURBalance = undefined;
 
     res.status(200).json({
-        attoCELO: celoBalance.toString(),
-        attoUSD: cUSDBalance.toString()
+      attoCELO: celoBalance.toString(),
+      attoUSD: cUSDBalance.toString(),
+      attoEUR: cEURBalance.toString(),
     });
   }
 //...
@@ -52,19 +55,23 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { address } = req.body
-    const url = getSafeUrl();
+    const {address, network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
 
     const goldtoken = await kit.contracts.getGoldToken();
     const celoBalance = await goldtoken.balanceOf(address);
 
-    const stabletoken = await kit.contracts.getStableToken();
-    const cUSDBalance = await stabletoken.balanceOf(address);
+    const stabletokenUSD = await kit.contracts.getStableToken("cUSD");
+    const cUSDBalance = await stabletokenUSD.balanceOf(address);
+
+    const stabletokenEUR = await kit.contracts.getStableToken("cEUR");
+    const cEURBalance = await stabletokenEUR.balanceOf(address);
 
     res.status(200).json({
-        attoCELO: celoBalance.toString(),
-        attoUSD: cUSDBalance.toString()
+      attoCELO: celoBalance.toString(),
+      attoUSD: cUSDBalance.toString(),
+      attoEUR: cEURBalance.toString(),
     })
   }
 //...

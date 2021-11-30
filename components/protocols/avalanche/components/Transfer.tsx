@@ -17,7 +17,6 @@ const tailLayout = {
 };
 
 const RECIPIENT = 'X-fuji1j2zasjlkkvptegp6dpm222q6sn02k0rp9fj92d';
-const CHAIN_LABEL = 'Avalanche';
 
 const {Text} = Typography;
 
@@ -116,7 +115,7 @@ const Transfer = () => {
               message={<Text strong>Transfer confirmed!</Text>}
               description={
                 <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
-                  View on {CHAIN_LABEL} Explorer
+                  View on transaction Explorer
                 </a>
               }
             />

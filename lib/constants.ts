@@ -85,7 +85,7 @@ export const CHAINS_CONFIG: ChainsType = {
     active: true,
     logoUrl: 'https://cryptologos.cc/logos/celo-celo-logo.svg?v=010',
     protocol: CELO_PROTOCOLS.RPC,
-    network: CELO_NETWORKS.ALFAJORES,
+    network: CELO_NETWORKS.TESTNET,
     steps: [
       {
         id: PROTOCOL_STEPS_ID.PREFACE,

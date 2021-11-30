@@ -14,8 +14,8 @@ In `pages/api/celo/transfer.ts`, implement the **transfer** function. You must r
 ```tsx
 //..
   try {
-    const { secret, amount, recipient, address } = req.body;
-    const url = getSafeUrl();
+    const {secret, amount, recipient, address, network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
 
     // Restore account using your secret
@@ -47,8 +47,8 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { secret, amount, recipient, address } = req.body;
-    const url = getSafeUrl();
+    const {secret, amount, recipient, address, network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
 
     kit.addAccount(secret);
@@ -60,7 +60,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
     const celoReceipt = await celotx.waitReceipt();
 
     res.status(200).json(celoReceipt.transactionHash);
-    }
+  }
 //..
 ```
 
