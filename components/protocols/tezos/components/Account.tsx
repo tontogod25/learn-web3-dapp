@@ -63,11 +63,11 @@ const Account = () => {
     setActivated(false);
     setError(null);
     try {
-      await axios.post(`/api/tezos/account`, {
+      const response = await axios.post(`/api/tezos/account`, {
         ...walletInfo,
         network,
       });
-      setActivated(true);
+      setActivated(response.data);
       setFetching(true);
     } catch (error) {
       setError(error.message);

@@ -34,7 +34,7 @@ In `pages/api/tezos/account.ts`, implement the function and try to activate your
     // call the importKey method
     undefined;
 
-    res.status(200).json('Activation of the account ok');
+    res.status(200).json(true);
   }
 //...
 ```
@@ -73,7 +73,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
       secret
     )
 
-    res.status(200).json('Activation of the account ok');
+    res.status(200).json(true);
   }
 //...
 ```

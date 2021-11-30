@@ -5,17 +5,25 @@ import {getNodeUrl} from '@figment-tezos/lib';
 
 export default async function account(
   req: NextApiRequest,
-  res: NextApiResponse<string>,
+  res: NextApiResponse<boolean | string>,
 ) {
   try {
-    const {mnemonic, email, password, secret, network} = req.body;
+    const {
+      mnemonic: mnemonic0,
+      email,
+      password,
+      activation_code: secret,
+      network,
+    } = req.body;
+    const mnemonic = mnemonic0.join(' ');
+
     const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     // call the importKey method
     undefined;
 
-    res.status(200).json('Activation of the account ok');
+    res.status(200).json(true);
   } catch (error) {
     let errorMessage = error instanceof Error ? error.message : 'Unknown Error';
     res.status(500).json(errorMessage);
