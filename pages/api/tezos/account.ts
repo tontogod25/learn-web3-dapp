@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {TezosToolkit} from '@taquito/taquito';
 import {importKey} from '@taquito/signer';
@@ -22,6 +23,7 @@ export default async function account(
 
     // call the importKey method
     undefined;
+    throw new Error('Please complete the code');
 
     res.status(200).json(true);
   } catch (error) {
