@@ -7,7 +7,7 @@ import {getInnerState} from 'utils/context';
 const {Text} = Typography;
 
 const DECIMAL_OFFSET = 10 ** 12;
-const TOKEN_SYMBOL = 'DOT';
+const TOKEN_SYMBOL = 'WND';
 
 const Balance = () => {
   const {state, dispatch} = useGlobalState();

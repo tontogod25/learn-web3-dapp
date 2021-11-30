@@ -44,7 +44,7 @@ const Estimate = () => {
     <Col>
       <Space direction="vertical" size="large">
         <Button type="primary" onClick={getFees} loading={fetching}>
-          Get Estimate fees
+          Estimate fees
         </Button>
         {fees ? (
           <Alert
