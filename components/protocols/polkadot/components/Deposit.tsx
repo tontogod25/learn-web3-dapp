@@ -1,36 +1,37 @@
-import {Col, Button, Alert, Space} from 'antd';
-import {transactionUrl} from '@figment-avalanche/lib';
+import {Alert, Col, Button, Space, Typography} from 'antd';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+
 import {useGlobalState} from 'context';
 import {getInnerState} from 'utils/context';
 
-const Export = () => {
+const {Text} = Typography;
+
+const Deposit = () => {
   const {state, dispatch} = useGlobalState();
-  const {secret, network} = getInnerState(state);
+  const {network} = getInnerState(state);
 
   const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
-  const [hash, setHash] = useState(null);
+  const [deposit, setDeposit] = useState<number | null>(null);
 
   useEffect(() => {
-    if (hash) {
+    if (deposit) {
       dispatch({
         type: 'SetIsCompleted',
       });
     }
-  }, [hash, setHash]);
+  }, [deposit, setDeposit]);
 
-  const exportToken = async () => {
+  const getDeposit = async () => {
     setFetching(true);
     setError(null);
-    setHash(null);
+    setDeposit(null);
     try {
-      const response = await axios.post(`/api/avalanche/export`, {
-        secret,
+      const response = await axios.post(`/api/polkadot/deposit`, {
         network,
       });
-      setHash(response.data);
+      setDeposit(response.data);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -40,20 +41,15 @@ const Export = () => {
 
   return (
     <Col>
-      <Space direction="vertical">
-        <Button type="primary" onClick={exportToken} loading={fetching}>
-          Export 0.05 AVAX
+      <Space direction="vertical" size="large">
+        <Button type="primary" onClick={getDeposit} loading={fetching}>
+          Get Existential Deposit
         </Button>
-        {hash ? (
+        {deposit ? (
           <Alert
-            style={{maxWidth: '550px'}}
+            message={<Text strong>{`Existential deposit: ${deposit}`}</Text>}
             type="success"
             showIcon
-            message={
-              <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
-                View transaction on block Explorer
-              </a>
-            }
           />
         ) : error ? (
           <Alert message={error} type="error" showIcon />
@@ -65,4 +61,4 @@ const Export = () => {
   );
 };
 
-export default Export;
+export default Deposit;

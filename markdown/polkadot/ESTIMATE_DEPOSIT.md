@@ -15,7 +15,8 @@ In `pages/api/polkadot/deposit.ts`, implement the function and try to determine 
 ```typescript
 //...
   try {
-    const url = getSafeUrl();
+    const {network} = req.body;
+    const url = getNodeUrl(network);
     provider = new WsProvider(url);
     const api = await ApiPromise.create({ provider: provider });
     const deposit = undefined;
@@ -40,8 +41,9 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const url = getSafeUrl();
-    const provider = new WsProvider(url);
+    const {network} = req.body;
+    const url = getNodeUrl(network);
+    provider = new WsProvider(url);
     const api = await ApiPromise.create({ provider: provider });
     const deposit = api.consts.balances.existentialDeposit.toNumber();
     res.status(200).json(deposit);

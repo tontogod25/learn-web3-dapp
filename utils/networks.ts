@@ -80,7 +80,7 @@ export const networksMap = (
       return POLKADOT_NETWORKS.DATAHUB;
     }
     if (network === NETWORK.TESTNET) {
-      return POLKADOT_NETWORKS.WESTEND;
+      return POLKADOT_NETWORKS.TESTNET;
     }
   }
 

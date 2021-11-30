@@ -15,7 +15,8 @@ In `pages/api/polkadot/connect.ts`, implement the function and try to establish 
 ```typescript
 //...
   try {
-    const url = getSafeUrl();
+    const {network} = req.body;
+    const url = getNodeUrl(network);
     const provider = new WsProvider(url);
     const api = undefined;
     const rawVersion = undefined;
@@ -41,7 +42,8 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const url = getSafeUrl();
+    const {network} = req.body;
+    const url = getNodeUrl(network);
     const provider = new WsProvider(url);
     const api = await ApiPromise.create({ provider: provider });
     const rawVersion = await api.rpc.system.version();

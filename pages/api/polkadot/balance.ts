@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 
 import {ApiPromise, WsProvider} from '@polkadot/api';
-import {getSafeUrl} from '@figment-polkadot/lib';
+import {getNodeUrl} from '@figment-polkadot/lib';
 
 export default async function balance(
   req: NextApiRequest,
@@ -9,8 +9,8 @@ export default async function balance(
 ) {
   let provider;
   try {
-    const {address} = req.body;
-    const url = getSafeUrl();
+    const {address, network} = req.body;
+    const url = getNodeUrl(network);
     provider = new WsProvider(url);
     const api = await ApiPromise.create({provider: provider});
     const {data: balance} = undefined;

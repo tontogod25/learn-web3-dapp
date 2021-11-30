@@ -1,8 +1,11 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@figment-polkadot/hooks';
 import axios from 'axios';
+
+import {transactionUrl} from '@figment-polkadot/lib';
+import {getInnerState} from 'utils/context';
+import {useGlobalState} from 'context';
 
 const layout = {
   labelCol: {span: 4},
@@ -17,35 +20,44 @@ const {Text} = Typography;
 
 const RECIPIENT_ADDR = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY';
 
-const transactionUrl = (hash: string) =>
-  `https://westend.subscan.io/extrinsic/${hash}`;
-
 const Transfer = () => {
+  const {state, dispatch} = useGlobalState();
+  const {address, mnemonic, network} = getInnerState(state);
+
   const [error, setError] = useState<string | null>(null);
+  const [hash, setHash] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
-  const [hash, setHash] = useState(null);
-  const {state} = useAppState();
 
-  const transfer = (values: any) => {
-    const isValidAmount = parseFloat(values.amount);
-    if (isNaN(isValidAmount)) {
-      setError('Amount needs to be a valid number');
-      throw Error('Invalid Amount');
-    }
-    const txAmount = values.amount;
-
-    setFetching(true);
-    axios
-      .post(`/api/polkadot/transfer`, {...state, txAmount})
-      .then((res) => {
-        const hash = res.data;
-        setHash(hash);
-        setFetching(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setFetching(false);
+  useEffect(() => {
+    if (hash) {
+      dispatch({
+        type: 'SetIsCompleted',
       });
+    }
+  }, [hash, setHash]);
+
+  const transfer = async (values: any) => {
+    setFetching(true);
+    setError(null);
+    setHash(null);
+    const txAmount = parseFloat(values.amount);
+    try {
+      if (isNaN(txAmount)) {
+        throw new Error('invalid amount');
+      }
+      const response = await axios.post(`/api/polkadot/transfer`, {
+        mnemonic,
+        address,
+        network,
+        txAmount,
+        recipient: RECIPIENT_ADDR,
+      });
+      setHash(response.data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setFetching(false);
+    }
   };
 
   return (
@@ -56,26 +68,19 @@ const Transfer = () => {
         layout="horizontal"
         onFinish={transfer}
         initialValues={{
-          from: state.address,
-          amount: 1,
-          to: RECIPIENT_ADDR,
+          from: address,
         }}
       >
         <Form.Item label="Sender" name="from" required>
-          <Text code>{state.address}</Text>
+          <Text code>{address}</Text>
         </Form.Item>
 
-        <Form.Item
-          label="Amount"
-          name="amount"
-          required
-          tooltip="1 WND = 10**12 Planck"
-        >
+        <Form.Item label="Amount" name="amount" required>
           <Space direction="vertical">
             <Input
-              suffix="Planck"
+              suffix="planck"
               style={{width: '200px'}}
-              placeholder={'enter amount in Planck'}
+              placeholder={'enter amount in planck'}
             />
           </Space>
         </Form.Item>
@@ -104,17 +109,13 @@ const Transfer = () => {
         {hash && (
           <Form.Item {...tailLayout}>
             <Alert
-              style={{maxWidth: '365px'}}
+              style={{maxWidth: '350px'}}
               type="success"
               showIcon
               message={<Text strong>Transfer confirmed!</Text>}
               description={
-                <a
-                  href={transactionUrl(hash ?? '')}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View on Polkadot Explorer
+                <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
+                  View on Block Explorer
                 </a>
               }
             />
@@ -123,13 +124,7 @@ const Transfer = () => {
 
         {error && (
           <Form.Item {...tailLayout}>
-            <Alert
-              type="error"
-              showIcon
-              closable
-              message={error}
-              onClose={() => setError('')}
-            />
+            <Alert type="error" showIcon message={error} />
           </Form.Item>
         )}
       </Form>
