@@ -104,7 +104,7 @@ export enum NEAR_NETWORKS {
 }
 
 export enum TEZOS_NETWORKS {
-  TESTNET = 'FlorenceNet',
+  TESTNET = 'Hangzhounet',
   DATAHUB = 'Datahub',
 }
 
