@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Alert, Button, Col, Space, Typography, Input} from 'antd';
 import axios from 'axios';
 
@@ -23,16 +23,15 @@ const FAUCET_URL = 'https://teztnets.xyz/hangzhounet-faucet';
 
 const Account = () => {
   const {state, dispatch} = useGlobalState();
-  const {mnemonic, email, password, secret, network, address} =
-    getInnerState(state);
+  const {network, address} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [activated, setActivated] = useState<boolean>(false);
   const [wallet, setWallet] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const feedStorage = () => {
-    try {
+  useEffect(() => {
+    if (activated) {
       const walletInfo: WalletT = JSON.parse(wallet as string);
       dispatch({
         type: 'SetInnerState',
@@ -55,21 +54,17 @@ const Account = () => {
         ],
         isCompleted: true,
       });
-    } catch (error) {
-      setError('Incorrect JSON format');
     }
-  };
+  }, [activated, setActivated]);
 
   const createAccount = async () => {
+    const walletInfo: WalletT = JSON.parse(wallet as string);
     setFetching(true);
     setActivated(false);
     setError(null);
     try {
       await axios.post(`/api/tezos/account`, {
-        mnemonic,
-        email,
-        password,
-        secret,
+        ...walletInfo,
         network,
       });
       setActivated(true);
@@ -80,59 +75,6 @@ const Account = () => {
       setFetching(false);
     }
   };
-
-  if (mnemonic) {
-    return (
-      <Col style={{minHeight: '350px'}}>
-        <Space direction="vertical" size="large">
-          <Alert
-            message={
-              <Space>
-                <Text strong>Wallet parsed</Text>
-              </Space>
-            }
-            type="success"
-            showIcon
-          />
-          <Button
-            type="primary"
-            onClick={createAccount}
-            style={{marginBottom: '20px'}}
-            loading={fetching}
-            disabled={activated}
-          >
-            Activate Account
-          </Button>
-          {activated ? (
-            <Alert
-              message={
-                <Space>
-                  <Text strong>Account activated</Text>
-                </Space>
-              }
-              type="success"
-              showIcon
-              description={
-                <Text strong>
-                  <a
-                    href={accountExplorer(network)(address)}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View the account on Tezos Explorer
-                  </a>
-                </Text>
-              }
-            />
-          ) : error ? (
-            <Alert message={error} type="error" showIcon />
-          ) : (
-            <Alert message="Please Complete the code." type="error" showIcon />
-          )}
-        </Space>
-      </Col>
-    );
-  }
 
   return (
     <Col style={{minHeight: '350px'}}>
@@ -158,14 +100,42 @@ const Account = () => {
         <TextArea
           rows={5}
           onChange={(event) => setWallet(event.target.value)}
+          disabled={activated}
         />
         <Button
           type="primary"
-          onClick={feedStorage}
+          onClick={createAccount}
           style={{marginBottom: '20px'}}
+          loading={fetching}
         >
-          Feed the storage
+          Create Account
         </Button>
+        {activated ? (
+          <Alert
+            message={
+              <Space>
+                <Text strong>Account created</Text>
+              </Space>
+            }
+            type="success"
+            showIcon
+            description={
+              <Text strong>
+                <a
+                  href={accountExplorer(network)(address)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View the account on Tezos Explorer
+                </a>
+              </Text>
+            }
+          />
+        ) : error ? (
+          <Alert message={error} type="error" showIcon />
+        ) : (
+          <Alert message="Please Complete the code." type="error" showIcon />
+        )}
       </Space>
     </Col>
   );

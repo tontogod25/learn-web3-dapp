@@ -19,7 +19,15 @@ In `pages/api/tezos/account.ts`, implement the function and try to activate your
 ```typescript
 //...
   try {
-    const {mnemonic, email, password, secret, network} = req.body;
+    const {
+      mnemonic: mnemonic0,
+      email,
+      password,
+      activation_code: secret,
+      network,
+    } = req.body;
+    const mnemonic = mnemonic0.join(' ');
+
     const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
@@ -45,8 +53,15 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 ```typescript
 // solution
 //...
-  try {
-    const {mnemonic, email, password, secret, network} = req.body;
+    const {
+      mnemonic: mnemonic0,
+      email,
+      password,
+      activation_code: secret,
+      network,
+    } = req.body;
+    const mnemonic = mnemonic0.join(' ');
+
     const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
