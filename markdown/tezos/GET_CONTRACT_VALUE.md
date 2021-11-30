@@ -21,19 +21,12 @@ In `pages/api/tezos/getter.ts`, implement the function and try to read the value
     const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
-    await importKey(
-      tezos,
-      email,
-      password,
-      mnemonic,
-      secret
-    );
+    await importKey(tezos, email, password, mnemonic, secret);
 
     // Use the contract module to get the storage
     const counter = undefined;
 
-    // @ts-ignore
-    res.status(200).json(counter.toString());
+    res.status(200).json(counter);
   }
 //...
 ```
@@ -56,18 +49,11 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
     const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
-    await importKey(
-      tezos,
-      email,
-      password,
-      mnemonic,
-      secret
-    );
+    await importKey(tezos, email, password, mnemonic, secret);
 
     const counter = await tezos.contract.getStorage(contract);
 
-    // @ts-ignore
-    res.status(200).json(counter.toString());
+    res.status(200).json(counter);
   }
 //...
 ```

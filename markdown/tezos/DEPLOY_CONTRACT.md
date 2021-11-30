@@ -32,13 +32,7 @@ In `pages/api/tezos/deploy.ts`, implement the function and try to deploy the com
     const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
-    await importKey(
-      tezos,
-      email,
-      password,
-      mnemonic,
-      secret
-    )
+    await importKey(tezos, email, password, mnemonic, secret);
 
     const operation = await undefined;
 
@@ -75,13 +69,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
     const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
-    await importKey(
-        tezos,
-        email,
-        password,
-        mnemonic,
-        secret
-      )
+    await importKey(tezos, email, password, mnemonic, secret);
 
     const operation = await tezos.contract.originate({
         code: CONTRACT_JSON,
