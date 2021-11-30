@@ -104,9 +104,8 @@ export enum NEAR_NETWORKS {
 }
 
 export enum TEZOS_NETWORKS {
-  MAINNET = 'MAINNET',
-  TESTNET = 'TESTNET',
-  DATAHUB = 'datahub',
+  TESTNET = 'FlorenceNet',
+  DATAHUB = 'Datahub',
 }
 
 export enum POLKADOT_NETWORKS {
