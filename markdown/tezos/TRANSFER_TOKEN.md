@@ -57,7 +57,8 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
     const operation = await tezos.contract.transfer({
       to: recipient,
-      amount: amount
+      amount: amount,
+      mutez: true
     });
 
     await operation.confirmation(1);
@@ -74,6 +75,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 - Next, we create an transaction using the method `transfer` of the `contract` module, passing:
   - The recipient address.
   - The amount in **μꜩ** (**mutez**).
+  - An optional boolean flag, **mutez**, to set the base unit of the transferred amount.
 - Then, we wait for the confirmation of the transaction.
 - Finally, we send the `operation.hash` back to the client-side as JSON.
 
