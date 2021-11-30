@@ -69,18 +69,10 @@ const response = await client.execute(contractId, handleMsg);
 
 # ✅ Make sure it works
 
-Once you have the code above saved, click the button and watch the magic happen:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/secret/secret-setter.gif)
+Once the code in `pages/api/secret/setter.ts` is complete, click on **Increment the value** to call the `increment` function of the smart contract and increase the stored value by 1.
 
 ---
 
 # 🏁 Conclusion
 
-Congratulations, you have completed the Secret Pathway! You have successfully deployed and interacted with a smart contract on the Secret Network testnet using DataHub.
-
-While we have only covered a very small area of contract development you are more than welcome to continue exploration and experiments on your own, feel free to check out the [**Secret Network Developers**](https://scrt.network/developers) site for more examples and tutorials.
-
-If you had any difficulties following this tutorial or simply want to discuss Secret Network and DataHub tech with us you can join [**our community**](https://discord.gg/fszyM7K) today!
-
-If you had any difficulties following this tutorial or simply want to discuss Secret with other developers you can join [our Discord](https://discord.gg/fszyM7K) or head over to our [community forums](https://community.figment.io). We also invite you to join the Secret community on their [Discord server](http://chat.scrt.network) and on the [Secret Forum](http://forum.scrt.network) to go deeper into Secret development.
+Nice work, you have successfully deployed and interacted with a smart contract on the Secret Network testnet using DataHub.
