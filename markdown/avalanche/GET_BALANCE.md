@@ -56,9 +56,7 @@ The amount returned by is denominated in **nAVAX**, so to convert it to **AVAX**
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route. Click on **Check Balance** and you should see the balance displayed on the page:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/avalanche/avalanche-balance.gif)
+Once the code in `pages/api/avalanche/balance.ts` is complete, Next.js will rebuild the API route. Click on **Check Balance**, then you should see the balance displayed on the page.
 
 ---
 

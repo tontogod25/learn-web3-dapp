@@ -117,12 +117,7 @@ Remember, the **AVAX** asset is using a 9-digit denomination and **AVAX** is the
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route.
-
-- Fill in the amount of **nAVAX** you want to send.
-- Click on **Submit Transfer**.
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/avalanche/avalanche-transfer.gif)
+Once the code in `pages/api/avalanche/transfer.ts` is complete, Next.js will rebuild the API route. Now fill in the amount of **nAVAX** you want to send and then click on **Submit Transfer** to send the transaction to Avalanche.
 
 ---
 
