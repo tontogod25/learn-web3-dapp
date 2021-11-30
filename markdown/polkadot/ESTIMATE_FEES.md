@@ -79,9 +79,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code is complete and the file has been saved, click on **Estimate Fees**.
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polkadot/polkadot-estimate.gif)
+Once the code in `pages/api/polkadot/estimate.ts` is complete, click on **Estimate Fees** to get the estimated fees to perform a token transfer.
 
 ---
 
