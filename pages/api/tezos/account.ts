@@ -1,15 +1,15 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {TezosToolkit} from '@taquito/taquito';
 import {importKey} from '@taquito/signer';
-import {getTezosUrl} from '@figment-tezos/lib';
+import {getNodeUrl} from '@figment-tezos/lib';
 
 export default async function account(
   req: NextApiRequest,
   res: NextApiResponse<string>,
 ) {
   try {
-    const {mnemonic, email, password, secret} = req.body;
-    const url = getTezosUrl();
+    const {mnemonic, email, password, secret, network} = req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     // call the importKey method

@@ -17,8 +17,8 @@ In `pages/api/tezos/getter.ts`, implement the function and try to read the value
 ```typescript
 //...
   try {
-    const { mnemonic, email, password, secret, contract } = req.body;
-    const url = getTezosUrl();
+    const {network, mnemonic, email, password, secret, contract} = req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     await importKey(
@@ -52,8 +52,8 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { mnemonic, email, password, secret, contract } = req.body;
-    const url = getTezosUrl();
+    const {network, mnemonic, email, password, secret, contract} = req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     await importKey(

@@ -16,9 +16,9 @@ const tailLayout = {
   wrapperCol: {offset: 4, span: 20},
 };
 
-const RECIPIENT = 'X-fuji1j2zasjlkkvptegp6dpm222q6sn02k0rp9fj92d';
-
 const {Text} = Typography;
+
+const RECIPIENT = 'X-fuji1j2zasjlkkvptegp6dpm222q6sn02k0rp9fj92d';
 
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();

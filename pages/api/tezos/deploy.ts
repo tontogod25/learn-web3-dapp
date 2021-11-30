@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {TezosToolkit} from '@taquito/taquito';
-import {getTezosUrl} from '@figment-tezos/lib';
+import {getNodeUrl} from '@figment-tezos/lib';
 import {importKey} from '@taquito/signer';
 import {CONTRACT_JSON} from 'contracts/tezos/counter.js';
 
@@ -13,8 +13,8 @@ export default async function deploy(
   res: NextApiResponse<ResponseT | string>,
 ) {
   try {
-    const {mnemonic, email, password, secret, amount} = req.body;
-    const url = getTezosUrl();
+    const {mnemonic, email, password, secret, network} = req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     await importKey(tezos, email, password, mnemonic, secret);

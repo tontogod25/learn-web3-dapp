@@ -28,8 +28,8 @@ In `pages/api/tezos/deploy.ts`, implement the function and try to deploy the com
 ```typescript
 //...
   try {
-    const { mnemonic, email, password, secret, amount } = req.body
-    const url = getTezosUrl();
+    const {mnemonic, email, password, secret, network} = req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     await importKey(
@@ -71,8 +71,8 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { mnemonic, email, password, secret, amount } = req.body
-    const url = getTezosUrl();
+    const {mnemonic, email, password, secret, network} = req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     await importKey(

@@ -19,8 +19,8 @@ In `pages/api/tezos/account.ts`, implement the function and try to activate your
 ```typescript
 //...
   try {
-    const { mnemonic, email, password, secret } = req.body;
-    const url = getTezosUrl();
+    const {mnemonic, email, password, secret, network} = req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     // call the importKey method
@@ -46,8 +46,8 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { mnemonic, email, password, secret } = req.body
-    const url = getTezosUrl();
+    const {mnemonic, email, password, secret, network} = req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     await importKey(

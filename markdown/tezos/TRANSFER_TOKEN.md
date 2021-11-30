@@ -15,7 +15,9 @@ In `pages/api/tezos/transfer.ts`, implement the function and try to make your fi
 ```typescript
 //...
   try {
-    const { mnemonic, email, password, secret, amount, recipient } = req.body
+    const {network, mnemonic, email, password, secret, amount, recipient} =
+      req.body;
+    const url = getNodeUrl(network);
     const url = getTezosUrl();
     const tezos = new TezosToolkit(url);
 
@@ -46,8 +48,9 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { mnemonic, email, password, secret, amount, recipient } = req.body;
-    const url = getTezosUrl();
+    const {network, mnemonic, email, password, secret, amount, recipient} =
+      req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     await importKey(
