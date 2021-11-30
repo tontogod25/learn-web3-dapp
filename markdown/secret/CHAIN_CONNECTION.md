@@ -57,9 +57,7 @@ try {
 
 # ✅ Make sure it works
 
-Once the code is complete and the file has been saved, refresh the page to see it update & display the current version.
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/secret/secret-connect.gif)
+Once the code in `pages/api/secret/connect.ts` is complete, click on the blue button to connect to Secret & display the current version.
 
 ---
 

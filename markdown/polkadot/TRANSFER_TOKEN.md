@@ -1,4 +1,4 @@
-It’s time to submit your first transaction on Polkadot! In this tutorial, we will connect to a Westend node hosted by DataHub to transfer some testnet tokens. As you remember from previous tutorials, we funded our account on the **WESTEND** testnet with 1 **WND**. Now let’s try to transfer some tokens.
+It’s time to submit your first transaction on Polkadot! In this tutorial, we will connect to a Westend node hosted by DataHub to transfer some testnet tokens. As you remember from previous tutorials, we funded our account on the **Westend** testnet with 1 **WND**. Now let's try to transfer some tokens.
 
 ---
 
@@ -73,19 +73,10 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route.
-
-- Fill in the amount of **Planck** you want to send.
-- Click on **Submit Transfer**.
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polkadot/polkadot-transfer.gif)
+Once the code in `pages/api/polkadot/transfer.ts` is complete, Next.js will rebuild the API route. Fill in the amount of **Planck** you want to send, then click on **Submit Transfer**.
 
 ---
 
 # 🏁 Conclusion
 
-Congratulations! You have now completed the Polkadot Pathway!
-
 There are many things that are beyond the scope of this Pathway, but the links provided to expand on some of the concepts contained in the tutorials should at least provide ample starting points for further study. Consider refining and playing with the code from the Pathway, to see what can be built out of these foundational blocks of Polkadot.
-
-If you had any difficulties following this tutorial or simply want to discuss Polkadot with other developers you can join [our Discord](https://discord.gg/fszyM7K) or head over to our [community forums](https://community.figment.io).

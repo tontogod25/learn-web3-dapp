@@ -1,15 +1,16 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 
 import {ApiPromise, WsProvider} from '@polkadot/api';
-import {getSafeUrl} from '@figment-polkadot/lib';
+import {getNodeUrl} from '@figment-polkadot/lib';
 
 export default async function connect(
-  _req: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse<string>,
 ) {
-  let provider;
+  let provider: any;
   try {
-    const url = getSafeUrl();
+    const {network} = req.body;
+    const url = getNodeUrl(network);
     provider = new WsProvider(url);
     const api = undefined;
     const rawVersion = undefined;

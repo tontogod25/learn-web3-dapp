@@ -63,12 +63,10 @@ Do not forget to fund the newly created wallet using the [secret faucet](https:/
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route. Now click on **Generate a Mnemonic** and you should see:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/secret/secret-account.gif)
+Once the code in `pages/api/secret/account.ts` is complete, Next.js will rebuild the API route. Click on **Generate a Mnemonic** to create a random seed and generate the mnemonic seed phrase.
 
 ---
 
 # 🏁 Conclusion
 
-Before we make our first transfer, let's check that that the account is actually funded by asking the cluster for our balance!
+Before we make our first transfer, let's check that the account is actually funded by querying the network for our balance!

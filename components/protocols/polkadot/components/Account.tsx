@@ -1,19 +1,20 @@
-import {useEffect, useState} from 'react';
 import {Alert, Button, Col, Space, Typography} from 'antd';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
+
 import {PROTOCOL_INNER_STATES_ID} from 'types';
 import {useGlobalState} from 'context';
 
 const {Text} = Typography;
 
-const FAUCET_URL = 'https://faucet.supernova.enigma.co/';
+const FAUCET_URL = `https://app.element.io/#/room/#westend_faucet:matrix.org`;
 
 const Account = () => {
   const {dispatch} = useGlobalState();
 
-  const [fetching, setFetching] = useState<boolean>(false);
   const [address, setAddress] = useState<string | null>(null);
   const [mnemonic, setMnemonic] = useState<string | null>(null);
+  const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -34,12 +35,12 @@ const Account = () => {
   }, [address, mnemonic]);
 
   const generateKeypair = async () => {
-    setFetching(true);
-    setError(null);
-    setAddress(null);
-    setMnemonic(null);
     try {
-      const response = await axios.get(`/api/secret/account`);
+      setFetching(true);
+      setAddress(null);
+      setMnemonic(null);
+      setError(null);
+      const response = await axios.get(`/api/polkadot/account`);
       setAddress(response.data.address);
       setMnemonic(response.data.mnemonic);
     } catch (error) {

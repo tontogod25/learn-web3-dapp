@@ -18,7 +18,7 @@ const tailLayout = {
 
 const {Text} = Typography;
 
-const CHAIN_LABEL = 'Secret';
+const RECIPIENT = 'secret1v4n4du5w02degaalj682p03pjkthf4cund49hc';
 
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();
@@ -48,6 +48,7 @@ const Transfer = () => {
       const response = await axios.post(`/api/secret/transfer`, {
         mnemonic,
         txAmount,
+        recipient: RECIPIENT,
       });
       setHash(response.data);
     } catch (error) {
@@ -113,7 +114,7 @@ const Transfer = () => {
               message={<Text strong>Transfer confirmed!</Text>}
               description={
                 <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
-                  View on {CHAIN_LABEL} Explorer
+                  View on transaction Explorer
                 </a>
               }
             />

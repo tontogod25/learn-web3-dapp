@@ -22,8 +22,8 @@ In `pages/api/celo/deploy.ts`, implement the default function. Upload your first
 ```tsx
 //...
   try {
-    const { secret, address } = req.body;
-    const url = getSafeUrl();
+    const {secret, address, network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
 
     kit.addAccount(secret);
@@ -54,8 +54,8 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { secret, address } = req.body;
-    const url = getSafeUrl();
+    const {secret, address, network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
 
     kit.addAccount(secret);

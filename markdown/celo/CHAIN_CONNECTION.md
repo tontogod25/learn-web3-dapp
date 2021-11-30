@@ -15,7 +15,8 @@ In `pages/api/celo/connect.ts`, implement the function and try to establish your
 ```typescript
 //...
   try {
-    const url = getSafeUrl();
+    const {network} = req.body;
+    const url = getNodeUrl(network);
     const kit = undefined;
     const version = undefined;
     res.status(200).json(version.slice(5, 11));
@@ -38,7 +39,8 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const url = getSafeUrl();
+    const {network} = req.body;
+    const url = getNodeUrl(network);
     const kit = newKit(url);
     const version = await kit.web3.eth.getNodeInfo();
     res.status(200).json(version.slice(5, 11));

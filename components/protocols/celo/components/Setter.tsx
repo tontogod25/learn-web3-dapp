@@ -1,24 +1,24 @@
 import {useEffect, useState} from 'react';
+import {Alert, Col, Input, Button, Space, Typography} from 'antd';
+import {LoadingOutlined} from '@ant-design/icons';
 import axios from 'axios';
 
-import {Alert, Col, Button, Space, Typography} from 'antd';
-import {LoadingOutlined} from '@ant-design/icons';
-
-import {transactionUrl} from '@figment-secret/lib';
 import {useGlobalState} from 'context';
 import {getInnerState} from 'utils/context';
+import {transactionUrl} from '@figment-celo/lib';
 
 const {Text} = Typography;
 
 const Setter = () => {
   const {state, dispatch} = useGlobalState();
-  const {contractId, mnemonic} = getInnerState(state);
+  const {secret, contractId, address, network} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [resetting, setResetting] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const [hash, setHash] = useState<string | null>(null);
-  const [value, setValue] = useState<number | null>(null);
+  const [value, setValue] = useState<string | null>(null);
+  const [newMessage, setNewMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (hash) {
@@ -29,34 +29,36 @@ const Setter = () => {
   }, [hash, setHash]);
 
   useEffect(() => {
-    getCounter();
+    const getValue = async () => {
+      setError(null);
+      setFetching(true);
+      setValue(null);
+      try {
+        const response = await axios.post(`/api/celo/getter`, {
+          contract: contractId,
+          network,
+        });
+        setValue(response.data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setFetching(false);
+      }
+    };
+    getValue();
   }, [hash, setHash]);
 
-  const getCounter = async () => {
+  const contractSetMessage = async () => {
     setError(null);
-    setFetching(true);
-    setValue(null);
-    try {
-      const response = await axios.post(`/api/secret/getter`, {
-        mnemonic,
-        contractId,
-      });
-      setValue(response.data);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setFetching(false);
-    }
-  };
-
-  const setCounter = async () => {
     setResetting(true);
-    setError(null);
     setHash(null);
     try {
-      const response = await axios.post(`/api/secret/setter`, {
-        mnemonic,
-        contractId,
+      const response = await axios.post(`/api/celo/setter`, {
+        secret,
+        contract: contractId,
+        address,
+        network,
+        newMessage,
       });
       setHash(response.data);
     } catch (error) {
@@ -67,7 +69,7 @@ const Setter = () => {
   };
 
   return (
-    <>
+    <Col>
       <Space direction="vertical" size="large">
         <Text strong>Current value stored in the contract:</Text>
         {fetching ? (
@@ -82,15 +84,24 @@ const Setter = () => {
         <Col>
           <Space direction="vertical" size="large">
             <Space direction="horizontal">
-              <Button type="primary" onClick={setCounter}>
+              <Button type="primary" onClick={contractSetMessage}>
                 Set Stored Value
               </Button>
+              <Input
+                style={{
+                  minWidth: '200px',
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                }}
+                defaultValue={value as string}
+                onChange={(e) => setNewMessage(e.target.value)}
+              />
             </Space>
             {resetting ? (
               <LoadingOutlined style={{fontSize: 24}} spin />
             ) : hash ? (
               <Alert
-                message={<Text strong>{`The value has been incremented`}</Text>}
+                message={<Text strong>{`The value has been updated`}</Text>}
                 description={
                   <a
                     href={transactionUrl(hash)}
@@ -111,7 +122,7 @@ const Setter = () => {
           </Space>
         </Col>
       </Space>
-    </>
+    </Col>
   );
 };
 

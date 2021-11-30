@@ -41,7 +41,10 @@ export const networksMap = (
   // CELO NETWORKS MAP
   if (chain === CHAINS.CELO) {
     if (network === NETWORK.DATAHUB) {
-      return CELO_NETWORKS.ALFAJORES;
+      return CELO_NETWORKS.DATAHUB;
+    }
+    if (network === NETWORK.TESTNET) {
+      return CELO_NETWORKS.TESTNET;
     }
   }
 
@@ -80,7 +83,7 @@ export const networksMap = (
       return POLKADOT_NETWORKS.DATAHUB;
     }
     if (network === NETWORK.TESTNET) {
-      return POLKADOT_NETWORKS.WESTEND;
+      return POLKADOT_NETWORKS.TESTNET;
     }
   }
 

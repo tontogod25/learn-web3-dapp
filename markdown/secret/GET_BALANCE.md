@@ -77,12 +77,10 @@ The amount returned by is denominated in **μSCRT**, so to convert it to **SCRT*
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route. Click on **Check Balance** and you should see the balance displayed on the page:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/secret/secret-balance.gif)
+Once the code in `pages/api/secret/balance.ts` is complete, Next.js will rebuild the API route. Click on **Check Balance** and you should see the account balance displayed on the page.
 
 ---
 
 # 🏁 Conclusion
 
-100 **SCRT** available, hmmm ... seems it's more than enough to do our first transfer. In the next step, we're going to buy an imaginary pizza which means making a transfer of tokens!
+1000 **SCRT** available, hmmm ... seems it's more than enough to do our first transfer. In the next step, we're going to buy an imaginary pizza which means making a transfer of tokens!

@@ -13,7 +13,7 @@ If you want to learn more about Secret smart contracts, follow the [**Developing
 You could experience some issues with the availability of the network [**Click here to check the current status**](https://secretnodes.com/secret/chains/supernova-2)
 {% endhint %}
 
-Before, focusing on the deployment instructions, let's take a look at some important global variables:
+Before focusing on the deployment instructions, let's take a look at some important global variables:
 
 ```typescript
 const CONTRACT_PATH = './contracts/secret/contract.wasm';
@@ -103,9 +103,7 @@ const receipt = await client.instantiate(codeId, initMsg, address.slice(6));
 
 # ✅ Make sure it works
 
-Once you have the code above saved, click on **Deploy Contract**
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/secret/secret-deploy.gif)
+Once the code in `pages/api/secret/deploy.ts` is complete, click on **Deploy Contract** to send the compiled smart contract to the network.
 
 ---
 

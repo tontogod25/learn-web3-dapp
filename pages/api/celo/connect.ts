@@ -1,13 +1,14 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {getSafeUrl} from '@figment-celo/lib';
+import {getNodeUrl} from '@figment-celo/lib';
 import {newKit} from '@celo/contractkit';
 
 export default async function connect(
-  _req: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse<string>,
 ) {
   try {
-    const url = getSafeUrl();
+    const {network} = req.body;
+    const url = getNodeUrl(network);
     const kit = undefined;
     const version = undefined;
     res.status(200).json(version.slice(5, 11));

@@ -1,42 +1,38 @@
 import {useState, useEffect} from 'react';
 import {Alert, Col, Button, Space, Typography} from 'antd';
 import axios from 'axios';
+
 import {useGlobalState} from 'context';
 import {getInnerState} from 'utils/context';
 
 const {Text} = Typography;
 
-const DECIMAL_OFFSET = 10 ** 6;
-const TOKEN_SYMBOL = 'SCRT';
-
-const Balance = () => {
+const Getter = () => {
   const {state, dispatch} = useGlobalState();
-  const {address, network} = getInnerState(state);
+  const {contractId, network} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [balance, setBalance] = useState<number | null>(null);
+  const [value, setValue] = useState<string | null>(null);
 
   useEffect(() => {
-    if (balance) {
+    if (value) {
       dispatch({
         type: 'SetIsCompleted',
       });
     }
-  }, [balance, setBalance]);
+  }, [value, setValue]);
 
-  const getBalance = async () => {
-    setFetching(true);
+  const getValue = async () => {
     setError(null);
-    setBalance(null);
+    setFetching(true);
+    setValue(null);
     try {
-      const response = await axios.post(`/api/secret/balance`, {
-        address,
+      const response = await axios.post(`/api/celo/getter`, {
+        contract: contractId,
         network,
       });
-      setBalance(
-        parseFloat((parseFloat(response.data) / DECIMAL_OFFSET).toFixed()),
-      );
+      setValue(response.data);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -46,16 +42,16 @@ const Balance = () => {
 
   return (
     <Col>
-      <Space direction="vertical">
-        <Button type="primary" onClick={getBalance} loading={fetching}>
-          Check Balance
+      <Space direction="vertical" size="large">
+        <Button type="primary" onClick={getValue} loading={fetching}>
+          Get the stored value
         </Button>
-        {balance ? (
+        {value ? (
           <Alert
             message={
-              <Text
-                strong
-              >{`This address has a balance of ${balance} ${TOKEN_SYMBOL}`}</Text>
+              <Text strong>
+                This is the stored value: <Text code>{value}</Text>
+              </Text>
             }
             type="success"
             showIcon
@@ -63,11 +59,11 @@ const Balance = () => {
         ) : error ? (
           <Alert message={error} type="error" showIcon />
         ) : (
-          <Alert message="Please Complete the code." type="error" showIcon />
+          <Alert message="Please Complete the code" type="error" showIcon />
         )}
       </Space>
     </Col>
   );
 };
 
-export default Balance;
+export default Getter;
