@@ -84,15 +84,10 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once you have the code above saved:
-
-- Fill in the amount of **mutez** you want to send.
-- Click on **Submit Transfer**.
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/tezos/tezos-transfer.gif)
+Once the code in `pages/api/tezos/transfer.ts` is complete, fill in the amount of **mutez** you want to send then click on **Submit Transfer**.
 
 ---
 
 # 🏁 Conclusion
 
-Now that we have created our account and made a transfer, let's move on to deploying some code (known as a "smart contract") to the **Tezos** blockchain! Ready to take the plunge? Let's go...
+Now that we have created our account and made a transfer, let's move on to deploying some code (known as a "smart contract") to the blockchain! Ready to take the plunge? Let's go!

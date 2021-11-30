@@ -72,16 +72,10 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code is complete and the file has been saved:
-
-- Copy/paste the faucet information
-- Click on **Feed the storage**
-- Click on **Activate account**
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/tezos/tezos-account.gif)
+Once the code in `pages/api/tezos/account.ts` is complete, copy & paste the faucet information into the textinput then click on **Feed the storage**. Once the faucet key has been accepted, click on **Activate account**.
 
 ---
 
 # 🏁 Conclusion
 
-Nice work! You now have a Tezos account on the Florence testnet. In the next tutorial, we will query a Tezos node using DataHub, to determine the current balance of our account.
+Nice work! You now have a Tezos account on the Florence testnet. In the next tutorial, we will query a Tezos node using DataHub to determine the current balance of our account.

@@ -56,9 +56,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code is complete and the file has been saved, refresh the page to see it update & display the Chain ID.
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/tezos/tezos-connect.gif)
+Once the code in `pages/api/tezos/connect.ts` is complete, click on the blue button to connect to Tezos & display the Chain ID.
 
 ---
 

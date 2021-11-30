@@ -9,7 +9,7 @@ If you want to learn more about Tezos smart contracts, follow [**The Taco Shop S
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-In `pages/api/tezos/setter.ts`, implement the function and try to increment the value stored in the smart contract by one. You must replace the instances of `undefined` with working code to accomplish this.
+In `pages/api/tezos/setter.ts`, implement the function and try to increment the value stored in the smart contract by 1. You must replace the instances of `undefined` with working code to accomplish this.
 {% endhint %}
 
 **Take a few minutes to figure this out**
@@ -94,16 +94,10 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once you have the code above saved, click the button and watch the magic happen:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/tezos/tezos-setter.gif)
+Once the code in `pages/api/tezos/setter.ts` is complete, click **Increment the value** to send a transaction containing the call to the `increment` function. You will see the updated value on the page once the confirmations are received.
 
 ---
 
 # 🏁 Conclusion
 
-Congratulations! You have completed the Tezos Pathway, all the way from connecting to Tezos to being able to deploy smart contracts! You are now empowered to learn and build on Tezos, using the dedicated infrastructure of DataHub.
-
-Continue to explore the [LIGO API documentation](https://ligolang.org/docs/api/cheat-sheet), learn more about [Michelson](https://tezos.gitlab.io/michelson-reference/) or perhaps dive straight into the [JSON/RPC documentation](https://tezos.gitlab.io/developer/rpc.html).
-
-If you had any difficulties following this tutorial or simply want to discuss Tezos with other developers you can join [our Discord](https://discord.gg/fszyM7K) or head over to our [community forums](https://community.figment.io).
+You have come all the way from connecting to Tezos to being able to deploy smart contracts. You are now empowered to keep learning and building on Tezos, using the dedicated infrastructure of DataHub.

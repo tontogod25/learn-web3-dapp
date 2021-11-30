@@ -11,6 +11,7 @@ Here's a quick recap of what we covered:
 - 🐪 [Learn about migrating from Ethereum to Tezos](https://ligolang.org/docs/tutorials/tz-vs-eth/tz-vs-eth)
 - 🚀 [Check out the Tezos Academy](https://tezosacademy.io/)
 - 🐍 [Unit testing Python smart contracts](https://learn.figment.io/tutorials/unit-testing-python-smart-contracts-for-tezos-on-smartpy)
+- 📚 Continue to explore the [LIGO API documentation](https://ligolang.org/docs/api/cheat-sheet), learn more about [Michelson](https://tezos.gitlab.io/michelson-reference/) or perhaps dive straight into the [JSON/RPC documentation](https://tezos.gitlab.io/developer/rpc.html).
 
 # 🗣 Give us your feedback
 
