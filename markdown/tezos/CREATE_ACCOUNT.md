@@ -78,4 +78,4 @@ Once the code in `pages/api/tezos/account.ts` is complete, copy & paste the fauc
 
 # 🏁 Conclusion
 
-Nice work! You now have a Tezos account on the Florence testnet. In the next tutorial, we will query a Tezos node using DataHub to determine the current balance of our account.
+Nice work! You now have a Tezos account on the testnet. In the next tutorial, we will query a Tezos node using DataHub to determine the current balance of our account.
