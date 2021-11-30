@@ -3,7 +3,7 @@ A faucet is a way for users to acquire some amount of tokens on a blockchain, ty
 Take all available precautions when dealing with crypto assets. Keeping mnemonic seed phrases and private cryptographic keys safe is an important consideration when dealing with any blockchain, Tezos is no exception.
 
 {% hint style="info" %}
-Visit the [faucet](https://faucet.tzalpha.net/) to generate a mnemonic and get some testnet ꜩ (tez).
+Visit the [faucet](https://teztnets.xyz/hangzhounet-faucet) to generate a mnemonic and get some testnet ꜩ (tez).
 {% endhint %}
 
 ---
@@ -72,7 +72,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code in `pages/api/tezos/account.ts` is complete, copy & paste the faucet information into the textinput then click on **Feed the storage**. Once the faucet key has been accepted, click on **Activate account**.
+Once the code in `pages/api/tezos/account.ts` is complete, copy & paste the faucet information into the textinput then click on **Create Account**. Once the faucet key has been accepted, click on **Activate account**.
 
 ---
 
