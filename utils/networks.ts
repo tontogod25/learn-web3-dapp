@@ -69,11 +69,10 @@ export const networksMap = (
 
   // TEZOS NETWORKS MAP
   if (chain === CHAINS.TEZOS) {
-    if (network === NETWORK.DATAHUB) {
-      return TEZOS_NETWORKS.DATAHUB;
-    }
     if (network === NETWORK.TESTNET) {
       return TEZOS_NETWORKS.TESTNET;
+    } else {
+      return undefined;
     }
   }
 

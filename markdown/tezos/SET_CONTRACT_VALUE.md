@@ -17,16 +17,11 @@ In `pages/api/tezos/setter.ts`, implement the function and try to increment the 
 ```typescript
 //...
   try {
-    const { mnemonic, email, password, secret, contract } = req.body;
-    const url = getTezosUrl();
+    const {network, mnemonic, email, password, secret, contract} = req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
-    await importKey(
-      tezos,
-      email,
-      password,
-      mnemonic,
-      secret
-    );
+
+    await importKey(tezos, email, password, mnemonic, secret);
 
     const n = 1;
     // Load the interface of the contract
@@ -57,18 +52,11 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { mnemonic, email, password, secret, contract } = req.body;
-    console.log(CONTRACT_JSON);
-    const url = getTezosUrl();
+    const {network, mnemonic, email, password, secret, contract} = req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
-    await importKey(
-      tezos,
-      email,
-      password,
-      mnemonic,
-      secret
-    );
+    await importKey(tezos, email, password, mnemonic, secret);
 
     const n = 1;
     // Load the interface of the contract

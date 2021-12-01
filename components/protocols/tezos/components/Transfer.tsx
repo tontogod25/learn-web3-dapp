@@ -1,9 +1,11 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {useAppState} from '@figment-tezos/hooks';
-import {transactionUrl} from '@figment-tezos/lib';
 import axios from 'axios';
+
+import {transactionUrl} from '@figment-tezos/lib';
+import {getInnerState} from 'utils/context';
+import {useGlobalState} from 'context';
 
 const layout = {
   labelCol: {span: 4},
@@ -16,69 +18,79 @@ const tailLayout = {
 
 const {Text} = Typography;
 
-const recipient = 'tz1h3rQ8wBxFd8L9B3d7Jhaawu6Z568XU3xY';
+const RECIPIENT = 'tz1h3rQ8wBxFd8L9B3d7Jhaawu6Z568XU3xY';
 
 const Transfer = () => {
+  const {state, dispatch} = useGlobalState();
+  const {network, mnemonic, email, password, secret, address} =
+    getInnerState(state);
+
   const [error, setError] = useState<string | null>(null);
+  const [hash, setHash] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
-  const [txHash, setTxHash] = useState(null);
-  const {state} = useAppState();
 
-  const transfer = (values: any) => {
-    const isValidAmount = parseFloat(values.amount);
-    if (isNaN(isValidAmount)) {
-      setError('Amount needs to be a valid number');
-      throw Error('Invalid Amount');
-    }
-    const amount = parseFloat(values.amount);
-
-    setFetching(true);
-    axios
-      .post(`/api/tezos/transfer`, {...state, amount, recipient})
-      .then((res) => {
-        setTxHash(res.data);
-        setFetching(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setFetching(false);
+  useEffect(() => {
+    if (hash) {
+      dispatch({
+        type: 'SetIsCompleted',
       });
+    }
+  }, [hash, setHash]);
+
+  const transfer = async (values: any) => {
+    setFetching(true);
+    setError(null);
+    setHash(null);
+    const txAmount = parseFloat(values.amount);
+    try {
+      if (isNaN(txAmount)) {
+        throw new Error('Invalid amount: Please enter a number!');
+      }
+      const response = await axios.post(`/api/tezos/transfer`, {
+        network,
+        mnemonic,
+        email,
+        password,
+        secret,
+        amount: txAmount,
+        recipient: RECIPIENT,
+      });
+      setHash(response.data);
+    } catch (error) {
+      const errorMessage = error.response ? error.response.data : error.message;
+      setError(errorMessage);
+    } finally {
+      setFetching(false);
+    }
   };
 
   return (
-    <Col style={{minHeight: '350px'}}>
+    <Col>
       <Form
         {...layout}
         name="transfer"
         layout="horizontal"
         onFinish={transfer}
         initialValues={{
-          from: state.address,
-          amount: 1,
-          to: recipient,
+          from: address,
         }}
       >
         <Form.Item label="Sender" name="from" required>
-          <Text code>{state.address}</Text>
+          <Text code>{address}</Text>
         </Form.Item>
 
-        <Form.Item
-          label="Amount"
-          name="amount"
-          required
-          tooltip="1 Tz = 10**6 mutez"
-        >
+        <Form.Item label="Amount" name="amount" required>
           <Space direction="vertical">
             <Input
-              suffix="mutez"
+              suffix="μꜩ"
               style={{width: '200px'}}
-              placeholder={'enter amount'}
+              placeholder={'enter amount in μꜩ'}
             />
           </Space>
         </Form.Item>
 
         <Form.Item label="Recipient" name="to" required>
-          <Text code>{recipient}</Text>
+          <Text code>{RECIPIENT}</Text>
         </Form.Item>
 
         <Form.Item {...tailLayout}>
@@ -98,7 +110,7 @@ const Transfer = () => {
           </Form.Item>
         )}
 
-        {txHash && (
+        {hash && (
           <Form.Item {...tailLayout}>
             <Alert
               style={{maxWidth: '350px'}}
@@ -106,12 +118,8 @@ const Transfer = () => {
               showIcon
               message={<Text strong>Transfer confirmed!</Text>}
               description={
-                <a
-                  href={transactionUrl(txHash ?? '')}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View on Tezos Explorer
+                <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
+                  View on transaction Explorer
                 </a>
               }
             />
@@ -120,13 +128,7 @@ const Transfer = () => {
 
         {error && (
           <Form.Item {...tailLayout}>
-            <Alert
-              type="error"
-              showIcon
-              closable
-              message={error}
-              onClose={() => setError('')}
-            />
+            <Alert type="error" showIcon message={error} />
           </Form.Item>
         )}
       </Form>

@@ -11,11 +11,12 @@ In `pages/api/tezos/connect.ts`, implement the function and try to establish you
 ```typescript
 //...
   try {
-    const url = getTezosUrl();
+    const {network} = req.body;
+    const url = getNodeUrl(network);
     const toolkit = undefined;
     const chainId = undefined;
     if (validateChain(chainId) != 3) {
-      throw Error("invalid chain Id");
+      throw Error('invalid chain Id');
     }
     res.status(200).json(chainId);
   }
@@ -36,11 +37,12 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 ```typescript
 // solution
   try {
-    const url = getTezosUrl();
+    const {network} = req.body;
+    const url = getNodeUrl(network);
     const toolkit = new TezosToolkit(url);
     const chainId = await toolkit.rpc.getChainId();
     if (validateChain(chainId) != 3) {
-      throw Error("invalid chain Id");
+      throw Error('invalid chain Id');
     }
     res.status(200).json(chainId);
   }

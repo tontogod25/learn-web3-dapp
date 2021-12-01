@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {TezosToolkit} from '@taquito/taquito';
-import {getTezosUrl} from '@figment-tezos/lib';
+import {getNodeUrl} from '@figment-tezos/lib';
 import {importKey} from '@taquito/signer';
 import {CONTRACT_JSON} from 'contracts/tezos/counter.js';
 
@@ -13,22 +13,19 @@ export default async function deploy(
   res: NextApiResponse<ResponseT | string>,
 ) {
   try {
-    const {mnemonic, email, password, secret, amount} = req.body;
-    const url = getTezosUrl();
+    const {mnemonic, email, password, secret, network} = req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     await importKey(tezos, email, password, mnemonic, secret);
 
-    const operation = await tezos.contract.originate({
-      code: CONTRACT_JSON,
-      storage: 0,
-    });
+    const operation = await undefined;
 
-    const contract = await operation.contract();
+    const contract = await undefined;
 
     res.status(200).json({
       contractAddress: contract.address,
-      hash: operation.hash,
+      hash: operation.hash
     });
   } catch (error) {
     let errorMessage = error instanceof Error ? error.message : 'Unknown Error';

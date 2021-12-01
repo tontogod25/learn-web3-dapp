@@ -15,7 +15,9 @@ In `pages/api/tezos/transfer.ts`, implement the function and try to make your fi
 ```typescript
 //...
   try {
-    const { mnemonic, email, password, secret, amount, recipient } = req.body
+    const {network, mnemonic, email, password, secret, amount, recipient} =
+      req.body;
+    const url = getNodeUrl(network);
     const url = getTezosUrl();
     const tezos = new TezosToolkit(url);
 
@@ -46,21 +48,17 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { mnemonic, email, password, secret, amount, recipient } = req.body;
-    const url = getTezosUrl();
+    const {network, mnemonic, email, password, secret, amount, recipient} =
+      req.body;
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
-    await importKey(
-      tezos,
-      email,
-      password,
-      mnemonic,
-      secret
-    );
+    await importKey(tezos, email, password, mnemonic, secret);
 
     const operation = await tezos.contract.transfer({
       to: recipient,
-      amount: amount
+      amount: amount,
+      mutez: true
     });
 
     await operation.confirmation(1);
@@ -77,6 +75,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 - Next, we create an transaction using the method `transfer` of the `contract` module, passing:
   - The recipient address.
   - The amount in **μꜩ** (**mutez**).
+  - An optional boolean flag, **mutez**, to set the base unit of the transferred amount.
 - Then, we wait for the confirmation of the transaction.
 - Finally, we send the `operation.hash` back to the client-side as JSON.
 

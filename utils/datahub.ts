@@ -96,7 +96,7 @@ const getDataHubNearNodeUrl = (network: NEAR_NETWORKS): string =>
     : `https://${process.env.DATAHUB_NEAR_TESTNET_RPC_URL}/apikey/${process.env.DATAHUB_NEAR_API_KEY}`;
 
 const getDataHubCeloNodeUrl = (network: CELO_NETWORKS): string =>
-  network === CELO_NETWORKS.MAINNET
+  network === CELO_NETWORKS.TESTNET
     ? `https://${process.env.DATAHUB_CELO_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_CELO_API_KEY}/`
     : `https://${process.env.DATAHUB_CELO_TESTNET_RPC_URL}/apikey/${process.env.DATAHUB_CELO_API_KEY}/`;
 
@@ -107,13 +107,13 @@ const getDataHubPolkadotNodeUrl = (
   network: POLKADOT_NETWORKS,
   protocol: POLKADOT_PROTOCOLS,
 ): string => {
-  if (network === POLKADOT_NETWORKS.WESTEND) {
+  if (network === POLKADOT_NETWORKS.TESTNET) {
     if (protocol === POLKADOT_PROTOCOLS.RPC) {
       return `https://${process.env.DATAHUB_POLKADOT_WESTEND_RPC_URL}/apikey/${process.env.DATAHUB_POLKADOT_API_KEY}`;
     } else if (protocol === POLKADOT_PROTOCOLS.WS) {
       return `wss://${process.env.DATAHUB_POLKADOT_WESTEND_WS_URL}/apikey/${process.env.DATAHUB_POLKADOT_API_KEY}`;
     }
-  } else if (network === POLKADOT_NETWORKS.MAINNET) {
+  } else if (network === POLKADOT_NETWORKS.DATAHUB) {
     if (protocol === POLKADOT_PROTOCOLS.RPC) {
       return `https://${process.env.DATAHUB_POLKADOT_MAINNET_RPC_URL}/apikey/${process.env.DATAHUB_POLKADOT_API_KEY}`;
     } else if (protocol === POLKADOT_PROTOCOLS.WS) {

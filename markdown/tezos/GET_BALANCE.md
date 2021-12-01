@@ -17,8 +17,8 @@ In `pages/api/tezos/balance.ts`, implement the function and try to return the cu
 ```typescript
 //...
   try {
-    const { address } = req.body;
-    const url = getTezosUrl();
+    const {address, network} = req.body;
+    const url = getNodeUrl(network);
     const toolkit = new TezosToolkit(url);
     const balance = undefined;
     res.status(200).json(balance.toString());
@@ -41,8 +41,8 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { address } = req.body;
-    const url = getTezosUrl();
+    const {address, network} = req.body;
+    const url = getNodeUrl(network);
     const toolkit = new TezosToolkit(url);
     const balance = await toolkit.tz.getBalance(address);
     res.status(200).json(balance.toString());

@@ -19,14 +19,23 @@ In `pages/api/tezos/account.ts`, implement the function and try to activate your
 ```typescript
 //...
   try {
-    const { mnemonic, email, password, secret } = req.body;
-    const url = getTezosUrl();
+    const {
+      mnemonic: mnemonic0,
+      email,
+      password,
+      activation_code: secret,
+      network,
+    } = req.body;
+    const mnemonic = mnemonic0.join(' ');
+
+    const url = getNodeUrl(network);
     const tezos = new TezosToolkit(url);
 
     // call the importKey method
     undefined;
+    throw new Error('Please complete the code');
 
-    res.status(200).json('Activation of the account ok');
+    res.status(200).json(true);
   }
 //...
 ```
@@ -46,19 +55,21 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { mnemonic, email, password, secret } = req.body
-    const url = getTezosUrl();
-    const tezos = new TezosToolkit(url);
-
-    await importKey(
-      tezos,
+    const {
+      mnemonic: mnemonic0,
       email,
       password,
-      mnemonic,
-      secret
-    )
+      activation_code: secret,
+      network,
+    } = req.body;
+    const mnemonic = mnemonic0.join(' ');
 
-    res.status(200).json('Activation of the account ok');
+    const url = getNodeUrl(network);
+    const tezos = new TezosToolkit(url);
+
+    await importKey(tezos, email, password, mnemonic, secret);
+
+    res.status(200).json(true);
   }
 //...
 ```
