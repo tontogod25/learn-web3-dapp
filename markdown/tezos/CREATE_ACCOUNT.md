@@ -83,7 +83,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code in `pages/api/tezos/account.ts` is complete, copy & paste the faucet information into the textinput then click on **Create Account**. Once the faucet key has been accepted, click on **Activate account**.
+Once the code in `pages/api/tezos/account.ts` is complete, copy & paste the faucet information into the textarea then click on **Create Account**.
 
 ---
 
