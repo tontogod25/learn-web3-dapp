@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import {useGlobalState} from 'context';
 import {getInnerState} from 'utils/context';
-import {transactionUrl} from '@figment-near/lib';
+import {transactionUrl} from '@figment-celo/lib';
 
 const {Text} = Typography;
 
