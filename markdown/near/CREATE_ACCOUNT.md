@@ -12,8 +12,7 @@ In `pages/api/near/check-account.ts`, implement the default function. You must r
 
 ```typescript
   try {
-    const { freeAccountId, NETWORK } = req.body
-    const config = configFromNetwork(NETWORK);
+    const config = configFromNetwork(network);
     const near = await connect(config);
     // Query the account info of freeAccountId
     const accountInfo = undefined
@@ -45,8 +44,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 ```typescript
 // solution
   try {
-    const { freeAccountId, NETWORK } = req.body
-    const config = configFromNetwork(NETWORK);
+    const config = configFromNetwork(network);
     const near = await connect(config);
     const accountInfo = await near.account(freeAccountId);
     try {
@@ -77,8 +75,7 @@ In `pages/api/near/create-account.ts`, implement the default function. You must 
 
 ```typescript
 try {
-    const { freeAccountId, publicKey, NETWORK } = req.body;
-    const config = configFromNetwork(NETWORK);
+    const config = configFromNetwork(network);
     const near = await connect(config);
     undefined;
     return res.status(200).json(freeAccountId);
@@ -98,8 +95,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 ```typescript
 // solution
 try {
-    const { freeAccountId, publicKey, NETWORK }  = req.body;
-    const config = configFromNetwork(NETWORK);
+    const config = configFromNetwork(network);
     const near = await connect(config);
     await near.createAccount(freeAccountId, publicKey);
     return res.status(200).json(freeAccountId);

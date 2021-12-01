@@ -6,14 +6,14 @@ export default async function (
   req: NextApiRequest,
   res: NextApiResponse<string>,
 ) {
+  const {network, accountId, secret, newMessage} = req.body;
   try {
-    const {NETWORK, ACCOUNT_ID, SECRET, newMessage} = req.body;
-    const config = configFromNetwork(NETWORK);
-    const keypair = KeyPair.fromString(SECRET);
-    config.keyStore?.setKey('testnet', ACCOUNT_ID, keypair);
+    const config = configFromNetwork(network);
+    const keypair = KeyPair.fromString(secret);
+    config.keyStore?.setKey('testnet', accountId, keypair);
 
     const near = await connect(config);
-    const account = await near.account(ACCOUNT_ID);
+    const account = await near.account(accountId);
     // Look at functionCall and pass the expected args
     // ... fill here
     return res.status(200).json(response.transaction.hash);

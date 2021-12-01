@@ -6,11 +6,11 @@ export default async function (
   req: NextApiRequest,
   res: NextApiResponse<string>,
 ) {
+  const {network, accountId} = req.body;
   try {
-    const {NETWORK, ACCOUNT_ID} = req.body;
-    const config = configFromNetwork(NETWORK);
+    const config = configFromNetwork(network);
     const near = await connect(config);
-    const account = await near.account(ACCOUNT_ID);
+    const account = await near.account(accountId);
     // Using ViewFunction try to call the contract
     const response = undefined;
     return res.status(200).json(response);

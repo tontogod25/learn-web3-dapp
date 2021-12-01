@@ -5,13 +5,13 @@ import axios from 'axios';
 
 import {useGlobalState} from 'context';
 import {getInnerState} from 'utils/context';
-import {transactionUrl} from '@figment-celo/lib';
+import {transactionUrl} from '@figment-near/lib';
 
 const {Text} = Typography;
 
 const Setter = () => {
   const {state, dispatch} = useGlobalState();
-  const {secret, contractId, address, network} = getInnerState(state);
+  const {secret, accountId, network} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [resetting, setResetting] = useState<boolean>(false);
@@ -34,8 +34,8 @@ const Setter = () => {
       setFetching(true);
       setValue(null);
       try {
-        const response = await axios.post(`/api/celo/getter`, {
-          contract: contractId,
+        const response = await axios.post(`/api/near/getter`, {
+          accountId,
           network,
         });
         setValue(response.data);
@@ -55,8 +55,7 @@ const Setter = () => {
     try {
       const response = await axios.post(`/api/celo/setter`, {
         secret,
-        contract: contractId,
-        address,
+        accountId,
         network,
         newMessage,
       });

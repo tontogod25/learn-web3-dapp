@@ -10,16 +10,16 @@ export default async function (
   req: NextApiRequest,
   res: NextApiResponse<string>,
 ) {
+  const {secret, accountId, network} = req.body;
   try {
-    const {NETWORK, ACCOUNT_ID, SECRET} = req.body;
-    const config = configFromNetwork(NETWORK);
-    const keypair = KeyPair.fromString(SECRET);
+    const config = configFromNetwork(network);
+    const keypair = KeyPair.fromString(secret);
 
     // Again you will need to set your keystore
     config.keyStore?.undefined;
 
     const near = await connect(config);
-    const account = await near.account(ACCOUNT_ID);
+    const account = await near.account(accountId);
 
     // Time to deploy the Smart Contract
     const response = undefined;

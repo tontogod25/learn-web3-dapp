@@ -1,18 +1,26 @@
-import * as Steps from '@figment-near/components/steps';
-import Nav from '@figment-near/components/nav';
+import ProtocolNav from 'components/shared/ProtocolNav/ProtocolNav';
+import {getInnerState, getStepId} from 'utils/context';
 import {PROTOCOL_STEPS_ID} from 'types';
-import {getCurrentStepIdForCurrentChain, useGlobalState} from 'context';
+import {useGlobalState} from 'context';
+
+import * as Steps from '@figment-near/components';
+import {accountExplorer} from '@figment-near/lib';
 
 const Near: React.FC = () => {
   const {state} = useGlobalState();
-  const stepId = getCurrentStepIdForCurrentChain(state);
+  const {address, network} = getInnerState(state);
+  const stepId = getStepId(state);
 
   return (
     <>
-      <Nav />
+      <ProtocolNav
+        address={address}
+        network={network}
+        accountExplorer={accountExplorer(network)}
+      />
       {stepId === PROTOCOL_STEPS_ID.PROJECT_SETUP}
       {stepId === PROTOCOL_STEPS_ID.CHAIN_CONNECTION && <Steps.Connect />}
-      {stepId === PROTOCOL_STEPS_ID.CREATE_KEYPAIR && <Steps.Keys />}
+      {stepId === PROTOCOL_STEPS_ID.CREATE_KEYPAIR && <Steps.Keypair />}
       {stepId === PROTOCOL_STEPS_ID.CREATE_ACCOUNT && <Steps.Account />}
       {stepId === PROTOCOL_STEPS_ID.GET_BALANCE && <Steps.Balance />}
       {stepId === PROTOCOL_STEPS_ID.TRANSFER_TOKEN && <Steps.Transfer />}

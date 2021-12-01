@@ -17,16 +17,15 @@ In`pages/api/near/setter.ts`, implement the default function. You must replace a
 ```tsx
 //...
   try {
-    const { NETWORK, ACCOUNT_ID, SECRET, newMessage } = req.body;
-    const config = configFromNetwork(NETWORK);
-    const keypair = KeyPair.fromString(SECRET);
-    config.keyStore?.setKey("testnet", ACCOUNT_ID, keypair);
+    const config = configFromNetwork(network);
+    const keypair = KeyPair.fromString(secret);
+    config.keyStore?.setKey('testnet', accountId, keypair);
 
     const near = await connect(config);
-    const account = await near.account(ACCOUNT_ID);
-    // Look at functionCall and pass the expected arguments
+    const account = await near.account(accountId);
+    // Look at functionCall and pass the expected args
     // ... fill here
-    return res.status(200).json(response.transaction.hash)
+    return res.status(200).json(response.transaction.hash);
   }
 //...
 ```
@@ -45,21 +44,20 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 //...
   try {
-    const { NETWORK, ACCOUNT_ID, SECRET, newMessage } = req.body;
-    const config = configFromNetwork(NETWORK);
-    const keypair = KeyPair.fromString(SECRET);
-    config.keyStore?.setKey("testnet", ACCOUNT_ID, keypair);
+    const config = configFromNetwork(network);
+    const keypair = KeyPair.fromString(secret);
+    config.keyStore?.setKey('testnet', accountId, keypair);
 
     const near = await connect(config);
-    const account = await near.account(ACCOUNT_ID);
+    const account = await near.account(accountId);
 
     const optionsCall = {
-        contractId: ACCOUNT_ID,
+        contractId: accountId,
         methodName: 'set_greeting',
         args: { message: newMessage }
     }
     const response = await account.functionCall(optionsCall);
-    console.log(response)
+
     return res.status(200).json(response.transaction.hash)
   }
 //...

@@ -13,16 +13,8 @@ In`pages/api/near/transfer.ts`, implement the function. You must replace any ins
 **Take a few minutes to figure this out.**
 
 ```tsx
-  const {
-    txSender,
-    txAmount,
-    txReceiver,
-    NETWORK,
-    SECRET,
-  } = req.body;
-
   try {
-    const config = configFromNetwork(NETWORK);
+    const config = configFromNetwork(network);
 
     // recreate the keypair from secret
     const keypair = undefined;
@@ -58,17 +50,9 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 ```tsx
 // solution
 //...
-  const {
-    txSender,
-    txAmount,
-    txReceiver,
-    NETWORK,
-    SECRET,
-  } = req.body
-
   try {
-    const config = configFromNetwork(NETWORK)
-    const keypair = KeyPair.fromString(SECRET)
+    const config = configFromNetwork(network)
+    const keypair = KeyPair.fromString(secret)
     config.keyStore?.setKey("testnet", txSender, keypair)
 
     const yoctoAmount = parseNearAmount(txAmount) as string

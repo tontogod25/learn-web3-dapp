@@ -1,3 +1,5 @@
+import type {Dispatch, SetStateAction} from 'react';
+
 export enum CHAINS {
   ARWEAVE = 'arweave',
   AVALANCHE = 'avalanche',
@@ -98,9 +100,8 @@ export enum SECRET_NETWORKS {
 }
 
 export enum NEAR_NETWORKS {
-  MAINNET = 'MAINNET',
-  TESTNET = 'TESTNET',
-  DATAHUB = 'datahub',
+  TESTNET = 'Testnet',
+  DATAHUB = 'Datahub',
 }
 
 export enum TEZOS_NETWORKS {
@@ -307,3 +308,13 @@ export enum PROTOCOL_STEPS_ID {
   SUBGRAPH_SCHEMA = 'SUBGRAPH_SCHEMA',
   SUBGRAPH_MAPPINGS = 'SUBGRAPH_MAPPINGS',
 }
+
+// Near type
+export type CheckAccountIdT = {
+  network: string;
+  freeAccountId: string;
+  setFreeAccountId: Dispatch<SetStateAction<string>>;
+  setIsFreeAccountId: Dispatch<SetStateAction<boolean>>;
+};
+
+export type AlertT = 'success' | 'info' | 'warning' | 'error' | undefined;

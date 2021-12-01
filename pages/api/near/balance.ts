@@ -6,9 +6,9 @@ export default async function (
   req: NextApiRequest,
   res: NextApiResponse<string>,
 ) {
+  const {network, accountId} = req.body;
   try {
-    const {NETWORK, ACCOUNT_ID} = req.body;
-    const config = configFromNetwork(NETWORK);
+    const config = configFromNetwork(network);
     const client = await connect(config);
     const account = undefined;
     const balance = undefined;
