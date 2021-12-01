@@ -69,9 +69,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once you have the code above saved, click the button and watch the magic happen:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/tezos/tezos-getter.gif)
+Once the code in `pages/api/tezos/getter.ts` is complete, click the **Get Counter** button to query the current value stored in the smart contract and display it on the page.
 
 ---
 
