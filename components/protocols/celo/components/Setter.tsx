@@ -11,7 +11,7 @@ const {Text} = Typography;
 
 const Setter = () => {
   const {state, dispatch} = useGlobalState();
-  const {secret, accountId, network} = getInnerState(state);
+  const {secret, address, network} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [resetting, setResetting] = useState<boolean>(false);
@@ -34,8 +34,8 @@ const Setter = () => {
       setFetching(true);
       setValue(null);
       try {
-        const response = await axios.post(`/api/near/getter`, {
-          accountId,
+        const response = await axios.post(`/api/celo/getter`, {
+          address,
           network,
         });
         setValue(response.data);
@@ -55,7 +55,7 @@ const Setter = () => {
     try {
       const response = await axios.post(`/api/celo/setter`, {
         secret,
-        accountId,
+        address,
         network,
         newMessage,
       });

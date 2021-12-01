@@ -40,9 +40,9 @@ const Transfer = () => {
     setFetching(true);
     setError(null);
     setHash(null);
-    const txAmount = parseFloat(values.amount);
+    const txAmount = values.amount;
     try {
-      if (isNaN(txAmount)) {
+      if (isNaN(parseFloat(txAmount))) {
         throw new Error('invalid amount');
       }
       const response = await axios.post(`/api/near/transfer`, {
@@ -54,7 +54,8 @@ const Transfer = () => {
       });
       setHash(response.data);
     } catch (error) {
-      setError(error.message);
+      const errorMessage = error.response ? error.response.data : error.message;
+      setError(errorMessage);
     } finally {
       setFetching(false);
     }
@@ -77,11 +78,7 @@ const Transfer = () => {
 
         <Form.Item label="Amount" name="amount" required>
           <Space direction="vertical">
-            <Input
-              suffix="yNEAR"
-              style={{width: '200px'}}
-              placeholder={'1 000'}
-            />
+            <Input suffix="NEAR" style={{width: '200px'}} placeholder={'10'} />
           </Space>
         </Form.Item>
 

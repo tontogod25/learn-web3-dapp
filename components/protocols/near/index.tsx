@@ -8,13 +8,13 @@ import {accountExplorer} from '@figment-near/lib';
 
 const Near: React.FC = () => {
   const {state} = useGlobalState();
-  const {address, network} = getInnerState(state);
+  const {accountId, network} = getInnerState(state);
   const stepId = getStepId(state);
 
   return (
     <>
       <ProtocolNav
-        address={address}
+        address={accountId}
         network={network}
         accountExplorer={accountExplorer(network)}
       />

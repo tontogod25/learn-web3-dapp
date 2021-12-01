@@ -34,9 +34,9 @@ const Deploy = () => {
         accountId,
         network,
       });
-      setHash(response.data.hash);
+      setHash(response.data);
     } catch (error) {
-      setError(error.message);
+      setError(error.response.data);
     } finally {
       setFetching(false);
     }
