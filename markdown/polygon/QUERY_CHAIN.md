@@ -16,6 +16,9 @@ In order to gather information from the blockchain, we will use ethers again. Fo
 //...
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const networkName = await provider.getNetwork().then((res) => {
+      return res.name;
+    });
 
     // TODO: Define the variables below
     const chainId = undefined;
@@ -40,10 +43,11 @@ In order to gather information from the blockchain, we will use ethers again. Fo
 ```
 
 **Need some help?** Check out these links 👇
-[Getting the network's chainId](https://ethereum.stackexchange.com/questions/82365/how-get-network-id-with-ethers-js).
-How to get a [block number (or block height) from ethers](https://docs.ethers.io/v5/api/providers/provider/#Provider-getBlockNumber).  
-What is [gas price and gwei](https://gwei.io/)? And how to [get it from ethers](https://docs.ethers.io/v5/api/providers/provider/#Provider-getGasPrice).  
-[Formatting units](https://docs.ethers.io/v5/api/utils/display-logic/#utils-formatUnits) from BigNumber to gwei.
+
+- [Getting the network's chainId](https://ethereum.stackexchange.com/questions/82365/how-get-network-id-with-ethers-js)
+- How to get a [block number (or block height) from ethers](https://docs.ethers.io/v5/api/providers/provider/#Provider-getBlockNumber)
+- What is [gas price and gwei](https://gwei.io/)? And how to [get it from ethers](https://docs.ethers.io/v5/api/providers/provider/#Provider-getGasPrice)
+- [Formatting units](https://docs.ethers.io/v5/api/utils/display-logic/#utils-formatUnits) from BigNumber to gwei
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
@@ -82,6 +86,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 **What happened in the code above?**
 
+- The `networkName` awaits `provider.getNetwork` because it returns a Promise, and then we will return the name property of the response object.
 - We can get the `chainId` as a property of `provider.network`.
 - `blockHeight` can be taken directly from the returned value of `getBlockNumber`
 - `gasPriceAsGwei` gets the current gas price and then formats the value into a human-friendly number with the ethers utility function `formatUnits`.

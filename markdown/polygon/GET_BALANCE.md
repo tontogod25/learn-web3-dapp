@@ -23,7 +23,6 @@ const getBalance = async (address: string) => {
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-    const rawBalance = undefined;
     const balance = undefined;
     if (!balance) {
       throw new Error('Please complete the code');
@@ -55,8 +54,7 @@ const getBalance = async (address: string) => {
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-    const rawBalance = await provider.getBalance(address);
-    const balance = ethers.utils.formatEther(rawBalance.toString());
+    const balance = await provider.getBalance(address);
     if (!balance) {
       throw new Error('Please complete the code');
     }
@@ -73,7 +71,8 @@ const getBalance = async (address: string) => {
 
 **What happened in the code above?**
 
-- We await `provider.getBalance` because it returns a Promise. That Promise returns a BigNumber, which is a specific data type for handling numbers which fall [outside the range of safe values](https://docs.ethers.io/v5/api/utils/bignumber/#BigNumber--notes-safenumbers) in JavaScript. A BigNumber cannot be displayed in the same way as a normal number. We must therefore format the balance to transform it into a string for display, using `ethers.utils.formatEther`.
+- We await `provider.getBalance` because it returns a Promise. That Promise returns a BigNumber, which is a specific data type for handling numbers which fall [outside the range of safe values](https://docs.ethers.io/v5/api/utils/bignumber/#BigNumber--notes-safenumbers) in JavaScript.
+- Last but not least, to easy manipulate the returned type we convert it to string using `toString()` method.
 
 ---
 
