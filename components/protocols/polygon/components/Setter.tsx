@@ -5,11 +5,13 @@ import {PoweroffOutlined} from '@ant-design/icons';
 import {getPolygonTxExplorerURL} from '@figment-polygon/lib';
 import {setValue} from '@figment-polygon/challenges';
 import {useGlobalState} from 'context';
+import {getInnerState} from 'utils/context';
 
 const {Text} = Typography;
 
 const Setter = () => {
-  const {dispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
+  const {contractId} = getInnerState(state);
 
   const [inputNumber, setInputNumber] = useState<number>(0);
   const [fetching, setFetching] = useState<boolean>(false);
@@ -28,7 +30,7 @@ const Setter = () => {
     setFetching(true);
     setError(undefined);
     setTxHash(null);
-    const {error, hash} = await setValue(inputNumber);
+    const {error, hash} = await setValue(contractId, inputNumber);
     if (error) {
       setError(error);
     } else {

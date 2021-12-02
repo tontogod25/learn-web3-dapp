@@ -3,10 +3,12 @@ import {Alert, Col, Space, Statistic, Button} from 'antd';
 import {PoweroffOutlined, LoadingOutlined} from '@ant-design/icons';
 
 import {useGlobalState} from 'context';
+import {getInnerState} from 'utils/context';
 import {getValue} from '@figment-polygon/challenges';
 
 const Getter = () => {
-  const {dispatch} = useGlobalState();
+  const {state, dispatch} = useGlobalState();
+  const {contractId} = getInnerState(state);
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>(undefined);
@@ -26,7 +28,7 @@ const Getter = () => {
     setFetching(true);
     setError(undefined);
     setContractNumber(undefined);
-    const {error, value} = await getValue();
+    const {error, value} = await getValue(contractId);
     if (error) {
       setError(error);
     } else {
