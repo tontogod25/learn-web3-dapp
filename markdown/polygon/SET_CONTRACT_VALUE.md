@@ -7,36 +7,27 @@ As simple as it sounds, what's happening in the background is actually very powe
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-In the file `components/protocols/polygon/components/Setter.tsx`, implement the `setValue` function.  
+In the file `components/protocols/polygon/challenges/setter.ts`, implement the `setValue` function.  
 {% endhint %}
 
 **Take a few minutes to figure this out.**
 
 ```typescript
-const setValue = async () => {
-  setFetchingSet(true);
-  setTxHash(null);
-
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-
-  // Try to figure out the expected parameters
-  // @ts-ignore
-  const contract = new ethers.Contract(undefined);
-
+const setValue = async (value: number) => {
   try {
-    // Try to figure out the expected method
-    // @ts-ignore
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contractAddress = SimpleStorageJson.networks['80001'].address;
+    // try to figure out the expected parameters
+    const contract = new ethers.Contract(undefined);
+    // try to figure out the expected method
     const transactionResult = undefined;
-
-    setFetchingSet(false);
-    setInputNumber(0);
-    setConfirming(true);
     const receipt = await transactionResult.wait();
-    setTxHash(receipt.transactionHash);
-    setConfirming(false);
+    return {hash: receipt.transactionHash};
   } catch (error) {
-    setFetchingSet(false);
+    return {
+      error: error.message,
+    };
   }
 };
 ```
@@ -56,27 +47,23 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 ```typescript
 // solution
-const setValue = async () => {
-  setFetchingSet(true);
-  setTxHash(null);
-
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const contract = new ethers.Contract(
-    SimpleStorageJson.networks['80001'].address,
-    SimpleStorageJson.abi,
-    signer,
-  );
+const setValue = async (value: number) => {
   try {
-    const transactionResult = await contract.set(inputNumber);
-    setFetchingSet(false);
-    setInputNumber(0);
-    setConfirming(true);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contractAddress = SimpleStorageJson.networks['80001'].address;
+    const contract = new ethers.Contract(
+      contractAddress,
+      SimpleStorageJson.abi,
+      signer,
+    );
+    const transactionResult = await contract.set(value);
     const receipt = await transactionResult.wait();
-    setTxHash(receipt.transactionHash);
-    setConfirming(false);
+    return {hash: receipt.transactionHash};
   } catch (error) {
-    setFetchingSet(false);
+    return {
+      error: error.message,
+    };
   }
 };
 ```
@@ -93,7 +80,7 @@ const setValue = async () => {
 
 # ✅ Make sure it works
 
-Once the code in `components/protocols/polygon/components/Setter.tsx` is complete, you can enter a value into the textinput then click on **Set Value** to send the transaction and change the data stored in the smart contract.
+Once the code in `components/protocols/polygon/challenges/setter.ts` is complete, you can enter a value into the textinput then click on **Set Value** to send the transaction and change the data stored in the smart contract.
 
 ---
 

@@ -5,26 +5,26 @@ At this point, we have deployed a smart contract on the Polygon testnet & set th
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-In the file `components/protocols/polygon/components/Getter.tsx`, implement the `getValue` function.  
+In the file `components/protocols/polygon/challenges/getter.ts`, implement the `getValue` function.  
 {% endhint %}
 
 **Take a few minutes to figure this out.**
 
 ```typescript
 const getValue = async () => {
-  setFetching(true);
-  setContractNumber(null);
   try {
-    setFetching(true);
     const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contractAddress = SimpleStorageJson.networks['80001'].address;
     // try to figure out the expected parameters
     const contract = new ethers.Contract(undefined);
     // try to figure out the expected method
-    const storage = undefined;
-    setContractNumber(storage.toString());
-    setFetching(false);
+    const value = undefined;
+    return {value};
   } catch (error) {
-    setFetching(false);
+    return {
+      error: error.message,
+    };
   }
 };
 ```
@@ -46,19 +46,20 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 // solution
 const getValue = async () => {
   try {
-    setFetching(true);
-    setContractNumber(null);
     const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contractAddress = SimpleStorageJson.networks['80001'].address;
     const contract = new ethers.Contract(
-      SimpleStorageJson.networks['80001'].address,
+      contractAddress,
       SimpleStorageJson.abi,
-      provider,
+      signer,
     );
-    const storage = await contract.get();
-    setContractNumber(storage.toString());
-    setFetching(false);
+    const value = await contract.get();
+    return {value};
   } catch (error) {
-    setFetching(false);
+    return {
+      error: error.message,
+    };
   }
 };
 ```
@@ -75,7 +76,7 @@ const getValue = async () => {
 
 # ✅ Make sure it works
 
-Once the code in `components/protocols/polygon/components/Getter.tsx` is complete, click on the **Get Value** button to fetch the data from the smart contract.
+Once the code in `components/protocols/polygon/challenges/getter.ts` is complete, click on the **Get Value** button to fetch the data from the smart contract.
 
 ---
 

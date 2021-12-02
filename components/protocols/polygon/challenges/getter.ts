@@ -5,17 +5,15 @@ declare let window: {
   ethereum: ethers.providers.ExternalProvider;
 };
 
-const setter = async () => {
+const getValue = async () => {
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contractAddress = SimpleStorageJson.networks['80001'].address;
-    const contract = new ethers.Contract(
-      contractAddress,
-      SimpleStorageJson.abi,
-      signer,
-    );
-    const value = await contract.get();
+    // try to figure out the expected parameters
+    const contract = new ethers.Contract(undefined);
+    // try to figure out the expected method
+    const value = undefined;
     return {value};
   } catch (error) {
     return {
@@ -24,4 +22,4 @@ const setter = async () => {
   }
 };
 
-export default setter;
+export default getValue;

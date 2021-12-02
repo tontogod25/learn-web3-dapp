@@ -3,7 +3,7 @@ import {Alert, Col, Space, Statistic, Button} from 'antd';
 import {PoweroffOutlined, LoadingOutlined} from '@ant-design/icons';
 
 import {useGlobalState} from 'context';
-import {getter} from '@figment-polygon/challenges';
+import {getValue} from '@figment-polygon/challenges';
 
 const Getter = () => {
   const {dispatch} = useGlobalState();
@@ -22,11 +22,11 @@ const Getter = () => {
     }
   }, [contractNumber, setContractNumber]);
 
-  const getValue = async () => {
+  const getContractValue = async () => {
     setFetching(true);
     setError(undefined);
     setContractNumber(undefined);
-    const {error, value} = await getter();
+    const {error, value} = await getValue();
     if (error) {
       setError(error);
     } else {
@@ -41,7 +41,7 @@ const Getter = () => {
         <Button
           type="primary"
           icon={<PoweroffOutlined />}
-          onClick={getValue}
+          onClick={getContractValue}
           loading={fetching}
           size="large"
         >

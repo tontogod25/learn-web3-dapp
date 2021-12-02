@@ -3,7 +3,7 @@ import {Alert, Col, InputNumber, Space, Typography, Button} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
 
 import {getPolygonTxExplorerURL} from '@figment-polygon/lib';
-import {setter} from '@figment-polygon/challenges';
+import {setValue} from '@figment-polygon/challenges';
 import {useGlobalState} from 'context';
 
 const {Text} = Typography;
@@ -24,11 +24,11 @@ const Setter = () => {
     }
   }, [txHash, setTxHash]);
 
-  const setValue = async () => {
+  const setContractValue = async () => {
     setFetching(true);
     setError(undefined);
     setTxHash(null);
-    const {error, hash} = await setter(inputNumber);
+    const {error, hash} = await setValue(inputNumber);
     if (error) {
       setError(error);
     } else {
@@ -45,7 +45,7 @@ const Setter = () => {
           <Button
             type="primary"
             icon={<PoweroffOutlined />}
-            onClick={setValue}
+            onClick={setContractValue}
             loading={fetching}
             size="large"
           >

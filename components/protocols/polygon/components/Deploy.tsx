@@ -67,7 +67,7 @@ const Deploy = () => {
           size="large"
           disabled={!!contractId}
         >
-          Check contract deployment
+          Check deployment
         </Button>
         {isDeployed ? (
           <>

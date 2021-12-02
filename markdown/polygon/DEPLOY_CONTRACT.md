@@ -161,6 +161,12 @@ The ABI is considered an "[artifact](https://trufflesuite.github.io/artifact-upd
 
 ---
 
+# ✅ Make sure it works
+
+Once the contract compiled and deployed, paste the contract address and click to **Check deployment**.
+
+---
+
 # 🏁 Conclusion
 
 Truffle is only one of several different ways to deploy smart contracts on Polygon. It is also possible to use the Ethereum [Remix IDE](https://remix.ethereum.org), or another smart contract development tool called [HardHat](https://hardhat.org). Now that we have a deployed and functioning smart contract on Polygon, let's interact with it!
