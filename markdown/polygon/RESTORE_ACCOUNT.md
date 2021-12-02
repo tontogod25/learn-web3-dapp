@@ -5,7 +5,7 @@ At the beginning of this journey into Polygon, we generated a mnemonic. Now we'r
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-In the file `components/protocols/polygon/components/steps/Restore.tsx`, implement the `restore` function. Using `ethers`, look for `Wallet`, then when the wallet has been regenerated try to deduce which property we're going to call in order to display the address and the private key, finally verify than the generated key matches the existing one.  
+In the file `components/protocols/polygon/components/Restore.tsx`, implement the `restore` function. Using `ethers`, look for `Wallet`, then when the wallet has been regenerated try to deduce which property we're going to call in order to display the address and the private key, finally verify that the generated key matches the existing one.  
 {% endhint %}
 
 **Take a few minutes to figure this out.**
@@ -72,21 +72,10 @@ const restore = () => {
 
 # ✅ Make sure it works
 
-When you have completed the code:
-
-- Copy-Paste your **mnemonic**
-- Click on **Restore Account**
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polygon/polygon-restore.gif)
+When you have completed the code in `components/protocols/polygon/components/Restore.tsx`: Copy & paste your **mnemonic** then click on **Restore Account**.
 
 ---
 
 # 🏁 Conclusion
 
 Congratulations! We have gone from zero to **Polygon**, covering all the most fundamental concepts needed for developers to succeed in using **Polygon**. From connecting to the network to interacting with smart contracts, you have completed coding challenges and created a functional yet basic dApp.
-
-From here, there are many ways to increase your skills with Web 3 development. We recommend following some of the other Tutorials and Pathways on Figment Learn, to discover what makes the other network protocols unique.
-
-If you are an experienced developer, you are welcome to contribute tutorials for **Polygon** and earn some **MATIC** tokens! Check out our tutorial [contribution guidelines](../../../other/tutorial-guidelines/) to get started.
-
-If you had any difficulties following this tutorial or simply want to discuss Polygon with other developers you can join [our Discord](https://discord.gg/fszyM7K) or head over to our [community forums](https://community.figment.io).

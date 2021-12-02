@@ -5,7 +5,7 @@ Transferring some token is one of the major feature of Web 3. In this challenge,
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-**Imagine this scenario:** You know you have a big balance and you want to eat some pizza. Then, you need to transfer **0.1** MATIC to buy one! In `components/protocols/polygon/components/steps/Transfer.tsx`, implement the `transfer` function.
+**Imagine this scenario:** You know you have a big balance and you want to eat some pizza. Then, you need to transfer **0.1** MATIC to buy one! In `components/protocols/polygon/components/Transfer.tsx`, implement the `transfer` function.
 {% endhint %}
 
 **Take a few minutes to figure this out.**
@@ -40,7 +40,7 @@ const transfer = async () => {
 **Need some help?** Check out these links 👇
 
 - [**A short tutorial**](https://ethereum.org/en/developers/tutorials/send-token-etherjs/) on using ethers
-- [**send and sign a transaction**](https://docs.ethers.io/v5/api/signer/#Signer-sendTransaction)
+- [**Send and sign a transaction**](https://docs.ethers.io/v5/api/signer/#Signer-sendTransaction)
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
@@ -97,9 +97,7 @@ const transfer = async () => {
 
 # ✅ Make sure it works
 
-Once the code above has been saved, enter an amount to transfer and click **Transfer**:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polygon/polygon-transfer.gif)
+Once the code in `components/protocols/polygon/components/Transfer.tsx` is complete, enter an amount to transfer and click **Transfer** to send tokens to another Polygon account.
 
 ---
 

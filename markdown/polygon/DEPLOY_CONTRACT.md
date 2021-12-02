@@ -131,23 +131,19 @@ Before we deploy, there is one last thing to prepare. Put the secret recovery ph
 
 It should look like this, with all 12 words on a single line, no quotation marks :
 
-{% code title="/contracts/polygon/SimpleStorage/.secret" %}
-
 ```text
 airport battle cargo daughter educate focus green honey immune jelly kick language
 ```
 
-{% endcode %}
-
 Compiling Solidity with Truffle is a straightforward process, just make sure that your preferred configuration is set in `truffle-config.js` \(paths, compilers, networks, etc.\) and then run the command:
 
-```bash
+```text
 truffle compile
 ```
 
 Deploying Migrations with Truffle is quite similar to deploying, but provides more flexibility for custom workflows. A full explanation of migrations is beyond the scope of this tutorial, but please do read the Truffle [documentation](https://www.trufflesuite.com/docs/truffle/getting-started/running-migrations) on the subject. To deploy the SimpleStorage contract to Polygon, run this command :
 
-```bash
+```text
 truffle migrate --network matic
 ```
 

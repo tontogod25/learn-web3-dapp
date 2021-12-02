@@ -7,7 +7,7 @@ As simple as it sounds, what's happening in the background is actually very powe
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-In the file `components/protocols/polygon/components/steps/Setter.tsx`, implement the `setValue` function.  
+In the file `components/protocols/polygon/components/Setter.tsx`, implement the `setValue` function.  
 {% endhint %}
 
 **Take a few minutes to figure this out.**
@@ -45,8 +45,8 @@ Need some help? Check out these links 👇
 
 - [**Create a Contract using ethers**](https://docs.ethers.io/v5/api/contract/contract/#Contract--creating)
   - You can **console.log `SimpleStorageJson`** to find the contract's `abi` and `address` (through the property `networks`)
-- [**How to call a contract's methods on a ethers Contract object**](https://docs.ethers.io/v5/api/contract/contract/#Contract-functionsCall)
-- To read from the blockchain you don't need to spend any tokens so you can just use a provider to create a Contract instance. But to write you will need to create and sign a transaction through Metamask. Use a `signer` to create the Contract object!
+- [**How to call a contract's methods on an ethers Contract object**](https://docs.ethers.io/v5/api/contract/contract/#Contract-functionsCall)
+- To read from the blockchain you don't need to spend any tokens, so you can use a provider to create a Contract instance. Writing to the blockchain, you will need to create and sign a transaction through Metamask. Use a `signer` to create the Contract object!
 
 Still not sure how to do this? No problem! The solution is below so you don't get stuck.
 
@@ -93,9 +93,7 @@ const setValue = async () => {
 
 # ✅ Make sure it works
 
-Once the code above has been saved, you can click and this is what the UI should look like!
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/polygon/polygon-setter.gif)
+Once the code in `components/protocols/polygon/components/Setter.tsx` is complete, you can enter a value into the textinput then click on **Set Value** to send the transaction and change the data stored in the smart contract.
 
 ---
 
