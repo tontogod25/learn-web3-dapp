@@ -1,33 +1,27 @@
 import {Alert, Col, Space, Typography, Button} from 'antd';
 import {PoweroffOutlined} from '@ant-design/icons';
-import {useState, useEffect} from 'react';
-import axios from 'axios';
-import {
-  getCurrentStepIdForCurrentChain,
-  useGlobalState,
-  getCurrentChainId,
-} from 'context';
-import {getNearState} from '@figment-near/lib';
+import {useEffect, useState} from 'react';
 import Confetti from 'react-confetti';
+import axios from 'axios';
+
+import {getInnerState, getChainLabel} from 'utils/context';
+import {useGlobalState} from 'context';
 
 const {Text} = Typography;
 
 const Connect = () => {
   const {state, dispatch} = useGlobalState();
-  const nearState = getNearState(state);
-  const chainId = getCurrentChainId(state);
+  const {network} = getInnerState(state);
+  const chainLabel = getChainLabel(state);
 
   const [version, setVersion] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (version) {
       dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
+        type: 'SetIsCompleted',
       });
     }
   }, [version, setVersion]);
@@ -37,10 +31,10 @@ const Connect = () => {
     setError(null);
     setVersion(null);
     try {
-      const response = await axios.post(`/api/near/connect`, nearState);
+      const response = await axios.post(`/api/near/connect`, {network});
       setVersion(response.data);
     } catch (error) {
-      setVersion(null);
+      setError(error.response.data);
     } finally {
       setFetching(false);
     }
@@ -64,7 +58,7 @@ const Connect = () => {
             <Alert
               message={
                 <Space>
-                  Connected to {chainId}:<Text code>version {version}</Text>
+                  Connected to {chainLabel}:<Text code>version {version}</Text>
                 </Space>
               }
               type="success"
@@ -82,7 +76,7 @@ const Connect = () => {
             />
           ) : (
             <Alert
-              message={<Space>Not Connected to {chainId}</Space>}
+              message={<Space>Not Connected to {chainLabel}</Space>}
               type="error"
               showIcon
             />

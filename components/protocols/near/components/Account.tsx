@@ -1,22 +1,19 @@
 import {Alert, Button, Col, Space, Typography, Input} from 'antd';
-import {getPublicKey, getAccountUrl} from '@figment-near/lib';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import {
-  getCurrentStepIdForCurrentChain,
-  useGlobalState,
-  getCurrentChainId,
-} from 'context';
-import {PROTOCOL_INNER_STATES_ID} from 'types';
-import {getNearState} from '@figment-near/lib';
 
-import type {CheckAccountIdT, AlertT} from '@figment-near/types';
+import {PROTOCOL_INNER_STATES_ID} from 'types';
+import {getPublicKey, accountExplorer} from '@figment-near/lib';
+
+import {useGlobalState} from 'context';
+import {getInnerState} from 'utils/context';
+import type {CheckAccountIdT, AlertT} from 'types';
 
 const {Text} = Typography;
 
 const Account = () => {
   const {state, dispatch} = useGlobalState();
-  const {NETWORK, SECRET, ACCOUNT_ID} = getNearState(state);
+  const {network, secret, accountId: account_id} = getInnerState(state);
 
   const [freeAccountId, setFreeAccountId] = useState<string>('');
   const [accountId, setAccountId] = useState<string>('');
@@ -26,28 +23,25 @@ const Account = () => {
   useEffect(() => {
     if (accountId) {
       dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
-      });
-      dispatch({
-        type: 'SetStepInnerState',
-        chainId: getCurrentChainId(state),
-        innerStateId: PROTOCOL_INNER_STATES_ID.ACCOUNT_ID,
-        value: accountId,
+        type: 'SetInnerState',
+        values: [
+          {
+            [PROTOCOL_INNER_STATES_ID.ACCOUNT_ID]: accountId,
+          },
+        ],
+        isCompleted: true,
       });
     }
   }, [accountId, setAccountId]);
 
   const createAccountWithId = async () => {
-    const publicKey = SECRET && getPublicKey(SECRET);
+    const publicKey = secret && getPublicKey(secret);
     setIsFetching(true);
     try {
       const response = await axios.post(`/api/near/create-account`, {
         freeAccountId,
         publicKey,
-        NETWORK,
+        network,
       });
       setAccountId(response.data);
     } catch (error) {
@@ -61,7 +55,7 @@ const Account = () => {
     freeAccountId,
     setFreeAccountId,
     setIsFreeAccountId,
-    NETWORK,
+    network,
   };
 
   return (
@@ -78,7 +72,7 @@ const Account = () => {
           >
             Create Account
           </Button>
-          {ACCOUNT_ID && (
+          {account_id && (
             <Col>
               <Space direction="vertical">
                 <Alert
@@ -89,7 +83,7 @@ const Account = () => {
                   }
                   description={
                     <a
-                      href={getAccountUrl(ACCOUNT_ID)}
+                      href={accountExplorer(network)(account_id)}
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -109,7 +103,7 @@ const Account = () => {
 };
 
 const CheckAccountId: React.FC<CheckAccountIdT> = ({
-  NETWORK,
+  network,
   freeAccountId,
   setFreeAccountId,
   setIsFreeAccountId,
@@ -125,7 +119,7 @@ const CheckAccountId: React.FC<CheckAccountIdT> = ({
     try {
       const response = await axios.post(`/api/near/check-account`, {
         freeAccountId,
-        NETWORK,
+        network,
       });
       if (response.data) {
         setIsFreeAccountId(response.data);

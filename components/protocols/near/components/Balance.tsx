@@ -7,12 +7,12 @@ import {getInnerState} from 'utils/context';
 
 const {Text} = Typography;
 
-const DECIMAL_OFFSET = 10 ** 9;
-const TOKEN_SYMBOL = 'AVAX';
+const DECIMAL_OFFSET = 10 ** 24;
+const TOKEN_SYMBOL = 'NEAR';
 
 const Balance = () => {
   const {state, dispatch} = useGlobalState();
-  const {address, network} = getInnerState(state);
+  const {accountId, network} = getInnerState(state);
 
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,15 +31,15 @@ const Balance = () => {
     setError(null);
     setBalance(null);
     try {
-      const response = await axios.post(`/api/avalanche/balance`, {
-        address,
+      const response = await axios.post(`/api/near/balance`, {
+        accountId,
         network,
       });
       setBalance(
         parseFloat((parseFloat(response.data) / DECIMAL_OFFSET).toFixed()),
       );
     } catch (error) {
-      setError(error.message);
+      setError(error.response.data);
     } finally {
       setFetching(false);
     }

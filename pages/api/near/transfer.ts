@@ -8,10 +8,10 @@ export default async function (
   req: NextApiRequest,
   res: NextApiResponse<string>,
 ) {
-  const {txSender, txAmount, txReceiver, NETWORK, SECRET} = req.body;
+  const {txSender, txAmount, txReceiver, network, secret} = req.body;
 
   try {
-    const config = configFromNetwork(NETWORK);
+    const config = configFromNetwork(network);
 
     // recreate the keypair from secret
     const keypair = undefined;

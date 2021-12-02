@@ -6,9 +6,9 @@ export default async function connection(
   req: NextApiRequest,
   res: NextApiResponse<string>,
 ) {
-  const {NETWORK} = req.body;
+  const {network} = req.body;
   try {
-    const config = configFromNetwork(NETWORK);
+    const config = configFromNetwork(network);
     const near = undefined;
     const provider = undefined;
     const status = undefined;

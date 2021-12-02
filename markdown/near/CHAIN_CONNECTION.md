@@ -21,7 +21,7 @@ In `pages/api/near/connect.ts`, implement `connection` by creating a `Connection
 // Do not forget we're in an "async" world,
 // so you may need to "await" some results.
 try {
-  const config = configFromNetwork(NETWORK);
+  const config = configFromNetwork(network);
   const near = undefined;
   const provider = undefined
   const status = undefined;
@@ -44,7 +44,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 ```typescript
 // solution
 try {
-  const config = configFromNetwork(NETWORK);
+  const config = configFromNetwork(network);
   const near = await connect(config);
   const provider = near.connection.provider;
   const status = await provider.status();

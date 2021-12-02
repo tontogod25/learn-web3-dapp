@@ -1,14 +1,11 @@
+import {useEffect, useState} from 'react';
 import {Form, Input, Button, Alert, Space, Typography, Col} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-import {getTransactionUrl} from '@figment-near/lib';
-import {useState, useEffect} from 'react';
 import axios from 'axios';
-import {
-  getCurrentStepIdForCurrentChain,
-  useGlobalState,
-  getCurrentChainId,
-} from 'context';
-import {getNearState} from '@figment-near/lib';
+
+import {transactionUrl} from '@figment-near/lib';
+import {getInnerState} from 'utils/context';
+import {useGlobalState} from 'context';
 
 const layout = {
   labelCol: {span: 4},
@@ -21,48 +18,44 @@ const tailLayout = {
 
 const {Text} = Typography;
 
+const RECIPIENT = 'pizza.testnet';
+
 const Transfer = () => {
   const {state, dispatch} = useGlobalState();
-  const {NETWORK, SECRET, ACCOUNT_ID} = getNearState(state);
+  const {accountId, secret, network} = getInnerState(state);
 
-  const [toAddress, _setToAddress] = useState('pizza.testnet');
   const [error, setError] = useState<string | null>(null);
+  const [hash, setHash] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
-  const [hash, setHash] = useState(null);
 
   useEffect(() => {
     if (hash) {
       dispatch({
-        type: 'SetStepIsCompleted',
-        chainId: getCurrentChainId(state),
-        stepId: getCurrentStepIdForCurrentChain(state),
-        value: true,
+        type: 'SetIsCompleted',
       });
     }
   }, [hash, setHash]);
 
   const transfer = async (values: any) => {
-    const isValidAmount = parseFloat(values.amount);
-    if (isNaN(isValidAmount)) {
-      setError('Amount needs to be a valid number');
-      throw Error('Invalid Amount');
-    }
-    const txAmount = values.amount;
-    const txSender = values.from;
-    const txReceiver = values.to;
-    const options = {
-      txSender,
-      txAmount,
-      txReceiver,
-      NETWORK,
-      SECRET,
-    };
     setFetching(true);
+    setError(null);
+    setHash(null);
+    const txAmount = values.amount;
     try {
-      const response = await axios.post(`/api/near/transfer`, options);
+      if (isNaN(parseFloat(txAmount))) {
+        throw new Error('invalid amount');
+      }
+      const response = await axios.post(`/api/near/transfer`, {
+        secret,
+        txSender: accountId,
+        network,
+        txAmount,
+        txReceiver: RECIPIENT,
+      });
       setHash(response.data);
     } catch (error) {
-      console.error(error);
+      const errorMessage = error.response ? error.response.data : error.message;
+      setError(errorMessage);
     } finally {
       setFetching(false);
     }
@@ -76,28 +69,21 @@ const Transfer = () => {
         layout="horizontal"
         onFinish={transfer}
         initialValues={{
-          from: ACCOUNT_ID,
-          amount: 1,
-          to: toAddress,
+          from: accountId,
         }}
       >
         <Form.Item label="Sender" name="from" required>
-          <Text code>{ACCOUNT_ID}</Text>
+          <Text code>{accountId}</Text>
         </Form.Item>
 
-        <Form.Item
-          label="Amount"
-          name="amount"
-          required
-          tooltip="1 NEAR = 10**24 yoctoNEAR"
-        >
+        <Form.Item label="Amount" name="amount" required>
           <Space direction="vertical">
-            <Input suffix="NEAR" style={{width: '200px'}} />
+            <Input suffix="NEAR" style={{width: '200px'}} placeholder={'10'} />
           </Space>
         </Form.Item>
 
         <Form.Item label="Recipient" name="to" required>
-          <Text code>{toAddress}</Text>
+          <Text code>{RECIPIENT}</Text>
         </Form.Item>
 
         <Form.Item {...tailLayout}>
@@ -120,16 +106,13 @@ const Transfer = () => {
         {hash && (
           <Form.Item {...tailLayout}>
             <Alert
+              style={{maxWidth: '350px'}}
               type="success"
               showIcon
               message={<Text strong>Transfer confirmed!</Text>}
               description={
-                <a
-                  href={getTransactionUrl(hash ?? '')}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View on NEAR Explorer
+                <a href={transactionUrl(hash)} target="_blank" rel="noreferrer">
+                  View on transaction Explorer
                 </a>
               }
             />
@@ -138,13 +121,7 @@ const Transfer = () => {
 
         {error && (
           <Form.Item {...tailLayout}>
-            <Alert
-              type="error"
-              showIcon
-              closable
-              message={error}
-              onClose={() => setError('')}
-            />
+            <Alert type="error" showIcon message={error} />
           </Form.Item>
         )}
       </Form>

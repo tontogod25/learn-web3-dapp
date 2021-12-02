@@ -6,9 +6,9 @@ export default async function (
   req: NextApiRequest,
   res: NextApiResponse<boolean | string>,
 ) {
+  const {freeAccountId, network} = req.body;
   try {
-    const {freeAccountId, NETWORK} = req.body;
-    const config = configFromNetwork(NETWORK);
+    const config = configFromNetwork(network);
     const near = await connect(config);
     // try to query the account info of the
     const accountInfo = undefined;

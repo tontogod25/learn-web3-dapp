@@ -1,16 +1,12 @@
 import {keyStores, ConnectConfig, KeyPair} from 'near-api-js';
-import {CHAINS, NEAR_NETWORKS, NEAR_PROTOCOLS, GlobalStateT} from 'types';
 import {InMemoryKeyStore} from 'near-api-js/lib/key_stores';
-import {getNodeURL} from 'utils/datahub';
-import {getNetworkForCurrentChain, getChainInnerStates} from 'context';
 
 export const configFromNetwork = (network: string): ConnectConfig => {
-  const nodeUrl: string = getNodeURL(
-    CHAINS.NEAR,
-    NEAR_NETWORKS.TESTNET,
-    NEAR_PROTOCOLS.RPC,
-    network,
-  );
+  const nodeUrl =
+    network === 'Datahub'
+      ? `${process.env.NEAR_DATAHUB_URL}/apikey/${process.env.DATAHUB_NEAR_API_KEY}`
+      : 'https://rpc.testnet.near.org';
+
   const keyStore: InMemoryKeyStore = new keyStores.InMemoryKeyStore();
   const config = {
     keyStore,
@@ -23,23 +19,14 @@ export const configFromNetwork = (network: string): ConnectConfig => {
   return config;
 };
 
-export const getExplorerUrl = () => `https://explorer.testnet.near.org`;
-
-export const getTransactionUrl = (hash: string) =>
+export const transactionUrl = (hash: string) =>
   `https://explorer.testnet.near.org/transactions/${hash}`;
 
-export const getAccountUrl = (accountId: string) =>
-  `https://explorer.testnet.near.org/accounts/${accountId}`;
+export const accountExplorer = (network: string) => (address: string) =>
+  `https://explorer.testnet.near.org/accounts/${address}`;
 
 export const getPrettyPublicKey = (secretKey: string) =>
   KeyPair.fromString(secretKey).getPublicKey().toString().slice(8);
 
 export const getPublicKey = (secretKey: string) =>
   KeyPair.fromString(secretKey).getPublicKey().toString();
-
-export const getNearState = (state: GlobalStateT) => {
-  const innerState = getChainInnerStates(state);
-  const NETWORK = getNetworkForCurrentChain(state);
-
-  return {...innerState, NETWORK};
-};
