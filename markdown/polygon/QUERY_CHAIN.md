@@ -16,9 +16,7 @@ In order to gather information from the blockchain, we will use ethers again. Fo
 //...
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const networkName = await provider.getNetwork().then((res) => {
-      return res.name;
-    });
+    const networkName = await provider.getNetwork().then(res => { return res.name })
 
     // TODO: Define the variables below
     const chainId = undefined;
@@ -32,6 +30,7 @@ In order to gather information from the blockchain, we will use ethers again. Fo
 
     return {
       data: {
+        networkName,
         chainId,
         blockHeight,
         gasPriceAsGwei,
@@ -77,6 +76,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
     return {
       data: {
+        networkName,
         chainId,
         blockHeight,
         gasPriceAsGwei,

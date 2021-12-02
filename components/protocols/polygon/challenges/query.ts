@@ -23,6 +23,7 @@ const query = async () => {
 
     return {
       data: {
+        networkName,
         chainId,
         blockHeight,
         gasPriceAsGwei,

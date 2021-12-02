@@ -320,6 +320,7 @@ export type CheckAccountIdT = {
 export type AlertT = 'success' | 'info' | 'warning' | 'error' | undefined;
 
 export type QueryT = {
+  networkName: string;
   chainId: number;
   blockHeight: number;
   gasPriceAsGwei: string;
