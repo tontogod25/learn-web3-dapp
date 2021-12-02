@@ -14,7 +14,7 @@ If you want to learn more about NEAR smart contracts, you can follow the tutoria
 # 🏋️ Challenge
 
 {% hint style="tip" %}
-In`pages/api/near/deploy.ts`, implement the default function. Deploy your first smart contract on the **NEAR** testnet. You must replace any instances of `undefined` with working code to accomplish this.
+In `pages/api/near/deploy.ts`, implement the default function. Deploy your first smart contract on the **NEAR** testnet. You must replace any instances of `undefined` with working code to accomplish this.
 {% endhint %}
 
 **Take a few minutes to figure this out.**
@@ -73,9 +73,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once you have the code above saved, click on **Deploy Contract**
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/near/near-deploy.gif)
+Once the code in `pages/api/near/deploy.ts` is complete, click on **Deploy Contract** to send the compiled smart contract to NEAR.
 
 ---
 
