@@ -60,6 +60,9 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 //...
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const networkName = await provider.getNetwork().then((res) => {
+      return res.name;
+    });
 
     const chainId = provider.network.chainId;
     const blockHeight = await provider.getBlockNumber();

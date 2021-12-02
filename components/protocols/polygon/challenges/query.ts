@@ -7,6 +7,9 @@ declare let window: {
 const query = async () => {
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const networkName = await provider.getNetwork().then((res) => {
+      return res.name;
+    });
 
     // TODO: Define the variables below
     const chainId = undefined;
