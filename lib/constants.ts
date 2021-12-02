@@ -286,12 +286,12 @@ export const CHAINS_CONFIG: ChainsType = {
         skippable: true,
       },
       {
-        id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
-        title: 'Set the storage of the contract',
-      },
-      {
         id: PROTOCOL_STEPS_ID.GET_CONTRACT_VALUE,
         title: 'Get the storage of the contract',
+      },
+      {
+        id: PROTOCOL_STEPS_ID.SET_CONTRACT_VALUE,
+        title: 'Set the storage of the contract',
       },
       {
         id: PROTOCOL_STEPS_ID.RESTORE_ACCOUNT,
