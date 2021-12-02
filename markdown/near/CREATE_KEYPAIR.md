@@ -56,11 +56,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 # ✅ Make sure it works
 
-Once the code is complete and the file is saved, Next.js will rebuild the API route. Now click on **Generate a Keypair** and you should see:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/near/near-keypair.gif)
-
----
+## Once the code in `pages/api/near/keypair.ts` is complete, Next.js will rebuild the API route. Now click on **Generate a Keypair** to make your first NEAR keypair.
 
 # 🏁 Conclusion
 
