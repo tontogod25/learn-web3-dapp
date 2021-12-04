@@ -1,6 +1,7 @@
+import {defaultsDeep, difference, keys, omit} from 'lodash';
+
 import {
   GlobalStateT,
-  LocalStorageStateT,
   CHAINS,
   PROTOCOL_STEPS_ID,
   PROTOCOL_INNER_STATES_ID,
@@ -9,44 +10,6 @@ import {
   ProtocolStepT,
 } from 'types';
 
-export const prepareGlobalStateForStorage = (
-  globalState: GlobalStateT,
-): LocalStorageStateT => {
-  const chains = Object.keys(globalState.protocols) as CHAINS[];
-
-  return chains.reduce((acc: LocalStorageStateT, el: CHAINS) => {
-    acc[el] = {
-      currentStepId: globalState.protocols[el].currentStepId,
-      innerState: globalState.protocols[el].innerState,
-    };
-    return acc;
-  }, {} as LocalStorageStateT);
-};
-
-export const prepareGlobalState = (
-  localStorage: LocalStorageStateT,
-  initialGlobalState: GlobalStateT,
-): GlobalStateT => {
-  const chains = Object.keys(initialGlobalState.protocols) as CHAINS[];
-  const newProtocols = chains.reduce(
-    (acc: GlobalStateT['protocols'], el: CHAINS) => {
-      acc[el] = {
-        ...initialGlobalState.protocols[el],
-        ...(localStorage ? localStorage[el] : {}),
-      };
-      return acc;
-    },
-    initialGlobalState.protocols,
-  );
-
-  return {
-    ...initialGlobalState,
-    protocols: newProtocols,
-  };
-};
-
-// New read-only function for the global state
-//
 // Global State function, upmost level
 export const getChainId = (state: GlobalStateT): CHAINS => {
   return state.currentChainId as CHAINS;
@@ -268,9 +231,7 @@ export const getInnerState = (state: GlobalStateT) => {
   return {network, ...innerState};
 };
 
-/* Important stuff to use later
-// import {defaultsDeep, difference, keys, omit} from 'lodash';
-const mergeState = (
+export const mergeState = (
   chainId: CHAINS,
   storedState: GlobalStateT,
   initialState: GlobalStateT,
@@ -289,4 +250,3 @@ const mergeState = (
       } as GlobalStateT)
     : initialState;
 };
-*/
