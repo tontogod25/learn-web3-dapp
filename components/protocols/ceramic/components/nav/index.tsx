@@ -1,7 +1,8 @@
 import {useGlobalState} from 'context';
+import {Space} from 'antd';
+import styled from 'styled-components';
 import {getStepId} from 'utils/context';
 import {PROTOCOL_STEPS_ID} from 'types';
-import {StepMenuBar} from 'components/shared/Layout/StepMenuBar';
 import Auth from '@figment-ceramic/components/auth';
 
 const Nav = () => {
@@ -18,5 +19,13 @@ const Nav = () => {
     </StepMenuBar>
   );
 };
+
+const StepMenuBar = styled(Space)`
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: row;
+`;
 
 export default Nav;

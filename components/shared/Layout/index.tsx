@@ -33,7 +33,7 @@ const Layout = ({children, chain, markdown}: LayoutPropT) => {
 
   return (
     <GlobalContext.Provider value={{state, dispatch}}>
-      <Head label={chain.label} />
+      <Head />
       <Col>
         <Nav />
         <BelowNav>
