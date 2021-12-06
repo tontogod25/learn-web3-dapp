@@ -17,7 +17,7 @@ type StepsReducerHelperT = {
 };
 
 const stepsReducerHelper = (
-  {index, data}: {index: number; data: ProtocolStepsT},
+  {index, data}: StepsReducerHelperT,
   step: StepType,
 ): StepsReducerHelperT => {
   const id = step.id;
@@ -214,6 +214,12 @@ export function globalStateReducer(
 export const GlobalContext = createContext<{
   state: GlobalStateT;
   dispatch: Dispatch<Action>;
-} | null>(null);
+}>({
+  state: {
+    currentChainId: undefined,
+    protocols: buildInitialState(),
+  },
+  dispatch: () => null,
+});
 
 export const useGlobalState = () => useContext(GlobalContext);
