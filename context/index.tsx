@@ -84,12 +84,17 @@ export const buildInitialState = (): ProtocolsStateT => {
     {} as ProtocolsStateT,
   );
 };
-
+/*
 export const initGlobalState = (currentChainId: CHAINS) => {
   return {
     currentChainId,
     protocols: buildInitialState(),
   };
+};
+*/
+export const initGlobalState = {
+  currentChainId: undefined,
+  protocols: buildInitialState(),
 };
 
 export type Action =

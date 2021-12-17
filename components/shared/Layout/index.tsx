@@ -21,7 +21,7 @@ type LayoutPropT = {
 
 const Layout = ({children, chain, markdown}: LayoutPropT) => {
   const [storage, setStorage] = useLocalStorage<GlobalStateT>('figment');
-  const newState = mergeState(chain.id, storage, initGlobalState(chain.id));
+  const newState = mergeState(chain.id, storage, initGlobalState);
   const [state, dispatch] = useReducer(globalStateReducer, newState);
 
   useEffect(() => {
