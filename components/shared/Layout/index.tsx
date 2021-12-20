@@ -3,9 +3,14 @@ import styled from 'styled-components';
 import {Row, Col} from 'antd';
 
 import {GlobalContext, globalStateReducer, initGlobalState} from 'context';
-import {ChainType, MarkdownForChainIdT, GlobalStateT} from 'types';
+import {ChainType, MarkdownForChainIdT, LocalStorageStateT} from 'types';
 import {FOOTER_HEIGHT, GRID_LAYOUT, HEADER_HEIGHT} from 'lib/constants';
-import {isOneColumnStep, getChainId, mergeState} from 'utils/context';
+import {
+  isOneColumnStep,
+  getChainId,
+  prepareGlobalState,
+  prepareGlobalStateForStorage,
+} from 'utils/context';
 import {useLocalStorage} from 'hooks';
 
 import Sidebar from './Sidebar';
@@ -20,12 +25,17 @@ type LayoutPropT = {
 };
 
 const Layout = ({children, chain, markdown}: LayoutPropT) => {
-  const [storage, setStorage] = useLocalStorage<GlobalStateT>('figment');
-  const newState = mergeState(chain.id, storage, initGlobalState);
-  const [state, dispatch] = useReducer(globalStateReducer, newState);
+  const [storageState, setStorageState] =
+    useLocalStorage<LocalStorageStateT>('figment');
+  const newGlobalState = prepareGlobalState(
+    storageState,
+    initGlobalState,
+    chain.id,
+  );
+  const [state, dispatch] = useReducer(globalStateReducer, newGlobalState);
 
   useEffect(() => {
-    setStorage(state);
+    setStorageState(prepareGlobalStateForStorage(state));
   }, [state, dispatch]);
 
   const isStepOneColumn = isOneColumnStep(state);
