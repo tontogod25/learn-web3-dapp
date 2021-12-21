@@ -18,7 +18,7 @@ const Balance = () => {
   const [balance, setBalance] = useState<number | null>(null);
 
   useEffect(() => {
-    if (balance) {
+    if (balance !== null) {
       dispatch({
         type: 'SetIsCompleted',
       });
@@ -50,7 +50,7 @@ const Balance = () => {
         <Button type="primary" onClick={getBalance} loading={fetching}>
           Check Balance
         </Button>
-        {balance ? (
+        {balance !== null ? (
           <Alert
             message={
               <Text
