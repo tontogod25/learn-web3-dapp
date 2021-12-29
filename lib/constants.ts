@@ -564,7 +564,7 @@ export const CHAINS_CONFIG: ChainsType = {
   },
   [CHAINS.THE_GRAPH_NEAR]: {
     id: CHAINS.THE_GRAPH_NEAR,
-    label: 'The Graph for Near',
+    label: 'NEAR Graph',
     active: true,
     logoUrl: 'https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010',
     protocol: THE_GRAPH_NEAR_PROTOCOLS.GRAPHQL,
