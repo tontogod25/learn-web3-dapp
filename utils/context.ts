@@ -49,7 +49,7 @@ export const prepareGlobalState = (
       const newSteps = stepsId.reduce((steps, stepId) => {
         steps[stepId] = {
           ...steps[stepId],
-          ...(localStorage ? localStorage[chain].steps[stepId] : {}),
+          ...(localStorage ? localStorage[chain]?.steps[stepId] : {}),
         };
         return steps;
       }, protocols[chain].steps);
