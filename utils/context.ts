@@ -40,22 +40,32 @@ export const prepareGlobalState = (
   initialGlobalState: GlobalStateT,
   chainId: CHAINS,
 ): GlobalStateT => {
-  const chains = Object.keys(initialGlobalState.protocols) as CHAINS[];
+  const initialLocalStorageState =
+    prepareGlobalStateForStorage(initialGlobalState);
+  const chains = Object.keys(initialLocalStorageState) as CHAINS[];
   const newProtocols = chains.reduce(
     (protocols: GlobalStateT['protocols'], chain: CHAINS) => {
       const stepsId = Object.keys(
         protocols[chain].steps,
       ) as PROTOCOL_STEPS_ID[];
       const newSteps = stepsId.reduce((steps, stepId) => {
+        let newStep;
+        try {
+          newStep = localStorage[chain]?.steps[stepId];
+        } catch (error) {
+          newStep = initialLocalStorageState[chain]?.steps[stepId];
+        }
         steps[stepId] = {
           ...steps[stepId],
-          ...(localStorage ? localStorage[chain]?.steps[stepId] : {}),
+          ...newStep,
         };
         return steps;
       }, protocols[chain].steps);
       protocols[chain] = {
         ...initialGlobalState.protocols[chain],
-        ...(localStorage ? localStorage[chain] : {}),
+        ...(localStorage
+          ? localStorage[chain]
+          : initialLocalStorageState[chain]),
         steps: newSteps,
       };
       return protocols;
