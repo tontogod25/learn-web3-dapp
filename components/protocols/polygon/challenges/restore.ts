@@ -2,7 +2,7 @@ import {ethers} from 'ethers';
 
 const restore = (mnemonic: string, address?: string) => {
   try {
-    const wallet = ethers.Wallet.fromMnemonic(mnemonic.trim());
+    const wallet = undefined;
     if (wallet.address === address) {
       const restoredAddress = wallet.address;
       return {

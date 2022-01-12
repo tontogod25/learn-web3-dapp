@@ -7,7 +7,7 @@ declare let window: {
 // A random test's address
 const RECIPIENT = '0xb11D554F2139d843F5c94a3185d17C4d5762a7c7';
 // 0.1 MATIC
-const AMOUNT = '0.1';
+const AMOUNT = '0.01';
 
 const transfer = async () => {
   try {
