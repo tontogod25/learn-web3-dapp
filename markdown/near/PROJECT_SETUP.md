@@ -1,6 +1,6 @@
 # 🧩 DataHub API keys
 
-To make use of the Pathway content, you will require a DataHub account and a valid API key to access NEAR via DataHub's infrastructure. [Sign up for a DataHub account](https://datahub.figment.io/sign_up) and verify your email address.
+To make use of the Pathway content, you will require a DataHub account and a valid API key to access NEAR via DataHub's infrastructure. [Sign up for a DataHub account](https://datahub-beta.figment.io/signup) and verify your email address.
 
 To use your API key, you must create a new file named `.env.local` in the project root directory: `/learn-web3-dapp/.env.local`, copying the contents of the existing `.env.example` file.
 
