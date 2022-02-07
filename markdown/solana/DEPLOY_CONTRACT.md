@@ -232,6 +232,61 @@ Commitment: confirmed
 Program Id: 7KwpCaaYXRsjfCTvf85eCVuZDW894zZNN38UMxMpQoaQ
 ```
 
+## ⛓ Deploying the program to a test validator inside Gitpod
+
+{% hint style="info" %}
+Gitpod currently has an issue which prevents deployments to devnet. To work around this, you will need to run a test validator inside of Gitpod, and deploy your program there instead of devnet. Follow the steps below to complete this step using this alternative method. **Users who have cloned the repository locally are unaffected by this issue**.
+{% endhint %}
+
+First, you will need to change the Solana CLI target cluster with the terminal command:
+
+```text
+solana config set --url http://127.0.0.1:8899
+```
+
+Next, run a test validator using the terminal command:
+
+```text
+solana-test-validator
+```
+
+This will have similar output as shown below, and prevent you from entering other commands into the terminal where you run `solana-test-validator` until you stop the process with `Ctrl+C`:
+
+```text
+Ledger location: test-ledger
+Log: test-ledger/validator.log
+ Initializing...
+ Initializing...
+Identity: HsrXahBfC7ZbxovF78k9SiY7UZ43MmkyiWDsJi6bM7u4
+Genesis Hash: 3m667qKgVF3a97rRWWbHLX1U2YbeAEgHqzEDjBiXgPsH
+Version: 1.9.5
+Shred Version: 44724
+Gossip Address: 127.0.0.1:1024
+TPU Address: 127.0.0.1:1027
+JSON RPC URL: http://127.0.0.1:8899
+ 00:00:20 | Processed Slot: 46 | Confirmed Slot: 46 |
+```
+
+Open a new terminal in Gitpod (or split the one running the test validator). In this new terminal, you will need to add the location of the Solana CLI to your PATH with the command:
+
+```text
+export PATH="/home/gitpod/.local/share/solana/install/active_release/bin:$PATH"
+```
+
+Make sure your keypair in `/solana-wallet/keypair.json` has a SOL balance to pay for the deployment by airdropping it some SOL (and since it's on a test validator, you can specify a much higher amount of SOL):
+
+```text
+solana airdrop 100 $(solana-keygen pubkey solana-wallet/keypair.json)
+```
+
+You can now deploy the program to the test validator with the command:
+
+```text
+solana deploy -v --keypair solana-wallet/keypair.json dist/solana/program/helloworld.so
+```
+
+The last thing to change is the selected cluster in the Pathway UI. Go back to the "Connect to Solana" step using the navigation buttons at the bottom of the screen, there you can pick the **localnet** option from the Network dropdown on the top of the page. Don't forget to repeat the airdrop step, to make sure that the keypair is funded with SOL. You can now proceed with the code challenge and the Pathway will check the test validator for the deployed program instead of devnet, circumventing the issue with Gitpod! 😅
+
 ---
 
 # 🏋️ Challenge

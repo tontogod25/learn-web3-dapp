@@ -52,7 +52,7 @@ solana-test-validator
 Use `solana config set` to target a particular cluster. After setting a cluster target, any future subcommands will send/receive information from that cluster. To target a running Test Validator with the Solana CLI :
 
 ```text
-solana config set --url https://localhost:8899
+solana config set --url http://localhost:8899
 ```
 
 You can see which cluster the Solana command-line tool (CLI) is currently targeting and the paths to your keypair and configuration file with the command :
