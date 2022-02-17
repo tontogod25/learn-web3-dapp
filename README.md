@@ -17,9 +17,10 @@ We will guide you through using the various blockchain JavaScript SDKs to intera
 - ✅ Ceramic
 - ✅ The Graph
 - ✅ The Graph for NEAR
+- ✅ Pyth
 - 🔜 Arweave
 - 🔜 Chainlink
-- 🔜 Pyth
+
 - [Let us know which one you'd like us to cover](https://github.com/figment-networks/learn-web3-dapp/issues)
 
 <img width="1024" alt="Screen Shot 1" src="https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/readme-01.png">
