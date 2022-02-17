@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -16,15 +16,16 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
+      "@figment-avalanche/*": ["components/protocols/avalanche/*"],
+      "@figment-celo/*": ["components/protocols/celo/*"],
+      "@figment-ceramic/*": ["components/protocols/ceramic/*"],
       "@figment-near/*": ["components/protocols/near/*"],
       "@figment-polkadot/*": ["components/protocols/polkadot/*"],
-      "@figment-solana/*": ["components/protocols/solana/*"],
-      "@figment-celo/*": ["components/protocols/celo/*"],
-      "@figment-tezos/*": ["components/protocols/tezos/*"],
-      "@figment-avalanche/*": ["components/protocols/avalanche/*"],
-      "@figment-secret/*": ["components/protocols/secret/*"],
       "@figment-polygon/*": ["components/protocols/polygon/*"],
-      "@figment-ceramic/*": ["components/protocols/ceramic/*"],
+      "@figment-pyth/*": ["components/protocols/pyth/*"],
+      "@figment-secret/*": ["components/protocols/secret/*"],
+      "@figment-solana/*": ["components/protocols/solana/*"],
+      "@figment-tezos/*": ["components/protocols/tezos/*"],
       "@figment-the-graph/*": ["components/protocols/the_graph/*"],
       "@figment-the-graph-near/*": ["components/protocols/the_graph_near/*"]
     },

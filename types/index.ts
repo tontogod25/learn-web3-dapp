@@ -9,6 +9,7 @@ export enum CHAINS {
   NEAR = 'near',
   POLYGON = 'polygon',
   POLKADOT = 'polkadot',
+  PYTH = 'pyth',
   SECRET = 'secret',
   SOLANA = 'solana',
   TEZOS = 'tezos',
@@ -16,17 +17,19 @@ export enum CHAINS {
   THE_GRAPH_NEAR = 'the_graph_near',
 }
 
-// Protocol's Enum
+// Protocols Enum -----------------------
 export type PROTOCOLS =
-  | POLYGON_PROTOCOLS
-  | SOLANA_PROTOCOLS
-  | POLKADOT_PROTOCOLS
+  | ARWEAVE_PROTOCOLS
   | AVALANCHE_PROTOCOLS
-  | SECRET_PROTOCOLS
-  | NEAR_PROTOCOLS
   | CELO_PROTOCOLS
-  | TEZOS_PROTOCOLS
   | CERAMIC_PROTOCOLS
+  | NEAR_PROTOCOLS
+  | POLKADOT_PROTOCOLS
+  | POLYGON_PROTOCOLS
+  | PYTH_PROTOCOLS
+  | SECRET_PROTOCOLS
+  | SOLANA_PROTOCOLS
+  | TEZOS_PROTOCOLS
   | THE_GRAPH_PROTOCOLS
   | THE_GRAPH_NEAR_PROTOCOLS
   | ARWEAVE_PROTOCOLS;
@@ -71,6 +74,11 @@ export enum POLKADOT_PROTOCOLS {
   WS = 'WS',
 }
 
+export enum PYTH_PROTOCOLS {
+  RPC = 'RPC',
+  WS = 'WS',
+}
+
 export enum SOLANA_PROTOCOLS {
   RPC = 'RPC',
   WS = 'WS',
@@ -89,7 +97,7 @@ export enum CHAIN_PROVIDERS {
   LOCAL = 'LOCAL',
 }
 
-// NETWORKS ----------------------
+// NETWORKS -----------------------
 export enum AVALANCHE_NETWORKS {
   TESTNET = 'Testnet',
   DATAHUB = 'Datahub',
@@ -126,8 +134,15 @@ export enum POLYGON_NETWORKS {
   DATAHUB = 'Datahub',
 }
 
+export enum PYTH_NETWORKS {
+  MAINNET = 'mainnet-beta',
+  TESTNET = 'testnet',
+  DEVNET = 'devnet',
+  LOCALNET = 'localnet',
+}
+
 export enum SOLANA_NETWORKS {
-  MAINNET = 'MAINNET',
+  MAINNET = 'mainnet-beta',
   DEVNET = 'devnet',
   DATAHUB = 'datahub',
   LOCALNET = 'localnet',
@@ -158,28 +173,32 @@ export enum ARWEAVE_NETWORKS {
 
 // -----------------------------
 export type NETWORKS =
-  | POLYGON_NETWORKS
+  | ARWEAVE_NETWORKS
   | AVALANCHE_NETWORKS
-  | SOLANA_NETWORKS
-  | POLKADOT_NETWORKS
-  | NEAR_NETWORKS
-  | SECRET_NETWORKS
   | CELO_NETWORKS
   | TEZOS_NETWORKS
   | THE_GRAPH_NETWORKS
   | THE_GRAPH_NEAR_NETWORKS
   | CERAMIC_NETWORKS
+  | NEAR_NETWORKS
+  | POLKADOT_NETWORKS
+  | POLYGON_NETWORKS
+  | PYTH_NETWORKS
+  | SECRET_NETWORKS
+  | SOLANA_NETWORKS
   | TEZOS_NETWORKS
-  | ARWEAVE_NETWORKS;
+  | THE_GRAPH_NETWORKS;
 
 // -----------------------------
 export enum NETWORK {
   DATAHUB,
   TESTNET,
   LOCALNET,
+  MAINNET,
+  DEVNET,
 }
 
-// ---------------------------------------------------
+// -----------------------------
 export type ChainType = {
   id: CHAINS;
   label: string;
@@ -216,8 +235,7 @@ export type MarkdownForChainIdT = {
   [key in PROTOCOL_STEPS_ID]: string;
 };
 
-//-----------------------------------------------------------
-// Global's State
+// Global State -----------------------------
 export type GlobalStateT = {
   currentChainId?: CHAINS;
   protocols: ProtocolsStateT;
@@ -324,22 +342,28 @@ export enum PROTOCOL_STEPS_ID {
   SUBGRAPH_QUERY = 'SUBGRAPH_QUERY',
   SUBGRAPH_SCHEMA = 'SUBGRAPH_SCHEMA',
   SUBGRAPH_MAPPINGS = 'SUBGRAPH_MAPPINGS',
+  PYTH_CONNECT = 'PYTH_CONNECT',
+  PYTH_EXCHANGE = 'PYTH_EXCHANGE',
+  PYTH_SOLANA_WALLET = 'PYTH_SOLANA_WALLET',
+  PYTH_VISUALIZE_DATA = 'PYTH_VISUALIZE_DATA',
+  PYTH_LIQUIDATE = 'PYTH_LIQUIDATE',
 }
-
-// Near type
-export type CheckAccountIdT = {
-  network: string;
-  freeAccountId: string;
-  setFreeAccountId: Dispatch<SetStateAction<string>>;
-  setIsFreeAccountId: Dispatch<SetStateAction<boolean>>;
-};
 
 export type AlertT = 'success' | 'info' | 'warning' | 'error' | undefined;
 
+// Polygon type
 export type QueryT = {
   networkName: string;
   chainId: number;
   blockHeight: number;
   gasPriceAsGwei: string;
   blockInfo: BlockWithTransactions;
+};
+
+// NEAR type
+export type CheckAccountIdT = {
+  network: string;
+  freeAccountId: string;
+  setFreeAccountId: Dispatch<SetStateAction<string>>;
+  setIsFreeAccountId: Dispatch<SetStateAction<boolean>>;
 };

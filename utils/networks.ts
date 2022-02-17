@@ -6,6 +6,7 @@ import {
   AVALANCHE_NETWORKS,
   POLKADOT_NETWORKS,
   POLYGON_NETWORKS,
+  PYTH_NETWORKS,
   NEAR_NETWORKS,
   SECRET_NETWORKS,
   TEZOS_NETWORKS,
@@ -25,6 +26,19 @@ export const networksMap = (
     }
     if (network === NETWORK.LOCALNET) {
       return SOLANA_NETWORKS.LOCALNET;
+    }
+  }
+
+  // PYTH NETWORKS MAP
+  if (chain === CHAINS.PYTH) {
+    if (network === NETWORK.DEVNET) {
+      return PYTH_NETWORKS.DEVNET;
+    }
+    if (network === NETWORK.TESTNET) {
+      return PYTH_NETWORKS.DEVNET;
+    }
+    if (network === NETWORK.MAINNET) {
+      return PYTH_NETWORKS.MAINNET;
     }
   }
 
