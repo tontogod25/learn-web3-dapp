@@ -38,6 +38,7 @@ import {
 import _ from 'lodash';
 import * as Rx from 'rxjs';
 import {DevnetPriceRatio} from './DevnetPriceRatio';
+import {SwapResult} from '@figment-pyth/lib/swap';
 
 const connection = new Connection(clusterApiUrl(PYTH_NETWORKS.DEVNET));
 const pythPublicKey = getPythProgramKeyForCluster(PYTH_NETWORKS.DEVNET);
@@ -505,10 +506,15 @@ const Liquidate = () => {
                 dataIndex: 'txIds',
                 key: 'txIds',
                 render: (txIds, record) => {
-                  if (txIds.length === 0) {
-                    const errorMsg = record?.error.logs
-                      .find((l: string) => l.startsWith('Program log: Error'))
-                      .replace('Program log: Error: ', ''); // make the error short.
+                  if (record.error) {
+                    let errorMsg = 'Error';
+                    if (record?.error?.message) {
+                      errorMsg = record?.error?.message;
+                    } else {
+                      errorMsg = record?.error.logs
+                        .find((l: string) => l.startsWith('Program log: Error'))
+                        .replace('Program log: Error: ', ''); // make the error short.
+                    }
                     return (
                       <>
                         <Tag color={'red'}>Failed</Tag>

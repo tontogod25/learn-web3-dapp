@@ -104,7 +104,7 @@ export const useExtendedWallet = (
     }
   }, [price]);
 
-  const [orderBook, setOrderbook] = useState<Order[]>([]);
+  const [orderBook, setOrderbook] = useState<Order & SwapResult[]>([]);
 
   const {data, mutate} = useSWR(
     () => `/balance/${keyPair?.publicKey}`, // Cache key based on the keypair.
