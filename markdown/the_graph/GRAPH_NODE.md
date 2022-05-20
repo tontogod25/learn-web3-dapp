@@ -12,22 +12,28 @@ A Graph node comes with the following components:
 
 ## 👨‍💻 Setting up a local Graph node
 
-We don't need to worry about installing and running them: we'll use Docker for this. We defined a Docker configuration in `docker/docker-compose.yaml` and it will tell Docker what to do for each of those three components. Our Graph node will run inside a Docker container and connect it to Ethereum mainnet using Alchemy as a provider (you'll need that Alchemy API key soon).
+We don't need to worry about installing and running them: we'll use Docker for this. We defined a Docker configuration in `docker/docker-compose.yaml` and it will tell Docker what to do for each of those three components. Our Graph node will run inside a Docker container and connect it to Ethereum mainnet using DataHub as a provider (you'll need that DataHub API key soon).
 
 From the root directory of the project, run:
 
 ```text
 cd docker
-ETHEREUM_RPC=mainnet:https://eth-mainnet.alchemyapi.io/v2/<ALCHEMY_API_KEY> docker-compose up
+ETHEREUM_RPC=mainnet:https://ethereum-mainnet--rpc.datahub.figment.io/apikey/<YOUR_DATAHUB_API_KEY> docker-compose up
 ```
 
-You should see a bunch of white and blue commands and then the following:
+Remember to add your DataHub API key to the end of the URL displayed above by replacing the text `YOUR_DATAHUB_API_KEY>` before you run the command. You should see a bunch of white and blue commands and then the following:
 
 ```text
 Starting docker_ipfs_1     ... done
 Starting docker_postgres_1 ... done
 Starting docker_graph-node_1 ... done
 Attaching to docker_postgres_1, docker_ipfs_1, docker_graph-node_1
+```
+
+It should only take a moment to start the IPFS and Postgres containers, and you will want to pay attention to the Graph Node logging output to make sure that there are no errors on startup. When you see the following INFO logging about downloading the latest blocks from Ethereum, it should be running OK:
+
+```text
+docker-graph-node-1  | <TIMESTAMP> INFO Downloading latest blocks from Ethereum. This may take a few minutes..., provider: mainnet-rpc-0, component: BlockIngestor
 ```
 
 > If you encounter the error "FileNotFoundError: [Errno 2] No such file or directory", make sure you have the latest version of Docker Desktop and that it's currently running on your system.
