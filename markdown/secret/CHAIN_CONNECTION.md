@@ -48,7 +48,7 @@ try {
 
 **What happened in the code above?**
 
-- First, we instantiate a new `CosmWasmClient` passing the url of the `supernova-2` network.
+- First, we instantiate a new `CosmWasmClient` passing the URL of the network we want to use (`getNodeUrl` currently defaults to the `pulsar-2` testnet).
 - Next, using the `nodeInfo` method of the rest client returns a `NodeInfoResponse`.
 - Inspecting the methods of our object will lead us naturally to reference the `application_version.version` property.
 - Finally, we send the `version` back to the client-side as JSON.

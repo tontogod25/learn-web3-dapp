@@ -3,7 +3,7 @@ Of course, everyone likes to eat pizza, but among all available pizzas you prefe
 To do so, you'll need to make an encrypted transaction - in the **Secret** world everything is done with privacy in mind! Let's take a look at how to do this.
 
 {% hint style="danger" %}
-You could experience some issues with the availability of the network [**Click here to check the current status**](https://secretnodes.com/secret/chains/supernova-2)
+You could experience some issues with the availability of the network [**Click here to check the current status**](https://secretnodes.com/secret/chains/pulsar-2)
 {% endhint %}
 
 ---
