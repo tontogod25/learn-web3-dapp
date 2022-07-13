@@ -20,7 +20,7 @@ module.exports = withTM({
   typescript: {
     ignoreBuildErrors: true,
   },
-  experimental: {
+  compiler: {
     // Enables the styled-components SWC transform
     styledComponents: true,
   },
