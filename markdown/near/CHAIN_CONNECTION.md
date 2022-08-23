@@ -56,7 +56,7 @@ try {
 
 - `configFromNetwork` takes the network identifier such as _mainnet_ or _testnet_ and returns a `config` object containing the correct URLs.
 - `connect` takes the `config` object and returns an instance of `Near`, which represents the connection.
-- `near.connection.provider` returns a `JsonRpcProvider` object allowing us to make JSON-RPC calls to DataHub.
+- `near.connection.provider` returns a `JsonRpcProvider` object allowing us to make JSON-RPC calls to a node.
 - The `status` method allows us to retrieve the desired information from the properties of the object that it returns.
 - Finally, we can send back the `status.version.version` to the client-side as JSON.
 

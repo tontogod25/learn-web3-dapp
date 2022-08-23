@@ -7,7 +7,7 @@ export const getNodeURL = (network: string) => {
   if (network === 'Testnet') {
     return 'https://api.avax-test.network';
   } else {
-    return `https://${process.env.AVALANCHE_DATAHUB_URL}/apikey/${process.env.DATAHUB_AVALANCHE_API_KEY}`;
+    return 'https://api.avax-test.network';
   }
 };
 
@@ -24,7 +24,8 @@ export const getAvalancheClient = (network: string) => {
     AVALANCHE_NETWORK_NAME,
   );
 
-  client.setAuthToken(process.env.DATAHUB_AVALANCHE_API_KEY as string);
+  // TODO: Test with and without setAuthToken
+  client.setAuthToken(process.env.AVALANCHE_API_KEY as string);
 
   return client;
 };

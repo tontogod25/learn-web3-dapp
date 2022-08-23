@@ -1,4 +1,4 @@
-It’s time to submit your first transaction on Polkadot! In this tutorial, we will connect to a Westend node hosted by DataHub to transfer some testnet tokens. As you remember from previous tutorials, we funded our account on the **Westend** testnet with 1 **WND**. Now let's try to transfer some tokens.
+It’s time to submit your first transaction on Polkadot! In this tutorial, we will connect to a Westend node to transfer some testnet tokens. As you remember from previous tutorials, we funded our account on the **Westend** testnet with 1 **WND**. Now let's try to transfer some tokens.
 
 ---
 

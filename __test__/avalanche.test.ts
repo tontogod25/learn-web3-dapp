@@ -120,7 +120,7 @@ async function import_step(network: string, secret: string) {
 
 describe('Avalanche backend tests', () => {
   jest.setTimeout(15000);
-  const network = 'datahub';
+  const network = 'testnet';
   const address = 'X-fuji10f9gsh80unawkxdtug42475u2kq22sv8xryekd';
   const secret = 'PrivateKey-tAUiooXNYuUMFjmiVxbhfBMKUfPgxMC5z4MuYjzwoALXTEzcV';
 

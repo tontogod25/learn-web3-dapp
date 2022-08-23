@@ -54,42 +54,13 @@ Optionally, check out <https://phantom.app/security> to learn more about the sec
 
 ---
 
-# 🧩 DataHub API keys
+# 🧩 API keys
 
-If you wish to make use of the Pathway content using DataHub, you will need a DataHub account and a valid API key to access Solana via DataHub's infrastructure. [Sign up for a DataHub account](https://datahub-beta.figment.io/signup) and verify your email address. Once you have logged in to DataHub, you will need to create a new app and select the Solana protocol (because Pyth uses Solana).
+**DataHub has discontinued Free accounts**. All Figment Learn pathways now make use of public RPC endpoints only. There is no need to supply an API key to access the public endpoints for Solana.
 
-Click "Create New App":
+If you're using a private infractructure provider, you may require an API key to access nodes via their endpoints. Remember to have your API key saved in `/learn-web3-dapp/.env.local`. You can then reference your API key in the pathway code via `process.env.<SOME_VARIABLE_NAME>`.
 
-![DataHub API keys Image 1](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/dh_api_1.png?raw=true)
-
-Type in a name for your app, select the **Staging** environment, then click on the **Pyth** icon in the list of available protocols. \
-Click "Create app" when you're finished:
-
-![DataHub API keys Image 2](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/dh_api_2.png?raw=true)
-
-You can now find your API key on the Overview tab of the app on the [**DataHub Dashboard**](https://datahub-beta.figment.io/apps):
-
-![DataHub API keys Image 3](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/dh_api_3.png?raw=true)
-
-To use your API key, you should copy the contents of the `.env.example` file located in the project root directory (`/learn-web3-dapp/.env.example`) into a new file named `.env.local` (`/learn-web3-dapp/.env.local`). Also, since this file will contain your API key, we have already added it to the `.gitignore`.
-
-{% hint style="info" %}
-Easily duplicate the file with the terminal command `cp .env.example .env.local`!
-{% endhint %}
-
-You can then paste your unique API key into `.env.local`, as the value for the environment variable `DATAHUB_SOLANA_API_KEY`. This will authenticate you and enable you to make JSON-RPC requests to Solana via DataHub. **The API key shown below is only an example and cannot be used to access DataHub**.
-
-```yaml
-# DataHub API keys
-DATAHUB_AVALANCHE_API_KEY=
-DATAHUB_CELO_API_KEY=
-DATAHUB_NEAR_API_KEY=
-DATAHUB_POLKADOT_API_KEY=
-DATAHUB_POLYGON_API_KEY=
-DATAHUB_SECRET_API_KEY=
-DATAHUB_SOLANA_API_KEY=81436edcf907b0fbb8493d281cdff5af
-DATAHUB_TEZOS_API_KEY=
-```
+If you are using the [Solana default public endpoints](https://docs.solana.com/cluster/rpc-endpoints) you do not require an API key, and you can connect directly without any additions to `.env.local`.
 
 {% hint style="tip" %}
 If the Next.js development server was running at the time you changed the environment variable's value, you will need to restart the Next.js server to make it aware of the new value. You can do this by pressing `Ctrl+C` in the terminal where the Next.js server is running, then restart it with the command `yarn dev`.
@@ -99,4 +70,4 @@ If the Next.js development server was running at the time you changed the enviro
 
 # 👣 Next Steps
 
-Once you have your Solana API key saved in `/learn-web3-dapp/.env.local`, you're ready to begin! Click on the **Next: Connect to Pyth on Solana** button below.
+Click on the **Next: Connect to Pyth on Solana** button below.

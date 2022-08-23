@@ -9,7 +9,7 @@ import {
 } from '@figment-ceramic/components/steps';
 import {useGlobalState} from 'context';
 import {getChainId, getStepId} from 'utils/context';
-import {getNodeURL} from 'utils/datahub';
+import {getNodeURL} from 'utils/external';
 import LocalStorageIdentityStore from '@figment-ceramic/lib/identityStore/LocalStorage';
 
 const Ceramic: React.FC = () => {

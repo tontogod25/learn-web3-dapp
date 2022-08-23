@@ -1,4 +1,4 @@
-In this tutorial, we will connect to a Polkadot node hosted by [DataHub](https://docs.figment.io/introduction/what-is-datahub) using a [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) Provider. DataHub lets developers use the most powerful and unique features of a blockchain without having to become protocol experts. WebSockets make it possible to open a two-way interactive communication session between the user's browser and a server.
+In this tutorial, we will connect to a Polkadot node using a [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) Provider. WebSockets make it possible to open a two-way interactive communication session between the user's browser and a server.
 
 Polkadot has built a [JavaScript library](https://github.com/polkadot-js/api) to help developers interface easily with its API. The documentation for Polkadot.js can be found at [https://polkadot.js.org/docs/](https://polkadot.js.org/docs/).
 
@@ -55,7 +55,7 @@ Still not sure how to do this? No problem! The solution is below so you don't ge
 
 **What happened in the code above?**
 
-- The `getSafeUrl` helper function constructs a DataHub URL for either Mainnet or the Westend testnet using the API key provided in `.env.local` - It can also be used with the `force` option to return the public Westend RPC endpoint as a fallback.
+- The `getSafeUrl` helper function constructs an endpoint URL for either Mainnet or the Westend testnet - It can also be used with the `force` option to return the public Westend RPC endpoint as a fallback.
 - With the endpoint URL, we can create a new `WsProvider` instance.
 - Then we use `ApiPromise.create` to initialize the API, passing the provider as an object.
 - Using the `rpc` module, we can then query the `system.version` method.
@@ -72,4 +72,4 @@ Once the code in `pages/api/polkadot/connect.ts` is complete, click the blue but
 
 # 🏁 Conclusion
 
-In this tutorial you’ve learned how to use the [Polkadot.js](https://polkadot.js.org/docs/) package and DataHub to connect to a Polkadot node. You also learned how to run a simple query to test that connection.
+In this tutorial you’ve learned how to use the [Polkadot.js](https://polkadot.js.org/docs/) package to connect to a Polkadot node. You also learned how to run a simple query to test that connection.

@@ -88,4 +88,4 @@ Once the code in `pages/api/tezos/setter.ts` is complete, click **Increment the 
 
 # 🏁 Conclusion
 
-You have come all the way from connecting to Tezos to being able to deploy smart contracts. You are now empowered to keep learning and building on Tezos, using the dedicated infrastructure of DataHub.
+You have come all the way from connecting to Tezos to being able to deploy smart contracts. You are now empowered to keep learning and building on Tezos.

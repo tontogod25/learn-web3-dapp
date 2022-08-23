@@ -1,5 +1,5 @@
 import {CHAINS, SOLANA_NETWORKS, SOLANA_PROTOCOLS} from 'types';
-import {getNodeURL as getNodeUrl} from 'utils/datahub';
+import {getNodeURL as getNodeUrl} from 'utils/external';
 
 // Helper for generating an account URL on Solana Explorer
 export const accountExplorer = (network: string) => (address: string) => {

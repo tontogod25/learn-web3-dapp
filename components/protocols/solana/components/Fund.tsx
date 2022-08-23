@@ -12,8 +12,8 @@ const {Text} = Typography;
 const Fund = () => {
   const {state, dispatch} = useGlobalState();
   const {address, network: network0} = getInnerState(state);
-  //  Need this fix as DATAHUB doesn't have airdrop feature
-  const network = network0 === NETWORK.DATAHUB ? NETWORK.DEVNET : network0;
+  //  Need this fix as Mainnet-Beta doesn't have airdrop feature
+  const network = network0 === NETWORK.MAINNET ? NETWORK.DEVNET : network0;
 
   const [fetching, setFetching] = useState<boolean>(false);
   const [error, setError] = useState<ErrorT | null>(null);

@@ -1,5 +1,5 @@
 import {CHAINS, PYTH_NETWORKS, PYTH_PROTOCOLS} from 'types';
-import {getNodeURL as getNodeUrl} from 'utils/datahub';
+import {getNodeURL as getNodeUrl} from 'utils/external';
 
 /**
  * Helper for generating an account URL on Solana Explorer
@@ -82,11 +82,11 @@ export const pythMarketExplorer = (network: string, product: string) => {
 };
 
 /**
- * Helper function for getting the DataHub endpoint URL
- * @param network A network identifier, one of ['datahub', 'devnet', 'localnet']
+ * Helper function for getting the endpoint URL
+ * @param network A network identifier, one of ['devnet', 'localnet']
  * @returns URL
  *
- * - NOTE: This function, `getNodeURL` prefills chain, network and protocol for the DataHub util function `getNodeUrl`.
+ * - NOTE: This function, `getNodeURL` prefills chain, network and protocol for the util function `getNodeUrl`.
  */
 export const getNodeURL = (network?: string) =>
   getNodeUrl(CHAINS.PYTH, PYTH_NETWORKS.DEVNET, PYTH_PROTOCOLS.RPC, network);

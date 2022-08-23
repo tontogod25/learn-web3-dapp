@@ -1,6 +1,6 @@
 In the following tutorials, we're going to interact with the Solana blockchain (and in particular its Devnet network) using the `@solana/web3.js` library. It's a convenient way to interface with the RPC API when building a Javascript application. Under the hood it implements Solana's RPC methods and exposes them as Javascript objects. We will explore it together as we add features to our app.
 
-You can choose which Cluster to connect to using the dropdown located in the top right of the UI, as shown below. For the Pathway, we can connect to Datahub or Devnet. If you are using a Test Validator, select the Localnet option.
+You can choose which Cluster to connect to using the dropdown located in the top right of the UI, as shown below. For the Pathway, we can connect to Devnet. If you are using a Test Validator, select the Localnet option.
 
 ![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/solana/solana-chain-connection.png)
 

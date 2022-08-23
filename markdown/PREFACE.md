@@ -35,6 +35,12 @@ const balanceToDisplay = ethers.utils.formatUnits(balanceOfAddress, 18);
 
 When you have completed the code, make sure it works by interacting with the UI on the right side of the page. The button at the bottom right of the screen will be enabled and allow you to move on to the next step!
 
+# 🧩 API keys
+
+**DataHub has discontinued Free accounts**. All Figment Learn pathways now make use of public RPC endpoints only. There is no need to supply an API key to access the public endpoints.
+
+If you're using a private infractructure provider, you may require an API key to access nodes via their endpoints. Remember to have your API key saved in `/learn-web3-dapp/.env.local`. You can then reference your API key in the pathway code via `process.env.<SOME_VARIABLE_NAME>`.
+
 ## 💬 Connect with us on Discord
 
 If you experience any difficulty in using the Pathway or want to talk about Web 3, please join our Developer community on Discord - <https://figment.io/devchat>

@@ -248,7 +248,7 @@ const Markdown = ({
 
           if (isRelativeGitbookUrl) {
             const prefix =
-              'https://raw.githubusercontent.com/figment-networks/datahub-learn/master/';
+              'https://raw.githubusercontent.com/figment-networks/learn-tutorials/master/';
             const absoluteSrc = `${prefix}${src.replace(/\.{1,2}\//g, '')}`;
 
             return (

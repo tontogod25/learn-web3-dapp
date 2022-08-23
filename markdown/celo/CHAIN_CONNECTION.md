@@ -66,4 +66,4 @@ Once the code in `pages/api/celo/connect.ts` is complete, click on the blue butt
 
 Congratulations, you have successfully made a function that can connect to the Celo node! This can be applied either on the client-side or server-side, depending on your needs.
 
-In this tutorial you’ve learned how to use the ContractKit package and DataHub to connect to the Celo node. You also had a chance to run one simple query to test that connection.
+In this tutorial you’ve learned how to use the ContractKit package to connect to the Celo node. You also had a chance to run one simple query to test that connection.

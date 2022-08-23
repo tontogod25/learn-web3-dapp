@@ -2,11 +2,7 @@ import {keyStores, ConnectConfig, KeyPair} from 'near-api-js';
 import {InMemoryKeyStore} from 'near-api-js/lib/key_stores';
 
 export const configFromNetwork = (network: string): ConnectConfig => {
-  const nodeUrl =
-    network === 'Datahub'
-      ? `${process.env.NEAR_DATAHUB_URL}/apikey/${process.env.DATAHUB_NEAR_API_KEY}`
-      : 'https://rpc.testnet.near.org';
-
+  const nodeUrl = 'https://rpc.testnet.near.org';
   const keyStore: InMemoryKeyStore = new keyStores.InMemoryKeyStore();
   const config = {
     keyStore,

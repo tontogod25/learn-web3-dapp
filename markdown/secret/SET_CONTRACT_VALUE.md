@@ -75,4 +75,4 @@ Once the code in `pages/api/secret/setter.ts` is complete, click on **Increment 
 
 # 🏁 Conclusion
 
-Nice work, you have successfully deployed and interacted with a smart contract on the Secret Network testnet using DataHub.
+Nice work, you have successfully deployed and interacted with a smart contract on the Secret Network testnet.

@@ -1,4 +1,4 @@
-It’s time to submit your first transactions. In this challenge, we will connect to a Celo node hosted by DataHub and we will transfer our testnet token. As you remember from previous step, we funded our account on the `Alfajores` testnet with 5 **CELO** and 10 **cUSD**. Now let’s try to transfer some **CELO** tokens to another testnet account.
+It’s time to submit your first transactions. In this challenge, we will connect to a Celo node and we will transfer our testnet token. As you remember from previous step, we funded our account on the `Alfajores` testnet with 5 **CELO** and 10 **cUSD**. Now let’s try to transfer some **CELO** tokens to another testnet account.
 Celo has a number of core smart contracts that are deployed to the network. In this challenge, we'll use the GoldToken contract wrappers, which have a `transfer` and a `send` function allowing us to build a transfer transaction.
 
 ---

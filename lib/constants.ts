@@ -40,7 +40,7 @@ export const CHAINS_CONFIG: ChainsType = {
     active: true,
     logoUrl: 'https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=010',
     protocol: AVALANCHE_PROTOCOLS.RPC,
-    network: AVALANCHE_NETWORKS.DATAHUB,
+    network: AVALANCHE_NETWORKS.TESTNET,
     steps: [
       {
         id: PROTOCOL_STEPS_ID.PREFACE,
@@ -146,7 +146,7 @@ export const CHAINS_CONFIG: ChainsType = {
     active: true,
     logoUrl: 'https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=010',
     protocol: NEAR_PROTOCOLS.RPC,
-    network: NEAR_NETWORKS.DATAHUB,
+    network: NEAR_NETWORKS.TESTNET,
     steps: [
       {
         id: PROTOCOL_STEPS_ID.PREFACE,

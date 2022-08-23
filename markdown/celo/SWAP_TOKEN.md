@@ -1,4 +1,4 @@
-It’s time to submit another transaction. In this challenge, we will connect to a Celo node hosted by DataHub and we will swap 1 **cUSD** stable token against the expected amount of **CELO** token. As you remember from a previous tutorial, we funded our account on the `Alfajores` testnet with 5 **CELO** and 10 **cUSD**. Now let’s try to swap 1 **cUSD** token to **CELO**.
+It’s time to submit another transaction. In this challenge, we will connect to a Celo node and we will swap 1 **cUSD** stable token against the expected amount of **CELO** token. As you remember from a previous tutorial, we funded our account on the `Alfajores` testnet with 5 **CELO** and 10 **cUSD**. Now let’s try to swap 1 **cUSD** token to **CELO**.
 Celo has a number of core smart contracts that are deployed to the network. In this challenge, we'll use the StableToken and Exchange contract wrappers, which have all the expected functions enabling us to swap tokens.
 
 ---

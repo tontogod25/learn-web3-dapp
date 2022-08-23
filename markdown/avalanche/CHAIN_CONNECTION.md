@@ -1,6 +1,6 @@
 [Avalanche.js](https://github.com/ava-labs/avalanchejs) is a client JavaScript package that makes it easy to interact with Avalanche blockchain nodes, query data, submit transactions and offers plenty of other functionality. It's the official package developed by Avalanche, and is a preferred method of communicating with nodes on the private or public networks for development purposes.
 
-In this tutorial, we will learn how to connect to an Avalanche node using DataHub. You will need to complete the code in each tutorial, to make the dApp functional.
+In this tutorial, we will learn how to connect to an Avalanche node. You will need to complete the code in each tutorial, to make the dApp functional.
 
 ---
 
@@ -70,4 +70,4 @@ Once the code in `pages/api/avalanche/connect.ts` is complete and the file has b
 
 # 🏁 Conclusion
 
-Now that we have successfully connected to an Avalanche node using DataHub, we are ready to move on to the next tutorial. We have also created the foundation for the next step, creating an account.
+Now that we have successfully connected to an Avalanche node, we are ready to move on to the next tutorial. We have also created the foundation for the next step, creating an account.

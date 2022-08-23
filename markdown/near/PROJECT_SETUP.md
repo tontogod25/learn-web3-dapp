@@ -1,41 +1,15 @@
-# 🧩 DataHub API keys
+# 🧩 API keys
 
-If you wish to make use of the Pathway content using DataHub, you will need a DataHub account and a valid API key to access NEAR via DataHub's infrastructure. [Sign up for a DataHub account](https://datahub-beta.figment.io/signup) and verify your email address. Once you have logged in to DataHub, you will need to create a new app and select the NEAR protocol.
+**DataHub has discontinued Free accounts**. All Figment Learn pathways now make use of public RPC endpoints only. There is no need to supply an API key to access the public endpoints for NEAR.
 
-Click "Create New App":
+If you're using a private infractructure provider, you may require an API key to access nodes via their endpoints. Remember to have your API key saved in `/learn-web3-dapp/.env.local`. You can then reference your API key in the pathway code via `process.env.<SOME_VARIABLE_NAME>`.
 
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/dh_api_1.png?raw=true)
+If you are using the [NEAR default public endpoints](https://docs.near.org/api/rpc/setup#rpc-endpoint-setup) you do not require an API key, and you can connect directly without any additions to `.env.local`.
 
-Type in a name for your app, select the **Staging** environment, then click on the **NEAR** icon in the list of available protocols. \
-Click "Create app" when you're finished:
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/dh_api_2.png?raw=true)
-
-You can now find your API key on the Overview tab of the app on the [**DataHub Dashboard**](https://datahub-beta.figment.io/apps):
-
-![](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/dh_api_3.png?raw=true)
-
-To use your API key, you should copy the contents of the `.env.example` file located in the project root directory (`/learn-web3-dapp/.env.example`) into a new file named `.env.local` (`/learn-web3-dapp/.env.local`). Also, since this file will contain your API key, we have already added it to the `.gitignore`.
-
-{% hint style="info" %}
-Easily duplicate the file with the terminal command `cp .env.example .env.local`!
+{% hint style="tip" %}
+If the Next.js development server was running at the time you changed the environment variable's value, you will need to restart the Next.js server to make it aware of the new value. You can do this by pressing `Ctrl+C` in the terminal where the Next.js server is running, then restart it with the command `yarn dev`.
 {% endhint %}
-
-You can then paste your unique API key into `.env.local`, as the value for the environment variable `DATAHUB_NEAR_API_KEY`. This will authenticate you and enable you to make requests to NEAR via DataHub. **The API key shown below is only an example and cannot be used to access DataHub**.
-
-```yaml
-# DataHub API keys
-DATAHUB_AVALANCHE_API_KEY=
-DATAHUB_CELO_API_KEY=
-DATAHUB_NEAR_API_KEY=2c8037789efe5cdd041f3fc4f8d9eedf
-DATAHUB_POLKADOT_API_KEY=
-DATAHUB_POLYGON_API_KEY=
-DATAHUB_SECRET_API_KEY=
-DATAHUB_SOLANA_API_KEY=
-DATAHUB_TEZOS_API_KEY=
-```
 
 # 👣 Next Steps
 
-Once you have your NEAR API key saved in `/learn-web3-dapp/.env.local`, you're ready to begin.
 Click on the **Next: Connect to NEAR** button below.

@@ -1,4 +1,4 @@
-In this tutorial we will learn how to connect to a Tezos node via DataHub, using functions from the Taquito JavaScript library.
+In this tutorial we will learn how to connect to a Tezos node, using functions from the Taquito JavaScript library.
 
 ---
 

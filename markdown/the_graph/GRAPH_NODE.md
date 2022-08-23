@@ -12,16 +12,16 @@ A Graph node comes with the following components:
 
 ## 👨‍💻 Setting up a local Graph node
 
-We don't need to worry about installing and running them: we'll use Docker for this. We defined a Docker configuration in `docker/docker-compose.yaml` and it will tell Docker what to do for each of those three components. Our Graph node will run inside a Docker container and connect it to Ethereum mainnet using DataHub as a provider (you'll need that DataHub API key soon).
+We don't need to worry about installing and running them: we'll use Docker for this. We defined a Docker configuration in `docker/docker-compose.yaml` and it will tell Docker what to do for each of those three components. Our Graph node will run inside a Docker container and connect it to Ethereum mainnet using Alchemy as a provider (you'll need that Alchemy API key soon).
 
 From the root directory of the project, run:
 
 ```text
 cd docker
-ETHEREUM_RPC=mainnet:https://ethereum-mainnet--rpc.datahub.figment.io/apikey/<YOUR_DATAHUB_API_KEY> docker-compose up
+ETHEREUM_RPC=mainnet:https://eth-mainnet.alchemyapi.io/v2/<ALCHEMY_API_KEY> docker-compose up
 ```
 
-Remember to add your DataHub API key to the end of the URL displayed above by replacing the text `<YOUR_DATAHUB_API_KEY>` before you run the command. You should see a bunch of white and blue commands and then the following:
+Remember to add your Alchemy API key to the end of the URL displayed above by replacing the text `<ALCHEMY_API_KEY>` before you run the command. You should see a bunch of white and blue terminal output and then the following:
 
 ```text
 Starting docker_ipfs_1     ... done

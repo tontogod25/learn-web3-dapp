@@ -90,7 +90,6 @@ export enum ARWEAVE_PROTOCOLS {
 
 // BlockChain Providers -----------------------
 export enum CHAIN_PROVIDERS {
-  DATAHUB = 'DATAHUB',
   ALCHEMY = 'ALCHEMY',
   INFURA = 'INFURA',
   PUBLIC = 'PUBLIC',
@@ -100,38 +99,31 @@ export enum CHAIN_PROVIDERS {
 // NETWORKS -----------------------
 export enum AVALANCHE_NETWORKS {
   TESTNET = 'Testnet',
-  DATAHUB = 'Datahub',
 }
 
 export enum CELO_NETWORKS {
   TESTNET = 'Alfajores',
-  DATAHUB = 'Datahub',
 }
 
 export enum SECRET_NETWORKS {
   MAINNET = 'MAINNET',
   TESTNET = 'SUPERNOVA-2',
-  DATAHUB = 'datahub',
 }
 
 export enum NEAR_NETWORKS {
   TESTNET = 'Testnet',
-  DATAHUB = 'Datahub',
 }
 
 export enum TEZOS_NETWORKS {
   TESTNET = 'Hangzhounet',
-  DATAHUB = 'Datahub',
 }
 
 export enum POLKADOT_NETWORKS {
   TESTNET = 'Westend',
-  DATAHUB = 'Datahub',
 }
 
 export enum POLYGON_NETWORKS {
   TESTNET = 'Mumbai',
-  DATAHUB = 'Datahub',
 }
 
 export enum PYTH_NETWORKS {
@@ -144,7 +136,7 @@ export enum PYTH_NETWORKS {
 export enum SOLANA_NETWORKS {
   MAINNET = 'mainnet-beta',
   DEVNET = 'devnet',
-  DATAHUB = 'datahub',
+  TESTNET = 'testnet',
   LOCALNET = 'localnet',
 }
 
@@ -168,7 +160,6 @@ export enum THE_GRAPH_NEAR_NETWORKS {
 export enum ARWEAVE_NETWORKS {
   MAINNET = 'mainnet',
   TESTNET = 'TESTNET',
-  DATAHUB = 'datahub',
 }
 
 // -----------------------------
@@ -191,7 +182,6 @@ export type NETWORKS =
 
 // -----------------------------
 export enum NETWORK {
-  DATAHUB,
   TESTNET,
   LOCALNET,
   MAINNET,

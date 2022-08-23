@@ -1,4 +1,4 @@
-In this tutorial, we will be creating an Avalanche account on the X-Chain using the Avalanche JavaScript API and DataHub.
+In this tutorial, we will be creating an Avalanche account on the X-Chain using the Avalanche JavaScript API.
 
 Unlike other popular blockchains, Avalanche comes with a set of different chains, each with its own purpose:
 

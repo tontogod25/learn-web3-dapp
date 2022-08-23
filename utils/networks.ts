@@ -18,9 +18,6 @@ export const networksMap = (
 ): string | undefined => {
   // SOLANA NETWORKS MAP
   if (chain === CHAINS.SOLANA) {
-    if (network === NETWORK.DATAHUB) {
-      return SOLANA_NETWORKS.DATAHUB;
-    }
     if (network === NETWORK.TESTNET) {
       return SOLANA_NETWORKS.DEVNET;
     }
@@ -44,9 +41,6 @@ export const networksMap = (
 
   // AVALANCHE NETWORKS MAP
   if (chain === CHAINS.AVALANCHE) {
-    if (network === NETWORK.DATAHUB) {
-      return AVALANCHE_NETWORKS.DATAHUB;
-    }
     if (network === NETWORK.TESTNET) {
       return AVALANCHE_NETWORKS.TESTNET;
     }
@@ -54,9 +48,6 @@ export const networksMap = (
 
   // CELO NETWORKS MAP
   if (chain === CHAINS.CELO) {
-    if (network === NETWORK.DATAHUB) {
-      return CELO_NETWORKS.DATAHUB;
-    }
     if (network === NETWORK.TESTNET) {
       return CELO_NETWORKS.TESTNET;
     }
@@ -73,9 +64,6 @@ export const networksMap = (
 
   // NEAR NETWORKS MAP
   if (chain === CHAINS.NEAR) {
-    if (network === NETWORK.DATAHUB) {
-      return NEAR_NETWORKS.DATAHUB;
-    }
     if (network === NETWORK.TESTNET) {
       return NEAR_NETWORKS.TESTNET;
     }
@@ -92,9 +80,6 @@ export const networksMap = (
 
   // POLKADOT NETWORKS MAP
   if (chain === CHAINS.POLKADOT) {
-    if (network === NETWORK.DATAHUB) {
-      return POLKADOT_NETWORKS.DATAHUB;
-    }
     if (network === NETWORK.TESTNET) {
       return POLKADOT_NETWORKS.TESTNET;
     }

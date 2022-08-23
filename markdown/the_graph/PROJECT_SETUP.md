@@ -1,6 +1,6 @@
 ## 🤔 What's The Graph?
 
-You might have already read about The Graph and want to roll up your sleeves and get started with coding, in which case feel free to skip this suggested reading (don't forget to install Docker and get a DataHub API key, though).
+You might have already read about The Graph and want to roll up your sleeves and get started with coding, in which case feel free to skip this suggested reading (don't forget to install Docker and get an Alchemy API key, though).
 
 If you want to read more about The Graph we've curated some great resources to help you get started:
 
@@ -17,13 +17,13 @@ In this Pathway, you'll use Docker to run a local Graph node on your machine. [Y
 
 ---
 
-## 🔑 Get a DataHub API key
+## 🔑 Get an Alchemy API key
 
-We'll need to connect to the Ethereum mainnet to be able to listen to new events happening on the network. DataHub is a blockchain development platform that provides access to Ethereum through their hosted nodes.
+We'll need to connect to the Ethereum mainnet to be able to listen to new events happening on the network. Alchemy is a blockchain development platform that provides access to Ethereum through their hosted nodes.
 
-To get a DataHub API key, [create an account](https://datahub.figment.io/), then create a new application using the Ethereum protocol. On that application's **Overview** tab, locate the App Overview on the left side of the page and click on **View Key** button next to the text "API Key". You can also copy the HTTP endpoint URL including the API key from the Protocols view.
+To get an Alchemy API key, [create an account](https://alchemy.com/), then create a new application using the Ethereum protocol. On that application's **Overview** tab, locate the App Overview on the left side of the page and click on **View Key** button next to the text "API Key". You can also copy the HTTP endpoint URL including the API key from the Protocols view.
 
-![DataHub](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/the-graph/datahub-view-api-key.png)
+![Alchemy](https://raw.githubusercontent.com/figment-networks/learn-web3-dapp/main/markdown/__images__/the-graph/alchemy-view-api-key.png)
 
 Speaking of API keys, it's important to remember that Next.js reads from the file `.env.local` to determine which environment variables to use!
 To be able to complete this Pathway, you must create a new file named `.env.local` in the project root directory: `/learn-web3-dapp/.env.local`, copying the contents of the existing `.env.example` file.

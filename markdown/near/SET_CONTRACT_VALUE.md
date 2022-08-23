@@ -80,4 +80,4 @@ Once the code in `pages/api/near/setter.ts` is complete, enter a value into the 
 
 # 🏁 Conclusion
 
-Congratulations! You have successfully created, deployed, and interacted with a smart contract on the NEAR Testnet using DataHub.
+Congratulations! You have successfully created, deployed, and interacted with a smart contract on the NEAR Testnet.
